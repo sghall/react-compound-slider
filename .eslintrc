@@ -1,0 +1,43 @@
+rules:
+  class-methods-use-this:
+    - 1
+  consistent-return:
+    - 0
+  import/prefer-default-export:
+    - 0
+  indent:
+    - 2
+    - 2
+  max-len:
+    - 0
+  no-plusplus:
+    - 2
+    - allowForLoopAfterthoughts: true
+  quotes:
+    - 2
+    - single
+  semi:
+    - 2
+    - always
+  jsx-a11y/no-static-element-interactions:
+    - 0
+  react/jsx-closing-bracket-location:
+    - 2
+    - after-props
+  react/require-default-props:
+    - 0
+env:
+  es6: true
+  browser: true
+  jasmine: true
+extends: airbnb
+ecmaFeatures:
+  jsx: true
+  experimentalObjectRestSpread: true
+  modules: true
+parser: babel-eslint
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+plugins:
+  - react
