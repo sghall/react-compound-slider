@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+import Examples from "./Examples";
 
 class App extends Component {
   render() {
@@ -49,7 +50,7 @@ class App extends Component {
           <div className="columns">
             <div className="column is-8">
               <div className="image">
-                <img src="https://placehold.it/800x500" alt="foo" />
+                <Examples />
               </div>
               <br />
               <div className="box video-meta">

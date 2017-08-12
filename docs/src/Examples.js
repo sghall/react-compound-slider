@@ -1,7 +1,7 @@
 import React from "react";
-import InputRange from "../../src/js";
+import { RangeSlider } from "../../src";
 
-export default class ExampleApp extends React.Component {
+export default class Examples extends React.Component {
   constructor(props) {
     super(props);
 
@@ -23,7 +23,7 @@ export default class ExampleApp extends React.Component {
   render() {
     return (
       <form className="form">
-        <InputRange
+        <RangeSlider
           maxValue={20}
           minValue={0}
           value={this.state.value}
@@ -31,7 +31,7 @@ export default class ExampleApp extends React.Component {
           onChangeComplete={value => console.log(value)}
         />
 
-        <InputRange
+        <RangeSlider
           maxValue={20}
           minValue={0}
           disabled
@@ -40,18 +40,17 @@ export default class ExampleApp extends React.Component {
           onChangeComplete={value => console.log(value)}
         />
 
-        <InputRange
+        <RangeSlider
           maxValue={20}
           minValue={0}
           formatLabel={value => value.toFixed(2)}
           value={this.state.value3}
           onChange={value => this.setState({ value3: value })}
-          onChangeStart={value =>
-            console.log("onChangeStart with value =", value)}
+          onChangeStart={value => console.log("onChangeStart: ", value)}
           onChangeComplete={value => console.log(value)}
         />
 
-        <InputRange
+        <RangeSlider
           maxValue={20}
           minValue={0}
           formatLabel={value => `${value}kg`}
@@ -60,7 +59,7 @@ export default class ExampleApp extends React.Component {
           onChangeComplete={value => console.log(value)}
         />
 
-        <InputRange
+        <RangeSlider
           draggableTrack
           maxValue={20}
           minValue={0}

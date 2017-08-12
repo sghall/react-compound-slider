@@ -1,3 +1,1 @@
-/* eslint-disable flowtype/require-valid-file-annotation */
-
-export RangeSlider from "./components/RangeSlider";
+export { default as RangeSlider } from "./components/RangeSlider";
