@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
 
 class App extends Component {
   render() {
@@ -12,8 +12,14 @@ class App extends Component {
                 <img src="../images/bulma.png" alt="Description" />
               </a>
               <p className="control has-addons searchbox">
-                <input className="input" type="text" placeholder="Search videotube..." />
-                <a className="button is-dark">&nbsp;<i className="fa fa-search" />&nbsp;</a>
+                <input
+                  className="input"
+                  type="text"
+                  placeholder="Search docs..."
+                />
+                <a className="button is-dark">
+                  &nbsp;<i className="fa fa-search" />&nbsp;
+                </a>
               </p>
             </div>
             <span className="nav-toggle">
@@ -23,15 +29,17 @@ class App extends Component {
             </span>
             <div className="nav-right nav-menu">
               <span className="nav-item">
-                <a className="button is-default is-bold">
-                  Upload
-                </a>
+                <a className="button is-default is-bold">Upload</a>
               </span>
               <a className="nav-item is-tab">
                 <i className="fa fa-bell-o" />
               </a>
               <a className="nav-item is-tab">
-                <img src="https://placehold.it/64x64" alt="foo" className="avatar-photo" />
+                <img
+                  src="https://placehold.it/64x64"
+                  alt="foo"
+                  className="avatar-photo"
+                />
               </a>
             </div>
           </div>
@@ -60,7 +68,9 @@ class App extends Component {
                           <p>
                             <strong>jsmith</strong>
                             <br />
-                            <a href="subscribe" className="button is-danger">Subscribe</a>
+                            <a href="subscribe" className="button is-danger">
+                              Subscribe
+                            </a>
                           </p>
                         </div>
                         <div className="column is-6">
@@ -68,7 +78,9 @@ class App extends Component {
                             <div className="container">
                               <div className="nav-right">
                                 <a className="nav-item is-tab is-active">
-                                  <span className="title is-4">124 304 views</span>
+                                  <span className="title is-4">
+                                    124 304 views
+                                  </span>
                                 </a>
                               </div>
                             </div>
@@ -78,18 +90,31 @@ class App extends Component {
                       <nav className="level">
                         <p className="level-item has-text-left">
                           <a className="button is-default">
-                            <span className="icon"><i className="fa fa-plus" /></span> <span>Add to</span>
+                            <span className="icon">
+                              <i className="fa fa-plus" />
+                            </span>{" "}
+                            <span>Add to</span>
                           </a>
                           <a className="button is-default">
-                            <span className="icon"><i className="fa fa-share" /></span> <span>Share</span>
+                            <span className="icon">
+                              <i className="fa fa-share" />
+                            </span>{" "}
+                            <span>Share</span>
                           </a>
                           <a className="button is-default">
-                            <span className="icon"><i className="fa fa-ellipsis-h" /></span> <span>More</span>
+                            <span className="icon">
+                              <i className="fa fa-ellipsis-h" />
+                            </span>{" "}
+                            <span>More</span>
                           </a>
                         </p>
                         <p className="level-item has-text-right">
-                          <a className="button is-default"><i className="fa fa-thumbs-up" /> 5254</a>
-                          <a className="button is-default"><i className="fa fa-thumbs-down" /> 1</a>
+                          <a className="button is-default">
+                            <i className="fa fa-thumbs-up" /> 5254
+                          </a>
+                          <a className="button is-default">
+                            <i className="fa fa-thumbs-down" /> 1
+                          </a>
                         </p>
                       </nav>
                     </div>
@@ -97,10 +122,17 @@ class App extends Component {
                 </article>
               </div>
               <div className="box video-description">
-                <p><strong>Uploaded on August 1, 2016</strong></p>
-                <p>Lorum ipsum and friends at MTV unplugged playing Long May You Run.</p>
+                <p>
+                  <strong>Uploaded on August 1, 2016</strong>
+                </p>
+                <p>
+                  Lorum ipsum and friends at MTV unplugged playing Long May You
+                  Run.
+                </p>
                 <hr />
-                <p className="has-text-centered has-text-muted video-description-more">Show More</p>
+                <p className="has-text-centered has-text-muted video-description-more">
+                  Show More
+                </p>
               </div>
               <div className="box">
                 <article className="media">
@@ -111,7 +143,10 @@ class App extends Component {
                   </figure>
                   <div className="media-content">
                     <p className="control">
-                      <textarea className="textarea" placeholder="Add a comment..." />
+                      <textarea
+                        className="textarea"
+                        placeholder="Add a comment..."
+                      />
                     </p>
                     <nav className="level">
                       <div className="level-left">
@@ -139,11 +174,17 @@ class App extends Component {
                   <div className="media-content">
                     <div className="content">
                       <p>
-                        <strong>Barbara Middleton</strong> <small> · 3 hrs</small>
+                        <strong>Barbara Middleton</strong>{" "}
+                        <small> · 3 hrs</small>
                         <br />
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Duis porta eros lacus, nec ultricies elit blandit non.
+                        Suspendisse pellentesque mauris sit amet dolor blandit
+                        rutrum. Nunc in tempus turpis.
                         <br />
-                        <small><a>Like</a> · <a>Reply</a></small>
+                        <small>
+                          <a>Like</a> · <a>Reply</a>
+                        </small>
                       </p>
                     </div>
                   </div>
@@ -158,11 +199,17 @@ class App extends Component {
                   <div className="media-content">
                     <div className="content">
                       <p>
-                        <strong>Barbara Middleton</strong> <small> · 3 hrs</small>
+                        <strong>Barbara Middleton</strong>{" "}
+                        <small> · 3 hrs</small>
                         <br />
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Duis porta eros lacus, nec ultricies elit blandit non.
+                        Suspendisse pellentesque mauris sit amet dolor blandit
+                        rutrum. Nunc in tempus turpis.
                         <br />
-                        <small><a>Like</a> · <a>Reply</a></small>
+                        <small>
+                          <a>Like</a> · <a>Reply</a>
+                        </small>
                       </p>
                     </div>
                   </div>
@@ -177,11 +224,17 @@ class App extends Component {
                   <div className="media-content">
                     <div className="content">
                       <p>
-                        <strong>Barbara Middleton</strong> <small> · 3 hrs</small>
+                        <strong>Barbara Middleton</strong>{" "}
+                        <small> · 3 hrs</small>
                         <br />
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Duis porta eros lacus, nec ultricies elit blandit non.
+                        Suspendisse pellentesque mauris sit amet dolor blandit
+                        rutrum. Nunc in tempus turpis.
                         <br />
-                        <small><a>Like</a> · <a>Reply</a></small>
+                        <small>
+                          <a>Like</a> · <a>Reply</a>
+                        </small>
                       </p>
                     </div>
                   </div>
@@ -196,11 +249,17 @@ class App extends Component {
                   <div className="media-content">
                     <div className="content">
                       <p>
-                        <strong>Barbara Middleton</strong> <small> · 3 hrs</small>
+                        <strong>Barbara Middleton</strong>{" "}
+                        <small> · 3 hrs</small>
                         <br />
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Duis porta eros lacus, nec ultricies elit blandit non.
+                        Suspendisse pellentesque mauris sit amet dolor blandit
+                        rutrum. Nunc in tempus turpis.
                         <br />
-                        <small><a>Like</a> · <a>Reply</a></small>
+                        <small>
+                          <a>Like</a> · <a>Reply</a>
+                        </small>
                       </p>
                     </div>
                   </div>
@@ -215,11 +274,17 @@ class App extends Component {
                   <div className="media-content">
                     <div className="content">
                       <p>
-                        <strong>Barbara Middleton</strong> <small> · 3 hrs</small>
+                        <strong>Barbara Middleton</strong>{" "}
+                        <small> · 3 hrs</small>
                         <br />
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Duis porta eros lacus, nec ultricies elit blandit non.
+                        Suspendisse pellentesque mauris sit amet dolor blandit
+                        rutrum. Nunc in tempus turpis.
                         <br />
-                        <small><a>Like</a> · <a>Reply</a></small>
+                        <small>
+                          <a>Like</a> · <a>Reply</a>
+                        </small>
                       </p>
                     </div>
                   </div>
