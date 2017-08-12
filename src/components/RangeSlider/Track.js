@@ -1,21 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import autobind from "autobind-decorator";
 
-/**
- * @ignore
- */
 export default class Track extends React.Component {
-  /**
-   * @override
-   * @return {Object}
-   * @property {Function} children
-   * @property {Function} classNames
-   * @property {Boolean} draggableTrack
-   * @property {Function} onTrackDrag
-   * @property {Function} onTrackMouseDown
-   * @property {Function} percentages
-   */
   static get propTypes() {
     return {
       children: PropTypes.node.isRequired,
@@ -27,37 +13,22 @@ export default class Track extends React.Component {
     };
   }
 
-  /**
-   * @param {Object} props
-   * @param {InputRangeClassNames} props.classNames
-   * @param {Boolean} props.draggableTrack
-   * @param {Function} props.onTrackDrag
-   * @param {Function} props.onTrackMouseDown
-   * @param {number} props.percentages
-   */
   constructor(props) {
     super(props);
 
-    /**
-     * @private
-     * @type {?Component}
-     */
     this.node = null;
     this.trackDragEvent = null;
+
+    this.handleMouseMove = this.handleMouseMove.bind(this);
+    this.handleMouseUp = this.handleMouseUp.bind(this);
+    this.handleMouseDown = this.handleMouseDown.bind(this);
+    this.handleTouchStart = this.handleTouchStart.bind(this);
   }
 
-  /**
-   * @private
-   * @return {ClientRect}
-   */
   getClientRect() {
     return this.node.getBoundingClientRect();
   }
 
-  /**
-   * @private
-   * @return {Object} CSS styles
-   */
   getActiveTrackStyle() {
     const width = `${(this.props.percentages.max - this.props.percentages.min) *
       100}%`;
@@ -66,30 +37,16 @@ export default class Track extends React.Component {
     return { left, width };
   }
 
-  /**
-   * Listen to mousemove event
-   * @private
-   * @return {void}
-   */
   addDocumentMouseMoveListener() {
     this.removeDocumentMouseMoveListener();
     this.node.ownerDocument.addEventListener("mousemove", this.handleMouseMove);
   }
 
-  /**
-   * Listen to mouseup event
-   * @private
-   * @return {void}
-   */
   addDocumentMouseUpListener() {
     this.removeDocumentMouseUpListener();
     this.node.ownerDocument.addEventListener("mouseup", this.handleMouseUp);
   }
 
-  /**
-   * @private
-   * @return {void}
-   */
   removeDocumentMouseMoveListener() {
     this.node.ownerDocument.removeEventListener(
       "mousemove",
@@ -97,20 +54,10 @@ export default class Track extends React.Component {
     );
   }
 
-  /**
-   * @private
-   * @return {void}
-   */
   removeDocumentMouseUpListener() {
     this.node.ownerDocument.removeEventListener("mouseup", this.handleMouseUp);
   }
 
-  /**
-   * @private
-   * @param {SyntheticEvent} event
-   * @return {void}
-   */
-  @autobind
   handleMouseMove(event) {
     if (!this.props.draggableTrack) {
       return;
@@ -123,11 +70,6 @@ export default class Track extends React.Component {
     this.trackDragEvent = event;
   }
 
-  /**
-   * @private
-   * @return {void}
-   */
-  @autobind
   handleMouseUp() {
     if (!this.props.draggableTrack) {
       return;
@@ -138,11 +80,6 @@ export default class Track extends React.Component {
     this.trackDragEvent = null;
   }
 
-  /**
-   * @private
-   * @param {SyntheticEvent} event - User event
-   */
-  @autobind
   handleMouseDown(event) {
     const clientX = event.touches ? event.touches[0].clientX : event.clientX;
     const trackClientRect = this.getClientRect();
@@ -159,21 +96,12 @@ export default class Track extends React.Component {
     }
   }
 
-  /**
-   * @private
-   * @param {SyntheticEvent} event - User event
-   */
-  @autobind
   handleTouchStart(event) {
     event.preventDefault();
 
     this.handleMouseDown(event);
   }
 
-  /**
-   * @override
-   * @return {JSX.Element}
-   */
   render() {
     const activeTrackStyle = this.getActiveTrackStyle();
 

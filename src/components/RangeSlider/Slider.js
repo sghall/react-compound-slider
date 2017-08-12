@@ -1,28 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import autobind from "autobind-decorator";
 import Label from "./label";
 
-/**
- * @ignore
- */
 export default class Slider extends React.Component {
-  /**
-   * Accepted propTypes of Slider
-   * @override
-   * @return {Object}
-   * @property {Function} ariaLabelledby
-   * @property {Function} ariaControls
-   * @property {Function} className
-   * @property {Function} formatLabel
-   * @property {Function} maxValue
-   * @property {Function} minValue
-   * @property {Function} onSliderDrag
-   * @property {Function} onSliderKeyDown
-   * @property {Function} percentage
-   * @property {Function} type
-   * @property {Function} value
-   */
   static get propTypes() {
     return {
       ariaLabelledby: PropTypes.string,
@@ -39,35 +19,23 @@ export default class Slider extends React.Component {
     };
   }
 
-  /**
-   * @param {Object} props
-   * @param {string} [props.ariaLabelledby]
-   * @param {string} [props.ariaControls]
-   * @param {InputRangeClassNames} props.classNames
-   * @param {Function} [props.formatLabel]
-   * @param {number} [props.maxValue]
-   * @param {number} [props.minValue]
-   * @param {Function} props.onSliderKeyDown
-   * @param {Function} props.onSliderDrag
-   * @param {number} props.percentage
-   * @param {number} props.type
-   * @param {number} props.value
-   */
   constructor(props) {
     super(props);
-
-    /**
-     * @private
-     * @type {?Component}
-     */
     this.node = null;
+
+    [
+      "handleMouseDown",
+      "handleMouseUp",
+      "handleMouseMove",
+      "handleTouchStart",
+      "handleTouchMove",
+      "handleTouchEnd",
+      "handleKeyDown"
+    ].forEach(method => {
+      this[method] = this.method.bind(this);
+    });
   }
 
-  /**
-   * @ignore
-   * @override
-   * @return {void}
-   */
   componentWillUnmount() {
     this.removeDocumentMouseMoveListener();
     this.removeDocumentMouseUpListener();
@@ -75,10 +43,6 @@ export default class Slider extends React.Component {
     this.removeDocumentTouchMoveListener();
   }
 
-  /**
-   * @private
-   * @return {Object}
-   */
   getStyle() {
     const perc = (this.props.percentage || 0) * 100;
     const style = {
@@ -89,50 +53,26 @@ export default class Slider extends React.Component {
     return style;
   }
 
-  /**
-   * Listen to mousemove event
-   * @private
-   * @return {void}
-   */
   addDocumentMouseMoveListener() {
     this.removeDocumentMouseMoveListener();
     this.node.ownerDocument.addEventListener("mousemove", this.handleMouseMove);
   }
 
-  /**
-   * Listen to mouseup event
-   * @private
-   * @return {void}
-   */
   addDocumentMouseUpListener() {
     this.removeDocumentMouseUpListener();
     this.node.ownerDocument.addEventListener("mouseup", this.handleMouseUp);
   }
 
-  /**
-   * Listen to touchmove event
-   * @private
-   * @return {void}
-   */
   addDocumentTouchMoveListener() {
     this.removeDocumentTouchMoveListener();
     this.node.ownerDocument.addEventListener("touchmove", this.handleTouchMove);
   }
 
-  /**
-   * Listen to touchend event
-   * @private
-   * @return {void}
-   */
   addDocumentTouchEndListener() {
     this.removeDocumentTouchEndListener();
     this.node.ownerDocument.addEventListener("touchend", this.handleTouchEnd);
   }
 
-  /**
-   * @private
-   * @return {void}
-   */
   removeDocumentMouseMoveListener() {
     this.node.ownerDocument.removeEventListener(
       "mousemove",
@@ -140,18 +80,10 @@ export default class Slider extends React.Component {
     );
   }
 
-  /**
-   * @private
-   * @return {void}
-   */
   removeDocumentMouseUpListener() {
     this.node.ownerDocument.removeEventListener("mouseup", this.handleMouseUp);
   }
 
-  /**
-   * @private
-   * @return {void}
-   */
   removeDocumentTouchMoveListener() {
     this.node.ownerDocument.removeEventListener(
       "touchmove",
@@ -159,10 +91,6 @@ export default class Slider extends React.Component {
     );
   }
 
-  /**
-   * @private
-   * @return {void}
-   */
   removeDocumentTouchEndListener() {
     this.node.ownerDocument.removeEventListener(
       "touchend",
@@ -170,80 +98,38 @@ export default class Slider extends React.Component {
     );
   }
 
-  /**
-   * @private
-   * @return {void}
-   */
-  @autobind
   handleMouseDown() {
     this.addDocumentMouseMoveListener();
     this.addDocumentMouseUpListener();
   }
 
-  /**
-   * @private
-   * @return {void}
-   */
-  @autobind
   handleMouseUp() {
     this.removeDocumentMouseMoveListener();
     this.removeDocumentMouseUpListener();
   }
 
-  /**
-   * @private
-   * @param {SyntheticEvent} event
-   * @return {void}
-   */
-  @autobind
   handleMouseMove(event) {
     this.props.onSliderDrag(event, this.props.type);
   }
 
-  /**
-   * @private
-   * @return {void}
-   */
-  @autobind
   handleTouchStart() {
     this.addDocumentTouchEndListener();
     this.addDocumentTouchMoveListener();
   }
 
-  /**
-   * @private
-   * @param {SyntheticEvent} event
-   * @return {void}
-   */
-  @autobind
   handleTouchMove(event) {
     this.props.onSliderDrag(event, this.props.type);
   }
 
-  /**
-   * @private
-   * @return {void}
-   */
-  @autobind
   handleTouchEnd() {
     this.removeDocumentTouchMoveListener();
     this.removeDocumentTouchEndListener();
   }
 
-  /**
-   * @private
-   * @param {SyntheticEvent} event
-   * @return {void}
-   */
-  @autobind
   handleKeyDown(event) {
     this.props.onSliderKeyDown(event, this.props.type);
   }
 
-  /**
-   * @override
-   * @return {JSX.Element}
-   */
   render() {
     const style = this.getStyle();
 

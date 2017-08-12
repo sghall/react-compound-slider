@@ -1,13 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-/**
- * @ignore
- * @param {Object} props
- * @param {InputRangeClassNames} props.classNames
- * @param {Function} props.formatLabel
- * @param {string} props.type
- */
 export default function Label(props) {
   const labelValue = props.formatLabel
     ? props.formatLabel(props.children, props.type)
@@ -22,13 +15,6 @@ export default function Label(props) {
   );
 }
 
-/**
- * @type {Object}
- * @property {Function} children
- * @property {Function} classNames
- * @property {Function} formatLabel
- * @property {Function} type
- */
 Label.propTypes = {
   children: PropTypes.node.isRequired,
   classNames: PropTypes.objectOf(PropTypes.string).isRequired,

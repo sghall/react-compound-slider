@@ -1,10 +1,5 @@
 import { isNumber } from "../utils";
 
-/**
- * @ignore
- * @param {Object} props - React component props
- * @return {?Error} Return Error if validation fails
- */
 export default function rangePropType(props) {
   const { maxValue, minValue } = props;
 

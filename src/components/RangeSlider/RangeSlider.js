@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import autobind from "autobind-decorator";
 import * as valueTransformer from "./value-transformer";
 import DEFAULT_CLASS_NAMES from "./default-class-names";
 import Label from "./label";
@@ -8,7 +7,13 @@ import rangePropType from "./range-prop-type";
 import valuePropType from "./value-prop-type";
 import Slider from "./Slider";
 import Track from "./Track";
-import { captialize, distanceTo, isDefined, isObject, length } from "../utils";
+import {
+  captialize,
+  distanceTo,
+  isDefined,
+  isObject,
+  length
+} from "../../utils";
 import { DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from "./key-codes";
 
 export default class InputRange extends React.Component {

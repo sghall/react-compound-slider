@@ -1,10 +1,5 @@
 import { isNumber, isObject } from "../utils";
 
-/**
- * @ignore
- * @param {Object} props
- * @return {?Error} Return Error if validation fails
- */
 export default function valuePropType(props, propName) {
   const { maxValue, minValue } = props;
   const value = props[propName];
