@@ -5,9 +5,9 @@ export function kebabCase(string) {
     .split(/ |_|-/)
     .join("-")
     .split("")
-    .map((a, i) => {
+    .map((a, index) => {
       if (a.toUpperCase() === a && a !== "-") {
-        return (i !== 0 ? "-" : "") + a.toLowerCase();
+        return (index !== 0 ? "-" : "") + a.toLowerCase();
       }
       return a;
     })
@@ -16,10 +16,6 @@ export function kebabCase(string) {
 }
 
 export function titleize(string) {
-  if (string.length <= 3) {
-    return string.toUpperCase();
-  }
-
   return string
     .split("-")
     .map(word => word.split(""))
@@ -56,7 +52,7 @@ export function getSortByKey(key, ascending) {
   };
 }
 
-export function genRandomSeries(m: number) {
+export function genRandomSeries(number) {
   function bump(a) {
     const x = 1 / (0.1 + Math.random());
     const y = 2 * Math.random() - 0.5;
