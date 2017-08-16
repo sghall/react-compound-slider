@@ -28,6 +28,7 @@
     "react-redux": "^5.0.6",
     "react-router": "^3.0.5",
     "react-router-scroll": "^0.4.2",
+    "recompose": "^0.24.0",
     "redux": "^3.7.2"
   }
 }
