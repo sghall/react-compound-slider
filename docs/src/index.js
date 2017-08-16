@@ -1,20 +1,21 @@
-// @flow weak
-
-import React from "react";
-import ReactDOM from "react-dom";
 import { AppContainer } from "react-hot-loader";
+import { createStore } from "redux";
 import { Provider } from "react-redux";
-import injectTapEventPlugin from "react-tap-event-plugin";
+import React from "react";
+import { render } from "react-dom";
 import App from "./App";
-import store from "./store";
 
-// Helpers for debugging
-window.React = React;
-window.Perf = require("react-addons-perf");
+const docs = (state = { dark: false }, action) => {
+  if (action.type === "TOGGLE_THEME_SHADE") {
+    return Object.assign({}, state, { dark: !state.dark });
+  }
+  return state;
+};
 
-injectTapEventPlugin();
+const store = createStore(docs);
+const rootEl = document.querySelector("#app");
 
-ReactDOM.render(
+render(
   <AppContainer
     errorReporter={({ error }) => {
       throw error;
@@ -24,14 +25,14 @@ ReactDOM.render(
       <App />
     </Provider>
   </AppContainer>,
-  document.getElementById("app")
+  rootEl
 );
 
 if (process.env.NODE_ENV !== "production" && module.hot) {
   module.hot.accept("./App", () => {
     const NextApp = require("./App").default; // eslint-disable-line global-require
 
-    ReactDOM.render(
+    render(
       <AppContainer
         errorReporter={({ error }) => {
           throw error;
@@ -41,7 +42,7 @@ if (process.env.NODE_ENV !== "production" && module.hot) {
           <NextApp />
         </Provider>
       </AppContainer>,
-      document.getElementById("app")
+      rootEl
     );
   });
 }

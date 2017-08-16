@@ -13,7 +13,6 @@ module.exports = Object.assign({}, webpackBaseConfig, {
   entry: {
     main: [
       "babel-polyfill", // polyfill for lesser browsers
-      "eventsource-polyfill", // hot reloading in IE
       "react-hot-loader/patch",
       "webpack-dev-server/client?http://0.0.0.0:3000",
       "webpack/hot/only-dev-server",

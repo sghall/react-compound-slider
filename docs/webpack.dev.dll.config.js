@@ -10,9 +10,7 @@ const excludedDeps = ["lodash", "simple-assign", "babel-runtime"];
 const deps = [
   "react-hot-loader/index",
   "react-hot-loader/patch",
-  "eventsource-polyfill",
   "webpack-dev-server/client",
-  "react-addons-perf",
   "webpack/hot/log-apply-result",
   "webpack-dev-server/client/index"
 ]
