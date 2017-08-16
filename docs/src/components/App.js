@@ -13,6 +13,7 @@ import createPalette from "material-ui/styles/palette";
 import blue from "material-ui/colors/blue";
 import pink from "material-ui/colors/pink";
 import { lightTheme, darkTheme, setPrismTheme } from "../utils/prism";
+import AppRouter from "./AppRouter";
 
 function AppContainer(props) {
   const { dark } = props;
@@ -33,7 +34,7 @@ function AppContainer(props) {
 
   return (
     <MuiThemeProvider theme={theme}>
-      <div>APP!</div>
+      <AppRouter />
     </MuiThemeProvider>
   );
 }

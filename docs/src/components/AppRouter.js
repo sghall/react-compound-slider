@@ -17,7 +17,6 @@ import Home from "docs/src/pages/Home";
 import {
   componentAPIs,
   requireMarkdown,
-  demos,
   requireDemo
 } from "docs/src/components/files";
 
@@ -110,109 +109,6 @@ export default function AppRouter() {
             nav
           />
         </Route>
-        <Route title="Guides" path="/guides" nav component={AppContent}>
-          <Route
-            title="Composition"
-            path="/guides/composition"
-            content={requireMarkdown("./guides/composition.md")}
-            component={MarkdownDocs}
-            nav
-          />
-          <Route
-            title="Minimizing Bundle Size"
-            path="/guides/minimizing-bundle-size"
-            content={requireMarkdown("./guides/minimizing-bundle-size.md")}
-            component={MarkdownDocs}
-            nav
-          />
-          <Route
-            title="Server Rendering"
-            path="/guides/server-rendering"
-            content={requireMarkdown("./guides/server-rendering.md")}
-            component={MarkdownDocs}
-            nav
-          />
-          <Route
-            title="Testing"
-            path="/guides/testing"
-            content={requireMarkdown("./guides/testing.md")}
-            component={MarkdownDocs}
-            nav
-          />
-        </Route>
-        <Route title="Style" path="/style" nav component={AppContent}>
-          <Route
-            title="Color"
-            path="/style/color"
-            content={requireMarkdown("./style/color.md")}
-            component={MarkdownDocs}
-            nav
-          />
-          <Route
-            title="Icons"
-            path="/style/icons"
-            content={requireMarkdown("./style/icons.md")}
-            component={MarkdownDocs}
-            nav
-          />
-          <Route
-            title="Typography"
-            path="/style/typography"
-            content={requireMarkdown("./style/typography.md")}
-            component={MarkdownDocs}
-            nav
-          />
-        </Route>
-        <Route title="Layout" path="/layout" nav component={AppContent}>
-          <Route
-            title="Basics"
-            path="/layout/basics"
-            content={requireMarkdown("./layout/basics.md")}
-            component={MarkdownDocs}
-            nav
-          />
-          <Route
-            title="Grid"
-            path="/layout/grid"
-            content={requireMarkdown("./layout/grid.md")}
-            component={MarkdownDocs}
-            nav
-          />
-          <Route
-            title="Hidden"
-            path="/layout/hidden"
-            content={requireMarkdown("./layout/hidden.md")}
-            component={MarkdownDocs}
-            nav
-          />
-          <Route
-            title="CSS in JS"
-            path="/layout/css-in-js"
-            content={requireMarkdown("./layout/css-in-js.md")}
-            component={MarkdownDocs}
-            nav
-          />
-        </Route>
-        <Route
-          title="Component Demos"
-          path="/component-demos"
-          nav
-          component={AppContent}
-        >
-          {demos.map(demo => {
-            return (
-              <Route
-                key={demo.name}
-                title={titleize(demo.name)}
-                path={`/component-demos/${demo.name}`}
-                content={requireDemo(demo.path)}
-                component={MarkdownDocs}
-                demo={demo}
-                nav
-              />
-            );
-          })}
-        </Route>
         <Route
           title="Component API"
           path="/component-api"
@@ -232,41 +128,6 @@ export default function AppRouter() {
               />
             );
           })}
-        </Route>
-        <Route
-          title="Discover More"
-          path="/discover-more"
-          nav
-          component={AppContent}
-        >
-          <Route
-            title="Vision"
-            path="/discover-more/vision"
-            content={requireMarkdown("./discover-more/vision.md")}
-            component={MarkdownDocs}
-            nav
-          />
-          <Route
-            title="Community"
-            path="/discover-more/community"
-            content={requireMarkdown("./discover-more/community.md")}
-            component={MarkdownDocs}
-            nav
-          />
-          <Route
-            title="Showcase"
-            path="/discover-more/showcase"
-            content={requireMarkdown("./discover-more/showcase.md")}
-            component={MarkdownDocs}
-            nav
-          />
-          <Route
-            title="Related Projects"
-            path="/discover-more/related-projects"
-            content={requireMarkdown("./discover-more/related-projects.md")}
-            component={MarkdownDocs}
-            nav
-          />
         </Route>
       </Route>
     </Router>

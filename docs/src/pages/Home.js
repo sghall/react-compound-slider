@@ -6,7 +6,6 @@ import { withStyles } from "material-ui/styles";
 import Link from "react-router/lib/Link";
 import Typography from "material-ui/Typography";
 import Button from "material-ui/Button";
-import muiLogo from "docs/src/assets/images/material-ui-logo.svg";
 
 const styles = theme => ({
   root: {
@@ -62,7 +61,6 @@ function Home(props) {
     <div className={classes.root}>
       <div className={classes.hero}>
         <div className={classes.content}>
-          <img src={muiLogo} alt="Material-UI Logo" className={classes.logo} />
           <div className={classes.text}>
             <Typography
               type="display2"

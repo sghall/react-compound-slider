@@ -169,7 +169,6 @@ const styles = theme => ({
       margin: `${theme.spacing.unit * 3}px 0`
     },
     "& a, & a code": {
-      // Style taken from the Link component
       color: theme.palette.accent.A400,
       textDecoration: "none",
       "&:hover": {
