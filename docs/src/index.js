@@ -3,7 +3,7 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
+import App from "./components/App";
 
 const docs = (state = { dark: false }, action) => {
   if (action.type === "TOGGLE_THEME_SHADE") {
@@ -33,8 +33,8 @@ const render = Component => {
 render(App);
 
 if (process.env.NODE_ENV !== "production" && module.hot) {
-  module.hot.accept("./App", () => {
-    const NextApp = require("./App").default; // eslint-disable-line global-require
+  module.hot.accept("./components/App", () => {
+    const NextApp = require("./components/App").default; // eslint-disable-line global-require
     render(NextApp);
   });
 }

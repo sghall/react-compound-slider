@@ -35,20 +35,8 @@ module.exports = Object.assign({}, webpackBaseConfig, {
         }
       },
       {
-        test: /\.svg$/,
-        loader: "file-loader"
-      },
-      {
-        test: /\.(jpg|gif|png)$/,
-        loader: "file-loader!img-loader"
-      },
-      {
         test: /\.md$/,
         loader: "raw-loader"
-      },
-      {
-        test: /\.css$/,
-        loader: "style-loader!css-loader"
       }
     ]
   },

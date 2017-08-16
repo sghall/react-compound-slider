@@ -15,10 +15,16 @@
     "clean": "../node_modules/.bin/rimraf build"
   },
   "devDependencies": {
+    "raw-loader": "^0.5.1",
     "react-hot-loader": "^3.0.0-beta.6",
     "webpack-dev-server": "^2.7.1"
   },
   "dependencies": {
+    "jss": "^8.1.0",
+    "jss-preset-default": "^3.0.0",
+    "material-ui": "^1.0.0-beta.5",
+    "prismjs": "^1.6.0",
+    "react-jss": "^7.1.0",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2"
   }
