@@ -1,4 +1,4 @@
-import { clamp } from "../utils";
+import { clamp } from "../../utils";
 
 export function getPercentageFromPosition(position, clientRect) {
   const length = clientRect.width;

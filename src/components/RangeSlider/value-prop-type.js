@@ -1,4 +1,4 @@
-import { isNumber, isObject } from "../utils";
+import { isNumber, isObject } from "../../utils";
 
 export default function valuePropType(props, propName) {
   const { maxValue, minValue } = props;

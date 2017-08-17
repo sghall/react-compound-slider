@@ -6,6 +6,7 @@ import { withStyles } from "material-ui/styles";
 import AppBar from "material-ui/AppBar";
 import Toolbar from "material-ui/Toolbar";
 import Typography from "material-ui/Typography";
+import { RangeSlider } from "react-electric-slide";
 
 const styles = {
   root: {
@@ -18,7 +19,7 @@ function SimpleAppBar(props) {
   const classes = props.classes;
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
+      <AppBar position="static">
         <Toolbar>
           <Typography type="title" color="inherit">
             Title

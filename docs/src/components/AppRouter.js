@@ -32,8 +32,8 @@ export default function AppRouter() {
         <Route
           title="Getting Started"
           path="/getting-started"
-          nav
           component={AppContent}
+          nav
         >
           <Route
             title="Installation"
@@ -78,8 +78,8 @@ export default function AppRouter() {
         <Route
           title="Customization"
           path="/customization"
-          nav
           component={AppContent}
+          nav
         >
           <Route
             title="Overrides"
@@ -106,8 +106,8 @@ export default function AppRouter() {
         <Route
           title="Component Demos"
           path="/component-demos"
-          nav
           component={AppContent}
+          nav
         >
           {demos.map(demo => {
             return (
@@ -126,8 +126,8 @@ export default function AppRouter() {
         <Route
           title="Component API"
           path="/component-api"
-          nav
           component={AppContent}
+          nav
         >
           {componentAPIs.map(componentAPI => {
             return (

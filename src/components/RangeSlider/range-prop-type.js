@@ -1,4 +1,4 @@
-import { isNumber } from "../utils";
+import { isNumber } from "../../utils";
 
 export default function rangePropType(props) {
   const { maxValue, minValue } = props;
