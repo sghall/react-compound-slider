@@ -43,7 +43,7 @@ module.exports = Object.assign({}, webpackBaseConfig, {
   resolve: {
     alias: {
       docs: path.resolve(__dirname, "../docs"),
-      resonance: path.resolve(__dirname, "../src")
+      "react-electric-slide": path.resolve(__dirname, "../src")
     }
   },
   plugins: webpackBaseConfig.plugins.concat([

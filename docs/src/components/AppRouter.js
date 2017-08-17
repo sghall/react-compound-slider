@@ -17,7 +17,8 @@ import Home from "docs/src/pages/Home";
 import {
   componentAPIs,
   requireMarkdown,
-  requireDemo
+  requireDemo,
+  demos
 } from "docs/src/components/files";
 
 export default function AppRouter() {
@@ -101,6 +102,26 @@ export default function AppRouter() {
             component={MarkdownDocs}
             nav
           />
+        </Route>
+        <Route
+          title="Component Demos"
+          path="/component-demos"
+          nav
+          component={AppContent}
+        >
+          {demos.map(demo => {
+            return (
+              <Route
+                key={demo.name}
+                title={titleize(demo.name)}
+                path={`/component-demos/${demo.name}`}
+                content={requireDemo(demo.path)}
+                component={MarkdownDocs}
+                demo={demo}
+                nav
+              />
+            );
+          })}
         </Route>
         <Route
           title="Component API"
