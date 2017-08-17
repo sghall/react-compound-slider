@@ -23,17 +23,13 @@ export default class Slider extends React.Component {
     super(props);
     this.node = null;
 
-    [
-      "handleMouseDown",
-      "handleMouseUp",
-      "handleMouseMove",
-      "handleTouchStart",
-      "handleTouchMove",
-      "handleTouchEnd",
-      "handleKeyDown"
-    ].forEach(method => {
-      this[method] = this.method.bind(this);
-    });
+    this.handleMouseDown = this.handleMouseDown.bind(this);
+    this.handleMouseUp = this.handleMouseUp.bind(this);
+    this.handleMouseMove = this.handleMouseMove.bind(this);
+    this.handleTouchStart = this.handleTouchStart.bind(this);
+    this.handleTouchMove = this.handleTouchMove.bind(this);
+    this.handleTouchEnd = this.handleTouchEnd.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
   componentWillUnmount() {
