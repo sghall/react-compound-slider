@@ -95,13 +95,6 @@ export default function AppRouter() {
             nav
           />
           <Route
-            title="CSS in JS"
-            path="/customization/css-in-js"
-            content={requireMarkdown("./customization/css-in-js.md")}
-            component={MarkdownDocs}
-            nav
-          />
-          <Route
             title="API"
             path="/customization/api"
             content={requireMarkdown("./customization/api.md")}
