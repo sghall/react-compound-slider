@@ -1,5 +1,4 @@
 // @flow weak
-/* eslint-disable no-console */
 
 const WebpackDevServer = require("webpack-dev-server");
 const webpack = require("webpack");

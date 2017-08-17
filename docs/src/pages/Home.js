@@ -68,7 +68,7 @@ function Home(props) {
               color="inherit"
               gutterBottom
             >
-              {"Material-UI"}
+              {"Electric Slide"}
             </Typography>
             <Typography
               type="headline"
@@ -76,9 +76,7 @@ function Home(props) {
               color="inherit"
               className={classes.headline}
             >
-              {
-                "A React component library implementing Google's Material Design"
-              }
+              {"Eco-Friendly Alternative to Gas Powered Sliders"}
             </Typography>
             <Button
               component={Link}

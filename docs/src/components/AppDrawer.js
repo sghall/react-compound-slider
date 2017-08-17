@@ -104,7 +104,7 @@ function AppDrawer(props) {
         <Toolbar className={classes.toolbar}>
           <Link className={classes.title} to="/" onClick={onRequestClose}>
             <Typography type="title" gutterBottom color="inherit">
-              Material-UI
+              Electric Slide
             </Typography>
           </Link>
           {process.env.MATERIAL_UI_VERSION
