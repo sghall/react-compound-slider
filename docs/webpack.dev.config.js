@@ -37,6 +37,14 @@ module.exports = Object.assign({}, webpackBaseConfig, {
       {
         test: /\.md$/,
         loader: "raw-loader"
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          { loader: "style-loader" },
+          { loader: "css-loader" },
+          { loader: "sass-loader" }
+        ]
       }
     ]
   },
