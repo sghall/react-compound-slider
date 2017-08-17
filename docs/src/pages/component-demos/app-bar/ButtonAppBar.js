@@ -69,8 +69,7 @@ class Example extends React.Component {
           formatLabel={value => value.toFixed(2)}
           value={this.state.value3}
           onChange={value => this.setState({ value3: value })}
-          onChangeStart={value =>
-            console.log("onChangeStart with value =", value)}
+          onChangeStart={value => console.log("onChangeStart =", value)}
           onChangeComplete={value => console.log(value)}
         />
 
