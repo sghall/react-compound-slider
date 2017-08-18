@@ -92,7 +92,10 @@
   },
   "dependencies": {
     "hoist-non-react-statics": "^2.3.0",
-    "prop-types": "^15.5.8"
+    "prop-types": "^15.5.8",
+    "react-jss": "^7.1.0",
+    "recompose": "^0.25.0",
+    "warning": "^3.0.0"
   },
   "lint-staged": {
     "*.js": [
