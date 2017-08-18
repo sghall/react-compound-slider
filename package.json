@@ -91,6 +91,7 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
+    "hoist-non-react-statics": "^2.3.0",
     "prop-types": "^15.5.8"
   },
   "lint-staged": {
