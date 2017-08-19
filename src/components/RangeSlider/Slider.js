@@ -22,14 +22,6 @@ export default class Slider extends React.Component {
   constructor(props) {
     super(props);
     this.node = null;
-
-    this.handleMouseDown = this.handleMouseDown.bind(this);
-    this.handleMouseUp = this.handleMouseUp.bind(this);
-    this.handleMouseMove = this.handleMouseMove.bind(this);
-    this.handleTouchStart = this.handleTouchStart.bind(this);
-    this.handleTouchMove = this.handleTouchMove.bind(this);
-    this.handleTouchEnd = this.handleTouchEnd.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
   componentWillUnmount() {
@@ -94,37 +86,37 @@ export default class Slider extends React.Component {
     );
   }
 
-  handleMouseDown() {
+  handleMouseDown = () => {
     this.addDocumentMouseMoveListener();
     this.addDocumentMouseUpListener();
-  }
+  };
 
-  handleMouseUp() {
+  handleMouseUp = () => {
     this.removeDocumentMouseMoveListener();
     this.removeDocumentMouseUpListener();
-  }
+  };
 
-  handleMouseMove(event) {
+  handleMouseMove = event => {
     this.props.onSliderDrag(event, this.props.type);
-  }
+  };
 
-  handleTouchStart() {
+  handleTouchStart = () => {
     this.addDocumentTouchEndListener();
     this.addDocumentTouchMoveListener();
-  }
+  };
 
-  handleTouchMove(event) {
+  handleTouchMove = event => {
     this.props.onSliderDrag(event, this.props.type);
-  }
+  };
 
-  handleTouchEnd() {
+  handleTouchEnd = () => {
     this.removeDocumentTouchMoveListener();
     this.removeDocumentTouchEndListener();
-  }
+  };
 
-  handleKeyDown(event) {
+  handleKeyDown = event => {
     this.props.onSliderKeyDown(event, this.props.type);
-  }
+  };
 
   render() {
     const style = this.getStyle();
