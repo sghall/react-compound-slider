@@ -53,23 +53,6 @@ export default class InputRange extends React.Component {
     this.node = null;
     this.trackNode = null;
     this.isSliderDragging = false;
-
-    [
-      "handleSliderDrag",
-      "handleTrackDrag",
-      "handleSliderKeyDown",
-      "handleTrackMouseDown",
-      "handleInteractionStart",
-      "handleInteractionEnd",
-      "handleKeyDown",
-      "handleKeyUp",
-      "handleMouseDown",
-      "handleMouseUp",
-      "handleTouchStart",
-      "handleTouchEnd"
-    ].forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   componentWillUnmount() {
@@ -256,7 +239,7 @@ export default class InputRange extends React.Component {
     );
   }
 
-  handleSliderDrag(event, key) {
+  handleSliderDrag = (event, key) => {
     if (this.props.disabled) {
       return;
     }
@@ -267,9 +250,9 @@ export default class InputRange extends React.Component {
     );
     this.isSliderDragging = true;
     requestAnimationFrame(() => this.updatePosition(key, position));
-  }
+  };
 
-  handleTrackDrag(event, prevEvent) {
+  handleTrackDrag = (event, prevEvent) => {
     if (
       this.props.disabled ||
       !this.props.draggableTrack ||
@@ -318,9 +301,9 @@ export default class InputRange extends React.Component {
     };
 
     this.updateValues(transformedValues);
-  }
+  };
 
-  handleSliderKeyDown(event, key) {
+  handleSliderKeyDown = (event, key) => {
     if (this.props.disabled) {
       return;
     }
@@ -341,9 +324,9 @@ export default class InputRange extends React.Component {
       default:
         break;
     }
-  }
+  };
 
-  handleTrackMouseDown(event, position) {
+  handleTrackMouseDown = (event, position) => {
     if (this.props.disabled) {
       return;
     }
@@ -366,9 +349,9 @@ export default class InputRange extends React.Component {
     if (!this.props.draggableTrack || stepValue > max || stepValue < min) {
       this.updatePosition(this.getKeyByPosition(position), position);
     }
-  }
+  };
 
-  handleInteractionStart() {
+  handleInteractionStart = () => {
     if (this.props.onChangeStart) {
       this.props.onChangeStart(this.props.value);
     }
@@ -376,9 +359,9 @@ export default class InputRange extends React.Component {
     if (this.props.onChangeComplete && !isDefined(this.startValue)) {
       this.startValue = this.props.value;
     }
-  }
+  };
 
-  handleInteractionEnd() {
+  handleInteractionEnd = () => {
     if (this.isSliderDragging) {
       this.isSliderDragging = false;
     }
@@ -392,35 +375,35 @@ export default class InputRange extends React.Component {
     }
 
     this.startValue = null;
-  }
+  };
 
-  handleKeyDown(event) {
+  handleKeyDown = event => {
     this.handleInteractionStart(event);
-  }
+  };
 
-  handleKeyUp(event) {
+  handleKeyUp = event => {
     this.handleInteractionEnd(event);
-  }
+  };
 
-  handleMouseDown(event) {
+  handleMouseDown = event => {
     this.handleInteractionStart(event);
     this.addDocumentMouseUpListener();
-  }
+  };
 
-  handleMouseUp(event) {
+  handleMouseUp = event => {
     this.handleInteractionEnd(event);
     this.removeDocumentMouseUpListener();
-  }
+  };
 
-  handleTouchStart(event) {
+  handleTouchStart = event => {
     this.handleInteractionStart(event);
     this.addDocumentTouchEndListener();
-  }
+  };
 
-  handleTouchEnd(event) {
+  handleTouchEnd = event => {
     this.handleInteractionEnd(event);
     this.removeDocumentTouchEndListener();
-  }
+  };
 
   renderSliders() {
     const values = valueTransformer.getValueFromProps(
