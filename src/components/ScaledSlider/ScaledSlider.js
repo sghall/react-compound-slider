@@ -13,13 +13,18 @@ class ScaledSlider extends PureComponent {
       <div className="rc-slider">
         <div className="rc-slider-rail" />
         {values.map((value, index) => {
+          if (index === 0 && values.length > 1) {
+            return null;
+          }
+
           if (index === 0) {
             return (
               <div
+                key={`key-${value}`}
                 className="rc-slider-track"
                 style={{
-                  visibility: "visible",
                   left: "0%",
+                  visibility: "visible",
                   width: `${this.scale(value)}%`
                 }}
               />
@@ -31,9 +36,10 @@ class ScaledSlider extends PureComponent {
 
           return (
             <div
+              key={`key-${value}`}
               className="rc-slider-track"
               style={{
-                backgroundColor: "green",
+                backgroundColor: index === 1 ? "green" : "red",
                 visibility: "visible",
                 left: `${prev}%`,
                 width: `${curr - prev}%`
@@ -44,11 +50,12 @@ class ScaledSlider extends PureComponent {
         <div className="rc-slider-step" />
         {values.map((value, index) =>
           <div
+            key={`key-${value}`}
             role="slider"
             tabIndex={index}
             aria-valuemin={domain[0]}
             aria-valuemax={domain[1]}
-            aria-valuenow={this.scale(value)}
+            aria-valuenow={value}
             aria-disabled="false"
             className="rc-slider-handle"
             style={{ left: `${this.scale(value)}%` }}

@@ -39,7 +39,11 @@ class Example extends React.Component {
       <div>
         <div style={style}>
           <p>Scaled Slider</p>
-          <ScaledSlider domain={[20, 80]} values={[30, 50]} />
+          <ScaledSlider domain={[20, 80]} values={[30, 50, 60]} />
+        </div>
+        <div style={style}>
+          <p>Scaled Slider</p>
+          <ScaledSlider domain={[20, 80]} values={[40]} />
         </div>
         <div style={style}>
           <p>Basic Range，`allowCross=false`</p>
