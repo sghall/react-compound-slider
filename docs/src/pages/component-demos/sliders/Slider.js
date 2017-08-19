@@ -9,7 +9,7 @@ import Typography from "material-ui/Typography";
 import Button from "material-ui/Button";
 import IconButton from "material-ui/IconButton";
 import MenuIcon from "material-ui-icons/Menu";
-import { Range } from "react-electric-slide";
+import { Range, ScaledSlider } from "react-electric-slide";
 import "react-electric-slide/scss/slider.scss";
 
 const styles = {
@@ -37,6 +37,10 @@ class Example extends React.Component {
   render() {
     return (
       <div>
+        <div style={style}>
+          <p>Scaled Slider</p>
+          <ScaledSlider domain={[20, 80]} values={[30, 50]} />
+        </div>
         <div style={style}>
           <p>Basic Range，`allowCross=false`</p>
           <Range allowCross={false} defaultValue={[0, 20]} onChange={log} />
