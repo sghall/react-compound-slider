@@ -23,7 +23,7 @@
     "app-module-path": "^2.1.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
-    "babel-eslint": "^7.2.1",
+    "babel-eslint": "^7.2.3",
     "babel-loader": "^7.0.0",
     "babel-plugin-istanbul": "^4.1.4",
     "babel-plugin-transform-replace-object-assign": "^0.2.1",
@@ -91,12 +91,16 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "d3-scale": "^1.0.6",
     "deepmerge": "^1.5.1",
     "hoist-non-react-statics": "^2.3.0",
     "prop-types": "^15.5.8",
+    "rc-tooltip": "^3.4.8",
+    "rc-util": "^4.0.4",
     "react-jss": "^7.1.0",
     "recompose": "^0.25.0",
+    "shallowequal": "^1.0.2",
     "warning": "^3.0.0"
   },
   "lint-staged": {
