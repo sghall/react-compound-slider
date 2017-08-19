@@ -60,7 +60,6 @@ const withStyles = (stylesOrCreator, options = {}) => BaseComponent => {
       this.jss = this.context[ns.jss] || jss;
 
       this.sheetsManager = this.context.sheetsManager || sheetsManager;
-
       this.stylesCreators = stylesCreators;
 
       this.sheetOptions = {
