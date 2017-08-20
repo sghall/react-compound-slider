@@ -34,18 +34,29 @@ class Example extends React.Component {
     super(props);
   }
 
+  state = {
+    values: [
+      { key: "dog", value: 30 },
+      { key: "cat", value: 40 },
+      { key: "hat", value: 70 }
+    ]
+  };
+
+  onChange = values => {
+    this.setState({ values });
+  };
+
   render() {
+    const { values } = this.state;
+
     return (
       <div>
         <div style={style}>
           <p>Scaled Slider</p>
           <ScaledSlider
             domain={[20, 80]}
-            values={[
-              { key: "dog", value: 30 },
-              { key: "cat", value: 40 },
-              { key: "hat", value: 70 }
-            ]}
+            values={values}
+            onChange={this.onChange}
           />
         </div>
         <div style={style}>

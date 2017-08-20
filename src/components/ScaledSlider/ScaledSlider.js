@@ -38,12 +38,23 @@ class ScaledSlider extends PureComponent {
   };
 
   onMouseMove = e => {
-    const { active, position, props: { vertical = false } } = this;
+    const {
+      active,
+      position,
+      props: { vertical = false, domain: [min, max] }
+    } = this;
     const nxt = vertical ? e.clientY : e.pageX;
-    const dif = this.position - nxt;
+    const dif = nxt - this.position;
     const pct = dif / this.getSliderLength();
+    const mve = (max - min) * pct;
 
     this.position = nxt;
+
+    this.props.onChange(
+      this.props.values.map(({ key, value }) => {
+        return key === active ? { key, value: value + mve } : { key, value };
+      })
+    );
 
     console.log(pct);
   };
