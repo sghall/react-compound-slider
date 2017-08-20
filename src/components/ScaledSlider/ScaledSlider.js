@@ -1,20 +1,12 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { scaleLinear } from "d3-scale";
-import {
-  getMousePosition,
-  isEventFromHandle,
-  getHandleCenterPosition
-} from "./utils";
+import { updateValues } from "./utils";
 
 const noop = () => {};
 
 class ScaledSlider extends PureComponent {
-  scale = scaleLinear().range([0, 100]);
-
-  state = {
-    active: null
-  };
+  scale = scaleLinear().range([0, 100]).clamp(true);
 
   onMouseDown = e => {
     const { handles, props: { vertical = false } } = this;
@@ -38,25 +30,15 @@ class ScaledSlider extends PureComponent {
   };
 
   onMouseMove = e => {
-    const {
-      active,
-      position,
-      props: { vertical = false, domain: [min, max] }
-    } = this;
+    const { vertical, values, domain, onChange } = this.props;
+    const { active, scale } = this;
+
     const nxt = vertical ? e.clientY : e.pageX;
-    const dif = nxt - this.position;
-    const pct = dif / this.getSliderLength();
-    const mve = (max - min) * pct;
+    const pct = (nxt - this.position) / this.getSliderLength();
 
     this.position = nxt;
 
-    this.props.onChange(
-      this.props.values.map(({ key, value }) => {
-        return key === active ? { key, value: value + mve } : { key, value };
-      })
-    );
-
-    console.log(pct);
+    onChange(updateValues(active, pct, values, scale));
   };
 
   getSliderLength() {
