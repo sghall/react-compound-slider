@@ -14,24 +14,15 @@ class ScaledSlider extends PureComponent {
   scale = scaleLinear().range([0, 100]);
 
   onMouseDown = e => {
-    const { vertical = false } = this.props;
+    const { handles, props: { vertical = false } } = this;
 
-    if (e.button !== 0) {
-      return;
-    }
+    const handle =
+      handles[
+        Object.keys(handles).find(key => {
+          return e.target === this.handles[key];
+        })
+      ];
 
-    let position = getMousePosition(vertical, e);
-
-    if (!isEventFromHandle(e, this.handleRefs)) {
-      this.dragOffset = 0;
-    } else {
-      const center = getHandleCenterPosition(vertical, e.target);
-      this.dragOffset = position - center;
-      position = center;
-    }
-
-    this.onStart(position);
-    this.addDocumentMouseEvents();
     pauseEvent(e);
   };
 
@@ -51,11 +42,11 @@ class ScaledSlider extends PureComponent {
     addEventListener(document, "mouseup", this.onEnd);
   }
 
-  handleRefs = {};
+  handles = {};
   sliderRef = null;
 
   saveHandle(index, node) {
-    this.handleRefs[index] = node;
+    this.handles[index] = node;
   }
 
   render() {
@@ -69,7 +60,7 @@ class ScaledSlider extends PureComponent {
         onMouseDown={disabled ? noop : this.onMouseDown}
       >
         <div className="rc-slider-rail" />
-        {values.map((value, index) => {
+        {values.map(({ value }, index) => {
           if (index === 0 && values.length > 1) {
             return null;
           }
@@ -88,7 +79,7 @@ class ScaledSlider extends PureComponent {
             );
           }
 
-          const prev = this.scale(values[index - 1]);
+          const prev = this.scale(values[index - 1].value);
           const curr = this.scale(value);
 
           return (
@@ -105,10 +96,10 @@ class ScaledSlider extends PureComponent {
           );
         })}
         <div className="rc-slider-step" />
-        {values.map((value, index) =>
+        {values.map(({ key, value }, index) =>
           <div
-            key={`key-${value}`}
-            ref={node => this.saveHandle(index, node)}
+            key={key}
+            ref={node => this.saveHandle(key, node)}
             role="slider"
             tabIndex={index}
             aria-valuemin={domain[0]}
