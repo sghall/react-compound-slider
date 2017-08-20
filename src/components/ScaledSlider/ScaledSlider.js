@@ -4,8 +4,7 @@ import { scaleLinear } from "d3-scale";
 import {
   getMousePosition,
   isEventFromHandle,
-  getHandleCenterPosition,
-  pauseEvent
+  getHandleCenterPosition
 } from "./utils";
 
 const noop = () => {};
@@ -13,40 +12,67 @@ const noop = () => {};
 class ScaledSlider extends PureComponent {
   scale = scaleLinear().range([0, 100]);
 
+  state = {
+    active: null
+  };
+
   onMouseDown = e => {
     const { handles, props: { vertical = false } } = this;
 
-    const handle =
-      handles[
-        Object.keys(handles).find(key => {
-          return e.target === this.handles[key];
-        })
-      ];
+    e.stopPropagation();
+    e.preventDefault();
 
-    pauseEvent(e);
+    const active = Object.keys(handles).find(key => {
+      return e.target === this.handles[key].node;
+    });
+
+    if (active) {
+      this.position = vertical ? e.clientY : e.pageX;
+      this.active = active;
+      this.addMouseEvents();
+    } else {
+      this.position = 0;
+      this.active = null;
+      this.removeMouseEvents();
+    }
   };
 
   onMouseMove = e => {
-    const { vertical = false } = this.props;
+    const { active, position, props: { vertical = false } } = this;
+    const len = this.getSliderLength();
+    const nxt = vertical ? e.clientY : e.pageX;
+    const dif = this.position - nxt;
+    const pct = dif / len;
 
-    if (!this.sliderRef) {
-      this.onEnd();
-      return;
-    }
-    const position = getMousePosition(vertical, e);
-    this.onMove(e, position - this.dragOffset);
+    this.position = nxt;
+
+    console.log(pct);
   };
 
-  addDocumentMouseEvents() {
-    addEventListener(document, "mousemove", this.onMouseMove);
-    addEventListener(document, "mouseup", this.onEnd);
+  getSliderLength() {
+    const { slider, props: { vertical = false } } = this;
+
+    if (!slider) {
+      return 0;
+    }
+
+    const rect = slider.getBoundingClientRect();
+    return vertical ? rect.height : rect.width;
   }
 
-  handles = {};
-  sliderRef = null;
+  addMouseEvents() {
+    document.addEventListener("mousemove", this.onMouseMove);
+  }
 
-  saveHandle(index, node) {
-    this.handles[index] = node;
+  removeMouseEvents() {
+    document.removeEventListener("mousemove", this.onMouseMove);
+  }
+
+  slider = null;
+  handles = {};
+
+  saveHandle(key, node) {
+    this.handles[key] = { key, node };
   }
 
   render() {
@@ -56,7 +82,7 @@ class ScaledSlider extends PureComponent {
     return (
       <div
         className="rc-slider"
-        ref={node => (this.sliderRef = node)}
+        ref={node => (this.slider = node)}
         onMouseDown={disabled ? noop : this.onMouseDown}
       >
         <div className="rc-slider-rail" />
