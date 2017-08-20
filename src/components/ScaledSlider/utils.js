@@ -1,5 +1,4 @@
 import { findDOMNode } from "react-dom";
-import keyCode from "rc-util/lib/KeyCode";
 
 export function isEventFromHandle(e, handles) {
   return Object.keys(handles).some(
@@ -73,28 +72,4 @@ export function ensureValuePrecision(val, props) {
 export function pauseEvent(e) {
   e.stopPropagation();
   e.preventDefault();
-}
-
-export function getKeyboardValueMutator(e) {
-  switch (e.keyCode) {
-    case keyCode.UP:
-    case keyCode.RIGHT:
-      return (value, props) => value + props.step;
-
-    case keyCode.DOWN:
-    case keyCode.LEFT:
-      return (value, props) => value - props.step;
-
-    case keyCode.END:
-      return (value, props) => props.max;
-    case keyCode.HOME:
-      return (value, props) => props.min;
-    case keyCode.PAGE_UP:
-      return (value, props) => value + props.step * 2;
-    case keyCode.PAGE_DOWN:
-      return (value, props) => value - props.step * 2;
-
-    default:
-      return undefined;
-  }
 }

@@ -97,7 +97,6 @@
     "hoist-non-react-statics": "^2.3.0",
     "prop-types": "^15.5.8",
     "rc-tooltip": "^3.4.8",
-    "rc-util": "^4.0.4",
     "react-jss": "^7.1.0",
     "recompose": "^0.25.0",
     "shallowequal": "^1.0.2",
