@@ -10,3 +10,12 @@ export function updateValues(active, pct, values, scale) {
     return item;
   });
 }
+
+export function getSliderLength(slider, vertical) {
+  if (!slider) {
+    return 0;
+  }
+
+  const rect = slider.getBoundingClientRect();
+  return vertical ? rect.height : rect.width;
+}

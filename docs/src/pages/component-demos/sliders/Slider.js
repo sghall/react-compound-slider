@@ -10,6 +10,7 @@ import Button from "material-ui/Button";
 import IconButton from "material-ui/IconButton";
 import MenuIcon from "material-ui-icons/Menu";
 import { Range, ScaledSlider } from "react-electric-slide";
+import Handle from "./Handle";
 import "react-electric-slide/scss/slider.scss";
 
 const styles = {
@@ -54,6 +55,7 @@ class Example extends React.Component {
         <div style={style}>
           <p>Scaled Slider</p>
           <ScaledSlider
+            Handle={Handle}
             domain={[20, 80]}
             values={values}
             onChange={this.onChange}
@@ -62,6 +64,7 @@ class Example extends React.Component {
         <div style={style}>
           <p>Scaled Slider</p>
           <ScaledSlider
+            Handle={Handle}
             domain={[20, 80]}
             values={[{ key: "dog", value: 30 }]}
           />
