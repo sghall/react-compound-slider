@@ -60,7 +60,7 @@ class ScaledSlider extends PureComponent {
   }
 
   render() {
-    const { domain, values, disabled, Handle } = this.props;
+    const { domain, values, disabled, knob: Knob, rail: Rail } = this.props;
     this.scale.domain(domain);
 
     return (
@@ -69,7 +69,7 @@ class ScaledSlider extends PureComponent {
         ref={node => (this.slider = node)}
         onMouseDown={disabled ? noop : this.onMouseDown}
       >
-        <div className="rc-slider-rail" />
+        <Rail />
         {values.map(({ value }, index) => {
           if (index === 0 && values.length > 1) {
             return null;
@@ -107,7 +107,7 @@ class ScaledSlider extends PureComponent {
         })}
         <div className="rc-slider-step" />
         {values.map(({ key, value }, index) =>
-          <Handle
+          <Knob
             key={key}
             ref={node => this.saveHandle(key, node)}
             index={index}
@@ -122,7 +122,9 @@ class ScaledSlider extends PureComponent {
 }
 
 ScaledSlider.propTypes = {
-  Handle: PropTypes.any.isRequired,
+  knob: PropTypes.any.isRequired,
+  link: PropTypes.any.isRequired,
+  rail: PropTypes.any.isRequired,
   values: PropTypes.arrayOf(PropTypes.object).isRequired,
   domain: PropTypes.arrayOf(PropTypes.number).isRequired
 };

@@ -3,7 +3,7 @@ import { withStyles } from "material-ui/styles";
 import PropTypes from "prop-types";
 
 const styles = ({ palette: { primary } }) => ({
-  handle: {
+  root: {
     position: "absolute",
     "margin-left": "-8px",
     "margin-top": "-6px",
@@ -34,7 +34,7 @@ const styles = ({ palette: { primary } }) => ({
   }
 });
 
-class Handle extends PureComponent {
+class Knob extends PureComponent {
   render() {
     const { classes, index, value, scale } = this.props;
     const domain = scale.domain();
@@ -43,7 +43,7 @@ class Handle extends PureComponent {
       <div
         role="slider"
         tabIndex={index}
-        className={classes.handle}
+        className={classes.root}
         aria-valuemin={domain[0]}
         aria-valuemax={domain[1]}
         aria-valuenow={value}
@@ -54,10 +54,10 @@ class Handle extends PureComponent {
   }
 }
 
-Handle.propTypes = {
+Knob.propTypes = {
   index: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
   scale: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(Handle);
+export default withStyles(styles)(Knob);
