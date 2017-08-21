@@ -13,8 +13,9 @@ const styles = ({ palette: { primary, text } }) => ({
   },
   text: {
     position: "absolute",
-    "margin-top": "18px",
-    "font-size": "8px",
+    "margin-top": "20px",
+    "font-size": "10px",
+    "text-align": "center",
     color: text.secondary
   }
 });
@@ -29,7 +30,11 @@ class Tick extends PureComponent {
         <div className={classes.tick} style={{ left: `${scale(value)}%` }} />
         <div
           className={classes.text}
-          style={{ width: `${100 / count}%`, left: `${scale(value)}%` }}
+          style={{
+            marginLeft: `${-(100 / count) / 2}%`,
+            width: `${100 / count}%`,
+            left: `${scale(value)}%`
+          }}
         >
           {value}
         </div>
