@@ -132,6 +132,7 @@ class ScaledSlider extends PureComponent {
           <Tick
             key={`key-${val}`}
             index={index}
+            count={values.length}
             value={val}
             scale={this.scale}
           />
