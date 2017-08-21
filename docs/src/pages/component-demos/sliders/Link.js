@@ -7,6 +7,7 @@ const styles = ({ palette: { primary } }) => ({
     position: "absolute",
     top: "3px",
     height: "8px",
+    "z-index": 1,
     "background-color": primary["700"],
     "border-radius": "6px"
   }

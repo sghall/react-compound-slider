@@ -74,11 +74,20 @@ class ScaledSlider extends PureComponent {
   render() {
     const {
       state: { values },
-      props: { domain, disabled, knob: Knob, rail: Rail, link: Link, className }
+      props: {
+        domain,
+        disabled,
+        knob: Knob,
+        rail: Rail,
+        link: Link,
+        tick: Tick,
+        className
+      }
     } = this;
 
     this.scale.domain(domain);
 
+    let ticks = this.scale.ticks();
     let links = null;
 
     if (Link) {
@@ -94,8 +103,8 @@ class ScaledSlider extends PureComponent {
             index={i}
             count={values.length}
             scale={this.scale}
-            source={s}
-            target={t}
+            source={s || null}
+            target={t || null}
           />
         );
       }
@@ -119,7 +128,14 @@ class ScaledSlider extends PureComponent {
             scale={this.scale}
           />
         )}
-        <div className="rc-slider-mark" />
+        {ticks.map((val, index) =>
+          <Tick
+            key={`key-${val}`}
+            index={index}
+            value={val}
+            scale={this.scale}
+          />
+        )}
       </div>
     );
   }
@@ -129,6 +145,7 @@ ScaledSlider.propTypes = {
   knob: PropTypes.any.isRequired,
   link: PropTypes.any.isRequired,
   rail: PropTypes.any.isRequired,
+  tick: PropTypes.any.isRequired,
   values: PropTypes.arrayOf(PropTypes.object).isRequired,
   domain: PropTypes.arrayOf(PropTypes.number).isRequired,
   className: PropTypes.string.isRequired

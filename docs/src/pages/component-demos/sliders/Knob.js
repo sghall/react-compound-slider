@@ -7,6 +7,7 @@ const styles = ({ palette: { primary } }) => ({
     position: "absolute",
     "margin-left": "-8px",
     "margin-top": "-6px",
+    "z-index": 2,
     width: "16px",
     height: "16px",
     cursor: "pointer",

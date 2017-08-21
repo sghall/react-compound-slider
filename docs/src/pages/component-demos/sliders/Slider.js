@@ -7,6 +7,7 @@ import { Range, ScaledSlider } from "react-electric-slide";
 import Knob from "./Knob";
 import Rail from "./Rail";
 import Link from "./Link";
+import Tick from "./Tick";
 import "react-electric-slide/scss/slider.scss";
 
 const styles = {
@@ -46,6 +47,7 @@ class Example extends React.Component {
             knob={Knob}
             link={Link}
             rail={Rail}
+            tick={Tick}
             domain={[20, 80]}
             values={[
               { key: "dog", val: 30 },
@@ -61,6 +63,7 @@ class Example extends React.Component {
             knob={Knob}
             link={Link}
             rail={Rail}
+            tick={Tick}
             domain={[20, 80]}
             values={[{ key: "dog", val: 30 }]}
             className={classes.slider}
