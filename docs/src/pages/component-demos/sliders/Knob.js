@@ -12,7 +12,7 @@ const styles = ({ palette: { primary } }) => ({
     cursor: "pointer",
     cursor: "grab",
     "border-radius": "50%",
-    border: `solid 1px ${primary["200"]}`,
+    border: `solid 3px ${primary["200"]}`,
     "background-color": primary["500"],
     "touch-action": "pan-x",
 

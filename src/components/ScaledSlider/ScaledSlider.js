@@ -66,9 +66,32 @@ class ScaledSlider extends PureComponent {
       disabled,
       knob: Knob,
       rail: Rail,
+      link: Link,
       className
     } = this.props;
     this.scale.domain(domain);
+
+    let links = null;
+
+    if (Link) {
+      links = [];
+
+      for (let i = 0; i < values.length + 1; i++) {
+        const s = values[i - 1];
+        const t = values[i];
+
+        links.push(
+          <Link
+            key={`${s ? s.key : "$"}-${t ? t.key : "$"}`}
+            index={i}
+            count={values.length}
+            scale={this.scale}
+            source={s}
+            target={t}
+          />
+        );
+      }
+    }
 
     return (
       <div
@@ -77,48 +100,14 @@ class ScaledSlider extends PureComponent {
         onMouseDown={disabled ? noop : this.onMouseDown}
       >
         <Rail />
-        {values.map(({ value }, index) => {
-          if (index === 0 && values.length > 1) {
-            return null;
-          }
-
-          if (index === 0) {
-            return (
-              <div
-                key={`key-${value}`}
-                className="rc-slider-track"
-                style={{
-                  left: "0%",
-                  visibility: "visible",
-                  width: `${this.scale(value)}%`
-                }}
-              />
-            );
-          }
-
-          const prev = this.scale(values[index - 1].value);
-          const curr = this.scale(value);
-
-          return (
-            <div
-              key={`key-${value}`}
-              className="rc-slider-track"
-              style={{
-                backgroundColor: index === 1 ? "green" : "red",
-                visibility: "visible",
-                left: `${prev}%`,
-                width: `${curr - prev}%`
-              }}
-            />
-          );
-        })}
+        {links}
         <div className="rc-slider-step" />
-        {values.map(({ key, value }, index) =>
+        {values.map(({ key, val }, index) =>
           <Knob
             key={key}
             ref={node => this.saveHandle(key, node)}
             index={index}
-            value={value}
+            value={val}
             scale={this.scale}
           />
         )}

@@ -3,15 +3,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
-import AppBar from "material-ui/AppBar";
-import Toolbar from "material-ui/Toolbar";
-import Typography from "material-ui/Typography";
-import Button from "material-ui/Button";
-import IconButton from "material-ui/IconButton";
-import MenuIcon from "material-ui-icons/Menu";
 import { Range, ScaledSlider } from "react-electric-slide";
 import Knob from "./Knob";
 import Rail from "./Rail";
+import Link from "./Link";
 import "react-electric-slide/scss/slider.scss";
 
 const styles = {
@@ -46,9 +41,9 @@ class Example extends React.Component {
 
   state = {
     values: [
-      { key: "dog", value: 30 },
-      { key: "cat", value: 40 },
-      { key: "hat", value: 70 }
+      { key: "dog", val: 30 },
+      { key: "cat", val: 40 },
+      { key: "hat", val: 70 }
     ]
   };
 
@@ -65,7 +60,7 @@ class Example extends React.Component {
           <p>Scaled Slider</p>
           <ScaledSlider
             knob={Knob}
-            link={Knob}
+            link={Link}
             rail={Rail}
             domain={[20, 80]}
             values={values}
@@ -77,10 +72,10 @@ class Example extends React.Component {
           <p>Scaled Slider</p>
           <ScaledSlider
             knob={Knob}
-            link={Knob}
+            link={Link}
             rail={Rail}
             domain={[20, 80]}
-            values={[{ key: "dog", value: 30 }]}
+            values={[{ key: "dog", val: 30 }]}
             className={classes.slider}
           />
         </div>
