@@ -21,7 +21,15 @@ const styles = {
     width: "60%"
   },
   slider: {
-    "margin-bottom": "160px"
+    position: "relative",
+    height: "14px",
+    padding: "5px 0",
+    width: "100%",
+    "border-radius": "6px",
+    "touch-action": "none",
+    "box-sizing": "border-box",
+    "-webkit-tap-highlight-color": "rgba(0, 0, 0, 0)",
+    "margin-bottom": "50px"
   }
 };
 
@@ -49,7 +57,7 @@ class Example extends React.Component {
   };
 
   render() {
-    const { values } = this.state;
+    const { props: { classes }, state: { values } } = this;
 
     return (
       <div>
@@ -61,6 +69,7 @@ class Example extends React.Component {
             rail={Rail}
             domain={[20, 80]}
             values={values}
+            className={classes.slider}
             onChange={this.onChange}
           />
         </div>
@@ -72,6 +81,7 @@ class Example extends React.Component {
             rail={Rail}
             domain={[20, 80]}
             values={[{ key: "dog", value: 30 }]}
+            className={classes.slider}
           />
         </div>
         <div style={style}>

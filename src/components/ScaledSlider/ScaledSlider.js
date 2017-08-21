@@ -60,12 +60,19 @@ class ScaledSlider extends PureComponent {
   }
 
   render() {
-    const { domain, values, disabled, knob: Knob, rail: Rail } = this.props;
+    const {
+      domain,
+      values,
+      disabled,
+      knob: Knob,
+      rail: Rail,
+      className
+    } = this.props;
     this.scale.domain(domain);
 
     return (
       <div
-        className="rc-slider"
+        className={className}
         ref={node => (this.slider = node)}
         onMouseDown={disabled ? noop : this.onMouseDown}
       >
@@ -126,7 +133,8 @@ ScaledSlider.propTypes = {
   link: PropTypes.any.isRequired,
   rail: PropTypes.any.isRequired,
   values: PropTypes.arrayOf(PropTypes.object).isRequired,
-  domain: PropTypes.arrayOf(PropTypes.number).isRequired
+  domain: PropTypes.arrayOf(PropTypes.number).isRequired,
+  className: PropTypes.string.isRequired
 };
 
 export default ScaledSlider;
