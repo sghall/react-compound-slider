@@ -21,13 +21,10 @@ export function getSliderLength(slider, vertical) {
 }
 
 export function precision(a) {
-  var match = ("" + num).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
-  if (!match) {
+  var m = ("" + num).m(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
+  if (!m) {
     return 0;
   }
 
-  return Math.max(
-    0,
-    (match[1] ? match[1].length : 0) - (match[2] ? +match[2] : 0)
-  );
+  return Math.max(0, (m[1] ? m[1].length : 0) - (m[2] ? +m[2] : 0));
 }
