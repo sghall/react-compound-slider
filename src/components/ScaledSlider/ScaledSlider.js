@@ -9,6 +9,18 @@ const noop = () => {};
 class ScaledSlider extends PureComponent {
   scale = scaleLinear().range([0, 100]).clamp(true);
 
+  state = { values: [] };
+
+  componentWillMount() {
+    this.setState({
+      values: this.props.values
+    });
+  }
+
+  onChange = values => {
+    this.setState({ values });
+  };
+
   onMouseDown = e => {
     const { handles, props: { vertical = false } } = this;
 
@@ -27,7 +39,7 @@ class ScaledSlider extends PureComponent {
   };
 
   onMouseMove = e => {
-    const { vertical, values, domain, onChange } = this.props;
+    const { state: { values }, props: { vertical, domain } } = this;
     const { active, slider, scale } = this;
 
     const nxt = vertical ? e.clientY : e.pageX;
@@ -35,7 +47,7 @@ class ScaledSlider extends PureComponent {
 
     this.position = nxt;
 
-    onChange(updateValues(active, pct, values, scale));
+    this.onChange(updateValues(active, pct, values, scale));
   };
 
   onMouseUp = e => {
@@ -61,14 +73,9 @@ class ScaledSlider extends PureComponent {
 
   render() {
     const {
-      domain,
-      values,
-      disabled,
-      knob: Knob,
-      rail: Rail,
-      link: Link,
-      className
-    } = this.props;
+      state: { values },
+      props: { domain, disabled, knob: Knob, rail: Rail, link: Link, className }
+    } = this;
     this.scale.domain(domain);
 
     let links = null;

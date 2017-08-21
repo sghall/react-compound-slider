@@ -35,24 +35,8 @@ function log(value) {
 }
 
 class Example extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  state = {
-    values: [
-      { key: "dog", val: 30 },
-      { key: "cat", val: 40 },
-      { key: "hat", val: 70 }
-    ]
-  };
-
-  onChange = values => {
-    this.setState({ values });
-  };
-
   render() {
-    const { props: { classes }, state: { values } } = this;
+    const { props: { classes } } = this;
 
     return (
       <div>
@@ -63,9 +47,12 @@ class Example extends React.Component {
             link={Link}
             rail={Rail}
             domain={[20, 80]}
-            values={values}
+            values={[
+              { key: "dog", val: 30 },
+              { key: "cat", val: 40 },
+              { key: "hat", val: 70 }
+            ]}
             className={classes.slider}
-            onChange={this.onChange}
           />
         </div>
         <div style={style}>
