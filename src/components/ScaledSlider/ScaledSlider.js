@@ -76,6 +76,7 @@ class ScaledSlider extends PureComponent {
       state: { values },
       props: { domain, disabled, knob: Knob, rail: Rail, link: Link, className }
     } = this;
+
     this.scale.domain(domain);
 
     let links = null;
