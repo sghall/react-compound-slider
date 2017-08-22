@@ -16,9 +16,10 @@ class ScaledSlider extends PureComponent {
 
   componentWillMount() {
     const { domain: [min, max], defaultValues, step } = this.props;
-    const range = getStepRange(min, max, step);
 
-    this.valueToStep.range(range).domain([min - step / 2, max + step / 2]);
+    this.valueToStep
+      .range(getStepRange(min, max, step))
+      .domain([min - step / 2, max + step / 2]);
 
     this.setState(() => {
       const values = [];
@@ -72,7 +73,7 @@ class ScaledSlider extends PureComponent {
     const nxt = updateValues(active, pct, values, this.valueToStep, domain);
 
     if (nxt !== values) {
-      this.offset = 0;
+      this.offset = mrk - this.marker;
       this.onChange(nxt);
     } else {
       this.offset += mrk - this.marker;
