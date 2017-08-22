@@ -99,6 +99,7 @@
     "rc-tooltip": "^3.4.8",
     "react-jss": "^7.1.0",
     "recompose": "^0.25.0",
+    "resonance": "^0.9.5",
     "shallowequal": "^1.0.2",
     "warning": "^3.0.0"
   },
