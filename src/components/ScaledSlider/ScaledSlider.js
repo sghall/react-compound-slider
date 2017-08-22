@@ -80,7 +80,9 @@ class ScaledSlider extends PureComponent {
       )
     ) {
       this.offset = nxt - this.marker;
-      this.onChange(updateValues(active, pct, values, this.valueToStep));
+      this.onChange(
+        updateValues(active, pct, values, this.valueToStep, domain)
+      );
     } else {
       this.offset += nxt - this.marker;
     }

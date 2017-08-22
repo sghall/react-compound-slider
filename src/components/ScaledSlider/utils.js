@@ -1,14 +1,20 @@
-export function updateValues(active, pct, values, scale) {
-  return values.map(item => {
-    if (item.key === active) {
-      const { key, val } = item;
-      const [min, max] = scale.domain();
+export function updateValues(active, pct, knobs, scale, [min, max]) {
+  const index = knobs.findIndex(v => v.key === active);
 
-      return { key, val: scale(val + (max - min) * pct) };
+  if (index !== -1) {
+    const { key, val } = knobs[index];
+    const nxt = scale(val + (max - min) * pct);
+
+    if (val !== nxt) {
+      return [
+        ...knobs.slice(0, index),
+        { key, val: nxt },
+        ...knobs.slice(index + 1)
+      ];
     }
+  }
 
-    return item;
-  });
+  return knobs;
 }
 
 function precision(num) {
