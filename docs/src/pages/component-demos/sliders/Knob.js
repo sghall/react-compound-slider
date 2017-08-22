@@ -5,11 +5,11 @@ import PropTypes from "prop-types";
 const styles = ({ palette: { primary } }) => ({
   root: {
     position: "absolute",
-    "margin-left": "-8px",
-    "margin-top": "-6px",
+    "margin-left": "-10px",
+    "margin-top": "-8px",
     "z-index": 2,
-    width: "16px",
-    height: "16px",
+    width: "20px",
+    height: "20px",
     cursor: "pointer",
     cursor: "grab",
     "border-radius": "50%",

@@ -6,14 +6,15 @@ const styles = ({ palette: { primary, text } }) => ({
   tick: {
     position: "absolute",
     "margin-top": "14px",
-    width: "1px",
+    "margin-left": "-1.5px",
+    width: "3px",
     height: "5px",
     "background-color": primary["500"],
     "touch-action": "pan-x"
   },
   text: {
     position: "absolute",
-    "margin-top": "20px",
+    "margin-top": "22px",
     "font-size": "10px",
     "text-align": "center",
     color: text.secondary
