@@ -4,11 +4,21 @@ export function updateValues(active, pct, values, scale) {
       const { key, val } = item;
       const [min, max] = scale.domain();
 
-      return { key, val: scale.invert(scale(val + (max - min) * pct)) };
+      return { key, val: scale(val + (max - min) * pct) };
     }
 
     return item;
   });
+}
+
+function precision(num) {
+  const m = ("" + num).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
+
+  if (!m) {
+    return 0;
+  }
+
+  return Math.max(0, (m[1] ? m[1].length : 0) - (m[2] ? +m[2] : 0));
 }
 
 export function getStepRange(min, max, step) {
@@ -32,14 +42,4 @@ export function getSliderLength(slider, vertical) {
 
   const rect = slider.getBoundingClientRect();
   return vertical ? rect.height : rect.width;
-}
-
-export function precision(num) {
-  const m = ("" + num).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
-
-  if (!m) {
-    return 0;
-  }
-
-  return Math.max(0, (m[1] ? m[1].length : 0) - (m[2] ? +m[2] : 0));
 }

@@ -56,7 +56,8 @@ class ScaledSlider extends PureComponent {
     });
 
     if (active) {
-      this.offset = vertical ? e.clientY : e.pageX;
+      this.marker = vertical ? e.clientY : e.pageX;
+      this.offset = 0;
       this.active = active;
       this.addMouseEvents();
     }
@@ -66,13 +67,38 @@ class ScaledSlider extends PureComponent {
     const { state: { values }, props: { vertical, domain } } = this;
     const { active, slider, scale } = this;
 
+    const pct = this.offset / getSliderLength(slider, vertical);
     const nxt = vertical ? e.clientY : e.pageX;
-    const pct = (nxt - this.offset) / getSliderLength(slider, vertical);
 
-    this.offset = nxt;
+    if (
+      this.shouldUpdateValues(
+        active,
+        pct,
+        values,
+        this.valueToStep,
+        scale.domain()
+      )
+    ) {
+      this.offset = nxt - this.marker;
+      this.onChange(updateValues(active, pct, values, this.valueToStep));
+    } else {
+      this.offset += nxt - this.marker;
+    }
 
-    this.onChange(updateValues(active, pct, values, scale));
+    this.marker = nxt;
   };
+
+  shouldUpdateValues(active, pct, knobs, scale, domain) {
+    const knob = knobs.find(v => v.key === active);
+
+    if (knob) {
+      const [min, max] = domain;
+      const update = scale(knob.val + (max - min) * pct);
+      return knob.val !== update;
+    }
+
+    return false;
+  }
 
   onMouseUp = e => {
     this.removeMouseEvents();
@@ -101,6 +127,7 @@ class ScaledSlider extends PureComponent {
       props: {
         domain,
         disabled,
+        vertical,
         knob: Knob,
         rail: Rail,
         link: Link,
