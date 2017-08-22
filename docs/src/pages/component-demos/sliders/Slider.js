@@ -50,7 +50,11 @@ class Example extends React.Component {
             tick={Tick}
             step={1}
             domain={[20, 80]}
-            defaultValues={[30, 50, 60, 80]}
+            defaultValues={[
+              { key: "cat", val: 10 },
+              { key: "hat", val: 30 },
+              { key: "dog", val: 60 }
+            ]}
             className={classes.slider}
           />
         </div>
@@ -62,7 +66,7 @@ class Example extends React.Component {
             rail={Rail}
             tick={Tick}
             domain={[20, 80]}
-            defaultValues={[60]}
+            defaultValues={[{ key: "cat", val: 30 }]}
             className={classes.slider}
           />
         </div>

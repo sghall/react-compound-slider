@@ -1,19 +1,19 @@
-export function updateValues(knobs, active, nxt) {
-  const index = knobs.findIndex(v => v.key === active);
+export function updateValues(values, active, nxt) {
+  const index = values.findIndex(v => v.key === active);
 
   if (index !== -1) {
-    const { key, val } = knobs[index];
+    const { key, val } = values[index];
 
     if (val !== nxt) {
       return [
-        ...knobs.slice(0, index),
+        ...values.slice(0, index),
         { key, val: nxt },
-        ...knobs.slice(index + 1)
+        ...values.slice(index + 1)
       ];
     }
   }
 
-  return knobs;
+  return values;
 }
 
 export function getSliderDomain(slider, vertical) {

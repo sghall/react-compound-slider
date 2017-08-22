@@ -26,16 +26,22 @@ class ScaledSlider extends PureComponent {
       const values = [];
       const pushed = {};
 
-      defaultValues.forEach(val => {
+      defaultValues.forEach(({ key, val }) => {
         const v0 = this.valueToStep(val);
 
-        warning(v0 === val, `Invalid default value. Changing ${val} to ${v0}`);
+        warning(
+          v0 === val,
+          `React Electric Slide: Invalid default value. Changing ${val} to ${v0}.`
+        );
 
-        if (pushed[v0]) {
-          warning(false, `No duplicate values allowed. Skipping ${v0}`);
-        } else {
-          pushed[v0] = true;
-          values.push({ key: `key-${v0}`, val: v0 });
+        warning(
+          !pushed[key],
+          `React Electric Slide: No duplicate keys allowed. Skipping "${key}" key.`
+        );
+
+        if (!pushed[key]) {
+          pushed[key] = true;
+          values.push({ key, val: v0 });
         }
       });
 
@@ -62,7 +68,7 @@ class ScaledSlider extends PureComponent {
   };
 
   onMouseMove = e => {
-    const { state: { values }, props: { vertical, domain } } = this;
+    const { state: { values }, props: { vertical, domain, mode } } = this;
     const { active, slider } = this;
 
     this.pixelToStep.domain(getSliderDomain(slider));
@@ -174,12 +180,14 @@ ScaledSlider.propTypes = {
   rail: PropTypes.any.isRequired,
   tick: PropTypes.any.isRequired,
   step: PropTypes.number.isRequired,
+  mode: PropTypes.oneOf([1, 2, 3]).isRequired,
   domain: PropTypes.arrayOf(PropTypes.number).isRequired,
   defaultValues: PropTypes.arrayOf(PropTypes.number).isRequired,
   className: PropTypes.string.isRequired
 };
 
 ScaledSlider.defaultProps = {
+  mode: 1,
   step: 0.1
 };
 
