@@ -3,6 +3,7 @@ import warning from "warning";
 import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 import { scaleLinear, scaleQuantize } from "d3-scale";
+import { mode1, mode2 } from "./modes";
 import { getStepRange, updateValues, getSliderDomain } from "./utils";
 
 const noop = () => {};
@@ -68,16 +69,30 @@ class ScaledSlider extends PureComponent {
   };
 
   onMouseMove = e => {
-    const { state: { values }, props: { vertical, domain, mode } } = this;
+    const { state: { values: prev }, props: { vertical, domain, mode } } = this;
     const { active, slider } = this;
 
     this.pixelToStep.domain(getSliderDomain(slider));
 
     const step = this.pixelToStep(vertical ? e.clientY : e.pageX);
-    const next = updateValues(values, active, step);
+    const next = updateValues(prev, active, step);
 
-    if (next !== values) {
-      this.setState({ values: next });
+    if (next !== prev) {
+      let values;
+
+      switch (mode) {
+        case 1:
+          values = mode1(prev, next);
+          break;
+        case 2:
+          values = mode2(prev, next);
+          break;
+        default:
+          values = next;
+          warning(false, "React Electric Slide: Invalid mode value.");
+      }
+
+      this.setState({ values });
     }
   };
 
@@ -182,7 +197,7 @@ ScaledSlider.propTypes = {
   step: PropTypes.number.isRequired,
   mode: PropTypes.oneOf([1, 2, 3]).isRequired,
   domain: PropTypes.arrayOf(PropTypes.number).isRequired,
-  defaultValues: PropTypes.arrayOf(PropTypes.number).isRequired,
+  defaultValues: PropTypes.arrayOf(PropTypes.object).isRequired,
   className: PropTypes.string.isRequired
 };
 
