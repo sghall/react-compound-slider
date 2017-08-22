@@ -195,7 +195,7 @@ ScaledSlider.propTypes = {
   rail: PropTypes.any.isRequired,
   tick: PropTypes.any.isRequired,
   step: PropTypes.number.isRequired,
-  mode: PropTypes.oneOf([1, 2, 3]).isRequired,
+  mode: PropTypes.oneOf([1, 2]).isRequired,
   domain: PropTypes.arrayOf(PropTypes.number).isRequired,
   defaultValues: PropTypes.arrayOf(PropTypes.object).isRequired,
   className: PropTypes.string.isRequired

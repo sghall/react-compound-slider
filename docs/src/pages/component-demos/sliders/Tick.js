@@ -7,7 +7,7 @@ const styles = ({ palette: { primary, text } }) => ({
     position: "absolute",
     "margin-top": "14px",
     "margin-left": "-1.5px",
-    width: "3px",
+    width: "2px",
     height: "5px",
     "background-color": primary["500"],
     "touch-action": "pan-x"

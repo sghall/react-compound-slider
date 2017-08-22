@@ -20,7 +20,8 @@ const styles = {
     position: "relative",
     height: "14px",
     padding: "5px 0",
-    width: "100%",
+    width: "80%",
+    "margin-left": "10%",
     "border-radius": "6px",
     "touch-action": "none",
     "box-sizing": "border-box",
@@ -42,7 +43,7 @@ class Example extends React.Component {
     return (
       <div style={style}>
         <div>
-          <p>Scaled Slider (mode === 2)</p>
+          <p style={{ marginLeft: "10%" }}>Scaled Slider (mode === 2)</p>
           <ScaledSlider
             knob={Knob}
             link={Link}
@@ -60,7 +61,7 @@ class Example extends React.Component {
           />
         </div>
         <div>
-          <p>Scaled Slider (mode === 1)</p>
+          <p style={{ marginLeft: "10%" }}>Scaled Slider (mode === 1)</p>
           <ScaledSlider
             knob={Knob}
             link={Link}
@@ -78,7 +79,7 @@ class Example extends React.Component {
           />
         </div>
         <div>
-          <p>Scaled Slider</p>
+          <p style={{ marginLeft: "10%" }}>Scaled Slider</p>
           <ScaledSlider
             knob={Knob}
             link={Link}
