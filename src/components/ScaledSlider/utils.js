@@ -1,9 +1,8 @@
-export function updateValues(active, pct, knobs, scale, [min, max]) {
+export function updateValues(knobs, active, nxt) {
   const index = knobs.findIndex(v => v.key === active);
 
   if (index !== -1) {
     const { key, val } = knobs[index];
-    const nxt = scale(val + (max - min) * pct);
 
     if (val !== nxt) {
       return [
@@ -15,6 +14,15 @@ export function updateValues(active, pct, knobs, scale, [min, max]) {
   }
 
   return knobs;
+}
+
+export function getSliderDomain(slider, vertical) {
+  if (!slider) {
+    return [0, 0];
+  }
+
+  const s = slider.getBoundingClientRect();
+  return vertical ? [s.top, s.bottom] : [s.left, s.right];
 }
 
 function precision(num) {
@@ -39,13 +47,4 @@ export function getStepRange(min, max, step) {
   }
 
   return range;
-}
-
-export function getSliderLength(slider, vertical) {
-  if (!slider) {
-    return 0;
-  }
-
-  const rect = slider.getBoundingClientRect();
-  return vertical ? rect.height : rect.width;
 }

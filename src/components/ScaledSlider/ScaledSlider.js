@@ -3,7 +3,7 @@ import warning from "warning";
 import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 import { scaleLinear, scaleQuantize } from "d3-scale";
-import { getStepRange, updateValues, getSliderLength } from "./utils";
+import { getStepRange, updateValues, getSliderDomain } from "./utils";
 
 const noop = () => {};
 
@@ -43,10 +43,6 @@ class ScaledSlider extends PureComponent {
     });
   }
 
-  onChange = values => {
-    this.setState({ values });
-  };
-
   onMouseDown = e => {
     const { handles, props: { vertical = false } } = this;
 
@@ -67,55 +63,21 @@ class ScaledSlider extends PureComponent {
 
   onMouseMove = e => {
     const { state: { values }, props: { vertical, domain } } = this;
-    const { active, slider, scale } = this;
+    const { active, slider } = this;
 
-    this.pixelToStep.domain(this.getSliderDomain(slider));
+    this.pixelToStep.domain(getSliderDomain(slider));
 
-    const ccc = this.pixelToStep(vertical ? e.clientY : e.pageX);
-    const pct = this.offset / getSliderLength(slider, vertical);
-    const mrk = vertical ? e.clientY : e.pageX;
-    const nxt = this.updateValues(values, active, ccc);
+    const step = this.pixelToStep(vertical ? e.clientY : e.pageX);
+    const next = updateValues(values, active, step);
 
-    if (nxt !== values) {
-      this.offset = mrk - this.marker;
-      this.onChange(nxt);
-    } else {
-      this.offset += mrk - this.marker;
+    if (next !== values) {
+      this.setState({ values: next });
     }
-
-    this.marker = mrk;
   };
 
   onMouseUp = e => {
     this.removeMouseEvents();
   };
-
-  updateValues(knobs, active, nxt) {
-    const index = knobs.findIndex(v => v.key === active);
-
-    if (index !== -1) {
-      const { key, val } = knobs[index];
-
-      if (val !== nxt) {
-        return [
-          ...knobs.slice(0, index),
-          { key, val: nxt },
-          ...knobs.slice(index + 1)
-        ];
-      }
-    }
-
-    return knobs;
-  }
-
-  getSliderDomain(slider, vertical) {
-    if (!slider) {
-      return [0, 0];
-    }
-
-    const s = slider.getBoundingClientRect();
-    return vertical ? [s.top, s.bottom] : [s.left, s.right];
-  }
 
   addMouseEvents() {
     document.addEventListener("mousemove", this.onMouseMove);
