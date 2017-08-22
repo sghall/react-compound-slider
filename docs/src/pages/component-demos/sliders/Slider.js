@@ -48,7 +48,7 @@ class Example extends React.Component {
             link={Link}
             rail={Rail}
             tick={Tick}
-            step={0.1}
+            step={0.5}
             domain={[20, 80]}
             defaultValues={[30, 50, 60, 80]}
             className={classes.slider}

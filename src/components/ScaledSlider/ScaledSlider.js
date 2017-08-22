@@ -68,39 +68,18 @@ class ScaledSlider extends PureComponent {
     const { active, slider, scale } = this;
 
     const pct = this.offset / getSliderLength(slider, vertical);
-    const nxt = vertical ? e.clientY : e.pageX;
+    const mrk = vertical ? e.clientY : e.pageX;
+    const nxt = updateValues(active, pct, values, this.valueToStep, domain);
 
-    if (
-      this.shouldUpdateValues(
-        active,
-        pct,
-        values,
-        this.valueToStep,
-        scale.domain()
-      )
-    ) {
-      this.offset = nxt - this.marker;
-      this.onChange(
-        updateValues(active, pct, values, this.valueToStep, domain)
-      );
+    if (nxt !== values) {
+      this.offset = 0;
+      this.onChange(nxt);
     } else {
-      this.offset += nxt - this.marker;
+      this.offset += mrk - this.marker;
     }
 
-    this.marker = nxt;
+    this.marker = mrk;
   };
-
-  shouldUpdateValues(active, pct, knobs, scale, domain) {
-    const knob = knobs.find(v => v.key === active);
-
-    if (knob) {
-      const [min, max] = domain;
-      const update = scale(knob.val + (max - min) * pct);
-      return knob.val !== update;
-    }
-
-    return false;
-  }
 
   onMouseUp = e => {
     this.removeMouseEvents();
