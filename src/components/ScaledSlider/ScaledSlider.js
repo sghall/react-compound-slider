@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react";
+import warning from "warning";
 import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 import { scaleLinear, scaleQuantize } from "d3-scale";
@@ -14,11 +15,30 @@ class ScaledSlider extends PureComponent {
   state = { values: [] };
 
   componentWillMount() {
-    const { domain: [min, max], values, step } = this.props;
+    const { domain: [min, max], defaultValues, step } = this.props;
     const range = this.getStepRange(min, max, step);
 
     this.valueToStep.range(range).domain([min - step / 2, max + step / 2]);
-    this.setState({ values });
+
+    this.setState(() => {
+      const values = [];
+      const pushed = {};
+
+      defaultValues.forEach(val => {
+        const v0 = this.valueToStep(val);
+
+        warning(v0 === val, `Invalid default value. Changing ${val} to ${v0}`);
+
+        if (pushed[v0]) {
+          warning(false, `No duplicate values allowed. Skipping ${v0}`);
+        } else {
+          pushed[v0] = true;
+          values.push({ key: `key-${v0}`, val: v0 });
+        }
+      });
+
+      return { values };
+    });
   }
 
   getStepRange(min, max, step) {
@@ -166,8 +186,8 @@ ScaledSlider.propTypes = {
   rail: PropTypes.any.isRequired,
   tick: PropTypes.any.isRequired,
   step: PropTypes.number.isRequired,
-  values: PropTypes.arrayOf(PropTypes.object).isRequired,
   domain: PropTypes.arrayOf(PropTypes.number).isRequired,
+  defaultValues: PropTypes.arrayOf(PropTypes.number).isRequired,
   className: PropTypes.string.isRequired
 };
 
