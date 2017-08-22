@@ -11,6 +11,20 @@ export function updateValues(active, pct, values, scale) {
   });
 }
 
+export function getStepRange(min, max, step) {
+  const fixed = precision(step);
+  const range = [];
+
+  let next = min;
+
+  while (next <= max) {
+    range.push(+next.toFixed(fixed));
+    next += step;
+  }
+
+  return range;
+}
+
 export function getSliderLength(slider, vertical) {
   if (!slider) {
     return 0;

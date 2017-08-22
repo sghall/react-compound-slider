@@ -3,7 +3,7 @@ import warning from "warning";
 import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 import { scaleLinear, scaleQuantize } from "d3-scale";
-import { precision, updateValues, getSliderLength } from "./utils";
+import { getStepRange, updateValues, getSliderLength } from "./utils";
 
 const noop = () => {};
 
@@ -16,7 +16,7 @@ class ScaledSlider extends PureComponent {
 
   componentWillMount() {
     const { domain: [min, max], defaultValues, step } = this.props;
-    const range = this.getStepRange(min, max, step);
+    const range = getStepRange(min, max, step);
 
     this.valueToStep.range(range).domain([min - step / 2, max + step / 2]);
 
@@ -41,20 +41,6 @@ class ScaledSlider extends PureComponent {
     });
   }
 
-  getStepRange(min, max, step) {
-    const fixed = precision(step);
-    const range = [];
-
-    let next = min;
-
-    while (next <= max) {
-      range.push(+next.toFixed(fixed));
-      next += step;
-    }
-
-    return range;
-  }
-
   onChange = values => {
     this.setState({ values });
   };
@@ -70,7 +56,7 @@ class ScaledSlider extends PureComponent {
     });
 
     if (active) {
-      this.position = vertical ? e.clientY : e.pageX;
+      this.offset = vertical ? e.clientY : e.pageX;
       this.active = active;
       this.addMouseEvents();
     }
@@ -81,9 +67,9 @@ class ScaledSlider extends PureComponent {
     const { active, slider, scale } = this;
 
     const nxt = vertical ? e.clientY : e.pageX;
-    const pct = (nxt - this.position) / getSliderLength(slider, vertical);
+    const pct = (nxt - this.offset) / getSliderLength(slider, vertical);
 
-    this.position = nxt;
+    this.offset = nxt;
 
     this.onChange(updateValues(active, pct, values, scale));
   };

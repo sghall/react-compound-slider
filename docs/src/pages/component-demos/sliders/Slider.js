@@ -49,7 +49,7 @@ class Example extends React.Component {
             rail={Rail}
             tick={Tick}
             domain={[20, 80]}
-            defaultValues={[30, 50.54, 50.54, 60]}
+            defaultValues={[30, 50, 60, 80]}
             className={classes.slider}
           />
         </div>
