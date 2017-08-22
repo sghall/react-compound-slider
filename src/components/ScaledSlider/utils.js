@@ -20,8 +20,9 @@ export function getSliderLength(slider, vertical) {
   return vertical ? rect.height : rect.width;
 }
 
-export function precision(a) {
-  var m = ("" + num).m(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
+export function precision(num) {
+  const m = ("" + num).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
+
   if (!m) {
     return 0;
   }

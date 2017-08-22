@@ -1,20 +1,38 @@
 import React, { PureComponent } from "react";
 import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
-import { scaleLinear } from "d3-scale";
-import { updateValues, getSliderLength } from "./utils";
+import { scaleLinear, scaleQuantize } from "d3-scale";
+import { precision, updateValues, getSliderLength } from "./utils";
 
 const noop = () => {};
 
 class ScaledSlider extends PureComponent {
   scale = scaleLinear().range([0, 100]).clamp(true);
 
+  valueToStep = scaleQuantize();
+
   state = { values: [] };
 
   componentWillMount() {
-    this.setState({
-      values: this.props.values
-    });
+    const { domain: [min, max], values, step } = this.props;
+    const range = this.getStepRange(min, max, step);
+
+    this.valueToStep.range(range).domain([min - step / 2, max + step / 2]);
+    this.setState({ values });
+  }
+
+  getStepRange(min, max, step) {
+    const fixed = precision(step);
+    const range = [];
+
+    let next = min;
+
+    while (next <= max) {
+      range.push(+next.toFixed(fixed));
+      next += step;
+    }
+
+    return range;
   }
 
   onChange = values => {
@@ -147,9 +165,14 @@ ScaledSlider.propTypes = {
   link: PropTypes.any.isRequired,
   rail: PropTypes.any.isRequired,
   tick: PropTypes.any.isRequired,
+  step: PropTypes.number.isRequired,
   values: PropTypes.arrayOf(PropTypes.object).isRequired,
   domain: PropTypes.arrayOf(PropTypes.number).isRequired,
   className: PropTypes.string.isRequired
+};
+
+ScaledSlider.defaultProps = {
+  step: 0.1
 };
 
 export default ScaledSlider;
