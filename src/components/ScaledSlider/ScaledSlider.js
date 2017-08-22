@@ -11,15 +11,16 @@ class ScaledSlider extends PureComponent {
   scale = scaleLinear().range([0, 100]).clamp(true);
 
   valueToStep = scaleQuantize();
+  pixelToStep = scaleQuantize();
 
   state = { values: [] };
 
   componentWillMount() {
     const { domain: [min, max], defaultValues, step } = this.props;
+    const range = getStepRange(min, max, step);
 
-    this.valueToStep
-      .range(getStepRange(min, max, step))
-      .domain([min - step / 2, max + step / 2]);
+    this.valueToStep.range(range).domain([min - step / 2, max + step / 2]);
+    this.pixelToStep.range(range);
 
     this.setState(() => {
       const values = [];
@@ -68,9 +69,12 @@ class ScaledSlider extends PureComponent {
     const { state: { values }, props: { vertical, domain } } = this;
     const { active, slider, scale } = this;
 
+    this.pixelToStep.domain(this.getSliderDomain(slider));
+
+    const ccc = this.pixelToStep(vertical ? e.clientY : e.pageX);
     const pct = this.offset / getSliderLength(slider, vertical);
     const mrk = vertical ? e.clientY : e.pageX;
-    const nxt = updateValues(active, pct, values, this.valueToStep, domain);
+    const nxt = this.updateValues(values, active, ccc);
 
     if (nxt !== values) {
       this.offset = mrk - this.marker;
@@ -85,6 +89,33 @@ class ScaledSlider extends PureComponent {
   onMouseUp = e => {
     this.removeMouseEvents();
   };
+
+  updateValues(knobs, active, nxt) {
+    const index = knobs.findIndex(v => v.key === active);
+
+    if (index !== -1) {
+      const { key, val } = knobs[index];
+
+      if (val !== nxt) {
+        return [
+          ...knobs.slice(0, index),
+          { key, val: nxt },
+          ...knobs.slice(index + 1)
+        ];
+      }
+    }
+
+    return knobs;
+  }
+
+  getSliderDomain(slider, vertical) {
+    if (!slider) {
+      return [0, 0];
+    }
+
+    const s = slider.getBoundingClientRect();
+    return vertical ? [s.top, s.bottom] : [s.left, s.right];
+  }
 
   addMouseEvents() {
     document.addEventListener("mousemove", this.onMouseMove);
