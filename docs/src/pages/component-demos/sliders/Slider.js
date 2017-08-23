@@ -3,12 +3,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
-import { Range, ScaledSlider } from "react-electric-slide";
+import { ScaledSlider } from "react-electric-slide";
 import Knob from "./Knob";
 import Rail from "./Rail";
 import Link from "./Link";
 import Tick from "./Tick";
-import "react-electric-slide/scss/slider.scss";
 
 const styles = {
   form: {
@@ -103,48 +102,6 @@ class Example extends React.Component {
             domain={[20, 80]}
             defaultValues={[{ key: "cat", val: 30 }]}
             className={classes.slider}
-          />
-        </div>
-        <div>
-          <p>Basic Range，`allowCross=false`</p>
-          <Range allowCross={false} defaultValue={[0, 20]} onChange={log} />
-        </div>
-        <div>
-          <p>Basic Range，`step=20` </p>
-          <Range step={20} defaultValue={[20, 20]} onBeforeChange={log} />
-        </div>
-        <div>
-          <p>Basic Range，`step=20, dots` </p>
-          <Range dots step={20} defaultValue={[20, 40]} onAfterChange={log} />
-        </div>
-        <div>
-          <p>Basic Range，disabled</p>
-          <Range
-            allowCross={false}
-            defaultValue={[0, 20]}
-            onChange={log}
-            disabled
-          />
-        </div>
-        <div>
-          <p>Multi Range</p>
-          <Range count={3} defaultValue={[20, 40, 60, 80]} pushable />
-        </div>
-        <div>
-          <p>Multi Range with custom track and handle style</p>
-          <Range
-            count={3}
-            defaultValue={[20, 40, 60, 80]}
-            pushable
-            trackStyle={[
-              { backgroundColor: "red" },
-              { backgroundColor: "green" }
-            ]}
-            handleStyle={[
-              { backgroundColor: "yellow" },
-              { backgroundColor: "gray" }
-            ]}
-            railStyle={{ backgroundColor: "black" }}
           />
         </div>
       </div>
