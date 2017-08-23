@@ -1,5 +1,3 @@
-export const classPrefix = "react-electric-slider";
-
 function sortByVal(a, b) {
   if (a.val > b.val) {
     return 1;

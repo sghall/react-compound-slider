@@ -5,12 +5,7 @@ import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 import { scaleLinear, scaleQuantize } from "d3-scale";
 import { mode1, mode2 } from "./modes";
-import {
-  classPrefix,
-  getStepRange,
-  updateValues,
-  getSliderDomain
-} from "./utils";
+import { getStepRange, updateValues, getSliderDomain } from "./utils";
 
 const noop = () => {};
 
@@ -138,13 +133,14 @@ class ScaledSlider extends PureComponent {
       state: { values },
       props: {
         domain,
-        disabled,
-        vertical,
         knob: Knob,
         rail: Rail,
         link: Link,
         tick: Tick,
-        className
+        vertical,
+        disabled,
+        className,
+        classPrefix
       }
     } = this;
 
@@ -218,7 +214,10 @@ ScaledSlider.propTypes = {
   step: PropTypes.number.isRequired,
   mode: PropTypes.oneOf([1, 2]).isRequired,
   domain: PropTypes.arrayOf(PropTypes.number).isRequired,
-  className: PropTypes.string.isRequired,
+  vertical: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  className: PropTypes.string,
+  classPrefix: PropTypes.string.isRequired,
   defaultValues: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
@@ -226,7 +225,8 @@ ScaledSlider.defaultProps = {
   mode: 1,
   step: 0.1,
   vertical: false,
-  disabled: false
+  disabled: false,
+  classPrefix: "react-electric-slide"
 };
 
 export default ScaledSlider;
