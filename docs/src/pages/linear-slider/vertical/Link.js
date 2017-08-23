@@ -5,8 +5,8 @@ import PropTypes from "prop-types";
 const styles = ({ palette: { primary } }) => ({
   root: {
     position: "absolute",
-    top: "3px",
-    height: "8px",
+    left: "-3px",
+    width: "8px",
     "z-index": 1,
     "background-color": primary["700"],
     "border-radius": "6px"
@@ -40,8 +40,8 @@ class Link extends PureComponent {
       <div
         className={classes.root}
         style={{
-          left: `${prev}%`,
-          width: `${curr - prev}%`
+          top: `${prev}%`,
+          height: `${curr - prev}%`
         }}
       />
     );

@@ -19,7 +19,7 @@ const styles = {
     position: "relative",
     height: "14px",
     padding: "5px 0",
-    width: "80%",
+    height: "400px",
     "margin-left": "10%",
     "border-radius": "6px",
     "touch-action": "none",
@@ -29,7 +29,7 @@ const styles = {
   }
 };
 
-const style = { width: "100%", margin: 50 };
+const style = { width: "20%", margin: 5 };
 
 function log(value) {
   console.log(value); //eslint-disable-line

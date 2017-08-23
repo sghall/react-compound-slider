@@ -5,9 +5,9 @@ import PropTypes from "prop-types";
 const styles = ({ palette: { text } }) => ({
   root: {
     position: "absolute",
-    width: "100%",
+    height: "100%",
     "background-color": text.secondary,
-    height: "4px",
+    width: "4px",
     "border-radius": "6px"
   }
 });

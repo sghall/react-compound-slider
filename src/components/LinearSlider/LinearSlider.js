@@ -62,7 +62,7 @@ class ScaledSlider extends PureComponent {
   }
 
   onMouseDown = e => {
-    const { handles, props: { vertical = false } } = this;
+    const { handles } = this;
 
     e.stopPropagation();
     e.preventDefault();
@@ -72,8 +72,6 @@ class ScaledSlider extends PureComponent {
     });
 
     if (active) {
-      this.marker = vertical ? e.clientY : e.pageX;
-      this.offset = 0;
       this.active = active;
       this.addMouseEvents();
     }
@@ -83,7 +81,7 @@ class ScaledSlider extends PureComponent {
     const { state: { values: prev }, props: { vertical, domain, mode } } = this;
     const { active, slider } = this;
 
-    this.pixelToStep.domain(getSliderDomain(slider));
+    this.pixelToStep.domain(getSliderDomain(slider, vertical));
 
     const step = this.pixelToStep(vertical ? e.clientY : e.pageX);
     const next = updateValues(prev, active, step);

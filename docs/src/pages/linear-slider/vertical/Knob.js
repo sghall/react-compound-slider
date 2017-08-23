@@ -49,7 +49,7 @@ class Knob extends PureComponent {
         aria-valuemax={domain[1]}
         aria-valuenow={value}
         aria-disabled="false"
-        style={{ left: `${scale(value)}%` }}
+        style={{ top: `${scale(value)}%` }}
       />
     );
   }
