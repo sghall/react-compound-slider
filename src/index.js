@@ -1,1 +1,1 @@
-export { default as ScaledSlider } from "./components/ScaledSlider";
+export { default as ScaledSlider } from "./components/LinearSlider";

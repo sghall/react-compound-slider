@@ -16,39 +16,13 @@ export const componentAPIs = requireMarkdown.keys().reduce((res, n) => {
   return res;
 }, []);
 
-export const requireDemo = require.context(
-  "../pages/component-demos",
+export const requireLinear = require.context(
+  "../pages/linear-slider",
   true,
   /\.md$/
 );
 
-export const demos = requireDemo.keys().map(n => ({
+export const linear = requireLinear.keys().map(n => ({
   path: n,
   name: n.replace(/.*\//, "").replace(".md", "")
 }));
-
-const headerRegexp = /---\n(.*)\n---/;
-const componentsRegexp = /^components: (.*)$/;
-
-export const demoComponentsTree = demos.map(demo => {
-  const content = requireDemo(demo.path);
-  const header = content.match(headerRegexp);
-  const node = {
-    demo,
-    components: []
-  };
-
-  if (!header) {
-    return node;
-  }
-
-  const components = header[1].match(componentsRegexp);
-
-  if (!components) {
-    return node;
-  }
-
-  node.components = components[1].split(", ").sort();
-
-  return node;
-});

@@ -17,8 +17,8 @@ import Home from "docs/src/pages/Home";
 import {
   componentAPIs,
   requireMarkdown,
-  requireDemo,
-  demos
+  requireLinear,
+  linear
 } from "docs/src/components/files";
 
 export default function AppRouter() {
@@ -104,18 +104,18 @@ export default function AppRouter() {
           />
         </Route>
         <Route
-          title="Component Demos"
-          path="/component-demos"
+          title="Linear Slider"
+          path="/linear-slider"
           component={AppContent}
           nav
         >
-          {demos.map(demo => {
+          {linear.map(demo => {
             return (
               <Route
                 key={demo.name}
                 title={titleize(demo.name)}
-                path={`/component-demos/${demo.name}`}
-                content={requireDemo(demo.path)}
+                path={`/linear-slider/${demo.name}`}
+                content={requireLinear(demo.path)}
                 component={MarkdownDocs}
                 demo={demo}
                 nav
