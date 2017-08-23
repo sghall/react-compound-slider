@@ -91,16 +91,9 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
-    "classnames": "^2.2.5",
     "d3-scale": "^1.0.6",
-    "deepmerge": "^1.5.1",
-    "hoist-non-react-statics": "^2.3.0",
     "prop-types": "^15.5.8",
-    "rc-tooltip": "^3.4.8",
-    "react-jss": "^7.1.0",
-    "recompose": "^0.25.0",
     "resonance": "^0.9.5",
-    "shallowequal": "^1.0.2",
     "warning": "^3.0.0"
   },
   "lint-staged": {
