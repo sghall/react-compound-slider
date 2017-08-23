@@ -44,6 +44,7 @@ class Example extends React.Component {
         <div>
           <p style={{ marginLeft: "10%" }}>Scaled Slider (mode === 2)</p>
           <ScaledSlider
+            vertical
             knob={Knob}
             link={Link}
             rail={Rail}
@@ -63,6 +64,7 @@ class Example extends React.Component {
         <div>
           <p style={{ marginLeft: "10%" }}>Scaled Slider (mode === 2)</p>
           <ScaledSlider
+            vertical
             knob={Knob}
             link={Link}
             rail={Rail}
@@ -77,6 +79,7 @@ class Example extends React.Component {
         <div>
           <p style={{ marginLeft: "10%" }}>Scaled Slider (mode === 1)</p>
           <ScaledSlider
+            vertical
             knob={Knob}
             link={Link}
             rail={Rail}
@@ -95,6 +98,7 @@ class Example extends React.Component {
         <div>
           <p style={{ marginLeft: "10%" }}>Scaled Slider</p>
           <ScaledSlider
+            vertical
             knob={Knob}
             link={Link}
             rail={Rail}

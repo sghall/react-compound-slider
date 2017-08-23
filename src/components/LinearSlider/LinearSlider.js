@@ -1,10 +1,16 @@
 import React, { PureComponent } from "react";
+import classNames from "classnames";
 import warning from "warning";
 import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 import { scaleLinear, scaleQuantize } from "d3-scale";
 import { mode1, mode2 } from "./modes";
-import { getStepRange, updateValues, getSliderDomain } from "./utils";
+import {
+  classPrefix,
+  getStepRange,
+  updateValues,
+  getSliderDomain
+} from "./utils";
 
 const noop = () => {};
 
@@ -167,15 +173,20 @@ class ScaledSlider extends PureComponent {
       }
     }
 
+    const sliderClassName = classNames(classPrefix, {
+      [`${classPrefix}-disabled`]: disabled,
+      [`${classPrefix}-vertical`]: vertical,
+      [className]: className
+    });
+
     return (
       <div
-        className={className}
+        className={sliderClassName}
         ref={node => (this.slider = node)}
         onMouseDown={disabled ? noop : this.onMouseDown}
       >
         <Rail />
         {links}
-        <div className="rc-slider-step" />
         {values.map(({ key, val }, index) =>
           <Knob
             key={key}
@@ -213,7 +224,9 @@ ScaledSlider.propTypes = {
 
 ScaledSlider.defaultProps = {
   mode: 1,
-  step: 0.1
+  step: 0.1,
+  vertical: false,
+  disabled: false
 };
 
 export default ScaledSlider;
