@@ -5,8 +5,8 @@ import PropTypes from "prop-types";
 const styles = ({ palette: { primary, text } }) => ({
   tick: {
     position: "absolute",
-    "margin-top": "14px",
-    "margin-left": "5px",
+    "margin-top": "0px",
+    "margin-left": "10px",
     height: "2px",
     width: "5px",
     "background-color": primary["500"],
@@ -14,9 +14,10 @@ const styles = ({ palette: { primary, text } }) => ({
   },
   text: {
     position: "absolute",
+    display: "table-cell",
     "margin-left": "22px",
     "font-size": "10px",
-    "text-align": "center",
+    "vertical-align": "middle",
     color: text.secondary
   }
 });
@@ -32,7 +33,6 @@ class Tick extends PureComponent {
         <div
           className={classes.text}
           style={{
-            marginTop: `${-(100 / count) / 2}%`,
             height: `${100 / count}%`,
             top: `${scale(value)}%`
           }}
