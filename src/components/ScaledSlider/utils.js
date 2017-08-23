@@ -49,13 +49,17 @@ function precision(num) {
 
 export function getStepRange(min, max, step) {
   const fixed = precision(step);
+
+  const pMin = +min.toFixed(fixed);
+  const pMax = +max.toFixed(fixed);
+
   const range = [];
 
-  let next = min;
+  let next = pMin;
 
-  while (next <= max) {
-    range.push(+next.toFixed(fixed));
-    next += step;
+  while (next <= pMax) {
+    range.push(next);
+    next = +(next + step).toFixed(fixed);
   }
 
   return range;

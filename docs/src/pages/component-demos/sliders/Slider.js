@@ -50,13 +50,28 @@ class Example extends React.Component {
             rail={Rail}
             tick={Tick}
             mode={2}
-            step={1}
-            domain={[10, 80]}
+            step={0.01}
+            domain={[0, 1]}
             defaultValues={[
-              { key: "cat", val: 20 },
-              { key: "hat", val: 30 },
-              { key: "dog", val: 60 }
+              { key: "cat", val: 0.2 },
+              { key: "hat", val: 0.3 },
+              { key: "dog", val: 0.7 },
+              { key: "bat", val: 0.9 }
             ]}
+            className={classes.slider}
+          />
+        </div>
+        <div>
+          <p style={{ marginLeft: "10%" }}>Scaled Slider (mode === 2)</p>
+          <ScaledSlider
+            knob={Knob}
+            link={Link}
+            rail={Rail}
+            tick={Tick}
+            mode={2}
+            step={5}
+            domain={[0, 100]}
+            defaultValues={[{ key: "cat", val: 10 }, { key: "hat", val: 20 }]}
             className={classes.slider}
           />
         </div>

@@ -20,6 +20,16 @@ class ScaledSlider extends PureComponent {
     const { domain: [min, max], defaultValues, step } = this.props;
     const range = getStepRange(min, max, step);
 
+    warning(
+      range.length <= 10001,
+      `React Electric Slide: Increase step value. Found ${range.length.toLocaleString()} values in range.`
+    );
+
+    warning(
+      range[0] === min && range[range.length - 1] === max,
+      `React Electric Slide: The range is incorrectly calculated consider changing step value.`
+    );
+
     this.valueToStep.range(range).domain([min - step / 2, max + step / 2]);
     this.pixelToStep.range(range);
 
@@ -197,8 +207,8 @@ ScaledSlider.propTypes = {
   step: PropTypes.number.isRequired,
   mode: PropTypes.oneOf([1, 2]).isRequired,
   domain: PropTypes.arrayOf(PropTypes.number).isRequired,
-  defaultValues: PropTypes.arrayOf(PropTypes.object).isRequired,
-  className: PropTypes.string.isRequired
+  className: PropTypes.string.isRequired,
+  defaultValues: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 ScaledSlider.defaultProps = {
