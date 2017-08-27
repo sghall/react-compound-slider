@@ -18,7 +18,6 @@ const styles = {
   slider: {
     position: "relative",
     height: "14px",
-    padding: "5px 0",
     height: "400px",
     "margin-left": "10%",
     "border-radius": "6px",
