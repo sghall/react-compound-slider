@@ -3,7 +3,8 @@ import classNames from "classnames";
 import warning from "warning";
 import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
-import { scaleLinear, scaleQuantize } from "d3-scale";
+import scaleLinear from "d3-scale/src/linear";
+import scaleQuantize from "d3-scale/src/quantize";
 import { mode1, mode2 } from "./modes";
 import { getStepRange, updateValues, getSliderDomain } from "./utils";
 
