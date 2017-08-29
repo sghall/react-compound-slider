@@ -6,8 +6,8 @@ const styles = ({ palette: { text } }) => ({
   root: {
     position: "absolute",
     height: "100%",
-    "background-color": text.secondary,
     width: "4px",
+    "background-color": text.secondary,
     "border-radius": "6px"
   }
 });

@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 const styles = ({ palette: { primary } }) => ({
   root: {
     position: "absolute",
-    "margin-left": "-10px",
+    "margin-left": "-8px",
     "margin-top": "-8px",
     "z-index": 2,
     width: "20px",
@@ -13,9 +13,9 @@ const styles = ({ palette: { primary } }) => ({
     cursor: "pointer",
     cursor: "grab",
     "border-radius": "50%",
-    border: `solid 3px ${primary["200"]}`,
+    border: `solid 4px ${primary["200"]}`,
     "background-color": primary["500"],
-    "touch-action": "pan-x",
+    "box-sizing": "border-box",
 
     "&:hover": {
       "border-color": primary["100"]

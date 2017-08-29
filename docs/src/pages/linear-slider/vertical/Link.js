@@ -5,11 +5,9 @@ import PropTypes from "prop-types";
 const styles = ({ palette: { primary } }) => ({
   root: {
     position: "absolute",
-    left: "-3px",
-    width: "8px",
+    width: "4px",
     "z-index": 1,
-    "background-color": primary["700"],
-    "border-radius": "6px"
+    "background-color": primary["700"]
   }
 });
 
@@ -26,8 +24,8 @@ class Link extends PureComponent {
         <div
           className={classes.root}
           style={{
-            left: "0%",
-            width: `${scale(target.val)}%`
+            top: "0%",
+            height: `${scale(target.val)}%`
           }}
         />
       );

@@ -10,21 +10,9 @@ import Link from "./Link";
 import Tick from "./Tick";
 
 const styles = {
-  form: {
-    margin: "0 auto",
-    padding: "100px 30px 0",
-    width: "80%"
-  },
   slider: {
     position: "relative",
-    height: "14px",
-    height: "400px",
-    "margin-left": "10%",
-    "border-radius": "6px",
-    "touch-action": "none",
-    "box-sizing": "border-box",
-    "-webkit-tap-highlight-color": "rgba(0, 0, 0, 0)",
-    "margin-bottom": "50px"
+    height: "400px"
   }
 };
 
