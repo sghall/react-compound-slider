@@ -11,8 +11,17 @@ import Tick from "./Tick";
 
 const styles = {
   slider: {
+    "margin-left": "50%",
     position: "relative",
     height: "400px"
+  },
+  container: {
+    "text-align": "center",
+    width: "100%",
+    display: "flex"
+  },
+  item: {
+    "flex-grow": 1
   }
 };
 
@@ -27,9 +36,10 @@ class Example extends React.Component {
     const { props: { classes } } = this;
 
     return (
-      <div style={style}>
-        <div>
-          <p style={{ marginLeft: "10%" }}>Scaled Slider (mode === 2)</p>
+      <div className={classes.container}>
+        <div className={classes.item}>
+          <p>Scaled Slider</p>
+          <p>(mode === 2)</p>
           <ScaledSlider
             vertical
             knob={Knob}
@@ -48,8 +58,9 @@ class Example extends React.Component {
             className={classes.slider}
           />
         </div>
-        <div>
-          <p style={{ marginLeft: "10%" }}>Scaled Slider (mode === 2)</p>
+        <div className={classes.item}>
+          <p>Scaled Slider</p>
+          <p>(mode === 2)</p>
           <ScaledSlider
             vertical
             knob={Knob}
@@ -63,8 +74,9 @@ class Example extends React.Component {
             className={classes.slider}
           />
         </div>
-        <div>
-          <p style={{ marginLeft: "10%" }}>Scaled Slider (mode === 1)</p>
+        <div className={classes.item}>
+          <p>Scaled Slider</p>
+          <p>(mode === 1)</p>
           <ScaledSlider
             vertical
             knob={Knob}
@@ -82,8 +94,9 @@ class Example extends React.Component {
             className={classes.slider}
           />
         </div>
-        <div>
-          <p style={{ marginLeft: "10%" }}>Scaled Slider</p>
+        <div className={classes.item}>
+          <p>Scaled Slider</p>
+          <p>(mode === 2)</p>
           <ScaledSlider
             vertical
             knob={Knob}

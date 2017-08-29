@@ -9,15 +9,13 @@ const styles = ({ palette: { primary, text } }) => ({
     "margin-left": "10px",
     height: "2px",
     width: "5px",
-    "background-color": primary["500"],
-    "touch-action": "pan-x"
+    "background-color": primary["500"]
   },
   text: {
     position: "absolute",
-    display: "table-cell",
-    "margin-left": "22px",
+    "margin-top": "-5px",
+    "margin-left": "20px",
     "font-size": "10px",
-    "vertical-align": "middle",
     color: text.secondary
   }
 });
@@ -33,7 +31,6 @@ class Tick extends PureComponent {
         <div
           className={classes.text}
           style={{
-            height: `${100 / count}%`,
             top: `${scale(value)}%`
           }}
         >
