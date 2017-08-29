@@ -5,32 +5,28 @@ import PropTypes from "prop-types";
 const styles = ({ palette: { primary } }) => ({
   root: {
     position: "absolute",
-    "margin-left": "-8px",
-    "margin-top": "-8px",
-    "z-index": 2,
+    marginLeft: "-8px",
+    marginTop: "-10px",
+    zIndex: 2,
     width: "20px",
     height: "20px",
     cursor: "pointer",
     cursor: "grab",
-    "border-radius": "50%",
+    borderRadius: "50%",
     border: `solid 4px ${primary["200"]}`,
-    "background-color": primary["500"],
-    "box-sizing": "border-box",
+    backgroundColor: primary["500"],
 
     "&:hover": {
-      "border-color": primary["100"]
+      borderColor: primary["100"]
     },
 
     "&:active": {
-      "border-color": primary["200"],
-      "box-shadow": "0 0 5px #57c5f7",
+      borderColor: primary["200"],
       cursor: "grabbing"
     },
 
     "&:focus": {
-      "border-color": primary["300"],
-      "box-shadow": "0 0 0 5px #96dbfa",
-      outline: "none"
+      borderColor: primary["300"]
     }
   }
 });
@@ -48,7 +44,6 @@ class Knob extends PureComponent {
         aria-valuemin={domain[0]}
         aria-valuemax={domain[1]}
         aria-valuenow={value}
-        aria-disabled="false"
         style={{ top: `${scale(value)}%` }}
       />
     );

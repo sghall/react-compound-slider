@@ -11,25 +11,19 @@ import Tick from "./Tick";
 
 const styles = {
   slider: {
-    "margin-left": "50%",
+    marginLeft: "45%",
     position: "relative",
     height: "400px"
   },
   container: {
-    "text-align": "center",
+    textAlign: "center",
     width: "100%",
     display: "flex"
   },
   item: {
-    "flex-grow": 1
+    flexGrow: 1
   }
 };
-
-const style = { width: "20%", margin: 5 };
-
-function log(value) {
-  console.log(value); //eslint-disable-line
-}
 
 class Example extends React.Component {
   render() {
@@ -47,13 +41,13 @@ class Example extends React.Component {
             rail={Rail}
             tick={Tick}
             mode={2}
-            step={0.01}
-            domain={[0, 1]}
+            step={2}
+            domain={[0, 100]}
             defaultValues={[
-              { key: "cat", val: 0.2 },
-              { key: "hat", val: 0.3 },
-              { key: "dog", val: 0.7 },
-              { key: "bat", val: 0.9 }
+              { key: "cat", val: 10 },
+              { key: "hat", val: 20 },
+              { key: "dog", val: 50 },
+              { key: "bat", val: 60 }
             ]}
             className={classes.slider}
           />
