@@ -69,7 +69,7 @@ class ScaledSlider extends PureComponent {
     e.preventDefault();
 
     const active = Object.keys(handles).find(key => {
-      return e.target === this.handles[key].node;
+      return e.target === handles[key].node;
     });
 
     if (active) {
@@ -106,7 +106,7 @@ class ScaledSlider extends PureComponent {
     }
   };
 
-  onMouseUp = e => {
+  onMouseUp = () => {
     this.removeMouseEvents();
   };
 
@@ -118,6 +118,76 @@ class ScaledSlider extends PureComponent {
   removeMouseEvents() {
     document.removeEventListener("mousemove", this.onMouseMove);
     document.removeEventListener("mouseup", this.onMouseUp);
+  }
+
+  onTouchStart = e => {
+    const { handles } = this;
+
+    if (this.isNotValidTouch(e)) return;
+
+    e.stopPropagation();
+    e.preventDefault();
+
+    const active = Object.keys(handles).find(key => {
+      return e.target === handles[key].node;
+    });
+
+    if (active) {
+      this.active = active;
+      this.addTouchEvents();
+    }
+  };
+
+  onTouchMove = e => {
+    const { state: { values: prev }, props: { vertical, domain, mode } } = this;
+    const { active, slider } = this;
+
+    if (this.isNotValidTouch(e)) return;
+
+    this.pixelToStep.domain(getSliderDomain(slider, vertical));
+
+    const step = this.pixelToStep(this.getTouchPosition(vertical, e));
+    const next = updateValues(prev, active, step);
+
+    if (next !== prev) {
+      let values;
+
+      switch (mode) {
+        case 1:
+          values = mode1(prev, next);
+          break;
+        case 2:
+          values = mode2(prev, next);
+          break;
+        default:
+          values = next;
+          warning(false, "React Electric Slide: Invalid mode value.");
+      }
+
+      this.setState({ values });
+    }
+  };
+
+  onTouchEnd = () => {
+    this.removeTouchEvents();
+  };
+
+  isNotValidTouch({ type, touches: { length } }) {
+    return length > 1 || (type.toLowerCase() === "touchend" && length > 0);
+  }
+
+  getTouchPosition(vertical, e) {
+    return vertical ? e.touches[0].clientY : e.touches[0].pageX;
+  }
+
+  addTouchEvents() {
+    document.addEventListener("touchmove", this.onTouchMove);
+    document.addEventListener("touchend", this.onTouchEnd);
+  }
+
+  removeTouchEvents() {
+    document.removeEventListener("touchmove", this.onTouchMove);
+    document.removeEventListener("touchend", this.onTouchEnd);
   }
 
   slider = null;
@@ -178,6 +248,7 @@ class ScaledSlider extends PureComponent {
       <div
         className={sliderClassName}
         ref={node => (this.slider = node)}
+        onTouchStart={disabled ? noop : this.onTouchStart}
         onMouseDown={disabled ? noop : this.onMouseDown}
       >
         <Rail />
