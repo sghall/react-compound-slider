@@ -5,17 +5,17 @@ import PropTypes from "prop-types";
 const styles = ({ palette: { primary, text } }) => ({
   tick: {
     position: "absolute",
-    "margin-top": "-1px",
-    "margin-left": "10px",
-    height: "2px",
+    marginTop: "-0.5px",
+    marginLeft: "10px",
+    height: "1px",
     width: "6px",
-    "background-color": primary["500"]
+    backgroundColor: primary["500"]
   },
   text: {
     position: "absolute",
-    "margin-top": "-5px",
-    "margin-left": "20px",
-    "font-size": "10px",
+    marginTop: "-5px",
+    marginLeft: "20px",
+    fontSize: "10px",
     color: text.secondary
   }
 });

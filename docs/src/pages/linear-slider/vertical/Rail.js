@@ -7,7 +7,8 @@ const styles = ({ palette: { text } }) => ({
     position: "absolute",
     height: "100%",
     width: "4px",
-    "background-color": text.secondary
+    borderRadius: "2px",
+    backgroundColor: text.secondary
   }
 });
 

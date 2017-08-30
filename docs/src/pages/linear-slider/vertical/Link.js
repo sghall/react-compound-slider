@@ -5,9 +5,11 @@ import PropTypes from "prop-types";
 const styles = ({ palette: { primary } }) => ({
   root: {
     position: "absolute",
-    width: "4px",
-    "z-index": 1,
-    "background-color": primary["700"]
+    width: "8px",
+    zIndex: 1,
+    marginLeft: "-2px",
+    borderRadius: "4px",
+    backgroundColor: primary["700"]
   }
 });
 
