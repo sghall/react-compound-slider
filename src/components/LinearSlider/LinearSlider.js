@@ -215,7 +215,8 @@ class ScaledSlider extends PureComponent {
         tick: Tick,
         vertical,
         disabled,
-        className
+        className,
+        rootStyle
       }
     } = this;
 
@@ -246,6 +247,7 @@ class ScaledSlider extends PureComponent {
 
     return (
       <div
+        style={rootStyle || {}}
         className={className}
         ref={node => (this.slider = node)}
         onTouchStart={disabled ? noop : this.onTouchStart}
@@ -287,6 +289,7 @@ ScaledSlider.propTypes = {
   vertical: PropTypes.bool.isRequired,
   disabled: PropTypes.bool.isRequired,
   className: PropTypes.string,
+  rootStyle: PropTypes.object,
   onUpdate: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   defaultValues: PropTypes.arrayOf(PropTypes.object).isRequired

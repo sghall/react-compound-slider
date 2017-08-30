@@ -91,7 +91,6 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
-    "classnames": "^2.2.5",
     "d3-scale": "^1.0.6",
     "prop-types": "^15.5.8",
     "warning": "^3.0.0"

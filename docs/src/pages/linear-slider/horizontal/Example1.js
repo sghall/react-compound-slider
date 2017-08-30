@@ -4,6 +4,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "material-ui/styles";
 import { ScaledSlider } from "react-electric-slide";
+import ValueViewer from "./ValueViewer";
+
 import Knob from "./Knob";
 import Rail from "./Rail";
 import Link from "./Link";
@@ -12,27 +14,21 @@ import Tick from "./Tick";
 const styles = {
   slider: {
     position: "relative",
-    width: "80%"
-  },
-  container: {
-    textAlign: "center",
-    width: "100%",
-    display: "flex"
-  },
-  item: {
-    flexGrow: 1
+    width: "100%"
   }
 };
 
+const defaultValues = [
+  { key: "cat", val: 100 },
+  { key: "hat", val: 200 },
+  { key: "dog", val: 400 },
+  { key: "bat", val: 450 }
+];
+
 class Example extends React.Component {
   state = {
-    values: [
-      { key: "cat", val: 100 },
-      { key: "hat", val: 200 },
-      { key: "dog", val: 500 },
-      { key: "bat", val: 900 }
-    ],
-    update: []
+    values: defaultValues,
+    update: defaultValues
   };
 
   onUpdate = update => {
@@ -47,31 +43,24 @@ class Example extends React.Component {
     const { state: { values, update }, props: { classes } } = this;
 
     return (
-      <div className={classes.container}>
-        <div className={classes.item}>
-          <p>mode 2</p>
-          <div className={classes.container}>
-            {values.map(d =>
-              <div className={classes.item}>
-                {d.val}
-              </div>
-            )}
-          </div>
-          {update.map(d => d.val).toString()}
-          <ScaledSlider
-            knob={Knob}
-            link={Link}
-            rail={Rail}
-            tick={Tick}
-            mode={2}
-            step={10}
-            domain={[0, 1000]}
-            onUpdate={this.onUpdate}
-            onChange={this.onChange}
-            defaultValues={values}
-            className={classes.slider}
-          />
-        </div>
+      <div style={{ height: 100, width: "100%" }}>
+        <ValueViewer values={values} update={update} />
+        <ScaledSlider
+          rootStyle={{
+            position: "relative",
+            width: "100%"
+          }}
+          knob={Knob}
+          link={Link}
+          rail={Rail}
+          tick={Tick}
+          mode={2}
+          step={10}
+          domain={[100, 500]}
+          onUpdate={this.onUpdate}
+          onChange={this.onChange}
+          defaultValues={values}
+        />
       </div>
     );
   }
