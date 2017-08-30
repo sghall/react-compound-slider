@@ -32,8 +32,7 @@ class Example extends React.Component {
     return (
       <div className={classes.container}>
         <div className={classes.item}>
-          <p>Scaled Slider</p>
-          <p>(mode === 2)</p>
+          <p>mode 2</p>
           <ScaledSlider
             vertical
             knob={Knob}
@@ -41,7 +40,7 @@ class Example extends React.Component {
             rail={Rail}
             tick={Tick}
             mode={2}
-            step={2}
+            step={0.5}
             domain={[0, 100]}
             defaultValues={[
               { key: "cat", val: 10 },
@@ -53,8 +52,7 @@ class Example extends React.Component {
           />
         </div>
         <div className={classes.item}>
-          <p>Scaled Slider</p>
-          <p>(mode === 2)</p>
+          <p>mode 2</p>
           <ScaledSlider
             vertical
             knob={Knob}
@@ -69,8 +67,7 @@ class Example extends React.Component {
           />
         </div>
         <div className={classes.item}>
-          <p>Scaled Slider</p>
-          <p>(mode === 1)</p>
+          <p>mode 1</p>
           <ScaledSlider
             vertical
             knob={Knob}
@@ -89,8 +86,7 @@ class Example extends React.Component {
           />
         </div>
         <div className={classes.item}>
-          <p>Scaled Slider</p>
-          <p>(mode === 2)</p>
+          <p>mode 2</p>
           <ScaledSlider
             vertical
             knob={Knob}

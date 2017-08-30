@@ -49,13 +49,13 @@ class Example extends React.Component {
             rail={Rail}
             tick={Tick}
             mode={2}
-            step={0.01}
-            domain={[0, 1]}
+            step={10}
+            domain={[0, 1000]}
             defaultValues={[
-              { key: "cat", val: 0.2 },
-              { key: "hat", val: 0.3 },
-              { key: "dog", val: 0.7 },
-              { key: "bat", val: 0.9 }
+              { key: "cat", val: 100 },
+              { key: "hat", val: 200 },
+              { key: "dog", val: 500 },
+              { key: "bat", val: 900 }
             ]}
             className={classes.slider}
           />

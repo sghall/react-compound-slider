@@ -1,5 +1,4 @@
 import React, { PureComponent } from "react";
-import classNames from "classnames";
 import warning from "warning";
 import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
@@ -22,6 +21,9 @@ class ScaledSlider extends PureComponent {
     const { domain: [min, max], defaultValues, step } = this.props;
     const range = getStepRange(min, max, step);
 
+    this.valueToStep.range(range).domain([min - step / 2, max + step / 2]);
+    this.pixelToStep.range(range);
+
     warning(
       range.length <= 10001,
       `React Electric Slide: Increase step value. Found ${range.length.toLocaleString()} values in range.`
@@ -29,11 +31,8 @@ class ScaledSlider extends PureComponent {
 
     warning(
       range[0] === min && range[range.length - 1] === max,
-      `React Electric Slide: The range is incorrectly calculated consider changing step value.`
+      `React Electric Slide: The range is incorrectly calculated. Consider changing step value.`
     );
-
-    this.valueToStep.range(range).domain([min - step / 2, max + step / 2]);
-    this.pixelToStep.range(range);
 
     this.setState(() => {
       const values = [];
@@ -79,7 +78,10 @@ class ScaledSlider extends PureComponent {
   };
 
   onMouseMove = e => {
-    const { state: { values: prev }, props: { vertical, domain, mode } } = this;
+    const {
+      state: { values: prev },
+      props: { vertical, domain, mode, onUpdate }
+    } = this;
     const { active, slider } = this;
 
     this.pixelToStep.domain(getSliderDomain(slider, vertical));
@@ -102,11 +104,14 @@ class ScaledSlider extends PureComponent {
           warning(false, "React Electric Slide: Invalid mode value.");
       }
 
+      onUpdate(values);
       this.setState({ values });
     }
   };
 
   onMouseUp = () => {
+    const { state: { values }, props: { onChange } } = this;
+    onChange(values);
     this.removeMouseEvents();
   };
 
@@ -169,6 +174,8 @@ class ScaledSlider extends PureComponent {
   };
 
   onTouchEnd = () => {
+    const { state: { values }, props: { onChange } } = this;
+    onChange(values);
     this.removeTouchEvents();
   };
 
@@ -208,8 +215,7 @@ class ScaledSlider extends PureComponent {
         tick: Tick,
         vertical,
         disabled,
-        className,
-        classPrefix
+        className
       }
     } = this;
 
@@ -238,15 +244,9 @@ class ScaledSlider extends PureComponent {
       }
     }
 
-    const sliderClassName = classNames(classPrefix, {
-      [`${classPrefix}-disabled`]: disabled,
-      [`${classPrefix}-vertical`]: vertical,
-      [className]: className
-    });
-
     return (
       <div
-        className={sliderClassName}
+        className={className}
         ref={node => (this.slider = node)}
         onTouchStart={disabled ? noop : this.onTouchStart}
         onMouseDown={disabled ? noop : this.onMouseDown}
@@ -287,7 +287,8 @@ ScaledSlider.propTypes = {
   vertical: PropTypes.bool.isRequired,
   disabled: PropTypes.bool.isRequired,
   className: PropTypes.string,
-  classPrefix: PropTypes.string.isRequired,
+  onUpdate: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
   defaultValues: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
@@ -296,7 +297,8 @@ ScaledSlider.defaultProps = {
   step: 0.1,
   vertical: false,
   disabled: false,
-  classPrefix: "react-electric-slide"
+  onUpdate: noop,
+  onChange: noop
 };
 
 export default ScaledSlider;
