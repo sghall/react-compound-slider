@@ -89,10 +89,10 @@ const Tick = ({ value, index, count, scale }) => {
         style={{
           position: "absolute",
           marginTop: "14px",
-          marginLeft: "-1.5px",
-          width: "2px",
+          marginLeft: "-0.5px",
+          width: "1px",
           height: "5px",
-          backgroundColor: "#455a64",
+          backgroundColor: "rgb(200,200,200)",
           left: `${scale(value)}%`
         }}
       />
@@ -117,7 +117,7 @@ const Tick = ({ value, index, count, scale }) => {
 // *******************************************************
 // SLIDER EXAMPLE
 // *******************************************************
-const defaultValues = [{ key: "cat", val: 150 }];
+const defaultValues = [{ key: "cat", val: 320 }];
 
 class Example extends Component {
   state = {

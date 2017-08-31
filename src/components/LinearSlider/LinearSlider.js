@@ -78,16 +78,33 @@ class ScaledSlider extends PureComponent {
   };
 
   onMouseMove = e => {
-    const {
-      state: { values: prev },
-      props: { vertical, domain, mode, onUpdate }
-    } = this;
+    const { state: { values: prev }, props: { vertical, domain } } = this;
     const { active, slider } = this;
 
     this.pixelToStep.domain(getSliderDomain(slider, vertical));
 
     const step = this.pixelToStep(vertical ? e.clientY : e.pageX);
     const next = updateValues(prev, active, step);
+
+    this.onMove(prev, next);
+  };
+
+  onTouchMove = e => {
+    const { state: { values: prev }, props: { vertical, domain, mode } } = this;
+    const { active, slider } = this;
+
+    if (this.isNotValidTouch(e)) return;
+
+    this.pixelToStep.domain(getSliderDomain(slider, vertical));
+
+    const step = this.pixelToStep(this.getTouchPosition(vertical, e));
+    const next = updateValues(prev, active, step);
+
+    this.onMove(prev, next);
+  };
+
+  onMove = (prev, next) => {
+    const { mode, onUpdate } = this.props;
 
     if (next !== prev) {
       let values;
@@ -143,36 +160,6 @@ class ScaledSlider extends PureComponent {
     }
   };
 
-  onTouchMove = e => {
-    const { state: { values: prev }, props: { vertical, domain, mode } } = this;
-    const { active, slider } = this;
-
-    if (this.isNotValidTouch(e)) return;
-
-    this.pixelToStep.domain(getSliderDomain(slider, vertical));
-
-    const step = this.pixelToStep(this.getTouchPosition(vertical, e));
-    const next = updateValues(prev, active, step);
-
-    if (next !== prev) {
-      let values;
-
-      switch (mode) {
-        case 1:
-          values = mode1(prev, next);
-          break;
-        case 2:
-          values = mode2(prev, next);
-          break;
-        default:
-          values = next;
-          warning(false, "React Electric Slide: Invalid mode value.");
-      }
-
-      this.setState({ values });
-    }
-  };
-
   onTouchEnd = () => {
     const { state: { values }, props: { onChange } } = this;
     onChange(values);
@@ -213,10 +200,10 @@ class ScaledSlider extends PureComponent {
         disabled,
         className,
         rootStyle,
-        knobComponent: Knob,
-        railComponent: Rail,
-        linkComponent: Link,
-        tickComponent: Tick
+        knobComponent,
+        railComponent,
+        linkComponent,
+        tickComponent
       }
     } = this;
 
@@ -225,7 +212,7 @@ class ScaledSlider extends PureComponent {
     let ticks = this.scale.ticks();
     let links = null;
 
-    if (Link) {
+    if (linkComponent) {
       links = [];
 
       for (let i = 0; i < values.length + 1; i++) {
@@ -233,7 +220,7 @@ class ScaledSlider extends PureComponent {
         const t = values[i];
 
         links.push(
-          React.cloneElement(Link, {
+          React.cloneElement(linkComponent, {
             key: `${s ? s.key : "$"}-${t ? t.key : "$"}`,
             index: i,
             count: values.length,
@@ -253,10 +240,10 @@ class ScaledSlider extends PureComponent {
         onTouchStart={disabled ? noop : this.onTouchStart}
         onMouseDown={disabled ? noop : this.onMouseDown}
       >
-        {React.cloneElement(Rail, { vertical, disabled })}
+        {React.cloneElement(railComponent, { vertical, disabled })}
         {links}
         {values.map(({ key, val: value }, index) =>
-          React.cloneElement(Knob, {
+          React.cloneElement(knobComponent, {
             ref: node => this.saveHandle(key, node),
             key,
             index,
@@ -265,7 +252,7 @@ class ScaledSlider extends PureComponent {
           })
         )}
         {ticks.map((value, index) =>
-          React.cloneElement(Tick, {
+          React.cloneElement(tickComponent, {
             key: `key-${value}`,
             value,
             index,
@@ -289,9 +276,9 @@ ScaledSlider.propTypes = {
   className: PropTypes.string,
   rootStyle: PropTypes.object,
   knobComponent: PropTypes.element,
-  linkComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
-  railComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
-  tickComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
+  linkComponent: PropTypes.element,
+  railComponent: PropTypes.element,
+  tickComponent: PropTypes.element,
   defaultValues: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 

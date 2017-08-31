@@ -90,10 +90,10 @@ const Tick = ({ value, index, count, scale }) => {
         style={{
           position: "absolute",
           marginTop: "14px",
-          marginLeft: "-1.5px",
-          width: "2px",
+          marginLeft: "-0.5px",
+          width: "1px",
           height: "5px",
-          backgroundColor: "#455a64",
+          backgroundColor: "rgb(200,200,200)",
           left: `${scale(value)}%`
         }}
       />
