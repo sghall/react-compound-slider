@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import scaleLinear from "d3-scale/src/linear";
 import scaleQuantize from "d3-scale/src/quantize";
 import { mode1, mode2 } from "./modes";
-import { getStepRange, updateValues, getSliderDomain } from "./utils";
+import * as utils from "./utils";
 
 const noop = () => {};
 
@@ -19,7 +19,7 @@ class ScaledSlider extends PureComponent {
 
   componentWillMount() {
     const { domain: [min, max], defaultValues, step } = this.props;
-    const range = getStepRange(min, max, step);
+    const range = utils.getStepRange(min, max, step);
 
     this.valueToStep.range(range).domain([min - step / 2, max + step / 2]);
     this.pixelToStep.range(range);
@@ -62,6 +62,15 @@ class ScaledSlider extends PureComponent {
   }
 
   onMouseDown = e => {
+    this.onStart(e, false);
+  };
+
+  onTouchStart = e => {
+    if (utils.isNotValidTouch(e)) return;
+    this.onStart(e, true);
+  };
+
+  onStart = (e, isTouch) => {
     const { handles } = this;
 
     e.stopPropagation();
@@ -73,18 +82,28 @@ class ScaledSlider extends PureComponent {
 
     if (active) {
       this.active = active;
-      this.addMouseEvents();
+      isTouch ? this.addTouchEvents() : this.addMouseEvents();
     }
   };
+
+  addMouseEvents() {
+    document.addEventListener("mousemove", this.onMouseMove);
+    document.addEventListener("mouseup", this.onMouseUp);
+  }
+
+  addTouchEvents() {
+    document.addEventListener("touchmove", this.onTouchMove);
+    document.addEventListener("touchend", this.onTouchEnd);
+  }
 
   onMouseMove = e => {
     const { state: { values: prev }, props: { vertical, domain } } = this;
     const { active, slider } = this;
 
-    this.pixelToStep.domain(getSliderDomain(slider, vertical));
+    this.pixelToStep.domain(utils.getSliderDomain(slider, vertical));
 
     const step = this.pixelToStep(vertical ? e.clientY : e.pageX);
-    const next = updateValues(prev, active, step);
+    const next = utils.updateValues(prev, active, step);
 
     this.onMove(prev, next);
   };
@@ -93,12 +112,12 @@ class ScaledSlider extends PureComponent {
     const { state: { values: prev }, props: { vertical, domain, mode } } = this;
     const { active, slider } = this;
 
-    if (this.isNotValidTouch(e)) return;
+    if (utils.isNotValidTouch(e)) return;
 
-    this.pixelToStep.domain(getSliderDomain(slider, vertical));
+    this.pixelToStep.domain(utils.getSliderDomain(slider, vertical));
 
-    const step = this.pixelToStep(this.getTouchPosition(vertical, e));
-    const next = updateValues(prev, active, step);
+    const step = this.pixelToStep(utils.getTouchPosition(vertical, e));
+    const next = utils.updateValues(prev, active, step);
 
     this.onMove(prev, next);
   };
@@ -132,52 +151,16 @@ class ScaledSlider extends PureComponent {
     this.removeMouseEvents();
   };
 
-  addMouseEvents() {
-    document.addEventListener("mousemove", this.onMouseMove);
-    document.addEventListener("mouseup", this.onMouseUp);
-  }
-
   removeMouseEvents() {
     document.removeEventListener("mousemove", this.onMouseMove);
     document.removeEventListener("mouseup", this.onMouseUp);
   }
-
-  onTouchStart = e => {
-    const { handles } = this;
-
-    if (this.isNotValidTouch(e)) return;
-
-    e.stopPropagation();
-    e.preventDefault();
-
-    const active = Object.keys(handles).find(key => {
-      return e.target === handles[key].node;
-    });
-
-    if (active) {
-      this.active = active;
-      this.addTouchEvents();
-    }
-  };
 
   onTouchEnd = () => {
     const { state: { values }, props: { onChange } } = this;
     onChange(values);
     this.removeTouchEvents();
   };
-
-  isNotValidTouch({ type, touches: { length } }) {
-    return length > 1 || (type.toLowerCase() === "touchend" && length > 0);
-  }
-
-  getTouchPosition(vertical, e) {
-    return vertical ? e.touches[0].clientY : e.touches[0].pageX;
-  }
-
-  addTouchEvents() {
-    document.addEventListener("touchmove", this.onTouchMove);
-    document.addEventListener("touchend", this.onTouchEnd);
-  }
 
   removeTouchEvents() {
     document.removeEventListener("touchmove", this.onTouchMove);

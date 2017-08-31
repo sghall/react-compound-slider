@@ -64,3 +64,11 @@ export function getStepRange(min, max, step) {
 
   return range;
 }
+
+export function isNotValidTouch({ type, touches: { length } }) {
+  return length > 1 || (type.toLowerCase() === "touchend" && length > 0);
+}
+
+export function getTouchPosition(vertical, e) {
+  return vertical ? e.touches[0].clientY : e.touches[0].pageX;
+}
