@@ -11,10 +11,12 @@ const styles = {
   container: {
     width: "50%",
     display: "flex",
+    textAlign: "center",
     fontFamily: "monospace"
   },
   item: {
-    flexGrow: 1
+    flexGrow: 1,
+    border: "1px solid rgba(255,255,255,0.3)"
   }
 };
 
