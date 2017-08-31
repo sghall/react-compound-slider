@@ -4,8 +4,6 @@ import React, { Component } from "react";
 import { ScaledSlider } from "react-electric-slide";
 import ValueViewer from "./ValueViewer";
 
-import Tick from "./Tick";
-
 // *******************************************************
 // RAIL RENDERER
 // *******************************************************
@@ -65,11 +63,11 @@ class Knob extends Component {
         style={{
           left: `${scale(value)}%`,
           position: "absolute",
-          marginLeft: "-10px",
-          marginTop: "-8px",
+          marginLeft: "-12px",
+          marginTop: "-10px",
           zIndex: 2,
-          width: "20px",
-          height: "20px",
+          width: "24px",
+          height: "24px",
           cursor: "pointer",
           borderRadius: "50%",
           border: "solid 4px rgb(200,200,200)",
@@ -79,6 +77,43 @@ class Knob extends Component {
     );
   }
 }
+
+// *******************************************************
+// TICK COMPONENT
+// *******************************************************
+const Tick = ({ value, index, count, scale }) => {
+  const domain = scale.domain();
+
+  return (
+    <div>
+      <div
+        style={{
+          position: "absolute",
+          marginTop: "14px",
+          marginLeft: "-1.5px",
+          width: "2px",
+          height: "5px",
+          backgroundColor: "#455a64",
+          left: `${scale(value)}%`
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          marginTop: "22px",
+          fontSize: "10px",
+          textAlign: "center",
+          color: "white",
+          marginLeft: `${-(100 / count) / 2}%`,
+          width: `${100 / count}%`,
+          left: `${scale(value)}%`
+        }}
+      >
+        {value}
+      </div>
+    </div>
+  );
+};
 
 const defaultValues = [
   { key: "cat", val: 150 },
