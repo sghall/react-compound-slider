@@ -18,11 +18,13 @@ class ScaledSlider extends PureComponent {
   state = { values: [] };
 
   componentWillMount() {
-    const { domain: [min, max], defaultValues, step } = this.props;
+    const { domain: [min, max], defaultValues, step, reversed } = this.props;
     const range = utils.getStepRange(min, max, step);
 
-    this.valueToStep.range(range).domain([min - step / 2, max + step / 2]);
-    this.pixelToStep.range(range);
+    warning(
+      max > min,
+      `React Electric Slide: Max must be greater than min (even if reversed). Max is ${max}. Min is ${min}.`
+    );
 
     warning(
       range.length <= 10001,
@@ -31,8 +33,11 @@ class ScaledSlider extends PureComponent {
 
     warning(
       range[0] === min && range[range.length - 1] === max,
-      `React Electric Slide: The range is incorrectly calculated. Consider changing step value.`
+      `React Electric Slide: The range is incorrectly calculated. Check domain (min, max) and step values.`
     );
+
+    this.valueToStep.range(range).domain([min - step / 2, max + step / 2]);
+    this.pixelToStep.range(range);
 
     this.setState(() => {
       const values = [];
@@ -270,6 +275,7 @@ ScaledSlider.defaultProps = {
   step: 0.1,
   vertical: false,
   disabled: false,
+  reversed: false,
   onUpdate: noop,
   onChange: noop
 };
