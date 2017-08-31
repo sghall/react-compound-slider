@@ -253,16 +253,16 @@ class ScaledSlider extends PureComponent {
         onTouchStart={disabled ? noop : this.onTouchStart}
         onMouseDown={disabled ? noop : this.onMouseDown}
       >
-        <Rail />
+        {React.cloneElement(Rail, { vertical, disabled })}
         {links}
-        {values.map(({ key, val }, index) =>
-          <Knob
-            key={key}
-            ref={node => this.saveHandle(key, node)}
-            index={index}
-            value={val}
-            scale={this.scale}
-          />
+        {values.map(({ key, val: value }, index) =>
+          React.cloneElement(Knob, {
+            ref: node => this.saveHandle(key, node),
+            key,
+            index,
+            value,
+            scale: this.scale
+          })
         )}
         {ticks.map((val, index) =>
           <Tick
@@ -288,7 +288,7 @@ ScaledSlider.propTypes = {
   onChange: PropTypes.func.isRequired,
   className: PropTypes.string,
   rootStyle: PropTypes.object,
-  knobComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
+  knobComponent: PropTypes.element,
   linkComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
   railComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
   tickComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),

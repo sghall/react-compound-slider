@@ -118,9 +118,9 @@ class Example extends Component {
           onUpdate={this.onUpdate}
           onChange={this.onChange}
           defaultValues={values}
-          knobComponent={Knob}
+          knobComponent={<Knob />}
           linkComponent={Link}
-          railComponent={Rail}
+          railComponent={<Rail />}
           tickComponent={Tick}
         />
       </div>
