@@ -288,10 +288,10 @@ ScaledSlider.propTypes = {
   onChange: PropTypes.func.isRequired,
   className: PropTypes.string,
   rootStyle: PropTypes.object,
-  knobComponent: PropTypes.any.isRequired,
-  linkComponent: PropTypes.any.isRequired,
-  railComponent: PropTypes.any.isRequired,
-  tickComponent: PropTypes.any.isRequired,
+  knobComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
+  linkComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
+  railComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
+  tickComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
   defaultValues: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
