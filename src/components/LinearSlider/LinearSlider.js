@@ -10,7 +10,7 @@ import * as utils from "./utils";
 const noop = () => {};
 
 class ScaledSlider extends PureComponent {
-  scale = scaleLinear().range([0, 100]).clamp(true);
+  scale = scaleLinear().clamp(true);
 
   valueToStep = scaleQuantize();
   pixelToStep = scaleQuantize();
@@ -20,6 +20,17 @@ class ScaledSlider extends PureComponent {
   componentWillMount() {
     const { domain: [min, max], defaultValues, step, reversed } = this.props;
     const range = utils.getStepRange(min, max, step);
+
+    this.valueToStep
+      .range(range.slice())
+      .domain([min - step / 2, max + step / 2]);
+
+    if (reversed === true) {
+      this.scale.domain([min, max]).range([100, 0]);
+      range.reverse();
+    } else {
+      this.scale.domain([min, max]).range([0, 100]);
+    }
 
     warning(
       max > min,
@@ -31,12 +42,13 @@ class ScaledSlider extends PureComponent {
       `React Electric Slide: Increase step value. Found ${range.length.toLocaleString()} values in range.`
     );
 
+    const last = range.length - 1;
+
     warning(
-      range[0] === min && range[range.length - 1] === max,
+      range[reversed ? last : 0] === min && range[reversed ? 0 : last] === max,
       `React Electric Slide: The range is incorrectly calculated. Check domain (min, max) and step values.`
     );
 
-    this.valueToStep.range(range).domain([min - step / 2, max + step / 2]);
     this.pixelToStep.range(range);
 
     this.setState(() => {
@@ -102,7 +114,7 @@ class ScaledSlider extends PureComponent {
   }
 
   onMouseMove = e => {
-    const { state: { values: prev }, props: { vertical, domain } } = this;
+    const { state: { values: prev }, props: { vertical, reversed } } = this;
     const { active, slider } = this;
 
     this.pixelToStep.domain(utils.getSliderDomain(slider, vertical));
@@ -114,7 +126,7 @@ class ScaledSlider extends PureComponent {
   };
 
   onTouchMove = e => {
-    const { state: { values: prev }, props: { vertical, domain, mode } } = this;
+    const { state: { values: prev }, props: { vertical, mode } } = this;
     const { active, slider } = this;
 
     if (utils.isNotValidTouch(e)) return;
@@ -194,8 +206,6 @@ class ScaledSlider extends PureComponent {
         tickComponent
       }
     } = this;
-
-    this.scale.domain(domain);
 
     let ticks = this.scale.ticks();
     let links = null;
