@@ -209,14 +209,14 @@ class ScaledSlider extends PureComponent {
       state: { values },
       props: {
         domain,
-        knob: Knob,
-        rail: Rail,
-        link: Link,
-        tick: Tick,
         vertical,
         disabled,
         className,
-        rootStyle
+        rootStyle,
+        knobComponent: Knob,
+        railComponent: Rail,
+        linkComponent: Link,
+        tickComponent: Tick
       }
     } = this;
 
@@ -279,19 +279,19 @@ class ScaledSlider extends PureComponent {
 }
 
 ScaledSlider.propTypes = {
-  knob: PropTypes.any.isRequired,
-  link: PropTypes.any.isRequired,
-  rail: PropTypes.any.isRequired,
-  tick: PropTypes.any.isRequired,
   step: PropTypes.number.isRequired,
   mode: PropTypes.oneOf([1, 2]).isRequired,
   domain: PropTypes.arrayOf(PropTypes.number).isRequired,
   vertical: PropTypes.bool.isRequired,
   disabled: PropTypes.bool.isRequired,
-  className: PropTypes.string,
-  rootStyle: PropTypes.object,
   onUpdate: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
+  className: PropTypes.string,
+  rootStyle: PropTypes.object,
+  knobComponent: PropTypes.any.isRequired,
+  linkComponent: PropTypes.any.isRequired,
+  railComponent: PropTypes.any.isRequired,
+  tickComponent: PropTypes.any.isRequired,
   defaultValues: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 

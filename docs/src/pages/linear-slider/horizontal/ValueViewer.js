@@ -25,7 +25,7 @@ class ValueViewer extends React.Component {
     const { classes, values, update } = this.props;
 
     return (
-      <div style={{ width: "100%" }}>
+      <div style={{ marginTop: 10, width: "100%" }}>
         <div className={classes.container}>
           <div className={classes.item}>onChange:</div>
           {values.map(d =>
