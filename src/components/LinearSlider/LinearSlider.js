@@ -233,14 +233,14 @@ class ScaledSlider extends PureComponent {
         const t = values[i];
 
         links.push(
-          <Link
-            key={`${s ? s.key : "$"}-${t ? t.key : "$"}`}
-            index={i}
-            count={values.length}
-            scale={this.scale}
-            source={s || null}
-            target={t || null}
-          />
+          React.cloneElement(Link, {
+            key: `${s ? s.key : "$"}-${t ? t.key : "$"}`,
+            index: i,
+            count: values.length,
+            scale: this.scale,
+            source: s || null,
+            target: t || null
+          })
         );
       }
     }
@@ -264,14 +264,14 @@ class ScaledSlider extends PureComponent {
             scale: this.scale
           })
         )}
-        {ticks.map((val, index) =>
-          <Tick
-            key={`key-${val}`}
-            index={index}
-            count={values.length}
-            value={val}
-            scale={this.scale}
-          />
+        {ticks.map((value, index) =>
+          React.cloneElement(Tick, {
+            key: `key-${value}`,
+            value,
+            index,
+            count: values.length,
+            scale: this.scale
+          })
         )}
       </div>
     );

@@ -72,7 +72,7 @@ class Knob extends Component {
           height: "20px",
           cursor: "pointer",
           borderRadius: "50%",
-          border: "solid 4px rgb(155,155,155)",
+          border: "solid 4px rgb(200,200,200)",
           backgroundColor: "#455a64"
         }}
       />
@@ -112,16 +112,16 @@ class Example extends Component {
             position: "relative",
             width: "100%"
           }}
-          mode={1}
+          mode={2}
           step={10}
           domain={[100, 500]}
           onUpdate={this.onUpdate}
           onChange={this.onChange}
           defaultValues={values}
           knobComponent={<Knob />}
-          linkComponent={Link}
+          linkComponent={<Link />}
           railComponent={<Rail />}
-          tickComponent={Tick}
+          tickComponent={<Tick />}
         />
       </div>
     );
