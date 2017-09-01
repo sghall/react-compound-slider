@@ -1,4 +1,4 @@
-function sortByVal(a, b) {
+export function sortByVal(a, b) {
   if (a.val > b.val) {
     return 1;
   }

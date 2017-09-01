@@ -193,19 +193,24 @@ class ScaledSlider extends PureComponent {
 
   render() {
     const {
-      state: { values },
-      props: {
-        domain,
-        vertical,
-        disabled,
-        className,
-        rootStyle,
-        knobComponent,
-        railComponent,
-        linkComponent,
-        tickComponent
-      }
-    } = this;
+      domain,
+      vertical,
+      disabled,
+      reversed,
+      className,
+      rootStyle,
+      knobComponent,
+      railComponent,
+      linkComponent,
+      tickComponent
+    } = this.props;
+
+    const values = this.state.values.map(d => ({ ...d }));
+    values.sort(utils.sortByVal);
+
+    if (reversed === true) {
+      values.reverse();
+    }
 
     let ticks = this.scale.ticks();
     let links = null;
@@ -285,7 +290,7 @@ ScaledSlider.defaultProps = {
   step: 0.1,
   vertical: false,
   disabled: false,
-  reversed: false,
+  reversed: true,
   onUpdate: noop,
   onChange: noop
 };
