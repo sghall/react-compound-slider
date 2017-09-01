@@ -8,9 +8,6 @@
     },
     "test": {
       "sourceMaps": "both"
-    },
-    "production": {
-      "plugins": ["transform-runtime"]
     }
   }
 }
