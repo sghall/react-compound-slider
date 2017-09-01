@@ -1,3 +1,29 @@
+export function getSortByVal(ascending) {
+  return ascending
+    ? function sortAscending(a, b) {
+        if (a.val > b.val) {
+          return 1;
+        }
+
+        if (b.val > a.val) {
+          return -1;
+        }
+
+        return 0;
+      }
+    : function sortDescending(a, b) {
+        if (a.val > b.val) {
+          return 1;
+        }
+
+        if (b.val > a.val) {
+          return -1;
+        }
+
+        return 0;
+      };
+}
+
 export function sortByVal(a, b) {
   if (a.val > b.val) {
     return 1;
