@@ -10,12 +10,28 @@ import * as utils from "./utils";
 const noop = () => {};
 
 class ScaledSlider extends PureComponent {
-  scale = scaleLinear().clamp(true);
+  constructor(props) {
+    super(props);
 
-  valueToStep = scaleQuantize();
-  pixelToStep = scaleQuantize();
+    this.slider = null;
+    this.handles = {};
+    this.scale = scaleLinear().clamp(true);
+    this.valueToStep = scaleQuantize();
+    this.pixelToStep = scaleQuantize();
 
-  state = { values: [] };
+    this.state = { values: [] };
+
+    this.onMouseMove = this.onMouseMove.bind(this);
+    this.onTouchMove = this.onTouchMove.bind(this);
+    this.onMove = this.onMove.bind(this);
+
+    this.onMouseDown = this.onMouseDown.bind(this);
+    this.onTouchStart = this.onTouchStart.bind(this);
+    this.onStart = this.onStart.bind(this);
+
+    this.onMouseUp = this.onMouseUp.bind(this);
+    this.onTouchEnd = this.onTouchEnd.bind(this);
+  }
 
   componentWillMount() {
     const { domain: [min, max], defaultValues, step, reversed } = this.props;
@@ -56,7 +72,7 @@ class ScaledSlider extends PureComponent {
       const pushed = {};
 
       const cloned = defaultValues
-        .map(d => ({ ...d }))
+        .map(({ key, val }) => ({ key, val }))
         .sort(utils.getSortByVal(reversed));
 
       cloned.forEach(({ key, val }) => {
@@ -82,16 +98,16 @@ class ScaledSlider extends PureComponent {
     });
   }
 
-  onMouseDown = e => {
+  onMouseDown(e) {
     this.onStart(e, false);
-  };
+  }
 
-  onTouchStart = e => {
+  onTouchStart(e) {
     if (utils.isNotValidTouch(e)) return;
     this.onStart(e, true);
-  };
+  }
 
-  onStart = (e, isTouch) => {
+  onStart(e, isTouch) {
     const { handles } = this;
 
     e.stopPropagation();
@@ -105,7 +121,7 @@ class ScaledSlider extends PureComponent {
       this.active = active;
       isTouch ? this.addTouchEvents() : this.addMouseEvents();
     }
-  };
+  }
 
   addMouseEvents() {
     document.addEventListener("mousemove", this.onMouseMove);
@@ -117,7 +133,7 @@ class ScaledSlider extends PureComponent {
     document.addEventListener("touchend", this.onTouchEnd);
   }
 
-  onMouseMove = e => {
+  onMouseMove(e) {
     const { state: { values: prev }, props: { vertical, reversed } } = this;
     const { active, slider } = this;
 
@@ -127,9 +143,9 @@ class ScaledSlider extends PureComponent {
     const next = utils.updateValues(prev, active, step, reversed);
 
     this.onMove(prev, next);
-  };
+  }
 
-  onTouchMove = e => {
+  onTouchMove(e) {
     const { state: { values: prev }, props: { vertical, mode } } = this;
     const { active, slider } = this;
 
@@ -141,9 +157,9 @@ class ScaledSlider extends PureComponent {
     const next = utils.updateValues(prev, active, step);
 
     this.onMove(prev, next);
-  };
+  }
 
-  onMove = (prev, next) => {
+  onMove(prev, next) {
     const { mode, onUpdate } = this.props;
 
     if (next !== prev) {
@@ -164,32 +180,23 @@ class ScaledSlider extends PureComponent {
       onUpdate(values);
       this.setState({ values });
     }
-  };
+  }
 
-  onMouseUp = () => {
+  onMouseUp() {
     const { state: { values }, props: { onChange } } = this;
     onChange(values);
-    this.removeMouseEvents();
-  };
 
-  removeMouseEvents() {
     document.removeEventListener("mousemove", this.onMouseMove);
     document.removeEventListener("mouseup", this.onMouseUp);
   }
 
-  onTouchEnd = () => {
+  onTouchEnd() {
     const { state: { values }, props: { onChange } } = this;
     onChange(values);
-    this.removeTouchEvents();
-  };
 
-  removeTouchEvents() {
     document.removeEventListener("touchmove", this.onTouchMove);
     document.removeEventListener("touchend", this.onTouchEnd);
   }
-
-  slider = null;
-  handles = {};
 
   saveHandle(key, node) {
     this.handles[key] = { key, node: findDOMNode(node) };
@@ -234,35 +241,35 @@ class ScaledSlider extends PureComponent {
       }
     }
 
-    return (
-      <div
-        style={rootStyle || {}}
-        className={className}
-        ref={node => (this.slider = node)}
-        onTouchStart={disabled ? noop : this.onTouchStart}
-        onMouseDown={disabled ? noop : this.onMouseDown}
-      >
-        {React.cloneElement(railComponent, { vertical, disabled })}
-        {links}
-        {values.map(({ key, val: value }, index) =>
-          React.cloneElement(knobComponent, {
-            ref: node => this.saveHandle(key, node),
-            key,
-            index,
-            value,
-            scale: this.scale
-          })
-        )}
-        {ticks.map((value, index) =>
-          React.cloneElement(tickComponent, {
-            key: `key-${value}`,
-            value,
-            index,
-            count: values.length,
-            scale: this.scale
-          })
-        )}
-      </div>
+    return React.createElement(
+      "div",
+      {
+        style: rootStyle || {},
+        className: className,
+        ref: node => (this.slider = node),
+        onTouchStart: disabled ? noop : this.onTouchStart,
+        onMouseDown: disabled ? noop : this.onMouseDown
+      },
+      React.cloneElement(railComponent, { vertical, disabled }),
+      links,
+      values.map(({ key, val: value }, index) =>
+        React.cloneElement(knobComponent, {
+          ref: node => this.saveHandle(key, node),
+          key,
+          index,
+          value,
+          scale: this.scale
+        })
+      ),
+      ticks.map((value, index) =>
+        React.cloneElement(tickComponent, {
+          key: `key-${value}`,
+          value,
+          index,
+          count: values.length,
+          scale: this.scale
+        })
+      )
     );
   }
 }
