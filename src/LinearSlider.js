@@ -146,7 +146,7 @@ class ScaledSlider extends PureComponent {
   }
 
   onTouchMove(e) {
-    const { state: { values: prev }, props: { vertical, mode } } = this;
+    const { state: { values: prev }, props: { vertical, reversed } } = this;
     const { active, slider } = this;
 
     if (utils.isNotValidTouch(e)) return;
@@ -154,7 +154,7 @@ class ScaledSlider extends PureComponent {
     this.pixelToStep.domain(utils.getSliderDomain(slider, vertical));
 
     const step = this.pixelToStep(utils.getTouchPosition(vertical, e));
-    const next = utils.updateValues(prev, active, step);
+    const next = utils.updateValues(prev, active, step, reversed);
 
     this.onMove(prev, next);
   }
