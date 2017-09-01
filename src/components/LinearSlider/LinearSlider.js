@@ -55,7 +55,11 @@ class ScaledSlider extends PureComponent {
       const values = [];
       const pushed = {};
 
-      defaultValues.forEach(({ key, val }) => {
+      const cloned = defaultValues
+        .map(d => ({ ...d }))
+        .sort(utils.getSortByVal(reversed));
+
+      cloned.forEach(({ key, val }) => {
         const v0 = this.valueToStep(val);
 
         warning(
@@ -120,7 +124,7 @@ class ScaledSlider extends PureComponent {
     this.pixelToStep.domain(utils.getSliderDomain(slider, vertical));
 
     const step = this.pixelToStep(vertical ? e.clientY : e.pageX);
-    const next = utils.updateValues(prev, active, step);
+    const next = utils.updateValues(prev, active, step, reversed);
 
     this.onMove(prev, next);
   };
@@ -205,12 +209,7 @@ class ScaledSlider extends PureComponent {
       tickComponent
     } = this.props;
 
-    const values = this.state.values.map(d => ({ ...d }));
-    values.sort(utils.sortByVal);
-
-    if (reversed === true) {
-      values.reverse();
-    }
+    const values = this.state.values;
 
     let ticks = this.scale.ticks();
     let links = null;
@@ -290,7 +289,7 @@ ScaledSlider.defaultProps = {
   step: 0.1,
   vertical: false,
   disabled: false,
-  reversed: true,
+  reversed: false,
   onUpdate: noop,
   onChange: noop
 };

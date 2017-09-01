@@ -16,7 +16,7 @@ const styles = {
   },
   item: {
     flexGrow: 1,
-    border: "1px solid rgba(255,255,255,0.3)"
+    border: "1px solid rgba(200,200,200,0.3)"
   }
 };
 

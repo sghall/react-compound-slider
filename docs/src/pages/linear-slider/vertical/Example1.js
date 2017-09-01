@@ -7,12 +7,12 @@ import ValueViewer from "../ValueViewer";
 // *******************************************************
 // RAIL COMPONENT
 // *******************************************************
-const Rail = () =>
+const Rail = ({ vertical }) =>
   <div
     style={{
       position: "absolute",
-      width: "100%",
-      height: "4px",
+      width: vertical ? "4px" : "100%",
+      height: vertical ? "100%" : "4px",
       borderRadius: "2px",
       backgroundColor: "rgb(155,155,155)"
     }}
@@ -33,13 +33,13 @@ const Link = ({ source, target, index, scale }) => {
     <div
       style={{
         position: "absolute",
-        top: "-1px",
-        height: "8px",
         zIndex: 1,
         backgroundColor: "#455a64",
         borderRadius: "6px",
-        left: `${p0}%`,
-        width: `${p1 - p0}%`
+        width: "8px",
+        marginLeft: "-2px",
+        top: `${p0}%`,
+        height: `${p1 - p0}%`
       }}
     />
   );
@@ -50,7 +50,7 @@ const Link = ({ source, target, index, scale }) => {
 // *******************************************************
 class Knob extends Component {
   render() {
-    const { value, index, scale } = this.props;
+    const { value, index, scale, vertical } = this.props;
     const domain = scale.domain();
 
     return (
@@ -61,10 +61,10 @@ class Knob extends Component {
         aria-valuemax={domain[1]}
         aria-valuenow={value}
         style={{
-          left: `${scale(value)}%`,
+          top: `${scale(value)}%`,
           position: "absolute",
-          marginLeft: "-12px",
-          marginTop: "-10px",
+          marginLeft: "-10px",
+          marginTop: "-12px",
           zIndex: 2,
           width: "24px",
           height: "24px",
@@ -89,24 +89,21 @@ const Tick = ({ value, index, count, scale }) => {
       <div
         style={{
           position: "absolute",
-          marginTop: "14px",
-          marginLeft: "-0.5px",
-          width: "1px",
-          height: "5px",
+          marginTop: "-0.5px",
+          marginLeft: "10px",
+          height: "1px",
+          width: "6px",
           backgroundColor: "rgb(200,200,200)",
-          left: `${scale(value)}%`
+          top: `${scale(value)}%`
         }}
       />
       <div
         style={{
           position: "absolute",
-          marginTop: "22px",
+          marginTop: "-5px",
+          marginLeft: "20px",
           fontSize: "10px",
-          textAlign: "center",
-          color: "white",
-          marginLeft: `${-(100 / count) / 2}%`,
-          width: `${100 / count}%`,
-          left: `${scale(value)}%`
+          top: `${scale(value)}%`
         }}
       >
         {value}
@@ -143,13 +140,14 @@ class Example extends Component {
     const { state: { values, update }, props: { classes } } = this;
 
     return (
-      <div style={{ height: 120, width: "100%" }}>
+      <div style={{ height: 520, width: "100%" }}>
         <ValueViewer values={values} update={update} />
         <ScaledSlider
-          reversed
+          vertical
           rootStyle={{
             position: "relative",
-            width: "100%"
+            height: "400px",
+            marginLeft: "45%"
           }}
           mode={2}
           step={10}

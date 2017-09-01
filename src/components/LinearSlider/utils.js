@@ -1,42 +1,18 @@
-export function getSortByVal(ascending) {
-  return ascending
-    ? function sortAscending(a, b) {
-        if (a.val > b.val) {
-          return 1;
-        }
+export function getSortByVal(reversed) {
+  return function sortByVal(a, b) {
+    if (a.val > b.val) {
+      return reversed ? -1 : 1;
+    }
 
-        if (b.val > a.val) {
-          return -1;
-        }
+    if (b.val > a.val) {
+      return reversed ? 1 : -1;
+    }
 
-        return 0;
-      }
-    : function sortDescending(a, b) {
-        if (a.val > b.val) {
-          return 1;
-        }
-
-        if (b.val > a.val) {
-          return -1;
-        }
-
-        return 0;
-      };
+    return 0;
+  };
 }
 
-export function sortByVal(a, b) {
-  if (a.val > b.val) {
-    return 1;
-  }
-
-  if (b.val > a.val) {
-    return -1;
-  }
-
-  return 0;
-}
-
-export function updateValues(values, active, nxt) {
+export function updateValues(values, active, nxt, reversed) {
   const index = values.findIndex(v => v.key === active);
 
   if (index !== -1) {
@@ -47,7 +23,7 @@ export function updateValues(values, active, nxt) {
         ...values.slice(0, index),
         { key, val: nxt },
         ...values.slice(index + 1)
-      ].sort(sortByVal);
+      ].sort(getSortByVal(reversed));
     }
   }
 

@@ -150,7 +150,7 @@ class Example extends Component {
             position: "relative",
             width: "100%"
           }}
-          mode={1}
+          mode={2}
           step={10}
           domain={[100, 500]}
           onUpdate={this.onUpdate}
