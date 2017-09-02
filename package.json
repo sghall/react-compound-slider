@@ -38,7 +38,8 @@
     "coveralls": "^2.11.15",
     "cross-env": "^5.0.1",
     "enzyme": "^2.8.1",
-    "eslint": "^4.2.0",
+    "eslint": "^4.6.0",
+    "eslint-config-kentcdodds": "^12.4.3",
     "eslint-plugin-prettier": "^2.2.0",
     "flow-bin": "^0.47.0",
     "fs-extra": "^2.1.2",
@@ -97,7 +98,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "prettier --write",
+      "prettier-eslint --write --no-semi --single-quote --trailing-comma=all",
       "git add"
     ]
   }
