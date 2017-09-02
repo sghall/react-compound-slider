@@ -1,7 +1,7 @@
 // @flow weak
 
 import React, { Component } from "react";
-import { ScaledSlider } from "react-electric-slide";
+import Slider from "react-electric-slide";
 import ValueViewer from "../ValueViewer";
 
 // *******************************************************
@@ -139,7 +139,7 @@ class Example extends Component {
     return (
       <div style={{ height: 120, width: "100%" }}>
         <ValueViewer values={values} update={update} />
-        <ScaledSlider
+        <Slider
           rootStyle={{
             position: "relative",
             width: "100%"
