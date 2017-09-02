@@ -199,10 +199,6 @@ class Slider extends Component {
     document.removeEventListener("touchend", this.onTouchEnd);
   }
 
-  saveHandle(key, node) {
-    this.handles[key] = { key, node: findDOMNode(node) };
-  }
-
   render() {
     const {
       state: { values },

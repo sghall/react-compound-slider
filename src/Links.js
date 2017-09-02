@@ -11,20 +11,21 @@ class Links extends Component {
       const t = values[i];
 
       links.push({
+        key: `${s ? s.key : "$"}-${t ? t.key : "$"}`,
         source: s || null,
         target: t || null
       });
     }
 
-    const renderedChildren = children(scale, links, values);
+    const renderedChildren = children({ links, scale, values });
     return renderedChildren && React.Children.only(renderedChildren);
   }
 }
 
 Links.propTypes = {
-  scale: PropTypes.func.isRequired,
-  values: PropTypes.array.isRequired,
-  children: PropTypes.func.isRequired
+  scale: PropTypes.func,
+  values: PropTypes.array,
+  children: PropTypes.func
 };
 
 export default Links;

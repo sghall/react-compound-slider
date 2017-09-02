@@ -1,7 +1,7 @@
 // @flow weak
 
 import React, { Component } from "react";
-import { Slider, Knobs } from "react-electric-slide";
+import { Slider, Knobs, Links } from "react-electric-slide";
 import ValueViewer from "../ValueViewer";
 
 // *******************************************************
@@ -70,8 +70,6 @@ class Knob extends Component {
         aria-valuemin={domain[0]}
         aria-valuemax={domain[1]}
         aria-valuenow={value}
-        onMouseDown={this.onMouseDown}
-        onTouchStart={this.onTouchStart}
         style={{
           left: `${scale(value)}%`,
           position: "absolute",
@@ -85,6 +83,8 @@ class Knob extends Component {
           border: "solid 4px rgb(200,200,200)",
           backgroundColor: "#455a64"
         }}
+        onMouseDown={this.onMouseDown}
+        onTouchStart={this.onTouchStart}
       />
     );
   }
@@ -163,12 +163,13 @@ class Example extends Component {
             width: "100%"
           }}
           mode={2}
-          step={10}
+          step={5}
           domain={[100, 500]}
           onUpdate={this.onUpdate}
           onChange={this.onChange}
           defaultValues={values}
         >
+          <Rail />
           <Knobs>
             {({ values, scale, handleMouseDown, handleTouchStart }) => {
               return (
@@ -190,6 +191,25 @@ class Example extends Component {
               );
             }}
           </Knobs>
+          <Links>
+            {({ links, scale }) => {
+              return (
+                <div className="slider-links">
+                  {links.map((link, index) => {
+                    return (
+                      <Link
+                        key={link.key}
+                        source={link.source}
+                        target={link.target}
+                        index={index}
+                        scale={scale}
+                      />
+                    );
+                  })}
+                </div>
+              );
+            }}
+          </Links>
         </Slider>
       </div>
     );
