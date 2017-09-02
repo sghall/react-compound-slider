@@ -1,4 +1,5 @@
 // @flow
+/* eslint no-div-regex: "off" */
 
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -181,7 +182,6 @@ const styles = theme => ({
 function MarkdownElement(props) {
   const { classes, className, text, ...other } = props
 
-  /* eslint-disable react/no-danger */
   return (
     <div
       className={classNames(classes.root, 'markdown-body', className)}
@@ -189,7 +189,6 @@ function MarkdownElement(props) {
       {...other}
     />
   )
-  /* eslint-enable */
 }
 
 MarkdownElement.propTypes = {

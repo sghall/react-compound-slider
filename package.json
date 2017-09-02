@@ -81,7 +81,7 @@
     "build:umd:dev": "webpack",
     "build:umd:min": "cross-env NODE_ENV=production webpack",
     "clean:build": "rimraf build",
-    "lint": "eslint src docs/src test --quiet --cache && echo \"eslint: no lint errors\"",
+    "lint": "eslint src docs/src test --fix --quiet --cache && echo \"eslint: no lint errors\"",
     "prebuild": "npm run clean:build",
     "test": "cross-env NODE_ENV=test BABEL_ENV=test mocha \"src/**/*.spec.js\"",
     "test:karma": "karma start test/karma.conf.js --single-run",

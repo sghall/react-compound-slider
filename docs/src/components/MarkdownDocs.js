@@ -21,8 +21,6 @@ const headerRegexp = /---\n(.*)\n---/
 const demoRegexp = /^demo='(.*)'$/
 const emptyRegexp = /^\s*$/
 
-const SOURCE_CODE_ROOT_URL = 'https://github.com/sghall'
-
 function MarkdownDocs(props) {
   const { classes, route } = props
   const contents = route.content
