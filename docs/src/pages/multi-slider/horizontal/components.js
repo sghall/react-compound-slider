@@ -1,32 +1,34 @@
 // @flow weak
 
 import React, { Component } from 'react'
-import Slider from 'react-electric-slide'
-import ValueViewer from '../ValueViewer'
+import PropTypes from 'prop-types'
 
 // *******************************************************
 // RAIL COMPONENT
 // *******************************************************
-const Rail = () => (
-  <div
-    style={{
-      position: 'absolute',
-      width: '100%',
-      height: '4px',
-      borderRadius: '2px',
-      backgroundColor: 'rgb(155,155,155)',
-    }}
-  />
-)
+export function Rail() {
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        width: '100%',
+        height: '4px',
+        borderRadius: '2px',
+        backgroundColor: 'rgb(155,155,155)',
+      }}
+    />
+  )
+}
 
 // *******************************************************
 // LINK COMPONENT
 // *******************************************************
-const Link = ({ source, target, index, scale }) => {
-  if (!target) {
+export function Link({ source, target, scale }) {
+  if (!source || !target) {
     return null
   }
 
+  const p0 = scale(source.val)
   const p1 = scale(target.val)
 
   return (
@@ -38,19 +40,41 @@ const Link = ({ source, target, index, scale }) => {
         zIndex: 1,
         backgroundColor: '#455a64',
         borderRadius: '6px',
-        left: '0%',
-        width: `${p1}%`,
+        left: `${p0}%`,
+        width: `${p1 - p0}%`,
       }}
     />
   )
 }
 
+Link.propTypes = {
+  source: PropTypes.shape({
+    key: PropTypes.string,
+    val: PropTypes.number,
+  }),
+  target: PropTypes.shape({
+    key: PropTypes.string,
+    val: PropTypes.number,
+  }),
+  scale: PropTypes.func,
+}
+
 // *******************************************************
-// KNOB COMPONENT (must be a component not a SFC!)
+// KNOB COMPONENT
 // *******************************************************
-class Knob extends Component {
+export class Knob extends Component {
+  onMouseDown = e => {
+    const { handleMouseDown, knob: { key } } = this.props
+    handleMouseDown(e, key)
+  }
+
+  onTouchStart = e => {
+    const { handleTouchStart, knob: { key } } = this.props
+    handleTouchStart(e, key)
+  }
+
   render() {
-    const { value, index, scale } = this.props
+    const { knob: { val }, index, scale } = this.props
     const domain = scale.domain()
 
     return (
@@ -59,9 +83,9 @@ class Knob extends Component {
         tabIndex={index}
         aria-valuemin={domain[0]}
         aria-valuemax={domain[1]}
-        aria-valuenow={value}
+        aria-valuenow={val}
         style={{
-          left: `${scale(value)}%`,
+          left: `${scale(val)}%`,
           position: 'absolute',
           marginLeft: '-12px',
           marginTop: '-10px',
@@ -73,17 +97,28 @@ class Knob extends Component {
           border: 'solid 4px rgb(200,200,200)',
           backgroundColor: '#455a64',
         }}
+        onMouseDown={this.onMouseDown}
+        onTouchStart={this.onTouchStart}
       />
     )
   }
 }
 
+Knob.propTypes = {
+  knob: PropTypes.shape({
+    key: PropTypes.string,
+    val: PropTypes.number,
+  }),
+  scale: PropTypes.func,
+  index: PropTypes.number,
+  handleMouseDown: PropTypes.func,
+  handleTouchStart: PropTypes.func,
+}
+
 // *******************************************************
 // TICK COMPONENT
 // *******************************************************
-const Tick = ({ value, index, count, scale }) => {
-  const domain = scale.domain()
-
+export function Tick({ value, scale, count }) {
   return (
     <div>
       <div
@@ -103,7 +138,6 @@ const Tick = ({ value, index, count, scale }) => {
           marginTop: '22px',
           fontSize: '10px',
           textAlign: 'center',
-          color: 'white',
           marginLeft: `${-(100 / count) / 2}%`,
           width: `${100 / count}%`,
           left: `${scale(value)}%`,
@@ -115,50 +149,8 @@ const Tick = ({ value, index, count, scale }) => {
   )
 }
 
-// *******************************************************
-// SLIDER EXAMPLE
-// *******************************************************
-const defaultValues = [{ key: 'cat', val: 450 }]
-
-class Example extends Component {
-  state = {
-    values: defaultValues.slice(),
-    update: defaultValues.slice(),
-  }
-
-  onUpdate = update => {
-    this.setState({ update })
-  }
-
-  onChange = values => {
-    this.setState({ values })
-  }
-
-  render() {
-    const { state: { values, update }, props: { classes } } = this
-
-    return (
-      <div style={{ height: 120, width: '100%' }}>
-        <ValueViewer values={values} update={update} />
-        <Slider
-          rootStyle={{
-            position: 'relative',
-            width: '100%',
-          }}
-          mode={2}
-          step={10}
-          domain={[100, 500]}
-          onUpdate={this.onUpdate}
-          onChange={this.onChange}
-          defaultValues={values}
-          knobComponent={<Knob />}
-          linkComponent={<Link />}
-          railComponent={<Rail />}
-          tickComponent={<Tick />}
-        />
-      </div>
-    )
-  }
+Tick.propTypes = {
+  value: PropTypes.number,
+  scale: PropTypes.func,
+  count: PropTypes.number,
 }
-
-export default Example

@@ -71,8 +71,13 @@ class Demo extends Component {
   render() {
     const DemoComponent = requireDemos(`./${this.props.demo}`).default
     const demoSource = requireDemoSource(`./${this.props.demo}`)
+
+    const index = this.props.demo.lastIndexOf('/')
+    const compSource = requireDemoSource(
+      `./${this.props.demo.slice(0, index)}/components.js`,
+    )
+
     const classes = this.props.classes
-    const code = `\`\`\`js\n${demoSource}\n\`\`\``
 
     return (
       <div className={classes.root}>
@@ -83,7 +88,23 @@ class Demo extends Component {
           <CodeIcon />
         </IconButton>
         <Collapse in={this.state.codeOpen}>
-          <MarkdownElement className={classes.code} text={code} />
+          <h3 style={{ fontWeight: 300, marginLeft: 10 }}>
+            Slider Example Source
+          </h3>
+          <MarkdownElement
+            className={classes.code}
+            text={`\`\`\`js\n${demoSource}\n\`\`\``}
+          />
+        </Collapse>
+        <br />
+        <Collapse in={this.state.codeOpen}>
+          <h3 style={{ fontWeight: 300, margin: '-1px 10px 14px 10px' }}>
+            Render Components (same ones used by all examples on this page)
+          </h3>
+          <MarkdownElement
+            className={classes.code}
+            text={`\`\`\`js\n${compSource}\n\`\`\``}
+          />
         </Collapse>
         <div className={classes.demo} data-mui-demo={this.props.demo}>
           <DemoComponent />

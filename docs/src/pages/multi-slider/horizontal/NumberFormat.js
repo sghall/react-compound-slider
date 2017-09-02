@@ -2,125 +2,17 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { format } from 'd3-format'
 import Slider, { Knobs, Links, Ticks } from 'react-electric-slide'
-import ValueViewer from '../ValueViewer'
+import ValueViewer from 'docs/src/pages/ValueViewer' // for examples only - displays the table above slider
+import { Rail, Knob, Link } from './components' // example render components - source below
+
+const tickFormat = format('.2f')
 
 // *******************************************************
-// RAIL COMPONENT
+// TICK COMPONENT W/ CUSTOM NUMBER FORMATTING
 // *******************************************************
-function Rail() {
-  return (
-    <div
-      style={{
-        position: 'absolute',
-        width: '100%',
-        height: '4px',
-        borderRadius: '2px',
-        backgroundColor: 'rgb(155,155,155)',
-      }}
-    />
-  )
-}
-
-// *******************************************************
-// LINK COMPONENT
-// *******************************************************
-function Link({ source, target, scale }) {
-  if (!source || !target) {
-    return null
-  }
-
-  const p0 = scale(source.val)
-  const p1 = scale(target.val)
-
-  return (
-    <div
-      style={{
-        position: 'absolute',
-        top: '-1px',
-        height: '8px',
-        zIndex: 1,
-        backgroundColor: '#455a64',
-        borderRadius: '6px',
-        left: `${p0}%`,
-        width: `${p1 - p0}%`,
-      }}
-    />
-  )
-}
-
-Link.propTypes = {
-  source: PropTypes.shape({
-    key: PropTypes.string,
-    val: PropTypes.number,
-  }),
-  target: PropTypes.shape({
-    key: PropTypes.string,
-    val: PropTypes.number,
-  }),
-  scale: PropTypes.func,
-}
-
-// *******************************************************
-// KNOB COMPONENT
-// *******************************************************
-class Knob extends Component {
-  onMouseDown = e => {
-    const { handleMouseDown, knob: { key } } = this.props
-    handleMouseDown(e, key)
-  }
-
-  onTouchStart = e => {
-    const { handleTouchStart, knob: { key } } = this.props
-    handleTouchStart(e, key)
-  }
-
-  render() {
-    const { knob: { val }, index, scale } = this.props
-    const domain = scale.domain()
-
-    return (
-      <div
-        role="slider"
-        tabIndex={index}
-        aria-valuemin={domain[0]}
-        aria-valuemax={domain[1]}
-        aria-valuenow={val}
-        style={{
-          left: `${scale(val)}%`,
-          position: 'absolute',
-          marginLeft: '-12px',
-          marginTop: '-10px',
-          zIndex: 2,
-          width: '24px',
-          height: '24px',
-          cursor: 'pointer',
-          borderRadius: '50%',
-          border: 'solid 4px rgb(200,200,200)',
-          backgroundColor: '#455a64',
-        }}
-        onMouseDown={this.onMouseDown}
-        onTouchStart={this.onTouchStart}
-      />
-    )
-  }
-}
-
-Knob.propTypes = {
-  knob: PropTypes.shape({
-    key: PropTypes.string,
-    val: PropTypes.number,
-  }),
-  scale: PropTypes.func,
-  index: PropTypes.number,
-  handleMouseDown: PropTypes.func,
-  handleTouchStart: PropTypes.func,
-}
-
-// *******************************************************
-// TICK COMPONENT
-// *******************************************************
-function Tick({ value, scale, count }) {
+export function Tick({ value, scale, count }) {
   return (
     <div>
       <div
@@ -140,13 +32,12 @@ function Tick({ value, scale, count }) {
           marginTop: '22px',
           fontSize: '10px',
           textAlign: 'center',
-          color: 'white',
           marginLeft: `${-(100 / count) / 2}%`,
           width: `${100 / count}%`,
           left: `${scale(value)}%`,
         }}
       >
-        {value}
+        {tickFormat(value)}
       </div>
     </div>
   )
@@ -158,14 +49,11 @@ Tick.propTypes = {
   count: PropTypes.number,
 }
 
-// *******************************************************
-// SLIDER EXAMPLE
-// *******************************************************
 const defaultValues = [
-  { key: 'cat', val: 450 },
-  { key: 'hat', val: 400 },
-  { key: 'dog', val: 300 },
-  { key: 'bat', val: 150 },
+  { key: 'cat', val: 0.25 },
+  { key: 'hat', val: 0.55 },
+  { key: 'dog', val: 0.75 },
+  { key: 'bat', val: 0.85 },
 ]
 
 class Example extends Component {
@@ -189,14 +77,13 @@ class Example extends Component {
       <div style={{ height: 120, width: '100%' }}>
         <ValueViewer values={values} update={update} />
         <Slider
-          reversed
           rootStyle={{
             position: 'relative',
             width: '100%',
           }}
           mode={2}
-          step={5}
-          domain={[100, 500]}
+          step={0.01}
+          domain={[0, 1]}
           onUpdate={this.onUpdate}
           onChange={this.onChange}
           defaultValues={values}
@@ -243,7 +130,7 @@ class Example extends Component {
           </Links>
           <Ticks>
             {({ scale }) => {
-              const ticks = scale.ticks(20)
+              const ticks = scale.ticks(10)
 
               return (
                 <div className="slider-links">

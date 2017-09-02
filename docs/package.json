@@ -24,6 +24,7 @@
     "webpack-dev-server": "^2.7.1"
   },
   "dependencies": {
+    "d3-format": "^1.2.0",
     "jss": "^8.1.0",
     "jss-preset-default": "^3.0.0",
     "marked": "^0.3.6",

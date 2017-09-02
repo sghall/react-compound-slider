@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Slider, { Knobs, Links, Ticks } from 'react-electric-slide'
-import ValueViewer from '../ValueViewer'
+import ValueViewer from 'docs/src/pages/ValueViewer'
 
 // *******************************************************
 // RAIL COMPONENT
