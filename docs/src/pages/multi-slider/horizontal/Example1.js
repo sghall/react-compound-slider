@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Slider, Knobs, Links } from 'react-electric-slide'
+import Slider, { Knobs, Links, Ticks } from 'react-electric-slide'
 import ValueViewer from '../ValueViewer'
 
 // *******************************************************
@@ -205,12 +205,11 @@ class Example extends Component {
             {({ knobs, scale, handleMouseDown, handleTouchStart }) => {
               return (
                 <div className="slider-knobs">
-                  {knobs.map(({ key, val }, index) => {
+                  {knobs.map((knob, index) => {
                     return (
                       <Knob
-                        key={key}
-                        knob={{ key, val }}
-                        value={val}
+                        key={knob.key}
+                        knob={knob}
                         index={index}
                         scale={scale}
                         handleMouseDown={handleMouseDown}
@@ -241,6 +240,26 @@ class Example extends Component {
               )
             }}
           </Links>
+          <Ticks>
+            {({ scale }) => {
+              const ticks = scale.ticks(20)
+
+              return (
+                <div className="slider-links">
+                  {ticks.map(value => {
+                    return (
+                      <Tick
+                        key={`tick-${value}`}
+                        value={value}
+                        scale={scale}
+                        count={ticks.length}
+                      />
+                    )
+                  })}
+                </div>
+              )
+            }}
+          </Ticks>
         </Slider>
       </div>
     )

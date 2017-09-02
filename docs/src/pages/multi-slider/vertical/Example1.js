@@ -1,28 +1,31 @@
 // @flow weak
 
 import React, { Component } from 'react'
-import Slider from 'react-electric-slide'
+import PropTypes from 'prop-types'
+import Slider, { Knobs, Links, Ticks } from 'react-electric-slide'
 import ValueViewer from '../ValueViewer'
 
 // *******************************************************
 // RAIL COMPONENT
 // *******************************************************
-const Rail = ({ vertical }) => (
-  <div
-    style={{
-      position: 'absolute',
-      width: vertical ? '4px' : '100%',
-      height: vertical ? '100%' : '4px',
-      borderRadius: '2px',
-      backgroundColor: 'rgb(155,155,155)',
-    }}
-  />
-)
+function Rail() {
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        width: '4px',
+        height: '100%',
+        borderRadius: '2px',
+        backgroundColor: 'rgb(155,155,155)',
+      }}
+    />
+  )
+}
 
 // *******************************************************
 // LINK COMPONENT
 // *******************************************************
-const Link = ({ source, target, index, scale }) => {
+function Link({ source, target, scale }) {
   if (!source || !target) {
     return null
   }
@@ -46,12 +49,34 @@ const Link = ({ source, target, index, scale }) => {
   )
 }
 
+Link.propTypes = {
+  source: PropTypes.shape({
+    key: PropTypes.string,
+    val: PropTypes.number,
+  }),
+  target: PropTypes.shape({
+    key: PropTypes.string,
+    val: PropTypes.number,
+  }),
+  scale: PropTypes.func,
+}
+
 // *******************************************************
-// KNOB COMPONENT (must be a component not a SFC!)
+// KNOB COMPONENT
 // *******************************************************
 class Knob extends Component {
+  onMouseDown = e => {
+    const { handleMouseDown, knob: { key } } = this.props
+    handleMouseDown(e, key)
+  }
+
+  onTouchStart = e => {
+    const { handleTouchStart, knob: { key } } = this.props
+    handleTouchStart(e, key)
+  }
+
   render() {
-    const { value, index, scale, vertical } = this.props
+    const { knob: { val }, index, scale } = this.props
     const domain = scale.domain()
 
     return (
@@ -60,9 +85,9 @@ class Knob extends Component {
         tabIndex={index}
         aria-valuemin={domain[0]}
         aria-valuemax={domain[1]}
-        aria-valuenow={value}
+        aria-valuenow={val}
         style={{
-          top: `${scale(value)}%`,
+          top: `${scale(val)}%`,
           position: 'absolute',
           marginLeft: '-10px',
           marginTop: '-12px',
@@ -74,17 +99,28 @@ class Knob extends Component {
           border: 'solid 4px rgb(200,200,200)',
           backgroundColor: '#455a64',
         }}
+        onMouseDown={this.onMouseDown}
+        onTouchStart={this.onTouchStart}
       />
     )
   }
 }
 
+Knob.propTypes = {
+  knob: PropTypes.shape({
+    key: PropTypes.string,
+    val: PropTypes.number,
+  }),
+  scale: PropTypes.func,
+  index: PropTypes.number,
+  handleMouseDown: PropTypes.func,
+  handleTouchStart: PropTypes.func,
+}
+
 // *******************************************************
 // TICK COMPONENT
 // *******************************************************
-const Tick = ({ value, index, count, scale }) => {
-  const domain = scale.domain()
-
+function Tick({ value, scale }) {
   return (
     <div>
       <div
@@ -113,6 +149,11 @@ const Tick = ({ value, index, count, scale }) => {
   )
 }
 
+Tick.propTypes = {
+  value: PropTypes.number,
+  scale: PropTypes.func,
+}
+
 // *******************************************************
 // SLIDER EXAMPLE
 // *******************************************************
@@ -138,7 +179,7 @@ class Example extends Component {
   }
 
   render() {
-    const { state: { values, update }, props: { classes } } = this
+    const { state: { values, update } } = this
 
     return (
       <div style={{ height: 520, width: '100%' }}>
@@ -151,16 +192,73 @@ class Example extends Component {
             marginLeft: '45%',
           }}
           mode={2}
-          step={10}
+          step={5}
           domain={[100, 500]}
           onUpdate={this.onUpdate}
           onChange={this.onChange}
           defaultValues={values}
-          knobComponent={<Knob />}
-          linkComponent={<Link />}
-          railComponent={<Rail />}
-          tickComponent={<Tick />}
-        />
+        >
+          <Rail />
+          <Knobs>
+            {({ knobs, scale, handleMouseDown, handleTouchStart }) => {
+              return (
+                <div className="slider-knobs">
+                  {knobs.map((knob, index) => {
+                    return (
+                      <Knob
+                        key={knob.key}
+                        knob={knob}
+                        index={index}
+                        scale={scale}
+                        handleMouseDown={handleMouseDown}
+                        handleTouchStart={handleTouchStart}
+                      />
+                    )
+                  })}
+                </div>
+              )
+            }}
+          </Knobs>
+          <Links>
+            {({ links, scale }) => {
+              return (
+                <div className="slider-links">
+                  {links.map((link, index) => {
+                    return (
+                      <Link
+                        key={link.key}
+                        source={link.source}
+                        target={link.target}
+                        index={index}
+                        scale={scale}
+                      />
+                    )
+                  })}
+                </div>
+              )
+            }}
+          </Links>
+          <Ticks>
+            {({ scale }) => {
+              const ticks = scale.ticks(10)
+
+              return (
+                <div className="slider-links">
+                  {ticks.map(value => {
+                    return (
+                      <Tick
+                        key={`tick-${value}`}
+                        value={value}
+                        scale={scale}
+                        count={ticks.length}
+                      />
+                    )
+                  })}
+                </div>
+              )
+            }}
+          </Ticks>
+        </Slider>
       </div>
     )
   }
