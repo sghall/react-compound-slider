@@ -7,7 +7,7 @@ import scaleQuantize from "d3-scale/src/quantize";
 import { mode1, mode2 } from "./modes";
 import * as utils from "./utils";
 
-const noop = () => {};
+function noop() {}
 
 class ScaledSlider extends PureComponent {
   constructor(props) {
