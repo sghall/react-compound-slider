@@ -22,24 +22,23 @@ const Rail = ({ vertical }) =>
 // LINK COMPONENT
 // *******************************************************
 const Link = ({ source, target, index, scale }) => {
-  if (!source || !target) {
+  if (!source) {
     return null;
   }
 
-  const p0 = scale(source.val);
-  const p1 = scale(target.val);
+  const p1 = scale(source.val);
 
   return (
     <div
       style={{
         position: "absolute",
+        width: "8px",
+        marginLeft: "-2px",
         zIndex: 1,
         backgroundColor: "#455a64",
         borderRadius: "6px",
-        width: "8px",
-        marginLeft: "-2px",
-        top: `${p0}%`,
-        height: `${p1 - p0}%`
+        bottom: "0%",
+        height: `${100 - p1}%`
       }}
     />
   );
@@ -115,12 +114,7 @@ const Tick = ({ value, index, count, scale }) => {
 // *******************************************************
 // SLIDER EXAMPLE
 // *******************************************************
-const defaultValues = [
-  { key: "cat", val: 450 },
-  { key: "hat", val: 400 },
-  { key: "dog", val: 300 },
-  { key: "bat", val: 150 }
-];
+const defaultValues = [{ key: "cat", val: 450 }];
 
 class Example extends Component {
   state = {

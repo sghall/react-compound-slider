@@ -118,12 +118,7 @@ const Tick = ({ value, index, count, scale }) => {
 // *******************************************************
 // SLIDER EXAMPLE
 // *******************************************************
-const defaultValues = [
-  { key: "cat", val: 450 },
-  { key: "hat", val: 400 },
-  { key: "dog", val: 300 },
-  { key: "bat", val: 150 }
-];
+const defaultValues = [{ key: "cat", val: 450 }, { key: "hat", val: 400 }];
 
 class Example extends Component {
   state = {
