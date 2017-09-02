@@ -1,7 +1,7 @@
 // @flow weak
 
 import React, { Component } from "react";
-import Slider from "react-electric-slide";
+import { Slider, Knobs } from "react-electric-slide";
 import ValueViewer from "../ValueViewer";
 
 // *******************************************************
@@ -156,11 +156,21 @@ class Example extends Component {
           onUpdate={this.onUpdate}
           onChange={this.onChange}
           defaultValues={values}
-          knobComponent={<Knob />}
-          linkComponent={<Link />}
-          railComponent={<Rail />}
-          tickComponent={<Tick />}
-        />
+        >
+          <Knobs>
+            {({ values, scale }) => {
+              return (
+                <div className="slider-knobs">
+                  {values.map(({ key, val }, index) => {
+                    return (
+                      <Knob key={key} value={val} index={index} scale={scale} />
+                    );
+                  })}
+                </div>
+              );
+            }}
+          </Knobs>
+        </Slider>
       </div>
     );
   }

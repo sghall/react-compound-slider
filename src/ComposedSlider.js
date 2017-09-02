@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import warning from "warning";
 import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
@@ -9,7 +9,7 @@ import * as utils from "./utils";
 
 function noop() {}
 
-class Slider extends PureComponent {
+class Slider extends Component {
   constructor(props) {
     super(props);
 
@@ -207,9 +207,9 @@ class Slider extends PureComponent {
     const {
       state: { values },
       props: { domain, vertical, reversed, className, rootStyle }
-    } = this.props;
+    } = this;
 
-    const children = React.children.map(this.props.children, child => {
+    const children = React.Children.map(this.props.children, child => {
       return React.cloneElement(child, {
         scale: this.valueToPerc,
         values,
@@ -218,6 +218,7 @@ class Slider extends PureComponent {
       });
     });
 
+    console.log("render", children);
     return (
       <div
         style={rootStyle || {}}

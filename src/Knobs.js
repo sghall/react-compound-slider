@@ -3,17 +3,20 @@ import PropTypes from "prop-types";
 
 class Knobs extends Component {
   render() {
-    const { scale, values, children } = this.props;
+    const { children, ...rest } = this.props;
+    console.log("knobs!!!!");
 
-    const renderedChildren = children(scale, values);
+    const renderedChildren = children({ ...rest });
     return renderedChildren && React.Children.only(renderedChildren);
   }
 }
 
 Knobs.propTypes = {
-  scale: PropTypes.func.isRequired,
-  values: PropTypes.array.isRequired,
-  children: PropTypes.func.isRequired
+  scale: PropTypes.func,
+  values: PropTypes.array,
+  handleMouseDown: PropTypes.func,
+  handleTouchStart: PropTypes.func,
+  children: PropTypes.func
 };
 
 export default Knobs;
