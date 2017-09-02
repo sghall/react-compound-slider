@@ -218,7 +218,6 @@ class Slider extends Component {
       });
     });
 
-    console.log("render", children);
     return (
       <div
         style={rootStyle || {}}

@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 class Knobs extends Component {
   render() {
     const { children, ...rest } = this.props;
-    console.log("knobs!!!!");
 
     const renderedChildren = children({ ...rest });
     return renderedChildren && React.Children.only(renderedChildren);

@@ -49,6 +49,16 @@ const Link = ({ source, target, index, scale }) => {
 // KNOB COMPONENT (must be a component not a SFC!)
 // *******************************************************
 class Knob extends Component {
+  onMouseDown = e => {
+    const { handleMouseDown, knob: { key } } = this.props;
+    handleMouseDown(e, key);
+  };
+
+  onTouchStart = e => {
+    const { handleMouseDown, knob: { key } } = this.props;
+    handleTouchStart(e, key);
+  };
+
   render() {
     const { value, index, scale } = this.props;
     const domain = scale.domain();
@@ -60,6 +70,8 @@ class Knob extends Component {
         aria-valuemin={domain[0]}
         aria-valuemax={domain[1]}
         aria-valuenow={value}
+        onMouseDown={this.onMouseDown}
+        onTouchStart={this.onTouchStart}
         style={{
           left: `${scale(value)}%`,
           position: "absolute",
@@ -158,12 +170,20 @@ class Example extends Component {
           defaultValues={values}
         >
           <Knobs>
-            {({ values, scale }) => {
+            {({ values, scale, handleMouseDown, handleTouchStart }) => {
               return (
                 <div className="slider-knobs">
                   {values.map(({ key, val }, index) => {
                     return (
-                      <Knob key={key} value={val} index={index} scale={scale} />
+                      <Knob
+                        key={key}
+                        knob={{ key, val }}
+                        value={val}
+                        index={index}
+                        scale={scale}
+                        handleMouseDown={handleMouseDown}
+                        handleTouchStart={handleTouchStart}
+                      />
                     );
                   })}
                 </div>
