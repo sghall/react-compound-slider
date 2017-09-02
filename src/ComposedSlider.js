@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import warning from 'warning'
-import { findDOMNode } from 'react-dom'
 import PropTypes from 'prop-types'
 import scaleLinear from 'd3-scale/src/linear'
 import scaleQuantize from 'd3-scale/src/quantize'
@@ -238,6 +237,7 @@ Slider.propTypes = {
   className: PropTypes.string,
   rootStyle: PropTypes.object,
   defaultValues: PropTypes.arrayOf(PropTypes.object).isRequired,
+  children: PropTypes.any,
 }
 
 Slider.defaultProps = {

@@ -2,10 +2,10 @@
   "extends": [
     "kentcdodds",
     "kentcdodds/react",
-    "kentcdodds/jest",
     "kentcdodds/prettier",
   ],
   "rules": {
+    "max-len": "off",
     "babel/object-curly-spacing": "off"
   }
 }
