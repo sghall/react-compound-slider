@@ -17,8 +17,12 @@ import Home from "docs/src/pages/Home";
 import {
   componentAPIs,
   requireMarkdown,
-  requireLinear,
-  linear
+  requireValueSlider,
+  valueSlider,
+  requireRangeSlider,
+  rangeSlider,
+  requireMultiSlider,
+  multiSlider
 } from "docs/src/components/files";
 
 export default function AppRouter() {
@@ -104,18 +108,58 @@ export default function AppRouter() {
           />
         </Route>
         <Route
-          title="Linear Slider"
-          path="/linear-slider"
+          title="Value Slider"
+          path="/value-slider"
           component={AppContent}
           nav
         >
-          {linear.map(demo => {
+          {valueSlider.map(demo => {
             return (
               <Route
                 key={demo.name}
                 title={titleize(demo.name)}
-                path={`/linear-slider/${demo.name}`}
-                content={requireLinear(demo.path)}
+                path={`/value-slider/${demo.name}`}
+                content={requireValueSlider(demo.path)}
+                component={MarkdownDocs}
+                demo={demo}
+                nav
+              />
+            );
+          })}
+        </Route>
+        <Route
+          title="Range Slider"
+          path="/range-slider"
+          component={AppContent}
+          nav
+        >
+          {rangeSlider.map(demo => {
+            return (
+              <Route
+                key={demo.name}
+                title={titleize(demo.name)}
+                path={`/range-slider/${demo.name}`}
+                content={requireRangeSlider(demo.path)}
+                component={MarkdownDocs}
+                demo={demo}
+                nav
+              />
+            );
+          })}
+        </Route>
+        <Route
+          title="Multi Slider"
+          path="/multi-slider"
+          component={AppContent}
+          nav
+        >
+          {multiSlider.map(demo => {
+            return (
+              <Route
+                key={demo.name}
+                title={titleize(demo.name)}
+                path={`/multi-slider/${demo.name}`}
+                content={requireMultiSlider(demo.path)}
                 component={MarkdownDocs}
                 demo={demo}
                 nav
