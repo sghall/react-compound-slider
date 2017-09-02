@@ -60,7 +60,6 @@
     "nodemon": "^1.11.0",
     "nyc": "11.0.1",
     "phantomjs-prebuilt": "^2.1.15",
-    "prettier": "^1.5.3",
     "react": "^15.5.3",
     "react-addons-test-utils": "^15.4.0",
     "react-dom": "^15.5.3",
@@ -93,6 +92,7 @@
   },
   "dependencies": {
     "d3-scale": "^1.0.6",
+    "prettier-eslint-cli": "^4.3.0",
     "prop-types": "^15.5.8",
     "warning": "^3.0.0"
   },

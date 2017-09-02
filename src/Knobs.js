@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 class Knobs extends Component {
   render() {
-    const { children, ...rest } = this.props;
+    const { children, ...rest } = this.props
 
-    const renderedChildren = children({ ...rest });
-    return renderedChildren && React.Children.only(renderedChildren);
+    const renderedChildren = children({ ...rest })
+    return renderedChildren && React.Children.only(renderedChildren)
   }
 }
 
@@ -15,7 +15,7 @@ Knobs.propTypes = {
   values: PropTypes.array,
   handleMouseDown: PropTypes.func,
   handleTouchStart: PropTypes.func,
-  children: PropTypes.func
-};
+  children: PropTypes.func,
+}
 
-export default Knobs;
+export default Knobs
