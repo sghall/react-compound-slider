@@ -1,59 +1,59 @@
 // @flow
 
 export const requireMarkdown = require.context(
-  "../pages",
+  '../pages',
   true,
-  /^((?![\\/]component-demos[\\/]).)*\.md$/
-);
+  /^((?![\\/]component-demos[\\/]).)*\.md$/,
+)
 
 export const componentAPIs = requireMarkdown.keys().reduce((res, n) => {
   if (/^\.\/component-api\//.test(n)) {
     res.push({
       path: n,
-      name: n.replace(/.*\//, "").replace(".md", "")
-    });
+      name: n.replace(/.*\//, '').replace('.md', ''),
+    })
   }
-  return res;
-}, []);
+  return res
+}, [])
 
 // ********************************************************
 // VALUE SLIDER EXAMPLES
 // ********************************************************
 export const requireValueSlider = require.context(
-  "../pages/value-slider",
+  '../pages/value-slider',
   true,
-  /\.md$/
-);
+  /\.md$/,
+)
 
 export const valueSlider = requireValueSlider.keys().map(n => ({
   path: n,
-  name: n.replace(/.*\//, "").replace(".md", "")
-}));
+  name: n.replace(/.*\//, '').replace('.md', ''),
+}))
 
 // ********************************************************
 // RANGE SLIDER EXAMPLES
 // ********************************************************
 export const requireRangeSlider = require.context(
-  "../pages/range-slider",
+  '../pages/range-slider',
   true,
-  /\.md$/
-);
+  /\.md$/,
+)
 
 export const rangeSlider = requireRangeSlider.keys().map(n => ({
   path: n,
-  name: n.replace(/.*\//, "").replace(".md", "")
-}));
+  name: n.replace(/.*\//, '').replace('.md', ''),
+}))
 
 // ********************************************************
 // MULTI SLIDER EXAMPLES
 // ********************************************************
 export const requireMultiSlider = require.context(
-  "../pages/multi-slider",
+  '../pages/multi-slider',
   true,
-  /\.md$/
-);
+  /\.md$/,
+)
 
 export const multiSlider = requireMultiSlider.keys().map(n => ({
   path: n,
-  name: n.replace(/.*\//, "").replace(".md", "")
-}));
+  name: n.replace(/.*\//, '').replace('.md', ''),
+}))

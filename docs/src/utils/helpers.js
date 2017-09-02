@@ -3,25 +3,25 @@
 export function kebabCase(string) {
   return string
     .split(/ |_|-/)
-    .join("-")
-    .split("")
+    .join('-')
+    .split('')
     .map((a, index) => {
-      if (a.toUpperCase() === a && a !== "-") {
-        return (index !== 0 ? "-" : "") + a.toLowerCase();
+      if (a.toUpperCase() === a && a !== '-') {
+        return (index !== 0 ? '-' : '') + a.toLowerCase()
       }
-      return a;
+      return a
     })
-    .join("")
-    .toLowerCase();
+    .join('')
+    .toLowerCase()
 }
 
 export function titleize(string) {
   return string
-    .split("-")
-    .map(word => word.split(""))
+    .split('-')
+    .map(word => word.split(''))
     .map(letters => {
-      const first = letters.shift();
-      return [first.toUpperCase(), ...letters].join("");
+      const first = letters.shift()
+      return [first.toUpperCase(), ...letters].join('')
     })
-    .join(" ");
+    .join(' ')
 }

@@ -7,6 +7,8 @@
   "rules": {
   	"complexity": ["error", { "max": 10 }],
     "max-len": "off",
-    "babel/object-curly-spacing": "off"
+    "babel/object-curly-spacing": "off",
+    "import/no-unresolved": "off",
+    "import/no-extraneous-dependencies": "off",
   }
 }

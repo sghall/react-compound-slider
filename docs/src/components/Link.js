@@ -1,26 +1,26 @@
 // @flow
 
-import React from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { Link as LinkRouter } from "react-router";
-import { withStyles } from "material-ui/styles";
+import React from 'react'
+import PropTypes from 'prop-types'
+import classNames from 'classnames'
+import { Link as LinkRouter } from 'react-router'
+import { withStyles } from 'material-ui/styles'
 
 const styles = theme => ({
   root: {
-    color: "inherit",
-    textDecoration: "none",
-    "&:hover": {
-      textDecoration: "underline"
-    }
+    color: 'inherit',
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline',
+    },
   },
   primary: {
-    color: theme.palette.primary[500]
+    color: theme.palette.primary[500],
   },
   accent: {
-    color: theme.palette.accent.A400
-  }
-});
+    color: theme.palette.accent.A400,
+  },
+})
 
 function Link(props) {
   const {
@@ -30,16 +30,16 @@ function Link(props) {
     variant,
     to,
     ...other
-  } = props;
+  } = props
 
-  let Component;
+  let Component
 
   if (ComponentProp) {
-    Component = ComponentProp;
+    Component = ComponentProp
   } else if (to) {
-    Component = LinkRouter;
+    Component = LinkRouter
   } else {
-    Component = "a";
+    Component = 'a'
   }
 
   return (
@@ -48,14 +48,14 @@ function Link(props) {
       className={classNames(
         classes.root,
         {
-          [classes.primary]: variant === "primary",
-          [classes.accent]: variant === "accent"
+          [classes.primary]: variant === 'primary',
+          [classes.accent]: variant === 'accent',
         },
-        className
+        className,
       )}
       {...other}
     />
-  );
+  )
 }
 
 Link.propTypes = {
@@ -63,7 +63,7 @@ Link.propTypes = {
   className: PropTypes.string,
   component: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   to: PropTypes.string,
-  variant: PropTypes.oneOf(["primary", "accent"])
-};
+  variant: PropTypes.oneOf(['primary', 'accent']),
+}
 
-export default withStyles(styles)(Link);
+export default withStyles(styles)(Link)

@@ -1,29 +1,29 @@
 // @flow
 
-import React from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { withStyles } from "material-ui/styles";
-import marked from "marked";
-import prism from "docs/src/utils/prism";
+import React from 'react'
+import PropTypes from 'prop-types'
+import classNames from 'classnames'
+import { withStyles } from 'material-ui/styles'
+import marked from 'marked'
+import prism from 'docs/src/utils/prism'
 
-const renderer = new marked.Renderer();
+const renderer = new marked.Renderer()
 
 renderer.heading = (text, level) => {
   const escapedText = text
     .toLowerCase()
-    .replace(/=&gt;|&lt;| \/&gt;|<code>|<\/code>/g, "")
-    .replace(/[^\w]+/g, "-");
+    .replace(/=&gt;|&lt;| \/&gt;|<code>|<\/code>/g, '')
+    .replace(/[^\w]+/g, '-')
 
   return (
     `
     <h${level}>
       <a class="anchor-link" id="${escapedText}"></a>${text}` +
-    `<a class="anchor-link-style" href="#${escapedText}">${"#"}</a>
+    `<a class="anchor-link-style" href="#${escapedText}">${'#'}</a>
     </h${level}>
   `
-  );
-};
+  )
+}
 
 marked.setOptions({
   gfm: true,
@@ -34,168 +34,168 @@ marked.setOptions({
   smartLists: true,
   smartypants: false,
   highlight(code) {
-    return prism.highlight(code, prism.languages.jsx);
+    return prism.highlight(code, prism.languages.jsx)
   },
-  renderer
-});
+  renderer,
+})
 
 const anchorLinkStyle = theme => ({
-  "& .anchor-link-style": {
+  '& .anchor-link-style': {
     opacity: 0,
     // To prevent the link to get the focus.
-    display: "none"
+    display: 'none',
   },
-  "&:hover .anchor-link-style": {
-    display: "inline",
+  '&:hover .anchor-link-style': {
+    display: 'inline',
     opacity: 1,
-    fontSize: "0.8em",
-    lineHeight: "1",
+    fontSize: '0.8em',
+    lineHeight: '1',
     paddingLeft: theme.spacing.unit,
-    color: theme.palette.text.hint
-  }
-});
+    color: theme.palette.text.hint,
+  },
+})
 
 const styles = theme => ({
   root: {
     fontFamily: theme.typography.fontFamily,
     marginTop: theme.spacing.unit * 2,
     marginBottom: theme.spacing.unit * 2,
-    padding: "0 10px",
-    "& .anchor-link": {
+    padding: '0 10px',
+    '& .anchor-link': {
       marginTop: -theme.spacing.unit * 12, // Offset for the anchor.
-      position: "absolute"
+      position: 'absolute',
     },
-    "& pre": {
+    '& pre': {
       margin: `${theme.spacing.unit * 3}px 0`,
-      padding: "12px 18px",
+      padding: '12px 18px',
       backgroundColor: theme.palette.background.paper,
       borderRadius: 3,
-      overflow: "auto"
+      overflow: 'auto',
     },
-    "& code": {
-      display: "inline-block",
+    '& code': {
+      display: 'inline-block',
       fontFamily: 'Consolas, "Liberation Mono", Menlo, Courier, monospace',
-      padding: "3px 6px",
+      padding: '3px 6px',
       color: theme.palette.text.primary,
-      backgroundColor: theme.palette.background.paper
+      backgroundColor: theme.palette.background.paper,
     },
-    "& p code, & ul code, & pre code": {
+    '& p code, & ul code, & pre code': {
       fontSize: 14,
-      lineHeight: 1.6
+      lineHeight: 1.6,
     },
-    "& h1": {
+    '& h1': {
       ...theme.typography.display2,
       color: theme.palette.text.secondary,
-      margin: "0.7em 0",
-      ...anchorLinkStyle(theme)
+      margin: '0.7em 0',
+      ...anchorLinkStyle(theme),
     },
-    "& h2": {
+    '& h2': {
       ...theme.typography.display1,
       color: theme.palette.text.secondary,
-      margin: "1em 0 0.7em",
-      ...anchorLinkStyle(theme)
+      margin: '1em 0 0.7em',
+      ...anchorLinkStyle(theme),
     },
-    "& h3": {
+    '& h3': {
       ...theme.typography.headline,
       color: theme.palette.text.secondary,
-      margin: "1em 0 0.7em",
-      ...anchorLinkStyle(theme)
+      margin: '1em 0 0.7em',
+      ...anchorLinkStyle(theme),
     },
-    "& h4": {
+    '& h4': {
       ...theme.typography.title,
       color: theme.palette.text.secondary,
-      margin: "1em 0 0.7em",
-      ...anchorLinkStyle(theme)
+      margin: '1em 0 0.7em',
+      ...anchorLinkStyle(theme),
     },
-    "& p, & ul, & ol": {
-      lineHeight: 1.6
+    '& p, & ul, & ol': {
+      lineHeight: 1.6,
     },
-    "& table": {
-      width: "100%",
-      display: "block",
-      overflowX: "auto",
-      borderCollapse: "collapse",
+    '& table': {
+      width: '100%',
+      display: 'block',
+      overflowX: 'auto',
+      borderCollapse: 'collapse',
       borderSpacing: 0,
-      overflow: "hidden"
+      overflow: 'hidden',
     },
-    "& thead": {
+    '& thead': {
       fontSize: 12,
       fontWeight: theme.typography.fontWeightMedium,
-      color: theme.palette.text.secondary
+      color: theme.palette.text.secondary,
     },
-    "& tbody": {
+    '& tbody': {
       fontSize: 13,
       lineHeight: 1.5,
-      color: theme.palette.text.primary
+      color: theme.palette.text.primary,
     },
-    "& td": {
+    '& td': {
       borderBottom: `1px solid ${theme.palette.text.lightDivider}`,
       padding: `${theme.spacing.unit}px ${theme.spacing.unit * 5}px ${theme
         .spacing.unit}px ${theme.spacing.unit * 3}px`,
-      textAlign: "left"
+      textAlign: 'left',
     },
-    "& td:last-child": {
-      paddingRight: theme.spacing.unit * 3
+    '& td:last-child': {
+      paddingRight: theme.spacing.unit * 3,
     },
-    "& td compact": {
-      paddingRight: theme.spacing.unit * 3
+    '& td compact': {
+      paddingRight: theme.spacing.unit * 3,
     },
-    "& td code": {
+    '& td code': {
       fontSize: 13,
-      lineHeight: 1.6
+      lineHeight: 1.6,
     },
-    "& th": {
-      whiteSpace: "pre",
+    '& th': {
+      whiteSpace: 'pre',
       borderBottom: `1px solid ${theme.palette.text.lightDivider}`,
       padding: `0 ${theme.spacing.unit * 5}px 0 ${theme.spacing.unit * 3}px`,
-      textAlign: "left"
+      textAlign: 'left',
     },
-    "& th:last-child": {
-      paddingRight: theme.spacing.unit * 3
+    '& th:last-child': {
+      paddingRight: theme.spacing.unit * 3,
     },
-    "& tr": {
-      height: 48
+    '& tr': {
+      height: 48,
     },
-    "& thead tr": {
-      height: 64
+    '& thead tr': {
+      height: 64,
     },
-    "& strong": {
-      fontWeight: theme.typography.fontWeightMedium
+    '& strong': {
+      fontWeight: theme.typography.fontWeightMedium,
     },
-    "& blockquote": {
+    '& blockquote': {
       borderLeft: `5px solid ${theme.palette.text.hint}`,
       background: theme.palette.background.paper,
       padding: `${theme.spacing.unit / 2}px ${theme.spacing.unit * 3}px`,
-      margin: `${theme.spacing.unit * 3}px 0`
+      margin: `${theme.spacing.unit * 3}px 0`,
     },
-    "& a, & a code": {
+    '& a, & a code': {
       color: theme.palette.accent.A400,
-      textDecoration: "none",
-      "&:hover": {
-        textDecoration: "underline"
-      }
-    }
-  }
-});
+      textDecoration: 'none',
+      '&:hover': {
+        textDecoration: 'underline',
+      },
+    },
+  },
+})
 
 function MarkdownElement(props) {
-  const { classes, className, text, ...other } = props;
+  const { classes, className, text, ...other } = props
 
   /* eslint-disable react/no-danger */
   return (
     <div
-      className={classNames(classes.root, "markdown-body", className)}
+      className={classNames(classes.root, 'markdown-body', className)}
       dangerouslySetInnerHTML={{ __html: marked(text) }}
       {...other}
     />
-  );
+  )
   /* eslint-enable */
 }
 
 MarkdownElement.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
-  text: PropTypes.string.isRequired
-};
+  text: PropTypes.string.isRequired,
+}
 
-export default withStyles(styles)(MarkdownElement);
+export default withStyles(styles)(MarkdownElement)

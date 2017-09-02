@@ -1,46 +1,46 @@
 // @flow
 
-import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "material-ui/styles";
-import MarkdownElement from "docs/src/components/MarkdownElement";
-import Demo from "docs/src/components/Demo";
+import React from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from 'material-ui/styles'
+import MarkdownElement from 'docs/src/components/MarkdownElement'
+import Demo from 'docs/src/components/Demo'
 
 const styles = {
   root: {
-    marginBottom: 100
+    marginBottom: 100,
   },
   header: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-end"
-  }
-};
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+  },
+}
 
-const headerRegexp = /---\n(.*)\n---/;
-const demoRegexp = /^demo='(.*)'$/;
-const emptyRegexp = /^\s*$/;
+const headerRegexp = /---\n(.*)\n---/
+const demoRegexp = /^demo='(.*)'$/
+const emptyRegexp = /^\s*$/
 
-const SOURCE_CODE_ROOT_URL = "https://github.com/sghall";
+const SOURCE_CODE_ROOT_URL = 'https://github.com/sghall'
 
 function MarkdownDocs(props) {
-  const { classes, route } = props;
+  const { classes, route } = props
   const contents = route.content
-    .replace(headerRegexp, "") // Remove header information
+    .replace(headerRegexp, '') // Remove header information
     .split(/^{{|}}$/gm) // Split markdown into an array, separating demos
-    .filter(content => !emptyRegexp.test(content)); // Remove empty lines
+    .filter(content => !emptyRegexp.test(content)) // Remove empty lines
 
   return (
     <div className={classes.root}>
       {contents.map(content => {
         if (demoRegexp.test(content)) {
-          return <Demo key={content} demo={content.match(demoRegexp)[1]} />;
+          return <Demo key={content} demo={content.match(demoRegexp)[1]} />
         }
 
-        return <MarkdownElement key={content} text={content} />;
+        return <MarkdownElement key={content} text={content} />
       })}
     </div>
-  );
+  )
 }
 
 MarkdownDocs.propTypes = {
@@ -49,8 +49,8 @@ MarkdownDocs.propTypes = {
     content: PropTypes.string.isRequired,
     path: PropTypes.string.isRequired,
     componentAPI: PropTypes.object,
-    demo: PropTypes.object
-  }).isRequired
-};
+    demo: PropTypes.object,
+  }).isRequired,
+}
 
-export default withStyles(styles)(MarkdownDocs);
+export default withStyles(styles)(MarkdownDocs)

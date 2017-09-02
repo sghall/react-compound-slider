@@ -1,19 +1,19 @@
 // @flow
 
-import React from "react";
+import React from 'react'
 import {
   applyRouterMiddleware,
   browserHistory,
   Router,
   Route,
-  IndexRoute
-} from "react-router";
-import { useScroll } from "react-router-scroll";
-import { kebabCase, titleize } from "docs/src/utils/helpers";
-import AppFrame from "docs/src/components/AppFrame";
-import AppContent from "docs/src/components/AppContent";
-import MarkdownDocs from "docs/src/components/MarkdownDocs";
-import Home from "docs/src/pages/Home";
+  IndexRoute,
+} from 'react-router'
+import { useScroll } from 'react-router-scroll'
+import { kebabCase, titleize } from 'docs/src/utils/helpers'
+import AppFrame from 'docs/src/components/AppFrame'
+import AppContent from 'docs/src/components/AppContent'
+import MarkdownDocs from 'docs/src/components/MarkdownDocs'
+import Home from 'docs/src/pages/Home'
 import {
   componentAPIs,
   requireMarkdown,
@@ -22,8 +22,8 @@ import {
   requireRangeSlider,
   rangeSlider,
   requireMultiSlider,
-  multiSlider
-} from "docs/src/components/files";
+  multiSlider,
+} from 'docs/src/components/files'
 
 export default function AppRouter() {
   return (
@@ -42,21 +42,21 @@ export default function AppRouter() {
           <Route
             title="Installation"
             path="/getting-started/installation"
-            content={requireMarkdown("./getting-started/installation.md")}
+            content={requireMarkdown('./getting-started/installation.md')}
             component={MarkdownDocs}
             nav
           />
           <Route
             title="Usage"
             path="/getting-started/usage"
-            content={requireMarkdown("./getting-started/usage.md")}
+            content={requireMarkdown('./getting-started/usage.md')}
             component={MarkdownDocs}
             nav
           />
           <Route
             title="Examples"
             path="/getting-started/examples"
-            content={requireMarkdown("./getting-started/examples.md")}
+            content={requireMarkdown('./getting-started/examples.md')}
             component={MarkdownDocs}
             nav
           />
@@ -64,7 +64,7 @@ export default function AppRouter() {
             title="Supported Components"
             path="/getting-started/supported-components"
             content={requireMarkdown(
-              "./getting-started/supported-components.md"
+              './getting-started/supported-components.md',
             )}
             component={MarkdownDocs}
             nav
@@ -73,7 +73,7 @@ export default function AppRouter() {
             title="Supported Platforms"
             path="/getting-started/supported-platforms"
             content={requireMarkdown(
-              "./getting-started/supported-platforms.md"
+              './getting-started/supported-platforms.md',
             )}
             component={MarkdownDocs}
             nav
@@ -88,21 +88,21 @@ export default function AppRouter() {
           <Route
             title="Overrides"
             path="/customization/overrides"
-            content={requireMarkdown("./customization/overrides.md")}
+            content={requireMarkdown('./customization/overrides.md')}
             component={MarkdownDocs}
             nav
           />
           <Route
             title="Themes"
             path="/customization/themes"
-            content={requireMarkdown("./customization/themes.md")}
+            content={requireMarkdown('./customization/themes.md')}
             component={MarkdownDocs}
             nav
           />
           <Route
             title="API"
             path="/customization/api"
-            content={requireMarkdown("./customization/api.md")}
+            content={requireMarkdown('./customization/api.md')}
             component={MarkdownDocs}
             nav
           />
@@ -124,7 +124,7 @@ export default function AppRouter() {
                 demo={demo}
                 nav
               />
-            );
+            )
           })}
         </Route>
         <Route
@@ -144,7 +144,7 @@ export default function AppRouter() {
                 demo={demo}
                 nav
               />
-            );
+            )
           })}
         </Route>
         <Route
@@ -164,7 +164,7 @@ export default function AppRouter() {
                 demo={demo}
                 nav
               />
-            );
+            )
           })}
         </Route>
         <Route
@@ -184,10 +184,10 @@ export default function AppRouter() {
                 componentAPI={componentAPI}
                 nav
               />
-            );
+            )
           })}
         </Route>
       </Route>
     </Router>
-  );
+  )
 }

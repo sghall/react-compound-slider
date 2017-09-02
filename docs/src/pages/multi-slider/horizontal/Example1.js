@@ -1,28 +1,31 @@
 // @flow weak
 
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Slider, Knobs, Links } from 'react-electric-slide'
 import ValueViewer from '../ValueViewer'
 
 // *******************************************************
 // RAIL COMPONENT
 // *******************************************************
-const Rail = () => (
-  <div
-    style={{
-      position: 'absolute',
-      width: '100%',
-      height: '4px',
-      borderRadius: '2px',
-      backgroundColor: 'rgb(155,155,155)',
-    }}
-  />
-)
+function Rail() {
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        width: '100%',
+        height: '4px',
+        borderRadius: '2px',
+        backgroundColor: 'rgb(155,155,155)',
+      }}
+    />
+  )
+}
 
 // *******************************************************
 // LINK COMPONENT
 // *******************************************************
-const Link = ({ source, target, index, scale }) => {
+function Link({ source, target, scale }) {
   if (!source || !target) {
     return null
   }
@@ -46,8 +49,20 @@ const Link = ({ source, target, index, scale }) => {
   )
 }
 
+Link.propTypes = {
+  source: PropTypes.shape({
+    key: PropTypes.string,
+    val: PropTypes.number,
+  }),
+  target: PropTypes.shape({
+    key: PropTypes.string,
+    val: PropTypes.number,
+  }),
+  scale: PropTypes.func,
+}
+
 // *******************************************************
-// KNOB COMPONENT (must be a component not a SFC!)
+// KNOB COMPONENT
 // *******************************************************
 class Knob extends Component {
   onMouseDown = e => {
@@ -56,12 +71,12 @@ class Knob extends Component {
   }
 
   onTouchStart = e => {
-    const { handleMouseDown, knob: { key } } = this.props
+    const { handleTouchStart, knob: { key } } = this.props
     handleTouchStart(e, key)
   }
 
   render() {
-    const { value, index, scale } = this.props
+    const { knob: { val }, index, scale } = this.props
     const domain = scale.domain()
 
     return (
@@ -70,9 +85,9 @@ class Knob extends Component {
         tabIndex={index}
         aria-valuemin={domain[0]}
         aria-valuemax={domain[1]}
-        aria-valuenow={value}
+        aria-valuenow={val}
         style={{
-          left: `${scale(value)}%`,
+          left: `${scale(val)}%`,
           position: 'absolute',
           marginLeft: '-12px',
           marginTop: '-10px',
@@ -91,12 +106,21 @@ class Knob extends Component {
   }
 }
 
+Knob.propTypes = {
+  knob: PropTypes.shape({
+    key: PropTypes.string,
+    val: PropTypes.number,
+  }),
+  scale: PropTypes.func,
+  index: PropTypes.number,
+  handleMouseDown: PropTypes.func,
+  handleTouchStart: PropTypes.func,
+}
+
 // *******************************************************
 // TICK COMPONENT
 // *******************************************************
-const Tick = ({ value, index, count, scale }) => {
-  const domain = scale.domain()
-
+function Tick({ value, scale, count }) {
   return (
     <div>
       <div
@@ -128,6 +152,12 @@ const Tick = ({ value, index, count, scale }) => {
   )
 }
 
+Tick.propTypes = {
+  value: PropTypes.number,
+  scale: PropTypes.func,
+  count: PropTypes.number,
+}
+
 // *******************************************************
 // SLIDER EXAMPLE
 // *******************************************************
@@ -153,7 +183,7 @@ class Example extends Component {
   }
 
   render() {
-    const { state: { values, update }, props: { classes } } = this
+    const { state: { values, update } } = this
 
     return (
       <div style={{ height: 120, width: '100%' }}>
@@ -172,10 +202,10 @@ class Example extends Component {
         >
           <Rail />
           <Knobs>
-            {({ values, scale, handleMouseDown, handleTouchStart }) => {
+            {({ knobs, scale, handleMouseDown, handleTouchStart }) => {
               return (
                 <div className="slider-knobs">
-                  {values.map(({ key, val }, index) => {
+                  {knobs.map(({ key, val }, index) => {
                     return (
                       <Knob
                         key={key}

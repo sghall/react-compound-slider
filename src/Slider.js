@@ -35,7 +35,7 @@ class Slider extends PureComponent {
   }
 
   componentWillMount() {
-    const { domain: [min, max], defaultValues, step } = this.props
+    const { domain: [min, max], defaultValues, step, reversed } = this.props
     const range = utils.getStepRange(min, max, step)
 
     this.valueToStep

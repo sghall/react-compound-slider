@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 
 class Knobs extends Component {
   render() {
-    const { children, ...rest } = this.props
+    const { children, values: knobs, ...rest } = this.props
 
-    const renderedChildren = children({ ...rest })
+    const renderedChildren = children({ knobs, ...rest })
     return renderedChildren && React.Children.only(renderedChildren)
   }
 }

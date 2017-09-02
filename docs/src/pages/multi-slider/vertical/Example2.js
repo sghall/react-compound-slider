@@ -138,7 +138,7 @@ class Example extends Component {
   }
 
   render() {
-    const { state: { values, update }, props: { classes } } = this
+    const { state: { values, update } } = this
 
     return (
       <div style={{ height: 520, width: '100%' }}>
