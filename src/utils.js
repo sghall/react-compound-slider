@@ -40,7 +40,7 @@ export function getSliderDomain(slider, vertical) {
 }
 
 function precision(num) {
-  const m = (`${num}`).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/)
+  const m = `${num}`.match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/)
 
   if (!m) {
     return 0

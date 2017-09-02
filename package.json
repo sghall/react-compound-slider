@@ -87,7 +87,8 @@
     "test:watch": "npm run test -- -w",
     "test:coverage": "cross-env NODE_ENV=test BABEL_ENV=coverage nyc mocha \"src/**/*.spec.js\" && nyc report --reporter=lcov",
     "test:coverage:html": "cross-env NODE_ENV=test BABEL_ENV=coverage nyc mocha \"src/**/*.spec.js\" && nyc report --reporter=html",
-    "pretty": "prettier-eslint docs/src/**/*.js --write --no-semi --single-quote --trailing-comma=all",
+    "pretty": "prettier-eslint src/**/*.js --write --no-semi --single-quote --trailing-comma=all",
+    "pretty-docs": "prettier-eslint docs/src/**/*.js --write --no-semi --single-quote --trailing-comma=all",
     "precommit": "lint-staged"
   },
   "dependencies": {
