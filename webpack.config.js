@@ -39,7 +39,7 @@ const baseConfig = {
       {
         test: /\.js$/,
         loader: "babel-loader",
-        exclude: /(node_modules)/,
+        exclude: /node_modules\/(?!(d3-scale)\/).*/,
         query: {
           cacheDirectory: true
         }

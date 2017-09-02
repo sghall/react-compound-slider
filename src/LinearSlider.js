@@ -9,13 +9,14 @@ import * as utils from "./utils";
 
 function noop() {}
 
-class ScaledSlider extends PureComponent {
+class Slider extends PureComponent {
   constructor(props) {
     super(props);
 
     this.slider = null;
     this.handles = {};
-    this.scale = scaleLinear().clamp(true);
+
+    this.valueToPerc = scaleLinear();
     this.valueToStep = scaleQuantize();
     this.pixelToStep = scaleQuantize();
 
@@ -42,10 +43,10 @@ class ScaledSlider extends PureComponent {
       .domain([min - step / 2, max + step / 2]);
 
     if (reversed === true) {
-      this.scale.domain([min, max]).range([100, 0]);
+      this.valueToPerc.domain([min, max]).range([100, 0]);
       range.reverse();
     } else {
-      this.scale.domain([min, max]).range([0, 100]);
+      this.valueToPerc.domain([min, max]).range([0, 100]);
     }
 
     warning(
@@ -218,7 +219,7 @@ class ScaledSlider extends PureComponent {
 
     const values = this.state.values;
 
-    let ticks = this.scale.ticks();
+    let ticks = this.valueToPerc.ticks();
     let links = null;
 
     if (linkComponent) {
@@ -233,7 +234,7 @@ class ScaledSlider extends PureComponent {
             key: `${s ? s.key : "$"}-${t ? t.key : "$"}`,
             index: i,
             count: values.length,
-            scale: this.scale,
+            scale: this.valueToPerc,
             source: s || null,
             target: t || null
           })
@@ -258,7 +259,7 @@ class ScaledSlider extends PureComponent {
           key,
           index,
           value,
-          scale: this.scale
+          scale: this.valueToPerc
         })
       ),
       ticks.map((value, index) =>
@@ -267,14 +268,14 @@ class ScaledSlider extends PureComponent {
           value,
           index,
           count: values.length,
-          scale: this.scale
+          scale: this.valueToPerc
         })
       )
     );
   }
 }
 
-ScaledSlider.propTypes = {
+Slider.propTypes = {
   step: PropTypes.number.isRequired,
   mode: PropTypes.oneOf([1, 2]).isRequired,
   domain: PropTypes.arrayOf(PropTypes.number).isRequired,
@@ -291,7 +292,7 @@ ScaledSlider.propTypes = {
   defaultValues: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
-ScaledSlider.defaultProps = {
+Slider.defaultProps = {
   mode: 1,
   step: 0.1,
   vertical: false,
