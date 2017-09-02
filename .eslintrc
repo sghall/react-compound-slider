@@ -5,6 +5,7 @@
     "kentcdodds/prettier",
   ],
   "rules": {
+  	"complexity": ["error", { "max": 10 }],
     "max-len": "off",
     "babel/object-curly-spacing": "off"
   }
