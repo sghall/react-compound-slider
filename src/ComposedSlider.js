@@ -209,15 +209,22 @@ class Slider extends PureComponent {
       props: { domain, vertical, reversed, className, rootStyle }
     } = this.props;
 
+    const children = React.children.map(this.props.children, child => {
+      return React.cloneElement(child, {
+        scale: this.valueToPerc,
+        values,
+        handleMouseDown: this.onMouseDown,
+        handleTouchStart: this.onTouchStart
+      });
+    });
+
     return (
       <div
         style={rootStyle || {}}
         className={className}
         ref={node => (this.slider = node)}
-        onTouchStart={disabled ? noop : this.onTouchStart}
-        onMouseDown={disabled ? noop : this.onMouseDown}
       >
-        {this.props.children}
+        {children}
       </div>
     );
   }
