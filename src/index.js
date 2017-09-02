@@ -1,1 +1,1 @@
-export { default } from "./LinearSlider";
+export { default } from "./Slider";

@@ -302,4 +302,4 @@ Slider.defaultProps = {
   onChange: noop
 };
 
-export default ScaledSlider;
+export default Slider;
