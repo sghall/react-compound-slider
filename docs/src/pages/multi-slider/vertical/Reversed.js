@@ -1,18 +1,15 @@
 // @flow weak
 
 import React, { Component } from 'react'
-import { format } from 'd3-format'
 import Slider, { Knobs, Links, Ticks } from 'react-electric-slide'
 import ValueViewer from 'docs/src/pages/ValueViewer' // for examples only - displays the table above slider
 import { Rail, Knob, Link, Tick } from './components' // example render components - source below
 
-const tickFormat = format('.2f')
-
 const defaultValues = [
-  { key: 'cat', val: 0.25 },
-  { key: 'hat', val: 0.55 },
-  { key: 'dog', val: 0.75 },
-  { key: 'bat', val: 0.85 },
+  { key: 'cat', val: 450 },
+  { key: 'hat', val: 400 },
+  { key: 'dog', val: 300 },
+  { key: 'bat', val: 150 },
 ]
 
 class Example extends Component {
@@ -33,16 +30,18 @@ class Example extends Component {
     const { state: { values, update } } = this
 
     return (
-      <div style={{ height: 120, width: '100%' }}>
-        <ValueViewer values={values} update={update} format={tickFormat} />
+      <div style={{ height: 520, width: '100%' }}>
+        <ValueViewer values={values} update={update} />
         <Slider
+          vertical
           rootStyle={{
             position: 'relative',
-            width: '100%',
+            height: '400px',
+            marginLeft: '45%',
           }}
           mode={2}
-          step={0.01}
-          domain={[0, 1]}
+          step={5}
+          domain={[100, 500]}
           onUpdate={this.onUpdate}
           onChange={this.onChange}
           defaultValues={values}
@@ -100,7 +99,6 @@ class Example extends Component {
                         value={value}
                         scale={scale}
                         count={ticks.length}
-                        format={tickFormat}
                       />
                     )
                   })}

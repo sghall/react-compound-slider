@@ -87,7 +87,7 @@ export class Knob extends Component {
         style={{
           left: `${scale(val)}%`,
           position: 'absolute',
-          marginLeft: '-12px',
+          marginLeft: '-11px',
           marginTop: '-10px',
           zIndex: 2,
           width: '24px',
@@ -118,7 +118,7 @@ Knob.propTypes = {
 // *******************************************************
 // TICK COMPONENT
 // *******************************************************
-export function Tick({ value, scale, count }) {
+export function Tick({ value, scale, count, format }) {
   return (
     <div>
       <div
@@ -143,7 +143,7 @@ export function Tick({ value, scale, count }) {
           left: `${scale(value)}%`,
         }}
       >
-        {value}
+        {format(value)}
       </div>
     </div>
   )
@@ -153,4 +153,9 @@ Tick.propTypes = {
   value: PropTypes.number,
   scale: PropTypes.func,
   count: PropTypes.number,
+  format: PropTypes.func,
+}
+
+Tick.defaultProps = {
+  format: d => d,
 }

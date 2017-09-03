@@ -8,7 +8,7 @@ import ValueViewer from 'docs/src/pages/ValueViewer'
 // *******************************************************
 // RAIL COMPONENT
 // *******************************************************
-function Rail() {
+export function Rail() {
   return (
     <div
       style={{
@@ -25,7 +25,7 @@ function Rail() {
 // *******************************************************
 // LINK COMPONENT
 // *******************************************************
-function Link({ source, target, scale }) {
+export function Link({ source, target, scale }) {
   if (!source || !target) {
     return null
   }
@@ -64,7 +64,7 @@ Link.propTypes = {
 // *******************************************************
 // KNOB COMPONENT
 // *******************************************************
-class Knob extends Component {
+export class Knob extends Component {
   onMouseDown = e => {
     const { handleMouseDown, knob: { key } } = this.props
     handleMouseDown(e, key)
@@ -120,7 +120,7 @@ Knob.propTypes = {
 // *******************************************************
 // TICK COMPONENT
 // *******************************************************
-function Tick({ value, scale }) {
+export function Tick({ value, scale, format }) {
   return (
     <div>
       <div
@@ -143,7 +143,7 @@ function Tick({ value, scale }) {
           top: `${scale(value)}%`,
         }}
       >
-        {value}
+        {format(value)}
       </div>
     </div>
   )
@@ -152,116 +152,9 @@ function Tick({ value, scale }) {
 Tick.propTypes = {
   value: PropTypes.number,
   scale: PropTypes.func,
+  format: PropTypes.func,
 }
 
-// *******************************************************
-// SLIDER EXAMPLE
-// *******************************************************
-const defaultValues = [
-  { key: 'cat', val: 450 },
-  { key: 'hat', val: 400 },
-  { key: 'dog', val: 300 },
-  { key: 'bat', val: 150 },
-]
-
-class Example extends Component {
-  state = {
-    values: defaultValues.slice(),
-    update: defaultValues.slice(),
-  }
-
-  onUpdate = update => {
-    this.setState({ update })
-  }
-
-  onChange = values => {
-    this.setState({ values })
-  }
-
-  render() {
-    const { state: { values, update } } = this
-
-    return (
-      <div style={{ height: 520, width: '100%' }}>
-        <ValueViewer values={values} update={update} />
-        <Slider
-          vertical
-          rootStyle={{
-            position: 'relative',
-            height: '400px',
-            marginLeft: '45%',
-          }}
-          mode={2}
-          step={5}
-          domain={[100, 500]}
-          onUpdate={this.onUpdate}
-          onChange={this.onChange}
-          defaultValues={values}
-        >
-          <Rail />
-          <Knobs>
-            {({ knobs, scale, handleMouseDown, handleTouchStart }) => {
-              return (
-                <div className="slider-knobs">
-                  {knobs.map((knob, index) => {
-                    return (
-                      <Knob
-                        key={knob.key}
-                        knob={knob}
-                        index={index}
-                        scale={scale}
-                        handleMouseDown={handleMouseDown}
-                        handleTouchStart={handleTouchStart}
-                      />
-                    )
-                  })}
-                </div>
-              )
-            }}
-          </Knobs>
-          <Links>
-            {({ links, scale }) => {
-              return (
-                <div className="slider-links">
-                  {links.map((link, index) => {
-                    return (
-                      <Link
-                        key={link.key}
-                        source={link.source}
-                        target={link.target}
-                        index={index}
-                        scale={scale}
-                      />
-                    )
-                  })}
-                </div>
-              )
-            }}
-          </Links>
-          <Ticks>
-            {({ scale }) => {
-              const ticks = scale.ticks(10)
-
-              return (
-                <div className="slider-links">
-                  {ticks.map(value => {
-                    return (
-                      <Tick
-                        key={`tick-${value}`}
-                        value={value}
-                        scale={scale}
-                        count={ticks.length}
-                      />
-                    )
-                  })}
-                </div>
-              )
-            }}
-          </Ticks>
-        </Slider>
-      </div>
-    )
-  }
+Tick.defaultProps = {
+  format: d => d,
 }
-
-export default Example

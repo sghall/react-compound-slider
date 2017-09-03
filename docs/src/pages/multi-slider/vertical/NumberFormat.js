@@ -33,12 +33,14 @@ class Example extends Component {
     const { state: { values, update } } = this
 
     return (
-      <div style={{ height: 120, width: '100%' }}>
+      <div style={{ height: 520, width: '100%' }}>
         <ValueViewer values={values} update={update} format={tickFormat} />
         <Slider
+          vertical
           rootStyle={{
             position: 'relative',
-            width: '100%',
+            height: '400px',
+            marginLeft: '45%',
           }}
           mode={2}
           step={0.01}

@@ -21,14 +21,14 @@ const styles = {
   },
 }
 
-const ValueViewer = ({ classes, values, update }) => {
+const ValueViewer = ({ classes, values, update, format }) => {
   return (
     <div style={{ marginTop: 10, width: '100%' }}>
       <div className={classes.container}>
         <div className={classes.item}>onChange:</div>
         {values.map(d => (
           <div key={d.key} className={classes.item}>
-            {d.val}
+            {format(d.val)}
           </div>
         ))}
       </div>
@@ -36,7 +36,7 @@ const ValueViewer = ({ classes, values, update }) => {
         <div className={classes.item}>onUpdate:</div>
         {update.map(d => (
           <div key={d.key} className={classes.item}>
-            {d.val}
+            {format(d.val)}
           </div>
         ))}
       </div>
@@ -45,9 +45,14 @@ const ValueViewer = ({ classes, values, update }) => {
 }
 
 ValueViewer.propTypes = {
+  format: PropTypes.func,
   values: PropTypes.array,
   update: PropTypes.array,
   classes: PropTypes.object,
+}
+
+ValueViewer.defaultProps = {
+  format: d => d,
 }
 
 export default withStyles(styles)(ValueViewer)
