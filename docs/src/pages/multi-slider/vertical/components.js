@@ -6,24 +6,39 @@ import PropTypes from 'prop-types'
 // *******************************************************
 // RAIL COMPONENT
 // *******************************************************
-export function Rail() {
+export function Rail({ onMouse, onTouch }) {
   return (
     <div
       style={{
         position: 'absolute',
-        width: '4px',
+        width: '6px',
         height: '100%',
+        marginLeft: '-1px',
         borderRadius: '2px',
         backgroundColor: 'rgb(155,155,155)',
       }}
+      onMouseDown={e => onMouse(e)}
+      onTouchStart={e => onTouch(e)}
     />
   )
+}
+
+Rail.propTypes = {
+  onMouse: PropTypes.func,
+  onTouch: PropTypes.func,
+}
+
+Rail.defaultProps = {
+  onMouse: () => {},
+  onTouch: () => {},
 }
 
 // *******************************************************
 // LINK COMPONENT
 // *******************************************************
-export function Link({ source, target, scale }) {
+export function Link(props) {
+  const { source, target, scale, onMouse, onTouch } = props
+
   if (!source || !target) {
     return null
   }
@@ -38,11 +53,14 @@ export function Link({ source, target, scale }) {
         zIndex: 1,
         backgroundColor: '#455a64',
         borderRadius: '6px',
+        cursor: 'pointer',
         width: '8px',
         marginLeft: '-2px',
         top: `${p0}%`,
         height: `${p1 - p0}%`,
       }}
+      onMouseDown={e => onMouse(e)}
+      onTouchStart={e => onTouch(e)}
     />
   )
 }
@@ -57,6 +75,13 @@ Link.propTypes = {
     val: PropTypes.number,
   }),
   scale: PropTypes.func,
+  onMouse: PropTypes.func,
+  onTouch: PropTypes.func,
+}
+
+Link.defaultProps = {
+  onMouse: () => {},
+  onTouch: () => {},
 }
 
 // *******************************************************

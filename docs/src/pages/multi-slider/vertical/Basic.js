@@ -68,7 +68,7 @@ class Example extends Component {
             }}
           </Knobs>
           <Links>
-            {({ links, scale }) => {
+            {({ links, scale, onMouse, onTouch }) => {
               return (
                 <div>
                   {links.map((link, index) => {
@@ -79,6 +79,8 @@ class Example extends Component {
                         target={link.target}
                         index={index}
                         scale={scale}
+                        onMouse={onMouse}
+                        onTouch={onTouch}
                       />
                     )
                   })}
