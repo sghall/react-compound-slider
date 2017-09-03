@@ -12,6 +12,3 @@
 
 ### Custom Number Format - Step 0.01
 {{demo='pages/multi-slider/vertical/NumberFormat.js'}}
-
-### Clickeable Links
-{{demo='pages/multi-slider/vertical/ClickeableLinks.js'}}

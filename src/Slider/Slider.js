@@ -244,8 +244,8 @@ class Slider extends Component {
       return React.cloneElement(child, {
         scale: this.valueToPerc,
         knobs: values,
-        onMouse: this.onMouseDown,
-        onTouch: this.onTouchStart,
+        emitMouse: this.onMouseDown,
+        emitTouch: this.onTouchStart,
       })
     })
 

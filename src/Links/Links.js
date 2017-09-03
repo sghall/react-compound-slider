@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 class Links extends Component {
   render() {
-    const { scale, knobs, onMouse, onTouch, children } = this.props
+    const { scale, knobs, emitMouse, emitTouch, children } = this.props
     const links = []
 
     for (let i = 0; i < knobs.length + 1; i++) {
@@ -21,8 +21,8 @@ class Links extends Component {
       links,
       scale,
       knobs,
-      onMouse,
-      onTouch,
+      emitMouse,
+      emitTouch,
     })
 
     return renderedChildren && React.Children.only(renderedChildren)
@@ -32,9 +32,9 @@ class Links extends Component {
 Links.propTypes = {
   scale: PropTypes.func,
   knobs: PropTypes.array,
-  onMouse: PropTypes.func,
-  onTouch: PropTypes.func,
   children: PropTypes.func,
+  emitMouse: PropTypes.func,
+  emitTouch: PropTypes.func,
 }
 
 export default Links

@@ -1,12 +1,12 @@
 // @flow weak
 
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
 // *******************************************************
 // RAIL COMPONENT
 // *******************************************************
-export function Rail({ onMouse, onTouch }) {
+export function Rail({ emitMouse, emitTouch }) {
   return (
     <div
       style={{
@@ -14,30 +14,25 @@ export function Rail({ onMouse, onTouch }) {
         width: '6px',
         height: '100%',
         marginLeft: '-1px',
-        borderRadius: '2px',
+        borderRadius: '3px',
         backgroundColor: 'rgb(155,155,155)',
       }}
-      onMouseDown={e => onMouse(e)}
-      onTouchStart={e => onTouch(e)}
+      onMouseDown={e => emitMouse(e)}
+      onTouchStart={e => emitTouch(e)}
     />
   )
 }
 
 Rail.propTypes = {
-  onMouse: PropTypes.func,
-  onTouch: PropTypes.func,
-}
-
-Rail.defaultProps = {
-  onMouse: () => {},
-  onTouch: () => {},
+  emitMouse: PropTypes.func,
+  emitTouch: PropTypes.func,
 }
 
 // *******************************************************
 // LINK COMPONENT
 // *******************************************************
 export function Link(props) {
-  const { source, target, scale, onMouse, onTouch } = props
+  const { source, target, scale, emitMouse, emitTouch } = props
 
   if (!source || !target) {
     return null
@@ -59,8 +54,8 @@ export function Link(props) {
         top: `${p0}%`,
         height: `${p1 - p0}%`,
       }}
-      onMouseDown={e => onMouse(e)}
-      onTouchStart={e => onTouch(e)}
+      onMouseDown={e => emitMouse(e)}
+      onTouchStart={e => emitTouch(e)}
     />
   )
 }
@@ -75,58 +70,46 @@ Link.propTypes = {
     val: PropTypes.number,
   }),
   scale: PropTypes.func,
-  onMouse: PropTypes.func,
-  onTouch: PropTypes.func,
+  emitMouse: PropTypes.func,
+  emitTouch: PropTypes.func,
 }
 
 Link.defaultProps = {
-  onMouse: () => {},
-  onTouch: () => {},
+  emitMouse: () => {},
+  emitTouch: () => {},
 }
 
 // *******************************************************
 // KNOB COMPONENT
 // *******************************************************
-export class Knob extends Component {
-  onMouseDown = e => {
-    const { onMouse, knob: { key } } = this.props
-    onMouse(e, key)
-  }
+export function Knob(props) {
+  const { knob: { key, val }, index, scale, emitMouse, emitTouch } = props
+  const domain = scale.domain()
 
-  onTouchStart = e => {
-    const { onTouch, knob: { key } } = this.props
-    onTouch(e, key)
-  }
-
-  render() {
-    const { knob: { val }, index, scale } = this.props
-    const domain = scale.domain()
-
-    return (
-      <div
-        role="slider"
-        tabIndex={index}
-        aria-valuemin={domain[0]}
-        aria-valuemax={domain[1]}
-        aria-valuenow={val}
-        style={{
-          top: `${scale(val)}%`,
-          position: 'absolute',
-          marginLeft: '-10px',
-          marginTop: '-12px',
-          zIndex: 2,
-          width: '24px',
-          height: '24px',
-          cursor: 'pointer',
-          borderRadius: '50%',
-          border: 'solid 2px rgb(200,200,200)',
-          backgroundColor: '#455a64',
-        }}
-        onMouseDown={this.onMouseDown}
-        onTouchStart={this.onTouchStart}
-      />
-    )
-  }
+  return (
+    <div
+      role="slider"
+      tabIndex={index}
+      aria-valuemin={domain[0]}
+      aria-valuemax={domain[1]}
+      aria-valuenow={val}
+      style={{
+        top: `${scale(val)}%`,
+        position: 'absolute',
+        marginLeft: '-10px',
+        marginTop: '-12px',
+        zIndex: 2,
+        width: '24px',
+        height: '24px',
+        cursor: 'pointer',
+        borderRadius: '50%',
+        border: 'solid 2px rgb(200,200,200)',
+        backgroundColor: '#455a64',
+      }}
+      onMouseDown={e => emitMouse(e, key)}
+      onTouchStart={e => emitTouch(e, key)}
+    />
+  )
 }
 
 Knob.propTypes = {
@@ -136,8 +119,8 @@ Knob.propTypes = {
   }),
   scale: PropTypes.func,
   index: PropTypes.number,
-  onMouse: PropTypes.func,
-  onTouch: PropTypes.func,
+  emitMouse: PropTypes.func,
+  emitTouch: PropTypes.func,
 }
 
 // *******************************************************

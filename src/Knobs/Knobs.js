@@ -13,8 +13,8 @@ class Knobs extends Component {
 Knobs.propTypes = {
   scale: PropTypes.func,
   knobs: PropTypes.array,
-  onMouse: PropTypes.func,
-  onTouch: PropTypes.func,
+  emitMouse: PropTypes.func,
+  emitTouch: PropTypes.func,
   children: PropTypes.func,
 }
 
