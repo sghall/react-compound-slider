@@ -1,7 +1,7 @@
 // @flow weak
 
 import React, { Component } from 'react'
-import Slider, { Knobs, Links, Ticks } from 'react-electric-slide'
+import Slider, { Knobs, Links } from 'react-electric-slide'
 import ValueViewer from 'docs/src/pages/ValueViewer' // for examples only - displays the table above slider
 import { Rail, Knob, Link, Tick } from './components' // example render components - source below
 
@@ -44,20 +44,46 @@ class Example extends Component {
           onChange={this.onChange}
           defaultValues={values}
         >
-          <Rail />
+          <div
+            style={{
+              position: 'absolute',
+              width: '100%',
+              height: '6px',
+              marginTop: '-1px',
+              borderRadius: '3px',
+              backgroundColor: 'rgb(155,155,155)',
+            }}
+          />
           <Knobs>
             {({ knobs, scale, emitMouse, emitTouch }) => {
+              const domain = scale.domain()
+
               return (
                 <div>
                   {knobs.map((knob, index) => {
                     return (
-                      <Knob
+                      <div
                         key={knob.key}
-                        knob={knob}
-                        index={index}
-                        scale={scale}
-                        emitMouse={emitMouse}
-                        emitTouch={emitTouch}
+                        role="slider"
+                        tabIndex={index}
+                        aria-valuemin={domain[0]}
+                        aria-valuemax={domain[1]}
+                        aria-valuenow={knob.val}
+                        style={{
+                          left: `${scale(knob.val)}%`,
+                          position: 'absolute',
+                          marginLeft: '-11px',
+                          marginTop: '-10px',
+                          zIndex: 2,
+                          width: '24px',
+                          height: '24px',
+                          cursor: 'pointer',
+                          borderRadius: '50%',
+                          border: 'solid 2px rgb(200,200,200)',
+                          backgroundColor: '#455a64',
+                        }}
+                        onMouseDown={e => emitMouse(e, knob.key)}
+                        onTouchStart={e => emitTouch(e, knob.key)}
                       />
                     )
                   })}
@@ -86,7 +112,7 @@ class Example extends Component {
               )
             }}
           </Links>
-          <Ticks>
+          <Knobs>
             {({ scale }) => {
               const ticks = scale.ticks(20)
 
@@ -105,7 +131,7 @@ class Example extends Component {
                 </div>
               )
             }}
-          </Ticks>
+          </Knobs>
         </Slider>
       </div>
     )
