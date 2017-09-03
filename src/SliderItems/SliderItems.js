@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-class Knobs extends Component {
+class SliderItems extends Component {
   render() {
-    const { children, ...rest } = this.props
+    const { children, knobs: handles, ...rest } = this.props
 
-    const renderedChildren = children({ ...rest })
+    const renderedChildren = children({ handles, ...rest })
     return renderedChildren && React.Children.only(renderedChildren)
   }
 }
 
-Knobs.propTypes = {
+SliderItems.propTypes = {
   scale: PropTypes.func,
   knobs: PropTypes.array,
   emitMouse: PropTypes.func,
@@ -18,4 +18,4 @@ Knobs.propTypes = {
   children: PropTypes.func,
 }
 
-export default Knobs
+export default SliderItems

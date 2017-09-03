@@ -80,10 +80,10 @@ Link.defaultProps = {
 }
 
 // *******************************************************
-// KNOB COMPONENT
+// HANDLE COMPONENT
 // *******************************************************
-export function Knob(props) {
-  const { knob: { key, val }, index, scale, emitMouse, emitTouch } = props
+export function Handle(props) {
+  const { handle: { key, val }, index, scale, emitMouse, emitTouch } = props
   const domain = scale.domain()
 
   return (
@@ -112,8 +112,8 @@ export function Knob(props) {
   )
 }
 
-Knob.propTypes = {
-  knob: PropTypes.shape({
+Handle.propTypes = {
+  handle: PropTypes.shape({
     key: PropTypes.string,
     val: PropTypes.number,
   }),

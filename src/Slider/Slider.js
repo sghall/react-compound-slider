@@ -261,6 +261,7 @@ Slider.propTypes = {
   onChange: PropTypes.func.isRequired,
   className: PropTypes.string,
   rootStyle: PropTypes.object,
+  tickCount: PropTypes.number,
   defaultValues: PropTypes.arrayOf(PropTypes.number).isRequired,
   children: PropTypes.any,
 }
@@ -272,6 +273,7 @@ Slider.defaultProps = {
   reversed: false,
   onUpdate: noop,
   onChange: noop,
+  tickCount: 10,
 }
 
 export default Slider

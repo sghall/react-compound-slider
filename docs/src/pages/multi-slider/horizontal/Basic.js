@@ -1,9 +1,9 @@
 // @flow weak
 
 import React, { Component } from 'react'
-import Slider, { Knobs, Links } from 'react-electric-slide'
+import Slider, { SliderItems, Links } from 'react-electric-slide'
 import ValueViewer from 'docs/src/pages/ValueViewer' // for examples only - displays the table above slider
-import { Rail, Knob, Link, Tick } from './components' // example render components - source below
+import { Rail, Handle, Link, Tick } from './components' // example render components - source below
 
 const defaultValues = [450, 400, 300, 150]
 
@@ -39,49 +39,45 @@ class Example extends Component {
           onChange={this.onChange}
           defaultValues={values}
         >
-          <Rail />
-          <Knobs>
-            {({ knobs, scale, emitMouse, emitTouch }) => {
-              return (
-                <div>
-                  {knobs.map((knob, index) => {
-                    return (
-                      <Knob
-                        key={knob.key}
-                        knob={knob}
-                        index={index}
-                        scale={scale}
-                        emitMouse={emitMouse}
-                        emitTouch={emitTouch}
-                      />
-                    )
-                  })}
-                </div>
-              )
-            }}
-          </Knobs>
+          <SliderItems>
+            {({ emitMouse, emitTouch }) => (
+              <Rail emitMouse={emitMouse} emitTouch={emitTouch} />
+            )}
+          </SliderItems>
+          <SliderItems>
+            {({ handles, scale, emitMouse, emitTouch }) => (
+              <div>
+                {handles.map((handle, index) => (
+                  <Handle
+                    key={handle.key}
+                    index={index}
+                    scale={scale}
+                    handle={handle}
+                    emitMouse={emitMouse}
+                    emitTouch={emitTouch}
+                  />
+                ))}
+              </div>
+            )}
+          </SliderItems>
           <Links>
-            {({ links, scale, emitMouse, emitTouch }) => {
-              return (
-                <div>
-                  {links.map((link, index) => {
-                    return (
-                      <Link
-                        key={link.key}
-                        source={link.source}
-                        target={link.target}
-                        index={index}
-                        scale={scale}
-                        emitMouse={emitMouse}
-                        emitTouch={emitTouch}
-                      />
-                    )
-                  })}
-                </div>
-              )
-            }}
+            {({ links, scale, emitMouse, emitTouch }) => (
+              <div>
+                {links.map(({ key, source, target }, index) => (
+                  <Link
+                    key={key}
+                    source={source}
+                    target={target}
+                    index={index}
+                    scale={scale}
+                    emitMouse={emitMouse}
+                    emitTouch={emitTouch}
+                  />
+                ))}
+              </div>
+            )}
           </Links>
-          <Knobs>
+          <SliderItems>
             {({ scale }) => {
               const ticks = scale.ticks(20)
 
@@ -100,7 +96,7 @@ class Example extends Component {
                 </div>
               )
             }}
-          </Knobs>
+          </SliderItems>
         </Slider>
       </div>
     )
