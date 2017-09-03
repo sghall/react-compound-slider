@@ -50,7 +50,7 @@ class Example extends Component {
           <Knobs>
             {({ knobs, scale, handleMouseDown, handleTouchStart }) => {
               return (
-                <div className="slider-knobs">
+                <div>
                   {knobs.map((knob, index) => {
                     return (
                       <Knob
@@ -70,7 +70,7 @@ class Example extends Component {
           <Links>
             {({ links, scale }) => {
               return (
-                <div className="slider-links">
+                <div>
                   {links.map((link, index) => {
                     return (
                       <Link
