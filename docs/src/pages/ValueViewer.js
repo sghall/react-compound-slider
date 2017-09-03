@@ -26,17 +26,17 @@ const ValueViewer = ({ classes, values, update, format }) => {
     <div style={{ marginTop: 10, width: '100%' }}>
       <div className={classes.container}>
         <div className={classes.item}>onChange:</div>
-        {values.map(d => (
-          <div key={d.key} className={classes.item}>
-            {format(d.val)}
+        {values.map((d, i) => (
+          <div key={i} className={classes.item}>
+            {format(d)}
           </div>
         ))}
       </div>
       <div style={{ marginBottom: 40 }} className={classes.container}>
         <div className={classes.item}>onUpdate:</div>
-        {update.map(d => (
-          <div key={d.key} className={classes.item}>
-            {format(d.val)}
+        {update.map((d, i) => (
+          <div key={i} className={classes.item}>
+            {format(d)}
           </div>
         ))}
       </div>

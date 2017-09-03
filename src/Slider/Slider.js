@@ -68,13 +68,12 @@ class Slider extends Component {
 
     this.setState(() => {
       const values = []
-      const pushed = {}
 
-      const cloned = defaultValues
-        .map(({ key, val }) => ({ key, val }))
+      const mapped = defaultValues
+        .map((val, i) => ({ key: `$$-${i}`, val }))
         .sort(utils.getSortByVal(reversed))
 
-      cloned.forEach(({ key, val }) => {
+      mapped.forEach(({ key, val }) => {
         const v0 = this.valueToStep(val)
 
         warning(
@@ -82,15 +81,7 @@ class Slider extends Component {
           `React Electric Slide: Invalid default value. Changing ${val} to ${v0}.`,
         )
 
-        warning(
-          !pushed[key],
-          `React Electric Slide: No duplicate keys allowed. Skipping "${key}" key.`,
-        )
-
-        if (!pushed[key]) {
-          pushed[key] = true
-          values.push({ key, val: v0 })
-        }
+        values.push({ key, val: v0 })
       })
 
       return { values }
@@ -215,14 +206,14 @@ class Slider extends Component {
           warning(false, 'React Electric Slide: Invalid mode value.')
       }
 
-      onUpdate(values)
+      onUpdate(values.map(d => d.val))
       this.setState({ values })
     }
   }
 
   onMouseUp() {
     const { state: { values }, props: { onChange } } = this
-    onChange(values)
+    onChange(values.map(d => d.val))
 
     document.removeEventListener('mousemove', this.onMouseMove)
     document.removeEventListener('mouseup', this.onMouseUp)
@@ -230,7 +221,7 @@ class Slider extends Component {
 
   onTouchEnd() {
     const { state: { values }, props: { onChange } } = this
-    onChange(values)
+    onChange(values.map(d => d.val))
 
     document.removeEventListener('touchmove', this.onTouchMove)
     document.removeEventListener('touchend', this.onTouchEnd)
@@ -270,7 +261,7 @@ Slider.propTypes = {
   onChange: PropTypes.func.isRequired,
   className: PropTypes.string,
   rootStyle: PropTypes.object,
-  defaultValues: PropTypes.arrayOf(PropTypes.object).isRequired,
+  defaultValues: PropTypes.arrayOf(PropTypes.number).isRequired,
   children: PropTypes.any,
 }
 

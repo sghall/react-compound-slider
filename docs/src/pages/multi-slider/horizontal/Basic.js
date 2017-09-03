@@ -5,12 +5,7 @@ import Slider, { Knobs, Links } from 'react-electric-slide'
 import ValueViewer from 'docs/src/pages/ValueViewer' // for examples only - displays the table above slider
 import { Rail, Knob, Link, Tick } from './components' // example render components - source below
 
-const defaultValues = [
-  { key: 'cat', val: 450 },
-  { key: 'hat', val: 400 },
-  { key: 'dog', val: 300 },
-  { key: 'bat', val: 150 },
-]
+const defaultValues = [450, 400, 300, 150]
 
 class Example extends Component {
   state = {
@@ -44,46 +39,20 @@ class Example extends Component {
           onChange={this.onChange}
           defaultValues={values}
         >
-          <div
-            style={{
-              position: 'absolute',
-              width: '100%',
-              height: '6px',
-              marginTop: '-1px',
-              borderRadius: '3px',
-              backgroundColor: 'rgb(155,155,155)',
-            }}
-          />
+          <Rail />
           <Knobs>
             {({ knobs, scale, emitMouse, emitTouch }) => {
-              const domain = scale.domain()
-
               return (
                 <div>
                   {knobs.map((knob, index) => {
                     return (
-                      <div
+                      <Knob
                         key={knob.key}
-                        role="slider"
-                        tabIndex={index}
-                        aria-valuemin={domain[0]}
-                        aria-valuemax={domain[1]}
-                        aria-valuenow={knob.val}
-                        style={{
-                          left: `${scale(knob.val)}%`,
-                          position: 'absolute',
-                          marginLeft: '-11px',
-                          marginTop: '-10px',
-                          zIndex: 2,
-                          width: '24px',
-                          height: '24px',
-                          cursor: 'pointer',
-                          borderRadius: '50%',
-                          border: 'solid 2px rgb(200,200,200)',
-                          backgroundColor: '#455a64',
-                        }}
-                        onMouseDown={e => emitMouse(e, knob.key)}
-                        onTouchStart={e => emitTouch(e, knob.key)}
+                        knob={knob}
+                        index={index}
+                        scale={scale}
+                        emitMouse={emitMouse}
+                        emitTouch={emitTouch}
                       />
                     )
                   })}
