@@ -94,7 +94,7 @@ export class Knob extends Component {
           height: '24px',
           cursor: 'pointer',
           borderRadius: '50%',
-          border: 'solid 4px rgb(200,200,200)',
+          border: 'solid 2px rgb(200,200,200)',
           backgroundColor: '#455a64',
         }}
         onMouseDown={this.onMouseDown}

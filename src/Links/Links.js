@@ -5,16 +5,16 @@ class Links extends Component {
   render() {
     const {
       scale,
-      values,
+      knobs,
       children,
       handleMouseDown,
       handleTouchStart,
     } = this.props
     const links = []
 
-    for (let i = 0; i < values.length + 1; i++) {
-      const s = values[i - 1]
-      const t = values[i]
+    for (let i = 0; i < knobs.length + 1; i++) {
+      const s = knobs[i - 1]
+      const t = knobs[i]
 
       links.push({
         key: `${s ? s.key : '$'}-${t ? t.key : '$'}`,
@@ -26,7 +26,7 @@ class Links extends Component {
     const renderedChildren = children({
       links,
       scale,
-      values,
+      knobs,
       handleMouseDown,
       handleTouchStart,
     })
@@ -36,7 +36,7 @@ class Links extends Component {
 
 Links.propTypes = {
   scale: PropTypes.func,
-  values: PropTypes.array,
+  knobs: PropTypes.array,
   handleMouseDown: PropTypes.func,
   handleTouchStart: PropTypes.func,
   children: PropTypes.func,
