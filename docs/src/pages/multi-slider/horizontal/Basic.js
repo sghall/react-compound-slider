@@ -46,7 +46,7 @@ class Example extends Component {
         >
           <Rail />
           <Knobs>
-            {({ knobs, scale, handleMouseDown, handleTouchStart }) => {
+            {({ knobs, scale, onMouse, onTouch }) => {
               return (
                 <div>
                   {knobs.map((knob, index) => {
@@ -56,8 +56,8 @@ class Example extends Component {
                         knob={knob}
                         index={index}
                         scale={scale}
-                        handleMouseDown={handleMouseDown}
-                        handleTouchStart={handleTouchStart}
+                        onMouse={onMouse}
+                        onTouch={onTouch}
                       />
                     )
                   })}

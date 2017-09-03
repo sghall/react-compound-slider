@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 
 class Ticks extends Component {
   render() {
-    const { scale, knobs, children } = this.props
+    const { children, ...rest } = this.props
 
-    const renderedChildren = children({ scale, knobs })
+    const renderedChildren = children({ ...rest })
     return renderedChildren && React.Children.only(renderedChildren)
   }
 }
@@ -13,6 +13,8 @@ class Ticks extends Component {
 Ticks.propTypes = {
   scale: PropTypes.func,
   knobs: PropTypes.array,
+  onMouse: PropTypes.func,
+  onTouch: PropTypes.func,
   children: PropTypes.func,
 }
 

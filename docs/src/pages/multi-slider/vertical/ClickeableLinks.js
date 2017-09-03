@@ -11,8 +11,13 @@ import { Rail, Knob, Tick } from './components' // example render components - s
 // *******************************************************
 class Link extends Component {
   onMouseDown = e => {
-    const { handleMouseDown } = this.props
-    handleMouseDown(e)
+    const { onMouse } = this.props
+    onMouse(e)
+  }
+
+  onTouchStart = e => {
+    const { onMouse } = this.props
+    onMouse(e)
   }
 
   render() {
@@ -39,6 +44,7 @@ class Link extends Component {
           height: `${p1 - p0}%`,
         }}
         onMouseDown={this.onMouseDown}
+        onTouchStart={this.onTouchStart}
       />
     )
   }
@@ -54,7 +60,7 @@ Link.propTypes = {
     val: PropTypes.number,
   }),
   scale: PropTypes.func,
-  handleMouseDown: PropTypes.func,
+  onMouse: PropTypes.func,
 }
 
 const defaultValues = [
@@ -100,7 +106,7 @@ class Example extends Component {
         >
           <Rail />
           <Knobs>
-            {({ knobs, scale, handleMouseDown, handleTouchStart }) => {
+            {({ knobs, scale, onMouse, onTouch }) => {
               return (
                 <div>
                   {knobs.map((knob, index) => {
@@ -110,8 +116,8 @@ class Example extends Component {
                         knob={knob}
                         index={index}
                         scale={scale}
-                        handleMouseDown={handleMouseDown}
-                        handleTouchStart={handleTouchStart}
+                        onMouse={onMouse}
+                        onTouch={onTouch}
                       />
                     )
                   })}
@@ -120,7 +126,7 @@ class Example extends Component {
             }}
           </Knobs>
           <Links>
-            {({ links, scale, handleMouseDown, handleTouchStart }) => {
+            {({ links, scale, onMouse, onTouch }) => {
               return (
                 <div>
                   {links.map((link, index) => {
@@ -131,8 +137,8 @@ class Example extends Component {
                         target={link.target}
                         index={index}
                         scale={scale}
-                        handleMouseDown={handleMouseDown}
-                        handleTouchStart={handleTouchStart}
+                        onMouse={onMouse}
+                        onTouch={onTouch}
                       />
                     )
                   })}

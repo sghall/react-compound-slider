@@ -64,13 +64,13 @@ Link.propTypes = {
 // *******************************************************
 export class Knob extends Component {
   onMouseDown = e => {
-    const { handleMouseDown, knob: { key } } = this.props
-    handleMouseDown(e, key)
+    const { onMouse, knob: { key } } = this.props
+    onMouse(e, key)
   }
 
   onTouchStart = e => {
-    const { handleTouchStart, knob: { key } } = this.props
-    handleTouchStart(e, key)
+    const { onTouch, knob: { key } } = this.props
+    onTouch(e, key)
   }
 
   render() {
@@ -111,8 +111,8 @@ Knob.propTypes = {
   }),
   scale: PropTypes.func,
   index: PropTypes.number,
-  handleMouseDown: PropTypes.func,
-  handleTouchStart: PropTypes.func,
+  onMouse: PropTypes.func,
+  onTouch: PropTypes.func,
 }
 
 // *******************************************************
