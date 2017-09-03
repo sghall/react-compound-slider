@@ -3,7 +3,13 @@ import PropTypes from 'prop-types'
 
 class Links extends Component {
   render() {
-    const { scale, values, children } = this.props
+    const {
+      scale,
+      values,
+      children,
+      handleMouseDown,
+      handleTouchStart,
+    } = this.props
     const links = []
 
     for (let i = 0; i < values.length + 1; i++) {
@@ -17,7 +23,13 @@ class Links extends Component {
       })
     }
 
-    const renderedChildren = children({ links, scale, values })
+    const renderedChildren = children({
+      links,
+      scale,
+      values,
+      handleMouseDown,
+      handleTouchStart,
+    })
     return renderedChildren && React.Children.only(renderedChildren)
   }
 }
@@ -25,6 +37,8 @@ class Links extends Component {
 Links.propTypes = {
   scale: PropTypes.func,
   values: PropTypes.array,
+  handleMouseDown: PropTypes.func,
+  handleTouchStart: PropTypes.func,
   children: PropTypes.func,
 }
 

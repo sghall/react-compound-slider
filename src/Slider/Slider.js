@@ -122,6 +122,41 @@ class Slider extends Component {
     if (active) {
       this.active = key
       isTouch ? this.addTouchEvents() : this.addMouseEvents()
+    } else {
+      this.active = null
+      this.requestMove(e, isTouch)
+    }
+  }
+
+  requestMove(e, isTouch) {
+    const { state: { values: prev }, props: { vertical, reversed } } = this
+    const { slider } = this
+
+    this.pixelToStep.domain(utils.getSliderDomain(slider, vertical))
+
+    let step
+
+    if (isTouch) {
+      step = this.pixelToStep(utils.getTouchPosition(vertical, e))
+    } else {
+      step = this.pixelToStep(vertical ? e.clientY : e.pageX)
+    }
+
+    let active = null
+    let lowest = Infinity
+
+    for (let i = 0; i < prev.length; i++) {
+      const diff = Math.abs(this.valueToStep(prev[i].val) - step)
+
+      if (diff < lowest) {
+        active = prev[i].key
+        lowest = diff
+      }
+    }
+
+    if (active) {
+      const next = utils.updateValues(prev, active, step, reversed)
+      this.onMove(prev, next)
     }
   }
 
