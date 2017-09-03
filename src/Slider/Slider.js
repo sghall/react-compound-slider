@@ -13,7 +13,6 @@ class Slider extends Component {
     super(props)
 
     this.slider = null
-    this.handles = {}
 
     this.valueToPerc = scaleLinear()
     this.valueToStep = scaleQuantize()
@@ -253,7 +252,7 @@ class Slider extends Component {
       <div
         style={rootStyle || {}}
         className={className}
-        ref={node => (this.slider = node)}
+        ref={d => (this.slider = d)}
       >
         {children}
       </div>

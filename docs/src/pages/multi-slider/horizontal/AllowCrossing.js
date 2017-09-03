@@ -46,7 +46,7 @@ class Example extends Component {
         >
           <Rail />
           <Knobs>
-            {({ knobs, scale, onMouse, onTouch }) => {
+            {({ knobs, scale, emitMouse, emitTouch }) => {
               return (
                 <div>
                   {knobs.map((knob, index) => {
@@ -56,8 +56,8 @@ class Example extends Component {
                         knob={knob}
                         index={index}
                         scale={scale}
-                        onMouse={onMouse}
-                        onTouch={onTouch}
+                        emitMouse={emitMouse}
+                        emitTouch={emitTouch}
                       />
                     )
                   })}
@@ -66,7 +66,7 @@ class Example extends Component {
             }}
           </Knobs>
           <Links>
-            {({ links, scale }) => {
+            {({ links, scale, emitMouse, emitTouch }) => {
               return (
                 <div>
                   {links.map((link, index) => {
@@ -77,6 +77,8 @@ class Example extends Component {
                         target={link.target}
                         index={index}
                         scale={scale}
+                        emitMouse={emitMouse}
+                        emitTouch={emitTouch}
                       />
                     )
                   })}
@@ -86,7 +88,7 @@ class Example extends Component {
           </Links>
           <Ticks>
             {({ scale }) => {
-              const ticks = scale.ticks(20)
+              const ticks = scale.ticks(10)
 
               return (
                 <div>
