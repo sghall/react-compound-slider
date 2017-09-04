@@ -7,7 +7,7 @@ export function kebabCase(string) {
     .split('')
     .map((a, index) => {
       if (a.toUpperCase() === a && a !== '-') {
-        return (index !== 0 ? '-' : '') + a.toLowerCase()
+        return (index !== 0 ? '-' : '') + a.toLowerCase() // eslint-disable-line no-negated-condition
       }
       return a
     })

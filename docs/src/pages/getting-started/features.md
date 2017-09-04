@@ -3,6 +3,12 @@
 - ** Compound component design provides maximum customizability ✓**
   - Makes no assumptions about your markup
 
+- ** Only 17kb gzipped ✓**
+  - Less than half the size of similar slider libs
+
+- ** Supports mouse and touch events ✓**
+  - Supports IE9+, Chrome, Firefox & Safari
+
 - ** Create any type of slider ✓**
   - Single value slider
   - Range slider (2 handles)

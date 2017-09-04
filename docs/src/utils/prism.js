@@ -1,5 +1,5 @@
 // @flow
-
+/* eslint-disable */
 import prism from 'prismjs'
 import 'prismjs/components/prism-markup'
 import 'prismjs/components/prism-javascript'
