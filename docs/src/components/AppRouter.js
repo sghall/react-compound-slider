@@ -42,9 +42,16 @@ export default function AppRouter() {
           nav
         >
           <Route
-            title="Installation"
-            path="/getting-started/installation"
+            title="Slider"
+            path="/getting-started/slider"
             content={srcContext('./Slider/Slider')}
+            component={ComponentDoc}
+            nav
+          />
+          <Route
+            title="Rail"
+            path="/getting-started/rail"
+            content={srcContext('./Rail/Rail')}
             component={ComponentDoc}
             nav
           />

@@ -270,17 +270,6 @@ class Slider extends Component {
 
 Slider.propTypes = {
   /**
-   * Two elment array of numbers providing the min and max values for the slider [min, max] e.g. [0, 100].
-   * It does not matter if the slider is reversed on the screen, domain is always [min, max] with min < max.
-   */
-  domain: PropTypes.array.isRequired,
-  /**
-   * An array of numbers. You can supply one for a value slider, two for a range slider or more to create n-handled sliders.
-   * The default values should correspond to valid step values in the domain.
-   * The numbers will be forced into the domain if they are two small or large.
-   */
-  defaultValues: PropTypes.array.isRequired,
-  /**
    * CSS class name applied to the root div of the slider.
    */
   className: PropTypes.string,
@@ -289,7 +278,18 @@ Slider.propTypes = {
    */
   rootStyle: PropTypes.object,
   /**
-   * The step value for the slider.  All sliders are discrete.
+   * Two elment array of numbers providing the min and max values for the slider [min, max] e.g. [0, 100].
+   * It does not matter if the slider is reversed on the screen, domain is always [min, max] with min < max.
+   */
+  domain: PropTypes.array,
+  /**
+   * An array of numbers. You can supply one for a value slider, two for a range slider or more to create n-handled sliders.
+   * The default values should correspond to valid step values in the domain.
+   * The numbers will be forced into the domain if they are two small or large.
+   */
+  defaultValues: PropTypes.array,
+  /**
+   * The step value for the slider.
    */
   step: PropTypes.number,
   /**
@@ -297,16 +297,32 @@ Slider.propTypes = {
    * Value of 2 will keep the sliders from crossing and separated by a step.
    */
   mode: PropTypes.oneOf([1, 2]),
+  /**
+   * Set to true if the slider is displayed vertically to tell the slider to use the height to calculate positions. 
+   */
   vertical: PropTypes.bool,
+  /**
+   * Reverse the display of slider values.
+   */
   reversed: PropTypes.bool,
+  /**
+   * Function called with the values at each update of of the slider while dragging. 
+   */
   onUpdate: PropTypes.func,
+  /**
+   * Function called with the values when dragging stops. 
+   */
   onChange: PropTypes.func,
+  /**
+   * Component children to render
+   */
   children: PropTypes.any,
 }
 
 Slider.defaultProps = {
   mode: 1,
   step: 0.1,
+  domain: [0, 100],
   vertical: false,
   reversed: false,
   onUpdate: noop,

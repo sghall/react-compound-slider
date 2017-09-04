@@ -11,9 +11,14 @@ class Rail extends Component {
 }
 
 Rail.propTypes = {
+  /** @ignore */
   emitMouse: PropTypes.func,
+  /** @ignore */
   emitTouch: PropTypes.func,
-  children: PropTypes.func,
+  /**
+   * A function to render the rail content. 
+   */
+  children: PropTypes.func.isRequired,
 }
 
 export default Rail
