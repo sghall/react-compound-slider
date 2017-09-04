@@ -99,8 +99,8 @@ function AppDrawer(props) {
       <div className={classes.nav}>
         <Toolbar className={classes.toolbar}>
           <Link className={classes.title} to="/" onClick={onRequestClose}>
-            <Typography type="title" gutterBottom color="inherit">
-              Electric Slide
+            <Typography type="body1" gutterBottom color="inherit">
+              React Compound Slider
             </Typography>
           </Link>
           {process.env.MATERIAL_UI_VERSION ? (

@@ -54,7 +54,7 @@ module.exports = Object.assign({}, webpackBaseConfig, {
   resolve: {
     alias: {
       docs: path.resolve(__dirname, '../docs'),
-      'react-electric-slide': path.resolve(__dirname, '../src'),
+      'react-compound-slider': path.resolve(__dirname, '../src'),
     },
   },
   plugins: webpackBaseConfig.plugins.concat([

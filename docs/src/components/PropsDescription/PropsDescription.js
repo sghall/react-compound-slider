@@ -122,7 +122,7 @@ class PropTypeDescription extends Component {
   }
 
   static defaultProps = {
-    header: '',
+    header: '### Props',
   }
 
   render() {

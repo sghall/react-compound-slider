@@ -1,5 +1,5 @@
 {
-  "name": "react-electric-slide",
+  "name": "react-compound-slider",
   "version": "0.1.0",
   "description": "An eco friendly alternative to gas powered slider components",
   "keywords": [
@@ -14,7 +14,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/sghall/react-electric-slide.git"
+    "url": "https://github.com/sghall/react-compound-slider.git"
   },
   "main": "lib/js/index.js",
   "author": "Steven Hall",

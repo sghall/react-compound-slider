@@ -1,11 +1,11 @@
 {
-  "name": "react-electric-slide-docs",
+  "name": "react-compound-slider-docs",
   "private": true,
   "version": "0.9.5",
   "description": "Data-driven transitions in React",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sghall/react-electric-slide.git"
+    "url": "https://github.com/sghall/react-compound-slider.git"
   },
   "scripts": {
     "start": "npm run clean && npm run start:dll && ../node_modules/.bin/babel-node webpack.dev.server.js",

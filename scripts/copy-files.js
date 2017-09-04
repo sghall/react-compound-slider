@@ -46,7 +46,7 @@ function createPackageFile() {
       } = packageData
 
       const minimalPackage = {
-        name: 'react-electric-slide',
+        name: 'react-compound-slider',
         author,
         version,
         description,
