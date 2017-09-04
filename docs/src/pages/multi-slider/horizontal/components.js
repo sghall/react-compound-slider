@@ -52,10 +52,6 @@ Handle.propTypes = {
 // TRACK COMPONENT
 // *******************************************************
 export function Track({ source, target, emitMouse, emitTouch }) {
-  if (!source || !target) {
-    return null
-  }
-
   return (
     <div
       style={{

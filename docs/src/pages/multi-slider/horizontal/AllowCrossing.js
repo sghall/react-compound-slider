@@ -70,7 +70,7 @@ class Example extends Component {
               </div>
             )}
           </Handles>
-          <Tracks>
+          <Tracks left={false} right={false}>
             {({ tracks, emitMouse, emitTouch }) => (
               <div className="slider-tracks">
                 {tracks.map(({ id, source, target }) => (
