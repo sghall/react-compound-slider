@@ -311,11 +311,11 @@ Slider.propTypes = {
    */
   reversed: PropTypes.bool,
   /**
-   * Function called with the values at each update of of the slider while dragging. 
+   * Function called with the values at each update (caution: high-volume updates when dragging).
    */
   onUpdate: PropTypes.func,
   /**
-   * Function called with the values when dragging stops. 
+   * Function called with the values when interaction stops.
    */
   onChange: PropTypes.func,
   /**
