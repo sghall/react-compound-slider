@@ -4,6 +4,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
 import PropsDescription from 'docs/src/components/PropsDescription'
+import MarkdownElement from 'docs/src/components/MarkdownElement'
 
 const styles = {
   root: {
@@ -16,10 +17,11 @@ const styles = {
   },
 }
 
-function ComponentDoc({ classes, route: { content } }) {
+function ComponentDoc({ classes, route: { code, content } }) {
   return (
     <div className={classes.root}>
-      <PropsDescription key={content} code={content} />
+      <MarkdownElement text={content} />
+      <PropsDescription code={code} />
     </div>
   )
 }
@@ -27,8 +29,8 @@ function ComponentDoc({ classes, route: { content } }) {
 ComponentDoc.propTypes = {
   classes: PropTypes.object.isRequired,
   route: PropTypes.shape({
+    code: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
-    path: PropTypes.string.isRequired,
   }).isRequired,
 }
 

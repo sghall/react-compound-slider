@@ -57,7 +57,7 @@ Tracks.propTypes = {
   /** @ignore */
   emitTouch: PropTypes.func,
   /**
-   * A function to render to the tracks. `({ tracks, emitMouse, emitTouch }): element`
+   * A function to render to the tracks. The function receives and object with an array of tracks and functions for emitting events. `({ tracks, emitMouse, emitTouch }): element`
    */
   children: PropTypes.func.isRequired,
 }

@@ -181,9 +181,7 @@ class PropTypeDescription extends Component {
     return (
       <div className="propTypeDescription" style={{ paddingTop: 10 }}>
         <MarkdownElement text={text} />
-        <div
-          style={{ color: 'rgb(127,127,127)', fontSize: '70%', padding: 15 }}
-        >
+        <div style={{ color: '#31a148', fontSize: '70%', padding: 15 }}>
           * required properites
         </div>
       </div>

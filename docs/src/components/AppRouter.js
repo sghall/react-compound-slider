@@ -67,35 +67,40 @@ export default function AppRouter() {
           <Route
             title="Slider"
             path="/component-api/slider"
-            content={srcContext('./Slider/Slider')}
+            code={srcContext('./Slider/Slider')}
+            content={requireMarkdown('./component-api/slider.md')}
             component={ComponentDoc}
             nav
           />
           <Route
             title="Rail"
             path="/component-api/rail"
-            content={srcContext('./Rail/Rail')}
+            code={srcContext('./Rail/Rail')}
+            content={requireMarkdown('./component-api/rail.md')}
             component={ComponentDoc}
             nav
           />
           <Route
             title="Handles"
             path="/component-api/handles"
-            content={srcContext('./Handles/Handles')}
+            code={srcContext('./Handles/Handles')}
+            content={requireMarkdown('./component-api/handles.md')}
             component={ComponentDoc}
             nav
           />
           <Route
             title="Tracks"
             path="/component-api/tracks"
-            content={srcContext('./Tracks/Tracks')}
+            code={srcContext('./Tracks/Tracks')}
+            content={requireMarkdown('./component-api/tracks.md')}
             component={ComponentDoc}
             nav
           />
           <Route
             title="Ticks"
             path="/component-api/ticks"
-            content={srcContext('./Ticks/Ticks')}
+            code={srcContext('./Ticks/Ticks')}
+            content={requireMarkdown('./component-api/ticks.md')}
             component={ComponentDoc}
             nav
           />
