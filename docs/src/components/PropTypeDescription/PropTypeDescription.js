@@ -5,8 +5,7 @@ import { parse } from 'react-docgen'
 import recast from 'recast'
 import { parse as parseDoctrine } from 'doctrine'
 import MarkdownElement from '../MarkdownElement'
-
-require('./prop-type-description.css')
+import './prop-type-description.css'
 
 function getDeprecatedInfo(type) {
   const deprecatedPropType = 'deprecated(PropTypes.'
@@ -116,13 +115,6 @@ function generateDescription(required, description, type) {
   return `${deprecated} ${jsDocText}${signature}`
 }
 
-const styles = {
-  footnote: {
-    fontSize: '90%',
-    paddingLeft: '15px',
-  },
-}
-
 class PropTypeDescription extends Component {
   static propTypes = {
     code: PropTypes.string,
@@ -130,7 +122,7 @@ class PropTypeDescription extends Component {
   }
 
   static defaultProps = {
-    header: '### Properties',
+    header: '',
   }
 
   render() {
@@ -179,17 +171,21 @@ class PropTypeDescription extends Component {
       )} | ${defaultValue} | ${description} |\n`
     }
 
-    text += 'Other properties (not documented) are applied to the root element.'
+    text += ''
 
     const requiredPropFootnote =
       requiredProps === 1
         ? '* required property'
-        : requiredProps > 1 ? '* required properties' : ''
+        : requiredProps > 1 ? '' : '* required properties'
 
     return (
-      <div className="propTypeDescription">
+      <div className="propTypeDescription" style={{ paddingTop: 10 }}>
         <MarkdownElement text={text} />
-        <div style={styles.footnote}>{requiredPropFootnote}</div>
+        <div
+          style={{ color: 'rgb(127,127,127)', fontSize: '70%', padding: 15 }}
+        >
+          * required properites
+        </div>
       </div>
     )
   }

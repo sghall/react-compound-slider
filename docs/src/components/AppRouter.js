@@ -13,6 +13,7 @@ import { kebabCase, titleize } from 'docs/src/utils/helpers'
 import AppFrame from 'docs/src/components/AppFrame'
 import AppContent from 'docs/src/components/AppContent'
 import MarkdownDocs from 'docs/src/components/MarkdownDocs'
+import ComponentDoc from 'docs/src/components/ComponentDoc'
 import Home from 'docs/src/pages/Home'
 import {
   componentAPIs,
@@ -23,6 +24,7 @@ import {
   rangeSlider,
   requireMultiSlider,
   multiSlider,
+  srcContext,
 } from 'docs/src/components/files'
 
 export default function AppRouter() {
@@ -42,8 +44,8 @@ export default function AppRouter() {
           <Route
             title="Installation"
             path="/getting-started/installation"
-            content={requireMarkdown('./getting-started/installation.md')}
-            component={MarkdownDocs}
+            content={srcContext('./Slider/Slider')}
+            component={ComponentDoc}
             nav
           />
           <Route

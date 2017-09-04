@@ -17,6 +17,11 @@ export const componentAPIs = requireMarkdown.keys().reduce((res, n) => {
 }, [])
 
 // ********************************************************
+// SRC CONTEXT
+// ********************************************************
+export const srcContext = require.context('!raw-loader!../../../src', true)
+
+// ********************************************************
 // VALUE SLIDER EXAMPLES
 // ********************************************************
 export const requireValueSlider = require.context(

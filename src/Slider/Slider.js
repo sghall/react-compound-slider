@@ -10,7 +10,7 @@ import Handles from '../Handles'
 import { mode1, mode2 } from './modes'
 import * as utils from './utils'
 
-function noop() {}
+const noop = () => {}
 
 class Slider extends Component {
   constructor(props) {
@@ -270,27 +270,37 @@ class Slider extends Component {
 
 Slider.propTypes = {
   /**
-   * The backgroundColor of the avatar. Does not apply to image avatars.
+   * Two elment array of numbers providing the min and max values for the slider [min, max] e.g. [0, 100].
+   * It does not matter if the slider is reversed on the screen, domain is always [min, max] with min < max.
    */
-  defaultValues: PropTypes.arrayOf(PropTypes.number),
+  domain: PropTypes.array.isRequired,
   /**
-   * The backgroundColor of the avatar. Does not apply to image avatars.
+   * An array of numbers. You can supply one for a value slider, two for a range slider or more to create n-handled sliders.
+   * The default values should correspond to valid step values in the domain.
+   * The numbers will be forced into the domain if they are two small or large.
+   */
+  defaultValues: PropTypes.array.isRequired,
+  /**
+   * CSS class name applied to the root div of the slider.
    */
   className: PropTypes.string,
   /**
-   * The backgroundColor of the avatar. Does not apply to image avatars.
+   * An object with any inline styles you want applied to the root div.
    */
   rootStyle: PropTypes.object,
   /**
-   * The backgroundColor of the avatar. Does not apply to image avatars.
+   * The step value for the slider.  All sliders are discrete.
    */
-  step: PropTypes.number.isRequired,
-  mode: PropTypes.oneOf([1, 2]).isRequired,
-  domain: PropTypes.arrayOf(PropTypes.number),
-  vertical: PropTypes.bool.isRequired,
-  reversed: PropTypes.bool.isRequired,
-  onUpdate: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
+  step: PropTypes.number,
+  /**
+   * The interaction mode. Value of 1 will allow handles to cross.
+   * Value of 2 will keep the sliders from crossing and separated by a step.
+   */
+  mode: PropTypes.oneOf([1, 2]),
+  vertical: PropTypes.bool,
+  reversed: PropTypes.bool,
+  onUpdate: PropTypes.func,
+  onChange: PropTypes.func,
   children: PropTypes.any,
 }
 
