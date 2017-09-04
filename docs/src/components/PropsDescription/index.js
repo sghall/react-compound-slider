@@ -1,1 +1,1 @@
-export { default } from './PropTypeDescription'
+export { default } from './PropsDescription'

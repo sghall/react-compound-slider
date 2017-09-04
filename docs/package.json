@@ -8,7 +8,7 @@
     "url": "https://github.com/sghall/react-electric-slide.git"
   },
   "scripts": {
-    "start": "npm run clean && npm run start:dll && node webpack.dev.server.js",
+    "start": "npm run clean && npm run start:dll && ../node_modules/.bin/babel-node webpack.dev.server.js",
     "start:dll": "webpack --config webpack.dev.dll.config.js",
     "build": "npm run clean && npm run build:dll && cross-env NODE_ENV=production webpack --config webpack.prd.config.js",
     "build:dll": "cross-env NODE_ENV=production webpack --config webpack.prd.dll.config.js",

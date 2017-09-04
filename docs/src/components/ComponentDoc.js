@@ -7,7 +7,6 @@ import PropsDescription from 'docs/src/components/PropsDescription'
 
 const styles = {
   root: {
-    backgroundColor: 'rgb(245,245,245)',
     marginBottom: 100,
   },
   header: {
