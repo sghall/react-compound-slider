@@ -2,8 +2,8 @@
 
 const path = require('path')
 const webpack = require('webpack')
-const packageJson = require('./package.json')
 const packageJsonSrc = require('../package.json')
+const packageJson = require('./package.json')
 
 const excludedDeps = ['lodash', 'simple-assign', 'babel-runtime']
 
