@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 
 class Rail extends Component {
   render() {
-    const { children, ...rest } = this.props
+    const { children, emitMouse, emitTouch } = this.props
 
-    const renderedChildren = children({ ...rest })
+    const renderedChildren = children({ emitMouse, emitTouch })
     return renderedChildren && React.Children.only(renderedChildren)
   }
 }

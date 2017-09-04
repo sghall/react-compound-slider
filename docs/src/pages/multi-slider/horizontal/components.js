@@ -6,15 +6,10 @@ import PropTypes from 'prop-types'
 // *******************************************************
 // LINK COMPONENT
 // *******************************************************
-export function Link(props) {
-  const { source, target, scale, emitMouse, emitTouch } = props
-
+export function Track({ source, target, emitMouse, emitTouch }) {
   if (!source || !target) {
     return null
   }
-
-  const p0 = scale(source.val)
-  const p1 = scale(target.val)
 
   return (
     <div
@@ -25,8 +20,8 @@ export function Link(props) {
         backgroundColor: '#455a64',
         borderRadius: '4px',
         cursor: 'pointer',
-        left: `${p0}%`,
-        width: `${p1 - p0}%`,
+        left: `${source.percent}%`,
+        width: `${target.percent - source.percent}%`,
       }}
       onMouseDown={e => emitMouse(e)}
       onTouchStart={e => emitTouch(e)}
@@ -34,7 +29,7 @@ export function Link(props) {
   )
 }
 
-Link.propTypes = {
+Track.propTypes = {
   source: PropTypes.shape({
     key: PropTypes.string,
     val: PropTypes.number,
@@ -43,12 +38,11 @@ Link.propTypes = {
     key: PropTypes.string,
     val: PropTypes.number,
   }),
-  scale: PropTypes.func,
   emitMouse: PropTypes.func,
   emitTouch: PropTypes.func,
 }
 
-Link.defaultProps = {
+Track.defaultProps = {
   emitMouse: () => {},
   emitTouch: () => {},
 }
@@ -56,14 +50,12 @@ Link.defaultProps = {
 // *******************************************************
 // HANDLE COMPONENT
 // *******************************************************
-export function Handle(props) {
-  const {
-    domain: [min, max],
-    handle: { id, value, percent },
-    emitMouse,
-    emitTouch,
-  } = props
-
+export function Handle({
+  domain: [min, max],
+  handle: { id, value, percent },
+  emitMouse,
+  emitTouch,
+}) {
   return (
     <div
       role="slider"
@@ -103,7 +95,7 @@ Handle.propTypes = {
 // *******************************************************
 // TICK COMPONENT
 // *******************************************************
-export function Tick({ value, count, scale, format }) {
+export function Tick({ tick, count, format }) {
   return (
     <div>
       <div
@@ -113,7 +105,7 @@ export function Tick({ value, count, scale, format }) {
           width: '1px',
           height: '5px',
           backgroundColor: 'rgb(200,200,200)',
-          left: `${scale(value)}%`,
+          left: `${tick.percent}%`,
         }}
       />
       <div
@@ -124,19 +116,22 @@ export function Tick({ value, count, scale, format }) {
           textAlign: 'center',
           marginLeft: `${-(100 / count) / 2}%`,
           width: `${100 / count}%`,
-          left: `${scale(value)}%`,
+          left: `${tick.percent}%`,
         }}
       >
-        {format(value)}
+        {format(tick.value)}
       </div>
     </div>
   )
 }
 
 Tick.propTypes = {
-  value: PropTypes.number,
+  tick: PropTypes.shape({
+    id: PropTypes.string,
+    value: PropTypes.number,
+    percent: PropTypes.number,
+  }),
   count: PropTypes.number,
-  scale: PropTypes.func,
   format: PropTypes.func,
 }
 

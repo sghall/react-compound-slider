@@ -1,9 +1,9 @@
 // @flow weak
 
 import React, { Component } from 'react'
-import Slider, { Rail, Handles, SliderItems, Links } from 'react-electric-slide'
+import Slider, { Rail, Handles, Tracks, Ticks } from 'react-electric-slide'
 import ValueViewer from 'docs/src/pages/ValueViewer' // for examples only - displays the table above slider
-import { Handle, Link, Tick } from './components' // example render components - source below
+import { Handle, Track, Tick } from './components' // example render components - source below
 
 const domain = [100, 500]
 const defaultValues = [450, 400, 300, 150]
@@ -70,43 +70,30 @@ class Example extends Component {
               </div>
             )}
           </Handles>
-          <Links>
-            {({ links, scale, emitMouse, emitTouch }) => (
-              <div>
-                {links.map(({ key, source, target }, index) => (
-                  <Link
-                    key={key}
+          <Tracks>
+            {({ tracks, emitMouse, emitTouch }) => (
+              <div className="slider-tracks">
+                {tracks.map(({ id, source, target }) => (
+                  <Track
+                    key={id}
                     source={source}
                     target={target}
-                    index={index}
-                    scale={scale}
                     emitMouse={emitMouse}
                     emitTouch={emitTouch}
                   />
                 ))}
               </div>
             )}
-          </Links>
-          <SliderItems>
-            {({ scale }) => {
-              const ticks = scale.ticks(20)
-
-              return (
-                <div>
-                  {ticks.map(value => {
-                    return (
-                      <Tick
-                        key={`tick-${value}`}
-                        value={value}
-                        scale={scale}
-                        count={ticks.length}
-                      />
-                    )
-                  })}
-                </div>
-              )
-            }}
-          </SliderItems>
+          </Tracks>
+          <Ticks count={15}>
+            {({ ticks }) => (
+              <div className="slider-ticks">
+                {ticks.map(tick => (
+                  <Tick key={tick.id} tick={tick} count={ticks.length} />
+                ))}
+              </div>
+            )}
+          </Ticks>
         </Slider>
       </div>
     )
