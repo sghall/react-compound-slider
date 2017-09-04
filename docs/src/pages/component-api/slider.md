@@ -1,8 +1,8 @@
-# Slider Component
+# Slider
 
 The `Slider` component allows you to compose togther elements to make customized sliders.
 
-Typical Usage:
+## Typical Usage:
 ```jsx
 import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
 
