@@ -150,7 +150,7 @@ class Slider extends Component {
 
     if (active) {
       const next = utils.updateValues(prev, active, step, reversed)
-      this.onMove(prev, next)
+      this.onMove(prev, next, true)
     }
   }
 
@@ -192,8 +192,8 @@ class Slider extends Component {
     this.onMove(prev, next)
   }
 
-  onMove(prev, next) {
-    const { mode, onUpdate } = this.props
+  onMove(prev, next, submit) {
+    const { mode, onUpdate, onChange } = this.props
 
     if (next !== prev) {
       let values
@@ -211,6 +211,11 @@ class Slider extends Component {
       }
 
       onUpdate(values.map(d => d.val))
+
+      if (submit) {
+        onChange(values.map(d => d.val))
+      }
+
       this.setState({ values })
     }
   }

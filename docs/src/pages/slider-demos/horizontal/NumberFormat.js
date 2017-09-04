@@ -8,6 +8,20 @@ import { Handle, Track, Tick } from './components' // example render components 
 
 const tickFormat = format('.2f')
 
+const sliderStyle = {
+  position: 'relative',
+  width: '100%',
+}
+
+const railStyle = {
+  position: 'absolute',
+  width: '100%',
+  height: 8,
+  borderRadius: 4,
+  cursor: 'pointer',
+  backgroundColor: 'rgb(155,155,155)',
+}
+
 const domain = [0, 1]
 const defaultValues = [0.25, 0.55, 0.75, 0.85]
 
@@ -32,13 +46,10 @@ class Example extends Component {
       <div style={{ height: 120, width: '100%' }}>
         <ValueViewer values={values} update={update} format={tickFormat} />
         <Slider
-          rootStyle={{
-            position: 'relative',
-            width: '100%',
-          }}
           mode={2}
           step={0.01}
           domain={domain}
+          rootStyle={sliderStyle}
           onUpdate={this.onUpdate}
           onChange={this.onChange}
           defaultValues={values}
@@ -46,13 +57,7 @@ class Example extends Component {
           <Rail>
             {({ emitMouse, emitTouch }) => (
               <div
-                style={{
-                  position: 'absolute',
-                  width: '100%',
-                  height: 8,
-                  borderRadius: 4,
-                  backgroundColor: 'rgb(155,155,155)',
-                }}
+                style={railStyle}
                 onMouseDown={e => emitMouse(e)}
                 onTouchStart={e => emitTouch(e)}
               />

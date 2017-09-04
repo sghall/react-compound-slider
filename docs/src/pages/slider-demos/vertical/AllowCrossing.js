@@ -5,6 +5,22 @@ import Slider, { Rail, Handles, Tracks, Ticks } from 'react-electric-slide'
 import ValueViewer from 'docs/src/pages/ValueViewer' // for examples only - displays the table above slider
 import { Handle, Track, Tick } from './components' // example render components - source below
 
+const sliderStyle = {
+  position: 'relative',
+  height: '400px',
+  marginLeft: '45%',
+}
+
+const railStyle = {
+  position: 'absolute',
+  width: '6px',
+  height: '100%',
+  cursor: 'pointer',
+  marginLeft: '-1px',
+  borderRadius: '3px',
+  backgroundColor: 'rgb(155,155,155)',
+}
+
 const domain = [100, 500]
 const defaultValues = [450, 400, 300, 150]
 
@@ -30,14 +46,10 @@ class Example extends Component {
         <ValueViewer values={values} update={update} />
         <Slider
           vertical
-          rootStyle={{
-            position: 'relative',
-            height: '400px',
-            marginLeft: '45%',
-          }}
           mode={1}
           step={5}
           domain={domain}
+          rootStyle={sliderStyle}
           onUpdate={this.onUpdate}
           onChange={this.onChange}
           defaultValues={values}
@@ -45,14 +57,7 @@ class Example extends Component {
           <Rail>
             {({ emitMouse, emitTouch }) => (
               <div
-                style={{
-                  position: 'absolute',
-                  width: '6px',
-                  height: '100%',
-                  marginLeft: '-1px',
-                  borderRadius: '3px',
-                  backgroundColor: 'rgb(155,155,155)',
-                }}
+                style={railStyle}
                 onMouseDown={e => emitMouse(e)}
                 onTouchStart={e => emitTouch(e)}
               />

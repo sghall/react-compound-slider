@@ -21,15 +21,15 @@ export function Handle({
       style={{
         top: `${percent}%`,
         position: 'absolute',
-        marginLeft: '-10px',
-        marginTop: '-12px',
+        marginLeft: -10,
+        marginTop: -12,
         zIndex: 2,
-        width: '24px',
-        height: '24px',
+        width: 24,
+        height: 24,
         cursor: 'pointer',
         borderRadius: '50%',
         border: 'solid 2px rgb(200,200,200)',
-        backgroundColor: '#455a64',
+        backgroundColor: '#ff3d00',
       }}
       onMouseDown={e => emitMouse(e, id)}
       onTouchStart={e => emitTouch(e, id)}
@@ -57,11 +57,11 @@ export function Track({ source, target, emitMouse, emitTouch }) {
       style={{
         position: 'absolute',
         zIndex: 1,
-        backgroundColor: '#455a64',
-        borderRadius: '6px',
+        backgroundColor: '#ff3d00',
+        borderRadius: 6,
         cursor: 'pointer',
-        width: '8px',
-        marginLeft: '-2px',
+        width: 8,
+        marginLeft: -2,
         top: `${source.percent}%`,
         height: `${target.percent - source.percent}%`,
       }}
@@ -98,10 +98,10 @@ export function Tick({ tick, format }) {
       <div
         style={{
           position: 'absolute',
-          marginTop: '-0.5px',
-          marginLeft: '10px',
-          height: '1px',
-          width: '6px',
+          marginTop: -0.5,
+          marginLeft: 10,
+          height: 1,
+          width: 6,
           backgroundColor: 'rgb(200,200,200)',
           top: `${tick.percent}%`,
         }}
@@ -109,9 +109,9 @@ export function Tick({ tick, format }) {
       <div
         style={{
           position: 'absolute',
-          marginTop: '-5px',
-          marginLeft: '20px',
-          fontSize: '10px',
+          marginTop: -5,
+          marginLeft: 20,
+          fontSize: 10,
           top: `${tick.percent}%`,
         }}
       >
