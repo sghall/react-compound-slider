@@ -1,15 +1,16 @@
 # Slider Features
 
+- ** Compound component design provides maximum customizability ✓**
+  - Makes no assumptions about your markup
+
 - ** Create any type of slider ✓**
   - Single value slider
   - Range slider (2 handles)
-  - Multiple Sliders (n handles)
+  - Multiple Sliders (N handles)
 
 - ** Generates uniformly spaced, human-readable tick values ✓**
-  - Can specify how many ticks to display
+  - Specify how many ticks to display
   - Supports passing custom set of ticks
-
-- ** Makes no assumptions about your markup ✓**
 
 - ** Integrates seemlessly with any app styling approach ✓**
   - CSS
@@ -27,4 +28,3 @@
 - ** Works as a controlled component ✓**
 
 - ** Well documented API ✓**
-

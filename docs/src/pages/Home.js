@@ -68,15 +68,7 @@ function Home(props) {
               color="inherit"
               gutterBottom
             >
-              {'Electric Slide'}
-            </Typography>
-            <Typography
-              type="headline"
-              component="h2"
-              color="inherit"
-              className={classes.headline}
-            >
-              {'Eco-Friendly Alternative to Gas Powered Sliders'}
+              {'React Compound Slider'}
             </Typography>
             <Button
               component={Link}
