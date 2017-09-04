@@ -3,11 +3,7 @@ import PropTypes from 'prop-types'
 
 class Tracks extends Component {
   render() {
-    const { children, scale, knobs: values, ...rest } = this.props
-
-    const handles = values.map(({ key, val }) => {
-      return { id: key, value: val, percent: scale(val) }
-    })
+    const { children, handles, emitMouse, emitTouch } = this.props
 
     const tracks = []
 
@@ -22,14 +18,13 @@ class Tracks extends Component {
       })
     }
 
-    const renderedChildren = children({ tracks, ...rest })
+    const renderedChildren = children({ tracks, emitMouse, emitTouch })
     return renderedChildren && React.Children.only(renderedChildren)
   }
 }
 
 Tracks.propTypes = {
-  scale: PropTypes.func,
-  knobs: PropTypes.array,
+  handles: PropTypes.array,
   emitMouse: PropTypes.func,
   emitTouch: PropTypes.func,
   children: PropTypes.func,

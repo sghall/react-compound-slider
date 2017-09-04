@@ -234,6 +234,10 @@ class Slider extends Component {
   render() {
     const { state: { values }, props: { className, rootStyle } } = this
 
+    const handles = values.map(({ key, val }) => {
+      return { id: key, value: val, percent: this.valueToPerc(val) }
+    })
+
     const children = React.Children.map(this.props.children, child => {
       if (
         child.type === Rail ||
@@ -243,7 +247,7 @@ class Slider extends Component {
       ) {
         return React.cloneElement(child, {
           scale: this.valueToPerc,
-          knobs: values,
+          handles,
           emitMouse: this.onMouseDown,
           emitTouch: this.onTouchStart,
         })
@@ -265,16 +269,16 @@ class Slider extends Component {
 }
 
 Slider.propTypes = {
+  defaultValues: PropTypes.arrayOf(PropTypes.number),
+  className: PropTypes.string,
+  rootStyle: PropTypes.object,
   step: PropTypes.number.isRequired,
   mode: PropTypes.oneOf([1, 2]).isRequired,
-  domain: PropTypes.arrayOf(PropTypes.number).isRequired,
+  domain: PropTypes.arrayOf(PropTypes.number),
   vertical: PropTypes.bool.isRequired,
   reversed: PropTypes.bool.isRequired,
   onUpdate: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
-  className: PropTypes.string,
-  rootStyle: PropTypes.object,
-  defaultValues: PropTypes.arrayOf(PropTypes.number).isRequired,
   children: PropTypes.any,
 }
 

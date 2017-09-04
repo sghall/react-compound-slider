@@ -3,20 +3,15 @@ import PropTypes from 'prop-types'
 
 class Handles extends Component {
   render() {
-    const { children, scale, knobs: values, ...rest } = this.props
+    const { children, handles, emitMouse, emitTouch } = this.props
 
-    const handles = values.map(({ key, val }) => {
-      return { id: key, value: val, percent: scale(val) }
-    })
-
-    const renderedChildren = children({ handles, ...rest })
+    const renderedChildren = children({ handles, emitMouse, emitTouch })
     return renderedChildren && React.Children.only(renderedChildren)
   }
 }
 
 Handles.propTypes = {
-  scale: PropTypes.func,
-  knobs: PropTypes.array,
+  handles: PropTypes.array,
   emitMouse: PropTypes.func,
   emitTouch: PropTypes.func,
   children: PropTypes.func,

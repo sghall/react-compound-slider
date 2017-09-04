@@ -1,16 +1,12 @@
 // @flow weak
 
 import React, { Component } from 'react'
-import Slider, { Knobs, Links, Ticks } from 'react-electric-slide'
+import Slider, { Rail, Handles, Tracks, Ticks } from 'react-electric-slide'
 import ValueViewer from 'docs/src/pages/ValueViewer' // for examples only - displays the table above slider
-import { Rail, Knob, Link, Tick } from './components' // example render components - source below
+import { Handle, Track, Tick } from './components' // example render components - source below
 
-const defaultValues = [
-  { key: 'cat', val: 450 },
-  { key: 'hat', val: 400 },
-  { key: 'dog', val: 300 },
-  { key: 'bat', val: 150 },
-]
+const domain = [100, 500]
+const defaultValues = [450, 400, 300, 150]
 
 class Example extends Component {
   state = {
@@ -38,73 +34,65 @@ class Example extends Component {
             width: '100%',
           }}
           mode={1}
-          step={1}
-          domain={[100, 500]}
+          step={10}
+          domain={domain}
           onUpdate={this.onUpdate}
           onChange={this.onChange}
           defaultValues={values}
         >
-          <Rail />
-          <Knobs>
-            {({ knobs, scale, emitMouse, emitTouch }) => {
-              return (
-                <div>
-                  {knobs.map((knob, index) => {
-                    return (
-                      <Knob
-                        key={knob.key}
-                        knob={knob}
-                        index={index}
-                        scale={scale}
-                        emitMouse={emitMouse}
-                        emitTouch={emitTouch}
-                      />
-                    )
-                  })}
-                </div>
-              )
-            }}
-          </Knobs>
-          <Links>
-            {({ links, scale, emitMouse, emitTouch }) => {
-              return (
-                <div>
-                  {links.map((link, index) => {
-                    return (
-                      <Link
-                        key={link.key}
-                        source={link.source}
-                        target={link.target}
-                        index={index}
-                        scale={scale}
-                        emitMouse={emitMouse}
-                        emitTouch={emitTouch}
-                      />
-                    )
-                  })}
-                </div>
-              )
-            }}
-          </Links>
-          <Ticks>
-            {({ scale }) => {
-              const ticks = scale.ticks(10)
-
-              return (
-                <div>
-                  {ticks.map(value => {
-                    return (
-                      <Tick
-                        key={`tick-${value}`}
-                        value={value}
-                        scale={scale}
-                        count={ticks.length}
-                      />
-                    )
-                  })}
-                </div>
-              )
-            }}
+          <Rail>
+            {({ emitMouse, emitTouch }) => (
+              <div
+                style={{
+                  position: 'absolute',
+                  width: '100%',
+                  height: 8,
+                  borderRadius: 4,
+                  backgroundColor: 'rgb(155,155,155)',
+                }}
+                onMouseDown={e => emitMouse(e)}
+                onTouchStart={e => emitTouch(e)}
+              />
+            )}
+          </Rail>
+          <Handles>
+            {({ handles, emitMouse, emitTouch }) => (
+              <div className="slider-handles">
+                {handles.map(handle => (
+                  <Handle
+                    key={handle.id}
+                    handle={handle}
+                    domain={domain}
+                    emitMouse={emitMouse}
+                    emitTouch={emitTouch}
+                  />
+                ))}
+              </div>
+            )}
+          </Handles>
+          <Tracks>
+            {({ tracks, emitMouse, emitTouch }) => (
+              <div className="slider-tracks">
+                {tracks.map(({ id, source, target }) => (
+                  <Track
+                    key={id}
+                    source={source}
+                    target={target}
+                    emitMouse={emitMouse}
+                    emitTouch={emitTouch}
+                  />
+                ))}
+              </div>
+            )}
+          </Tracks>
+          <Ticks count={15}>
+            {({ ticks }) => (
+              <div className="slider-ticks">
+                {ticks.map(tick => (
+                  <Tick key={tick.id} tick={tick} count={ticks.length} />
+                ))}
+              </div>
+            )}
           </Ticks>
         </Slider>
       </div>

@@ -4,50 +4,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 // *******************************************************
-// LINK COMPONENT
-// *******************************************************
-export function Track({ source, target, emitMouse, emitTouch }) {
-  if (!source || !target) {
-    return null
-  }
-
-  return (
-    <div
-      style={{
-        position: 'absolute',
-        height: '8px',
-        zIndex: 1,
-        backgroundColor: '#455a64',
-        borderRadius: '4px',
-        cursor: 'pointer',
-        left: `${source.percent}%`,
-        width: `${target.percent - source.percent}%`,
-      }}
-      onMouseDown={e => emitMouse(e)}
-      onTouchStart={e => emitTouch(e)}
-    />
-  )
-}
-
-Track.propTypes = {
-  source: PropTypes.shape({
-    key: PropTypes.string,
-    val: PropTypes.number,
-  }),
-  target: PropTypes.shape({
-    key: PropTypes.string,
-    val: PropTypes.number,
-  }),
-  emitMouse: PropTypes.func,
-  emitTouch: PropTypes.func,
-}
-
-Track.defaultProps = {
-  emitMouse: () => {},
-  emitTouch: () => {},
-}
-
-// *******************************************************
 // HANDLE COMPONENT
 // *******************************************************
 export function Handle({
@@ -90,6 +46,50 @@ Handle.propTypes = {
   }),
   emitMouse: PropTypes.func,
   emitTouch: PropTypes.func,
+}
+
+// *******************************************************
+// TRACK COMPONENT
+// *******************************************************
+export function Track({ source, target, emitMouse, emitTouch }) {
+  if (!source || !target) {
+    return null
+  }
+
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        height: '8px',
+        zIndex: 1,
+        backgroundColor: '#455a64',
+        borderRadius: '4px',
+        cursor: 'pointer',
+        left: `${source.percent}%`,
+        width: `${target.percent - source.percent}%`,
+      }}
+      onMouseDown={e => emitMouse(e)}
+      onTouchStart={e => emitTouch(e)}
+    />
+  )
+}
+
+Track.propTypes = {
+  source: PropTypes.shape({
+    key: PropTypes.string,
+    val: PropTypes.number,
+  }),
+  target: PropTypes.shape({
+    key: PropTypes.string,
+    val: PropTypes.number,
+  }),
+  emitMouse: PropTypes.func,
+  emitTouch: PropTypes.func,
+}
+
+Track.defaultProps = {
+  emitMouse: () => {},
+  emitTouch: () => {},
 }
 
 // *******************************************************

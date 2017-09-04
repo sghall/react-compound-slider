@@ -4,97 +4,22 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 // *******************************************************
-// RAIL COMPONENT
+// HANDLE COMPONENT
 // *******************************************************
-export function Rail({ emitMouse, emitTouch }) {
-  return (
-    <div
-      style={{
-        position: 'absolute',
-        width: '6px',
-        height: '100%',
-        marginLeft: '-1px',
-        borderRadius: '3px',
-        backgroundColor: 'rgb(155,155,155)',
-      }}
-      onMouseDown={e => emitMouse(e)}
-      onTouchStart={e => emitTouch(e)}
-    />
-  )
-}
-
-Rail.propTypes = {
-  emitMouse: PropTypes.func,
-  emitTouch: PropTypes.func,
-}
-
-// *******************************************************
-// LINK COMPONENT
-// *******************************************************
-export function Link(props) {
-  const { source, target, scale, emitMouse, emitTouch } = props
-
-  if (!source || !target) {
-    return null
-  }
-
-  const p0 = scale(source.val)
-  const p1 = scale(target.val)
-
-  return (
-    <div
-      style={{
-        position: 'absolute',
-        zIndex: 1,
-        backgroundColor: '#455a64',
-        borderRadius: '6px',
-        cursor: 'pointer',
-        width: '8px',
-        marginLeft: '-2px',
-        top: `${p0}%`,
-        height: `${p1 - p0}%`,
-      }}
-      onMouseDown={e => emitMouse(e)}
-      onTouchStart={e => emitTouch(e)}
-    />
-  )
-}
-
-Link.propTypes = {
-  source: PropTypes.shape({
-    key: PropTypes.string,
-    val: PropTypes.number,
-  }),
-  target: PropTypes.shape({
-    key: PropTypes.string,
-    val: PropTypes.number,
-  }),
-  scale: PropTypes.func,
-  emitMouse: PropTypes.func,
-  emitTouch: PropTypes.func,
-}
-
-Link.defaultProps = {
-  emitMouse: () => {},
-  emitTouch: () => {},
-}
-
-// *******************************************************
-// KNOB COMPONENT
-// *******************************************************
-export function Knob(props) {
-  const { knob: { key, val }, index, scale, emitMouse, emitTouch } = props
-  const domain = scale.domain()
-
+export function Handle({
+  domain: [min, max],
+  handle: { id, value, percent },
+  emitMouse,
+  emitTouch,
+}) {
   return (
     <div
       role="slider"
-      tabIndex={index}
-      aria-valuemin={domain[0]}
-      aria-valuemax={domain[1]}
-      aria-valuenow={val}
+      aria-valuemin={min}
+      aria-valuemax={max}
+      aria-valuenow={value}
       style={{
-        top: `${scale(val)}%`,
+        top: `${percent}%`,
         position: 'absolute',
         marginLeft: '-10px',
         marginTop: '-12px',
@@ -106,27 +31,72 @@ export function Knob(props) {
         border: 'solid 2px rgb(200,200,200)',
         backgroundColor: '#455a64',
       }}
-      onMouseDown={e => emitMouse(e, key)}
-      onTouchStart={e => emitTouch(e, key)}
+      onMouseDown={e => emitMouse(e, id)}
+      onTouchStart={e => emitTouch(e, id)}
     />
   )
 }
 
-Knob.propTypes = {
-  knob: PropTypes.shape({
-    key: PropTypes.string,
-    val: PropTypes.number,
+Handle.propTypes = {
+  domain: PropTypes.array,
+  handle: PropTypes.shape({
+    id: PropTypes.string,
+    value: PropTypes.number,
+    percent: PropTypes.number,
   }),
-  scale: PropTypes.func,
-  index: PropTypes.number,
   emitMouse: PropTypes.func,
   emitTouch: PropTypes.func,
 }
 
 // *******************************************************
+// TRACK COMPONENT
+// *******************************************************
+export function Track({ source, target, emitMouse, emitTouch }) {
+  if (!source || !target) {
+    return null
+  }
+
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        zIndex: 1,
+        backgroundColor: '#455a64',
+        borderRadius: '6px',
+        cursor: 'pointer',
+        width: '8px',
+        marginLeft: '-2px',
+        top: `${source.percent}%`,
+        height: `${target.percent - source.percent}%`,
+      }}
+      onMouseDown={e => emitMouse(e)}
+      onTouchStart={e => emitTouch(e)}
+    />
+  )
+}
+
+Track.propTypes = {
+  source: PropTypes.shape({
+    key: PropTypes.string,
+    val: PropTypes.number,
+  }),
+  target: PropTypes.shape({
+    key: PropTypes.string,
+    val: PropTypes.number,
+  }),
+  emitMouse: PropTypes.func,
+  emitTouch: PropTypes.func,
+}
+
+Track.defaultProps = {
+  emitMouse: () => {},
+  emitTouch: () => {},
+}
+
+// *******************************************************
 // TICK COMPONENT
 // *******************************************************
-export function Tick({ value, scale, format }) {
+export function Tick({ tick, format }) {
   return (
     <div>
       <div
@@ -137,7 +107,7 @@ export function Tick({ value, scale, format }) {
           height: '1px',
           width: '6px',
           backgroundColor: 'rgb(200,200,200)',
-          top: `${scale(value)}%`,
+          top: `${tick.percent}%`,
         }}
       />
       <div
@@ -146,18 +116,21 @@ export function Tick({ value, scale, format }) {
           marginTop: '-5px',
           marginLeft: '20px',
           fontSize: '10px',
-          top: `${scale(value)}%`,
+          top: `${tick.percent}%`,
         }}
       >
-        {format(value)}
+        {format(tick.value)}
       </div>
     </div>
   )
 }
 
 Tick.propTypes = {
-  value: PropTypes.number,
-  scale: PropTypes.func,
+  tick: PropTypes.shape({
+    id: PropTypes.string,
+    value: PropTypes.number,
+    percent: PropTypes.number,
+  }),
   format: PropTypes.func,
 }
 
