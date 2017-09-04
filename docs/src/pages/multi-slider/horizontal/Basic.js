@@ -1,9 +1,9 @@
 // @flow weak
 
 import React, { Component } from 'react'
-import Slider, { SliderItems, Links } from 'react-electric-slide'
+import Slider, { Rail, SliderItems, Links } from 'react-electric-slide'
 import ValueViewer from 'docs/src/pages/ValueViewer' // for examples only - displays the table above slider
-import { Rail, Handle, Link, Tick } from './components' // example render components - source below
+import { Handle, Link, Tick } from './components' // example render components - source below
 
 const defaultValues = [450, 400, 300, 150]
 
@@ -39,11 +39,21 @@ class Example extends Component {
           onChange={this.onChange}
           defaultValues={values}
         >
-          <SliderItems>
+          <Rail>
             {({ emitMouse, emitTouch }) => (
-              <Rail emitMouse={emitMouse} emitTouch={emitTouch} />
+              <div
+                style={{
+                  position: 'absolute',
+                  width: '100%',
+                  height: 6,
+                  borderRadius: 3,
+                  backgroundColor: 'rgb(155,155,155)',
+                }}
+                onMouseDown={e => emitMouse(e)}
+                onTouchStart={e => emitTouch(e)}
+              />
             )}
-          </SliderItems>
+          </Rail>
           <SliderItems>
             {({ handles, scale, emitMouse, emitTouch }) => (
               <div>

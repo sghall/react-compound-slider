@@ -4,31 +4,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 // *******************************************************
-// RAIL COMPONENT
-// *******************************************************
-export function Rail({ emitMouse, emitTouch }) {
-  return (
-    <div
-      style={{
-        position: 'absolute',
-        width: '100%',
-        height: '6px',
-        marginTop: '-1px',
-        borderRadius: '3px',
-        backgroundColor: 'rgb(155,155,155)',
-      }}
-      onMouseDown={e => emitMouse(e)}
-      onTouchStart={e => emitTouch(e)}
-    />
-  )
-}
-
-Rail.propTypes = {
-  emitMouse: PropTypes.func,
-  emitTouch: PropTypes.func,
-}
-
-// *******************************************************
 // LINK COMPONENT
 // *******************************************************
 export function Link(props) {
@@ -45,7 +20,6 @@ export function Link(props) {
     <div
       style={{
         position: 'absolute',
-        top: '-1px',
         height: '8px',
         zIndex: 1,
         backgroundColor: '#455a64',
@@ -97,7 +71,7 @@ export function Handle(props) {
         left: `${scale(val)}%`,
         position: 'absolute',
         marginLeft: '-11px',
-        marginTop: '-10px',
+        marginTop: '-9px',
         zIndex: 2,
         width: '24px',
         height: '24px',
@@ -133,7 +107,6 @@ export function Tick({ value, count, scale, format }) {
         style={{
           position: 'absolute',
           marginTop: '14px',
-          marginLeft: '-0.5px',
           width: '1px',
           height: '5px',
           backgroundColor: 'rgb(200,200,200)',
