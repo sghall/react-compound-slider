@@ -1,10 +1,11 @@
 // @flow weak
 
 import React, { Component } from 'react'
-import Slider, { Rail, SliderItems, Links } from 'react-electric-slide'
+import Slider, { Rail, Handles, SliderItems, Links } from 'react-electric-slide'
 import ValueViewer from 'docs/src/pages/ValueViewer' // for examples only - displays the table above slider
 import { Handle, Link, Tick } from './components' // example render components - source below
 
+const domain = [100, 500]
 const defaultValues = [450, 400, 300, 150]
 
 class Example extends Component {
@@ -34,7 +35,7 @@ class Example extends Component {
           }}
           mode={2}
           step={5}
-          domain={[100, 500]}
+          domain={domain}
           onUpdate={this.onUpdate}
           onChange={this.onChange}
           defaultValues={values}
@@ -45,8 +46,8 @@ class Example extends Component {
                 style={{
                   position: 'absolute',
                   width: '100%',
-                  height: 6,
-                  borderRadius: 3,
+                  height: 8,
+                  borderRadius: 4,
                   backgroundColor: 'rgb(155,155,155)',
                 }}
                 onMouseDown={e => emitMouse(e)}
@@ -54,22 +55,21 @@ class Example extends Component {
               />
             )}
           </Rail>
-          <SliderItems>
-            {({ handles, scale, emitMouse, emitTouch }) => (
-              <div>
-                {handles.map((handle, index) => (
+          <Handles>
+            {({ handles, emitMouse, emitTouch }) => (
+              <div className="slider-handles">
+                {handles.map(handle => (
                   <Handle
-                    key={handle.key}
-                    index={index}
-                    scale={scale}
+                    key={handle.id}
                     handle={handle}
+                    domain={domain}
                     emitMouse={emitMouse}
                     emitTouch={emitTouch}
                   />
                 ))}
               </div>
             )}
-          </SliderItems>
+          </Handles>
           <Links>
             {({ links, scale, emitMouse, emitTouch }) => (
               <div>

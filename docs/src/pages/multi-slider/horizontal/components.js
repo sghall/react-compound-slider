@@ -23,7 +23,7 @@ export function Link(props) {
         height: '8px',
         zIndex: 1,
         backgroundColor: '#455a64',
-        borderRadius: '6px',
+        borderRadius: '4px',
         cursor: 'pointer',
         left: `${p0}%`,
         width: `${p1 - p0}%`,
@@ -57,18 +57,21 @@ Link.defaultProps = {
 // HANDLE COMPONENT
 // *******************************************************
 export function Handle(props) {
-  const { handle: { key, val }, index, scale, emitMouse, emitTouch } = props
-  const domain = scale.domain()
+  const {
+    domain: [min, max],
+    handle: { id, value, percent },
+    emitMouse,
+    emitTouch,
+  } = props
 
   return (
     <div
       role="slider"
-      tabIndex={index}
-      aria-valuemin={domain[0]}
-      aria-valuemax={domain[1]}
-      aria-valuenow={val}
+      aria-valuemin={min}
+      aria-valuemax={max}
+      aria-valuenow={value}
       style={{
-        left: `${scale(val)}%`,
+        left: `${percent}%`,
         position: 'absolute',
         marginLeft: '-11px',
         marginTop: '-9px',
@@ -80,19 +83,19 @@ export function Handle(props) {
         border: 'solid 2px rgb(200,200,200)',
         backgroundColor: '#455a64',
       }}
-      onMouseDown={e => emitMouse(e, key)}
-      onTouchStart={e => emitTouch(e, key)}
+      onMouseDown={e => emitMouse(e, id)}
+      onTouchStart={e => emitTouch(e, id)}
     />
   )
 }
 
 Handle.propTypes = {
+  domain: PropTypes.array,
   handle: PropTypes.shape({
-    key: PropTypes.string,
-    val: PropTypes.number,
+    id: PropTypes.string,
+    value: PropTypes.number,
+    percent: PropTypes.number,
   }),
-  scale: PropTypes.func,
-  index: PropTypes.number,
   emitMouse: PropTypes.func,
   emitTouch: PropTypes.func,
 }
