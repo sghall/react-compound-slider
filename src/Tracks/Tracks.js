@@ -40,13 +40,26 @@ class Tracks extends Component {
 }
 
 Tracks.propTypes = {
+  /**
+   * Boolean value to control whether the left most track is included in the tracks array.
+   */
   left: PropTypes.bool,
+  /**
+   * Boolean value to control whether the right most track is included in the tracks array.
+   */
   right: PropTypes.bool,
+  /** @ignore */
   scale: PropTypes.func,
+  /** @ignore */
   handles: PropTypes.array,
+  /** @ignore */
   emitMouse: PropTypes.func,
+  /** @ignore */
   emitTouch: PropTypes.func,
-  children: PropTypes.func,
+  /**
+   * A function to render to the tracks. `({ tracks, emitMouse, emitTouch }): element`
+   */
+  children: PropTypes.func.isRequired,
 }
 
 Tracks.defaultProps = {
