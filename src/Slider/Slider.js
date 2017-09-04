@@ -3,6 +3,10 @@ import warning from 'warning'
 import PropTypes from 'prop-types'
 import scaleLinear from 'd3-scale/src/linear'
 import scaleQuantize from 'd3-scale/src/quantize'
+import Rail from '../Rail'
+import Ticks from '../Ticks'
+import Tracks from '../Tracks'
+import Handles from '../Handles'
 import { mode1, mode2 } from './modes'
 import * as utils from './utils'
 
@@ -231,12 +235,21 @@ class Slider extends Component {
     const { state: { values }, props: { className, rootStyle } } = this
 
     const children = React.Children.map(this.props.children, child => {
-      return React.cloneElement(child, {
-        scale: this.valueToPerc,
-        knobs: values,
-        emitMouse: this.onMouseDown,
-        emitTouch: this.onTouchStart,
-      })
+      if (
+        child.type === Rail ||
+        child.type === Ticks ||
+        child.type === Tracks ||
+        child.type === Handles
+      ) {
+        return React.cloneElement(child, {
+          scale: this.valueToPerc,
+          knobs: values,
+          emitMouse: this.onMouseDown,
+          emitTouch: this.onTouchStart,
+        })
+      }
+
+      return child
     })
 
     return (
