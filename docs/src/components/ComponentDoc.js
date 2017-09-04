@@ -3,7 +3,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
-import PropTypeDescription from 'docs/src/components/PropTypeDescription'
+import PropsDescription from 'docs/src/components/PropsDescription'
 
 const styles = {
   root: {
@@ -20,7 +20,7 @@ const styles = {
 function ComponentDoc({ classes, route: { content } }) {
   return (
     <div className={classes.root}>
-      <PropTypeDescription key={content} code={content} />
+      <PropsDescription key={content} code={content} />
     </div>
   )
 }
