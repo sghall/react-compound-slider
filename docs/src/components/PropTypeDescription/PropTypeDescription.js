@@ -1,9 +1,10 @@
+/* eslint-disable */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { parse } from 'react-docgen'
 import recast from 'recast'
 import { parse as parseDoctrine } from 'doctrine'
-import MarkdownElement from './MarkdownElement'
+import MarkdownElement from '../MarkdownElement'
 
 require('./prop-type-description.css')
 
@@ -181,9 +182,9 @@ class PropTypeDescription extends Component {
     text += 'Other properties (not documented) are applied to the root element.'
 
     const requiredPropFootnote =
-      requiredProps === 1 ?
-        '* required property' :
-        requiredProps > 1 ? '* required properties' : ''
+      requiredProps === 1
+        ? '* required property'
+        : requiredProps > 1 ? '* required properties' : ''
 
     return (
       <div className="propTypeDescription">
