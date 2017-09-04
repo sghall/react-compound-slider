@@ -1,40 +1,48 @@
 # Ticks Component
 
 The `Ticks` component is used as a child of `Slider` to render an array of ticks.
+Your children function receives an array of tick objects and functions for emitting events.
+
+Tick Object:
+
+- id (string)
+- value (number)
+- percent (number 0 to 100)
 
 Typical Usage:
 ```jsx
-import React, { Component } from 'react'
-import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
-import { Handle, Track, Tick } from './components'
+import Slider, { Ticks } from 'react-compound-slider'
 
 <Slider
-  domain={domain}
-  onUpdate={this.onUpdate}
-  onChange={this.onChange}
-  defaultValues={values}
+  ...
 >
-  <Rail>
-    {({ emitMouse, emitTouch }) => (
-      ...
-    )}
-  </Rail>
-  <Handles>
-    {({ handles, emitMouse, emitTouch }) => (
-      ...
-    )}
-  </Handles>
-  <Tracks left={false} right={false}>
-    {({ tracks, emitMouse, emitTouch }) => (
-      ...
-    )}
-  </Tracks>
   <Ticks count={15}>
-    {({ ticks }) => (
+    {({ ticks, emitMouse, emitTouch }) => (
       <div className="slider-ticks">
-        {ticks.map(tick => (
-          <Tick key={tick.id} tick={tick} count={ticks.length} />
-        ))}
+        {ticks.map(tick => {
+          const { id, value, percent } = tick         
+          ... render your tick here     
+        })}
+      </div>
+    )}
+  </Ticks>
+</Slider>
+```
+
+You can also pass an array of your own tick values:
+```jsx
+import Slider, { Ticks } from 'react-compound-slider'
+
+<Slider
+  ...
+>
+  <Ticks values={[10, 20, 30, 40, 50]}>
+    {({ ticks, emitMouse, emitTouch }) => (
+      <div className="slider-ticks">
+        {ticks.map(tick => {
+          const { id, value, percent } = tick         
+          ... render your tick here     
+        })}
       </div>
     )}
   </Ticks>

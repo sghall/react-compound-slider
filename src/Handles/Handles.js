@@ -11,10 +11,18 @@ class Handles extends Component {
 }
 
 Handles.propTypes = {
+  /** @ignore */
   handles: PropTypes.array,
+  /** @ignore */
   emitMouse: PropTypes.func,
+  /** @ignore */
   emitTouch: PropTypes.func,
-  children: PropTypes.func,
+  /**
+   * A function to render to the handles.
+   * The function receives and object with an array of handles and functions for emitting events.
+   * `({ handles, emitMouse, emitTouch }): element`
+   */
+  children: PropTypes.func.isRequired,
 }
 
 export default Handles
