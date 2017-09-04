@@ -269,9 +269,21 @@ class Slider extends Component {
 }
 
 Slider.propTypes = {
+  /**
+   * The backgroundColor of the avatar. Does not apply to image avatars.
+   */
   defaultValues: PropTypes.arrayOf(PropTypes.number),
+  /**
+   * The backgroundColor of the avatar. Does not apply to image avatars.
+   */
   className: PropTypes.string,
+  /**
+   * The backgroundColor of the avatar. Does not apply to image avatars.
+   */
   rootStyle: PropTypes.object,
+  /**
+   * The backgroundColor of the avatar. Does not apply to image avatars.
+   */
   step: PropTypes.number.isRequired,
   mode: PropTypes.oneOf([1, 2]).isRequired,
   domain: PropTypes.arrayOf(PropTypes.number),
