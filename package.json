@@ -1,7 +1,7 @@
 {
   "name": "react-compound-slider",
   "version": "0.1.0",
-  "description": "An eco friendly alternative to gas powered slider components",
+  "description": "Next level react slider component",
   "keywords": [
     "react",
     "react-component",
@@ -16,7 +16,7 @@
     "type": "git",
     "url": "https://github.com/sghall/react-compound-slider.git"
   },
-  "main": "lib/js/index.js",
+  "main": "./index.js",
   "author": "Steven Hall",
   "license": "MIT",
   "devDependencies": {
@@ -34,11 +34,11 @@
     "babel-preset-stage-1": "^6.24.1",
     "babel-register": "^6.26.0",
     "bundle-inspector-webpack-plugin": "^0.1.9",
-    "chai": "^4.0.2",
+    "chai": "^4.1.2",
     "coveralls": "^2.11.15",
     "cross-env": "^5.0.1",
     "enzyme": "^2.8.1",
-    "eslint": "^4.6.0",
+    "eslint": "^4.6.1",
     "eslint-config-kentcdodds": "^12.4.3",
     "eslint-plugin-prettier": "^2.2.0",
     "flow-bin": "^0.47.0",
@@ -47,17 +47,17 @@
     "husky": "^0.14.3",
     "jsdom": "^11.0.0",
     "json-loader": "^0.5.7",
-    "karma": "^1.6.0",
+    "karma": "^1.7.1",
     "karma-browserstack-launcher": "^1.2.0",
     "karma-mocha": "^1.3.0",
-    "karma-mocha-reporter": "^2.2.3",
+    "karma-mocha-reporter": "^2.2.4",
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.4",
-    "lint-staged": "^4.0.2",
+    "lint-staged": "^4.1.0",
     "minimist": "^1.2.0",
     "mocha": "^3.4.2",
-    "nodemon": "^1.11.0",
+    "nodemon": "^1.12.0",
     "nyc": "11.0.1",
     "phantomjs-prebuilt": "^2.1.15",
     "prettier-eslint-cli": "^4.3.0",
@@ -70,8 +70,7 @@
     "webpack": "^3.5.5"
   },
   "peerDependencies": {
-    "react": "^15.0.0",
-    "react-dom": "^15.0.0"
+    "react": "^15.0.0"
   },
   "scripts": {
     "build": "npm run build:es2015 && npm run build:es2015modules && npm run build:copy-files && npm run build:umd:dev && npm run build:umd:min",
