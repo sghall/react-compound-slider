@@ -1,6 +1,6 @@
 # Slider
 
-The `Slider` component allows you to compose togther elements to make customized sliders.
+The `Slider` component allows you to compose together elements to make customized sliders.
 
 ## Typical Usage:
 ```jsx

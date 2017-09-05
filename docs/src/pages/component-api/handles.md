@@ -1,7 +1,7 @@
 # Handles
 
-The `Handles` component is used as a child of `Slider` to render an array of handles.
-Your children function receives an array of handle objects and functions for emitting events.
+The `Handles` component is used as a child of `Slider` to render the slider handles.
+Your child function receives an array of handle objects and functions for emitting events.
 
 Handle Object:
 

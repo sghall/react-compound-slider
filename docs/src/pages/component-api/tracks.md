@@ -1,7 +1,11 @@
 # Tracks
 
-The `Tracks` component is used as a child of `Slider` to render an array of tracks.
-Your children function receives an array of track objects and functions for emitting events.
+The `Tracks` component is used as a child of `Slider` to render the slider tracks.
+Your child function receives an array of track objects and functions for emitting events.
+
+Any slider has handles + 1 possible tracks.  A single value slider has two possible tracks: left and right.
+A range slider (two handles) adds another between the two handles and so has three possible tracks.
+The tracks data is streamed to this component as the slider updates allowing you to render the tracks however you like.
 
 Track Object:
 

@@ -1,7 +1,7 @@
 # Ticks
 
-The `Ticks` component is used as a child of `Slider` to render an array of ticks.
-Your children function receives an array of tick objects and functions for emitting events.
+The `Ticks` component is used as a child of `Slider` to render slider ticks.
+Your child function receives an array of tick objects and functions for emitting events.
 
 Tick Object:
 
