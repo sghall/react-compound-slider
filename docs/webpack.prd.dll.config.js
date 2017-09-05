@@ -5,7 +5,7 @@ const webpack = require('webpack')
 const packageJsonSrc = require('../package.json')
 const packageJson = require('./package.json')
 
-const excludedDeps = ['lodash', 'simple-assign', 'babel-runtime']
+const excludedDeps = []
 
 const deps = []
   .concat(Object.keys(packageJson.dependencies))
