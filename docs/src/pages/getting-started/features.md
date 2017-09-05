@@ -3,7 +3,7 @@
 - ** Compound component design provides maximum customizability ✓**
   - Makes no assumptions about your markup
   - Precise control over user interactions and styling
-  - Easily handle toggling interaction for disabled or loading states
+  - Easily handle disabled or loading states
 
 - ** Only 17kb gzipped ✓**
   - Less than half the size of similar slider libs
@@ -34,6 +34,6 @@
 
 - ** The display of values can be reversed ✓**
 
-- ** Works as a controlled component ✓**
+- Works as a controlled component (this is not implemented yet)
 
 - ** Well documented API ✓**
