@@ -2,6 +2,10 @@
 
 Under heavy development.
 
+## [Tutorial](https://goo.gl/8nCBqt)
+
+## [Live Demos](https://goo.gl/RsrByr)
+
 The main idea of this library starts from an observation that slider components are really just a relatively positioned outer div with elements absolutely positioned inside by a percentage.
 In this library the `Handles`, `Tracks`, and `Ticks` components are used as children to the `Slider` component and they let you tap into a stream of values and percentages that you can then render using your own components.
 
