@@ -1,5 +1,9 @@
 ## react-compound-slider
 
+<div style="text-align:center;">
+  <a href="https://sghall.github.io/react-compound-slider/#/getting-started/tutorial" target="\_parent"><img src="https://user-images.githubusercontent.com/4615775/30073462-b9d80d4a-9222-11e7-8f90-1524b76ab178.png" alt="React Compound Slider" style="width:450px;"/></a>
+</div>
+
 Under heavy development.
 
 # Installation
