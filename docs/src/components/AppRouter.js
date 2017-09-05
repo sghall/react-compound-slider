@@ -55,7 +55,6 @@ export default function AppRouter() {
           <Route
             title="Tutorial"
             path="/getting-started/tutorial"
-            content={requireMarkdown('./getting-started/tutorial.md')}
             component={Tutorial}
             nav
           />
