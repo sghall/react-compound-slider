@@ -38,6 +38,47 @@ class Slider extends Component {
 
   componentWillMount() {
     const { domain: [min, max], defaultValues, step, reversed } = this.props
+
+    this.updateRange(min, max, step, reversed)
+    this.setState(this.getValues(defaultValues, reversed))
+  }
+
+  componentWillReceiveProps(next) {
+    const { domain: [min, max], step, reversed } = next
+    const props = this.props
+
+    if (
+      min !== props.domain[0] ||
+      max !== props.domain[1] ||
+      step !== props.step ||
+      reversed !== props.reversed
+    ) {
+      this.updateRange(min, max, step, reversed)
+    }
+  }
+
+  getValues(arr, reversed) {
+    const values = []
+
+    const mapped = arr
+      .map((val, i) => ({ key: `$$-${i}`, val }))
+      .sort(utils.getSortByVal(reversed))
+
+    mapped.forEach(({ key, val }) => {
+      const v0 = this.valueToStep(val)
+
+      warning(
+        v0 === val,
+        `React Electric Slide: Invalid default value. Changing ${val} to ${v0}.`,
+      )
+
+      values.push({ key, val: v0 })
+    })
+
+    return { values }
+  }
+
+  updateRange(min, max, step, reversed) {
     const range = utils.getStepRange(min, max, step)
 
     this.valueToStep
@@ -50,6 +91,8 @@ class Slider extends Component {
     } else {
       this.valueToPerc.domain([min, max]).range([0, 100])
     }
+
+    this.pixelToStep.range(range)
 
     warning(
       max > min,
@@ -67,29 +110,6 @@ class Slider extends Component {
       range[reversed ? last : 0] === min && range[reversed ? 0 : last] === max,
       `React Electric Slide: The range is incorrectly calculated. Check domain (min, max) and step values.`,
     )
-
-    this.pixelToStep.range(range)
-
-    this.setState(() => {
-      const values = []
-
-      const mapped = defaultValues
-        .map((val, i) => ({ key: `$$-${i}`, val }))
-        .sort(utils.getSortByVal(reversed))
-
-      mapped.forEach(({ key, val }) => {
-        const v0 = this.valueToStep(val)
-
-        warning(
-          v0 === val,
-          `React Electric Slide: Invalid default value. Changing ${val} to ${v0}.`,
-        )
-
-        values.push({ key, val: v0 })
-      })
-
-      return { values }
-    })
   }
 
   onMouseDown(e, key) {
