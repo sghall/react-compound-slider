@@ -24,9 +24,11 @@ To install and save in your `package.json` dependencies, run:
 npm install react-compound-slider
 ```
 
-## [Tutorial](https://goo.gl/8nCBqt)
+## [Live Demos](https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal)
 
-## [Live Demos](https://goo.gl/RsrByr)
+## [Tutorial](https://sghall.github.io/react-compound-slider/#/getting-started/tutorial)
+
+## [Documentation](https://sghall.github.io/react-compound-slider/#/component-api/slider)
 
 The main idea of this library starts from an observation that slider components are really just a relatively positioned outer div with elements absolutely positioned inside by a percentage.
 In this library the `Handles`, `Tracks`, and `Ticks` components are used as children to the `Slider` component and they let you tap into a stream of values and percentages that you can then render using your own components.
