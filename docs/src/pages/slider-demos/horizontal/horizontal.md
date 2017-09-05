@@ -12,3 +12,6 @@
 
 ### Formatting Ticks - Prevent Crossing (mode = 2) - Step 0.01
 {{demo='pages/slider-demos/horizontal/NumberFormat.js'}}
+
+### Updating Domain - Prevent Crossing (mode = 2) - Step 10
+{{demo='pages/slider-demos/horizontal/UpdateDomain.js'}}

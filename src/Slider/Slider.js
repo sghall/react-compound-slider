@@ -45,7 +45,7 @@ class Slider extends Component {
 
   componentWillReceiveProps(next) {
     const { domain, step, reversed } = next
-    const props = this.props
+    const { props, state: { values } } = this
 
     if (
       domain[0] !== props.domain[0] ||
@@ -54,6 +54,10 @@ class Slider extends Component {
       reversed !== props.reversed
     ) {
       this.updateRange(domain, step, reversed)
+      const updated = this.getValues(values.map(d => d.val), reversed)
+      this.setState(updated)
+      props.onUpdate(updated.values.map(d => d.val))
+      props.onChange(updated.values.map(d => d.val))
     }
   }
 
@@ -69,7 +73,7 @@ class Slider extends Component {
 
       warning(
         v0 === val,
-        `React Electric Slide: Invalid default value. Changing ${val} to ${v0}.`,
+        `React Electric Slide: Invalid value encountered. Changing ${val} to ${v0}.`,
       )
 
       values.push({ key, val: v0 })
