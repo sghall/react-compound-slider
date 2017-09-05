@@ -2,8 +2,8 @@
 
 Let's start by setting up a slider and just rendering a center rail.
 In this example the slider is horizontal so we just need to give it a width.
-The library itself contains absolutley no styles so it's critical to make sure you give your slider it's width or height (if vertically oriented).
-You can do that by passing the slider a rootStyle prop for linline styles or a className prop.
+The library itself contains absolutley no styles so it's critical to make sure you give your slider its width or height (if vertically oriented).
+You can do that by passing the slider a rootStyle prop for inline styles or a className prop.
 
 ```jsx
 import Slider, { Handles, Tracks, Ticks } from 'react-compound-slider'

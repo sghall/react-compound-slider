@@ -1,7 +1,4 @@
 
-I'd like to label the slider with some tick marks, but I don't know what they are in advance.
-Can we generate some good values automagically?
-
 Let's add some ticks...
 
 ## Ticks
