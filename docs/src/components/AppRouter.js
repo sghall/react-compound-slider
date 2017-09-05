@@ -3,11 +3,12 @@
 import React from 'react'
 import {
   applyRouterMiddleware,
-  browserHistory,
+  useRouterHistory,
   Router,
   Route,
   IndexRoute,
 } from 'react-router'
+import { createHashHistory } from 'history'
 import { useScroll } from 'react-router-scroll'
 import { titleize } from 'docs/src/utils/helpers'
 import AppFrame from 'docs/src/components/AppFrame'
@@ -26,7 +27,7 @@ import {
 export default function AppRouter() {
   return (
     <Router
-      history={browserHistory}
+      history={useRouterHistory(createHashHistory)()}
       render={applyRouterMiddleware(useScroll())}
     >
       <Route title="React Compound Slider" path="/" component={AppFrame}>

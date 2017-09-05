@@ -27,6 +27,7 @@
   "dependencies": {
     "d3-format": "^1.2.0",
     "doctrine": "^2.0.0",
+    "history": "^3.3.0",
     "jss": "^8.1.0",
     "jss-preset-default": "^3.0.0",
     "marked": "^0.3.6",
