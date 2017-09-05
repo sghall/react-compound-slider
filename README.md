@@ -1,7 +1,13 @@
 ## react-compound-slider
 
 <div style="text-align:center;">
-  <a href="https://sghall.github.io/react-compound-slider/#/getting-started/tutorial" target="\_parent"><img src="https://user-images.githubusercontent.com/4615775/30073462-b9d80d4a-9222-11e7-8f90-1524b76ab178.png" alt="React Compound Slider" style="width:450px;"/></a>
+  <a href="https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal" target="\_parent"><img src="https://user-images.githubusercontent.com/4615775/30075819-cd06121e-922b-11e7-916c-a7c7de29f933.png" alt="React Compound Slider" style="width:450px;"/></a>
+</div>
+<div style="text-align:center;">
+  <a href="https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal" target="\_parent"><img src="https://user-images.githubusercontent.com/4615775/30075820-cd163fb8-922b-11e7-963a-168e21dbfbc3.png" alt="React Compound Slider" style="width:450px;"/></a>
+</div>
+<div style="text-align:center;">
+  <a href="https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal" target="\_parent"><img src="https://user-images.githubusercontent.com/4615775/30075818-cd02968e-922b-11e7-9d89-7b449e70367e.png" alt="React Compound Slider" style="width:450px;"/></a>
 </div>
 
 Under heavy development.
