@@ -7,9 +7,13 @@ import { shallow } from 'enzyme'
 import Slider from './Slider'
 
 describe('<Slider />', () => {
-  it('should render with no props or children', () => {
-    const wrapper = shallow(<Slider />)
+  it('renders children when passed in', () => {
+    const wrapper = shallow(
+      <Slider>
+        <div className="unique" />
+      </Slider>,
+    )
 
-    assert.isOK(wrapper.is('g'))
+    assert.strictEqual(wrapper.contains(<div className="unique" />), true)
   })
 })

@@ -62,7 +62,7 @@
     "phantomjs-prebuilt": "^2.1.15",
     "prettier-eslint-cli": "^4.3.0",
     "react": "^15.5.3",
-    "react-addons-test-utils": "^15.4.0",
+    "react-addons-test-utils": "^15.6.0",
     "react-dom": "^15.5.3",
     "recursive-readdir-sync": "^1.0.6",
     "rimraf": "^2.6.1",
