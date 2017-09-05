@@ -19,13 +19,14 @@ const railStyle = {
   backgroundColor: 'rgb(155,155,155)',
 }
 
-const defaultValues = [450, 400, 300, 150]
+const defaultValues = [250, 350]
 
 class Example extends Component {
   state = {
-    domain: [100, 500],
+    domain: [200, 500],
     values: defaultValues.slice(),
     update: defaultValues.slice(),
+    reversed: false,
   }
 
   onUpdate = update => {
@@ -40,22 +41,30 @@ class Example extends Component {
     this.setState({ domain })
   }
 
+  toggleReverse = () => {
+    this.setState(prev => ({ reversed: !prev.reversed }))
+  }
+
   render() {
-    const { state: { domain, values, update } } = this
+    const { state: { domain, values, update, reversed } } = this
 
     return (
       <div style={{ height: 120, width: '100%' }}>
-        <button onClick={() => this.setDomain([0, 500])}>
-          SET DOMAIN [0, 500]
+        <button onClick={() => this.setDomain([100, 400])}>
+          SET DOMAIN [100, 400]
         </button>
-        <button onClick={() => this.setDomain([100, 500])}>
-          SET DOMAIN [100, 500]
+        <button onClick={() => this.setDomain([300, 600])}>
+          SET DOMAIN [300, 600]
+        </button>
+        <button onClick={() => this.toggleReverse()}>
+          {reversed ? 'DISPLAY LOW TO HIGH' : 'DISPLAY HIGH TO LOW'}
         </button>
         <ValueViewer values={values} update={update} />
         <Slider
-          mode={2}
+          mode={1}
           step={10}
           domain={domain}
+          reversed={reversed}
           rootStyle={sliderStyle}
           onUpdate={this.onUpdate}
           onChange={this.onChange}
