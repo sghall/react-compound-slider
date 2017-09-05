@@ -307,7 +307,7 @@ Slider.propTypes = {
    */
   rootStyle: PropTypes.object,
   /**
-   * Two elment array of numbers providing the min and max values for the slider [min, max] e.g. [0, 100].
+   * Two element array of numbers providing the min and max values for the slider [min, max] e.g. [0, 100].
    * It does not matter if the slider is reversed on the screen, domain is always [min, max] with min < max.
    */
   domain: PropTypes.array,
