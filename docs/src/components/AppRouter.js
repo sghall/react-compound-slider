@@ -15,6 +15,7 @@ import AppContent from 'docs/src/components/AppContent'
 import MarkdownDocs from 'docs/src/components/MarkdownDocs'
 import ComponentDoc from 'docs/src/components/ComponentDoc'
 import Home from 'docs/src/pages/Home'
+import Tutorial from 'docs/src/pages/getting-started/Tutorial'
 import {
   requireMarkdown,
   requireSliderDemo,
@@ -54,7 +55,7 @@ export default function AppRouter() {
             title="Tutorial"
             path="/getting-started/tutorial"
             content={requireMarkdown('./getting-started/tutorial.md')}
-            component={MarkdownDocs}
+            component={Tutorial}
             nav
           />
         </Route>

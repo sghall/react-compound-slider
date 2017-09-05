@@ -18,8 +18,8 @@ Handles.propTypes = {
   /** @ignore */
   emitTouch: PropTypes.func,
   /**
-   * A function to render to the handles.
-   * The function receives and object with an array of handles and functions for emitting events.
+   * A function to render the handles.
+   * The function receives an object with an array of handles and functions for emitting events.
    * `({ handles, emitMouse, emitTouch }): element`
    */
   children: PropTypes.func.isRequired,
