@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import warning from 'warning'
 import PropTypes from 'prop-types'
-import scaleLinear from 'd3-scale/src/linear'
-import scaleQuantize from 'd3-scale/src/quantize'
+import { scaleLinear, scaleQuantize } from 'd3-scale'
 import Rail from '../Rail'
 import Ticks from '../Ticks'
 import Tracks from '../Tracks'
@@ -61,7 +60,7 @@ class Slider extends Component {
     }
   }
 
-  getValues(arr, reversed) {
+  getValues(arr = [], reversed) {
     const values = []
 
     const mapped = arr
