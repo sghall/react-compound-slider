@@ -16,7 +16,7 @@ To give you a sense of how it works.
 You render your slider analogous to how you might render some tabs in react.
 
 ```jsx
-import Slider, { Handles, Tracks, Ticks } from 'react-compound-slider'
+import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
 import { Handle, Track, Tick } from './your-local-slider-components'
 
  <Slider
@@ -26,6 +26,11 @@ import { Handle, Track, Tick } from './your-local-slider-components'
     mode={2}
     defaultValues={[10, 20, 30]}
   >
+    <Rail>
+      {({ emitMouse, emitTouch }) => (
+      	...render your rail content
+      )}
+    </Rail>
     <Handles>
       {({ handles, emitMouse, emitTouch }) => (
         <div className="slider-handles">
@@ -54,7 +59,6 @@ import { Handle, Track, Tick } from './your-local-slider-components'
       )}
     </Ticks>
   </Slider>
-...
 ```
 
 Below is a walthrough of building an example slider. The final result of the tutorial is a slider like this:
