@@ -49,7 +49,7 @@ class Example extends Component {
     const { state: { domain, values, update, reversed } } = this
 
     return (
-      <div style={{ height: 120, width: '100%' }}>
+      <div style={{ height: 150, width: '100%' }}>
         <button onClick={() => this.setDomain([100, 400])}>
           SET DOMAIN [100, 400]
         </button>

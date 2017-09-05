@@ -38,14 +38,14 @@ export function Handle({
 }
 
 Handle.propTypes = {
-  domain: PropTypes.array,
+  domain: PropTypes.array.isRequired,
   handle: PropTypes.shape({
-    id: PropTypes.string,
-    value: PropTypes.number,
-    percent: PropTypes.number,
-  }),
-  emitMouse: PropTypes.func,
-  emitTouch: PropTypes.func,
+    id: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
+    percent: PropTypes.number.isRequired,
+  }).isRequired,
+  emitMouse: PropTypes.func.isRequired,
+  emitTouch: PropTypes.func.isRequired,
 }
 
 // *******************************************************
@@ -72,15 +72,17 @@ export function Track({ source, target, emitMouse, emitTouch }) {
 
 Track.propTypes = {
   source: PropTypes.shape({
-    key: PropTypes.string,
-    val: PropTypes.number,
-  }),
+    id: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
+    percent: PropTypes.number.isRequired,
+  }).isRequired,
   target: PropTypes.shape({
-    key: PropTypes.string,
-    val: PropTypes.number,
-  }),
-  emitMouse: PropTypes.func,
-  emitTouch: PropTypes.func,
+    id: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
+    percent: PropTypes.number.isRequired,
+  }).isRequired,
+  emitMouse: PropTypes.func.isRequired,
+  emitTouch: PropTypes.func.isRequired,
 }
 
 Track.defaultProps = {
@@ -123,12 +125,12 @@ export function Tick({ tick, count, format }) {
 
 Tick.propTypes = {
   tick: PropTypes.shape({
-    id: PropTypes.string,
-    value: PropTypes.number,
-    percent: PropTypes.number,
-  }),
-  count: PropTypes.number,
-  format: PropTypes.func,
+    id: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
+    percent: PropTypes.number.isRequired,
+  }).isRequired,
+  count: PropTypes.number.isRequired,
+  format: PropTypes.func.isRequired,
 }
 
 Tick.defaultProps = {
