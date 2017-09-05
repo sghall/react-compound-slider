@@ -37,23 +37,23 @@ class Slider extends Component {
   }
 
   componentWillMount() {
-    const { domain: [min, max], defaultValues, step, reversed } = this.props
+    const { domain, defaultValues, step, reversed } = this.props
 
-    this.updateRange(min, max, step, reversed)
+    this.updateRange(domain, step, reversed)
     this.setState(this.getValues(defaultValues, reversed))
   }
 
   componentWillReceiveProps(next) {
-    const { domain: [min, max], step, reversed } = next
+    const { domain, step, reversed } = next
     const props = this.props
 
     if (
-      min !== props.domain[0] ||
-      max !== props.domain[1] ||
+      domain[0] !== props.domain[0] ||
+      domain[1] !== props.domain[1] ||
       step !== props.step ||
       reversed !== props.reversed
     ) {
-      this.updateRange(min, max, step, reversed)
+      this.updateRange(domain, step, reversed)
     }
   }
 
@@ -78,7 +78,7 @@ class Slider extends Component {
     return { values }
   }
 
-  updateRange(min, max, step, reversed) {
+  updateRange([min, max], step, reversed) {
     const range = utils.getStepRange(min, max, step)
 
     this.valueToStep
