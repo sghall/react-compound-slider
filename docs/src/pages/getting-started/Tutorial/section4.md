@@ -1,7 +1,9 @@
 
-Ok.  That's pretty cool, but you can't click on the rail.
+Pretty cool, but you can't click on the rail.
 
-Ok. Let's fix that...
+Let's fix that...
+
+## Rail
 
 ```jsx
 import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'

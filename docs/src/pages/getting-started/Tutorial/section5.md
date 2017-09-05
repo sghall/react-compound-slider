@@ -1,8 +1,6 @@
 
-Nice.  Hey, I misread the spec.  We actually need three handles.
+Nice.  Let's say we actually need three handles.
 The tracks should only show on the connections between handles.
-
-Ok. Let's do that.
 
 ```jsx
 import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'

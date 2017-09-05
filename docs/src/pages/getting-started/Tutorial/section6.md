@@ -1,10 +1,44 @@
 
 I'd like to label the slider with some tick marks, but I don't know what they are in advance.
-Can you generate some good values and let me render them the way I want?
+Can we generate some good values automagically?
 
-Sure here you go:
+Let's add some ticks...
+
+## Ticks
+
 ```jsx
 import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
+
+function Tick({ tick, count }) { // your custom tick component
+  return (
+    <div>
+      <div
+        style={{
+          position: 'absolute',
+          marginTop: 52,
+          marginLeft: -0.5,
+          width: 1,
+          height: 8,
+          backgroundColor: 'silver',
+          left: `${tick.percent}%`,
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          marginTop: 60,
+          fontSize: 10,
+          textAlign: 'center',
+          marginLeft: `${-(100 / count) / 2}%`,
+          width: `${100 / count}%`,
+          left: `${tick.percent}%`,
+        }}
+      >
+        {tick.value}
+      </div>
+    </div>
+  )
+}
 
 function Track({ source, target, emitMouse, emitTouch }) {
   return (

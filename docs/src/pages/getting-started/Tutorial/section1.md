@@ -1,21 +1,21 @@
-# Tutorial
+## Slider
 
-Slider components are effectively just a relatively positioned div with handles and tracks absolutely positioned inside.
-Handles and tracks are positioned using percentages.
-
-Here, we'll gradually build up a fully functional slider.
+Let's start by setting up a slider and just rendering a center rail.
+In this example the slider is horizontal so we just need to give it a width.
+The library itself contains absolutley no styles so it's critical to make sure you give your slider it's width or height (if vertically oriented).
+You can do that by passing the slider a rootStyle prop for linline styles or a className prop.
 
 ```jsx
 import Slider, { Handles, Tracks, Ticks } from 'react-compound-slider'
 
-const sliderStyle = {  // Give the slider some width and height
+const sliderStyle = {  // Give the slider some width
   position: 'relative',
   width: '100%',
   height: 80,
-  border: '1px solid gainsboro',
+  border: '1px solid steelblue',
 }
 
-const railStyle = { // Add a rail as a child.  Later we'll make it interactive.
+const railStyle = { 
   position: 'absolute',
   width: '100%',
   height: 10,
@@ -26,11 +26,11 @@ const railStyle = { // Add a rail as a child.  Later we'll make it interactive.
 
 ...
 <Slider
-	rootStyle={sliderStyleWithBorder}
+	rootStyle={sliderStyle} // inline styles for the outer div. Can also use className prop.
 	domain={[0, 100]}
 	defaultValues={[10]}
  >
-	<div style={railStyle} />
+	<div style={railStyle} /> // Add a rail as a child.  Later we'll make it interactive.
 </Slider>
 ...
 ```

@@ -1,21 +1,42 @@
 
-Better, but still not too impressive.  I want a blue track on the left hand side.
-I also want to be able to click on it.
+Looks pretty good.  Now, can we display it in reverse?
 
-Let's add a track...
-
-## Tracks
-
-A slider always has handles + 1 possible tracks.
-The `tracks` component sends you an array of source/target values for each possible track.
-The first source will always be value equal to the min and the percentage zero.
-The last target will always be value equal to the max and the percentage 100.
-You can use the `left` and `right` props to elminate the outer tracks as a conveniece, but the tracks are just an array that you can manipulate however you want.
-
+Not a problem:
 ```jsx
-import Slider, { Handles, Tracks, Ticks } from 'react-compound-slider'
+import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
 
-function Track({ source, target, emitMouse, emitTouch }) { // your own track component
+function Tick({ tick, count }) {
+  return (
+    <div>
+      <div
+        style={{
+          position: 'absolute',
+          marginTop: 52,
+          marginLeft: -0.5,
+          width: 1,
+          height: 8,
+          backgroundColor: 'silver',
+          left: `${tick.percent}%`,
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          marginTop: 60,
+          fontSize: 10,
+          textAlign: 'center',
+          marginLeft: `${-(100 / count) / 2}%`,
+          width: `${100 / count}%`,
+          left: `${tick.percent}%`,
+        }}
+      >
+        {tick.value}
+      </div>
+    </div>
+  )
+}
+
+function Track({ source, target, emitMouse, emitTouch }) {
   return (
     <div
       style={{
@@ -59,7 +80,7 @@ function Handle({
       onMouseDown={e => emitMouse(e, id)}
       onTouchStart={e => emitTouch(e, id)}
     >
-      <div style={{ fontSize: 10, marginTop: -20 }}>{value}</div>
+      <div style={{ fontSize: 11, marginTop: -20 }}>{value}</div>
     </div>
   )
 }
@@ -70,9 +91,18 @@ function Handle({
     domain={[0, 100]}
     step={1}
     mode={2}
-    defaultValues={[30]}
+    reversed  // reversed!!!
+    defaultValues={[20, 60, 80]}
   >
-    <div style={railStyle} />
+    <Rail>
+      {({ emitMouse, emitTouch }) => (
+        <div
+          style={railStyle}
+          onMouseDown={e => emitMouse(e)}
+          onTouchStart={e => emitTouch(e)}
+        />
+      )}
+    </Rail>
     <Handles>
       {({ handles, emitMouse, emitTouch }) => (
         <div className="slider-handles">
@@ -87,7 +117,7 @@ function Handle({
         </div>
       )}
     </Handles>
-    <Tracks right={false}>
+    <Tracks left={false} right={false}>
       {({ tracks, emitMouse, emitTouch }) => (
         <div className="slider-tracks">
           {tracks.map(({ id, source, target }) => (
@@ -102,8 +132,17 @@ function Handle({
         </div>
       )}
     </Tracks>
+    <Ticks values={[0, 25, 50, 75, 100]}>
+      {({ ticks }) => (
+        <div className="slider-ticks">
+          {ticks.map(tick => (
+            <Tick key={tick.id} tick={tick} count={ticks.length} />
+          ))}
+        </div>
+      )}
+    </Ticks>
   </Slider>
 ...
 ```
 
-The result of the code above looks like this:
+The result of the code above looks like this.  The slider now goes from high to low:

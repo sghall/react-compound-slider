@@ -1,11 +1,13 @@
 
 Not too exciting.  Let's add a handle...
 
+## Handles
+
 ```jsx
 import Slider, { Handles, Tracks, Ticks } from 'react-compound-slider'
 
-function Handle({
-  handle: { id, value, percent },
+function Handle({ // Your own handle component
+  handle: { id, value, percent }, // you get an id, the value and the percentage to place it.
   emitMouse,
   emitTouch,
 }) {
@@ -45,7 +47,7 @@ function Handle({
     <Handles>
       {({ handles, emitMouse, emitTouch }) => (
         <div className="slider-handles">
-          {handles.map(handle => (
+          {handles.map(handle => ( // you get streamed an array of handles
             <Handle
               key={handle.id}
               handle={handle}

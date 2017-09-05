@@ -1,6 +1,7 @@
 // @flow
 /* eslint react/prop-types: "off" */
 import React from 'react'
+import { Link } from 'react-router'
 import MarkdownElement from 'docs/src/components/MarkdownElement'
 import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
 
@@ -8,7 +9,7 @@ const sliderStyleWithBorder = {
   position: 'relative',
   width: '100%',
   height: 80,
-  border: '1px solid gainsboro',
+  border: '1px solid silver',
 }
 
 const sliderStyle = {
@@ -51,7 +52,7 @@ export function Handle({
       onMouseDown={e => emitMouse(e, id)}
       onTouchStart={e => emitTouch(e, id)}
     >
-      <div style={{ fontSize: 10, marginTop: -20 }}>{value}</div>
+      <div style={{ fontSize: 11, marginTop: -20 }}>{value}</div>
     </div>
   )
 }
@@ -82,11 +83,11 @@ function Tick({ tick, count }) {
       <div
         style={{
           position: 'absolute',
-          marginTop: 55,
+          marginTop: 52,
           marginLeft: -0.5,
           width: 1,
-          height: 5,
-          backgroundColor: 'gainsboro',
+          height: 8,
+          backgroundColor: 'silver',
           left: `${tick.percent}%`,
         }}
       />
@@ -113,9 +114,90 @@ const requireMarkdown = require.context(
   /\.md$/,
 )
 
+const linkStyle = {
+  outline: 'none',
+  display: 'inline-block',
+  fontFamily: 'Roboto',
+  color: 'rgba(127, 127, 127, 0.7)',
+}
+
 function Tutorial() {
   return (
-    <div>
+    <div style={{ marginBottom: 50 }}>
+      <MarkdownElement text={requireMarkdown('./section0.md')} />
+      <Slider
+        rootStyle={sliderStyle}
+        domain={[0, 100]}
+        step={1}
+        mode={2}
+        defaultValues={[10, 20, 30]}
+      >
+        <Rail>
+          {({ emitMouse, emitTouch }) => (
+            <div
+              style={railStyle}
+              onMouseDown={e => emitMouse(e)}
+              onTouchStart={e => emitTouch(e)}
+            />
+          )}
+        </Rail>
+        <Handles>
+          {({ handles, emitMouse, emitTouch }) => (
+            <div className="slider-handles">
+              {handles.map(handle => (
+                <Handle
+                  key={handle.id}
+                  handle={handle}
+                  emitMouse={emitMouse}
+                  emitTouch={emitTouch}
+                />
+              ))}
+            </div>
+          )}
+        </Handles>
+        <Tracks left={false} right={false}>
+          {({ tracks, emitMouse, emitTouch }) => (
+            <div className="slider-tracks">
+              {tracks.map(({ id, source, target }) => (
+                <Track
+                  key={id}
+                  source={source}
+                  target={target}
+                  emitMouse={emitMouse}
+                  emitTouch={emitTouch}
+                />
+              ))}
+            </div>
+          )}
+        </Tracks>
+        <Ticks count={15}>
+          {({ ticks }) => (
+            <div className="slider-ticks">
+              {ticks.map(tick => (
+                <Tick key={tick.id} tick={tick} count={ticks.length} />
+              ))}
+            </div>
+          )}
+        </Ticks>
+      </Slider>
+      <h1 style={{ ...linkStyle, display: 'inherit', marginLeft: 10 }}>
+        Component Docs:
+      </h1>
+      <Link style={linkStyle} to="/component-api/slider">
+        <h2 style={{ marginLeft: 10 }}>Slider</h2>
+      </Link>
+      <Link style={linkStyle} to="/component-api/rail">
+        <h2 style={{ marginLeft: 10 }}>Rail</h2>
+      </Link>
+      <Link style={linkStyle} to="/component-api/handles">
+        <h2 style={{ marginLeft: 10 }}>Handles</h2>
+      </Link>
+      <Link style={linkStyle} to="/component-api/tracks">
+        <h2 style={{ marginLeft: 10 }}>Tracks</h2>
+      </Link>
+      <Link style={linkStyle} to="/component-api/ticks">
+        <h2 style={{ marginLeft: 10 }}>Ticks</h2>
+      </Link>
       <MarkdownElement text={requireMarkdown('./section1.md')} />
       <Slider
         rootStyle={sliderStyleWithBorder}
@@ -337,12 +419,70 @@ function Tutorial() {
           )}
         </Ticks>
       </Slider>
+      <MarkdownElement text={requireMarkdown('./section7.md')} />
       <Slider
         rootStyle={sliderStyle}
         domain={[0, 100]}
         step={1}
         mode={2}
-        defaultValues={[25, 50, 75]}
+        defaultValues={[20, 60, 80]}
+      >
+        <Rail>
+          {({ emitMouse, emitTouch }) => (
+            <div
+              style={railStyle}
+              onMouseDown={e => emitMouse(e)}
+              onTouchStart={e => emitTouch(e)}
+            />
+          )}
+        </Rail>
+        <Handles>
+          {({ handles, emitMouse, emitTouch }) => (
+            <div className="slider-handles">
+              {handles.map(handle => (
+                <Handle
+                  key={handle.id}
+                  handle={handle}
+                  emitMouse={emitMouse}
+                  emitTouch={emitTouch}
+                />
+              ))}
+            </div>
+          )}
+        </Handles>
+        <Tracks left={false} right={false}>
+          {({ tracks, emitMouse, emitTouch }) => (
+            <div className="slider-tracks">
+              {tracks.map(({ id, source, target }) => (
+                <Track
+                  key={id}
+                  source={source}
+                  target={target}
+                  emitMouse={emitMouse}
+                  emitTouch={emitTouch}
+                />
+              ))}
+            </div>
+          )}
+        </Tracks>
+        <Ticks values={[0, 25, 50, 75, 100]}>
+          {({ ticks }) => (
+            <div className="slider-ticks">
+              {ticks.map(tick => (
+                <Tick key={tick.id} tick={tick} count={ticks.length} />
+              ))}
+            </div>
+          )}
+        </Ticks>
+      </Slider>
+      <MarkdownElement text={requireMarkdown('./section8.md')} />
+      <Slider
+        rootStyle={sliderStyle}
+        domain={[0, 100]}
+        step={1}
+        mode={2}
+        reversed
+        defaultValues={[20, 60, 80]}
       >
         <Rail>
           {({ emitMouse, emitTouch }) => (
