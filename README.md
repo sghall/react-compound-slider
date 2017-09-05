@@ -74,5 +74,4 @@ import { Handle, Track, Tick } from './your-local-slider-components'
       )}
     </Ticks>
   </Slider>
-...
 ```
