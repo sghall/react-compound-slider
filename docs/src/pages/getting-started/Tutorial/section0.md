@@ -19,6 +19,12 @@ They also pass callback functions to register events.
 import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
 import { Handle, Track, Tick } from './your-local-slider-components'
 
+const sliderStyle = {
+  position: 'relative',
+  width: '100%',
+  height: 80,
+}
+
  <Slider
     rootStyle={sliderStyle}
     domain={[0, 100]}
