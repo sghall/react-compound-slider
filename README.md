@@ -13,8 +13,6 @@
   <a href="https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal" target="\_parent"><img src="https://user-images.githubusercontent.com/4615775/30075818-cd02968e-922b-11e7-9d89-7b449e70367e.png" alt="React Compound Slider" style="width:450px;"/></a>
 </div>
 
-Under heavy development.
-
 # Installation
 
 React Compound Slider is available as an [npm package](https://www.npmjs.org/package/react-compound-slider).
@@ -40,6 +38,42 @@ This is a [compound component](https://www.youtube.com/watch?v=hEGg-3pIHlE) appr
 In practical terms this means you can create just about any kind of slider you can imagine and use whatever style approach you want.
 The library also has nothing to do with markup.  You can render whatever markup you want.
 The `Slider` just streams you the data and really only cares about the dimensions of the outer div where it takes its measurements from.
+
+# Slider Features
+
+- ** Compound component design provides maximum customizability ✓**
+  - Makes no assumptions about your markup
+  - Precise control over user interactions and styling
+
+- ** Horizontal/vertical display ✓**
+
+- ** The display of values can be reversed ✓**
+
+- ** Only 17kb gzipped ✓**
+  - Less than half the size of similar slider libs
+
+- ** Supports mouse and touch events ✓**
+  - Supports IE9+, Chrome, Firefox & Safari
+
+- ** Create any type of slider ✓**
+  - One API for all sliders types
+  - Single value slider
+  - Range slider (2 handles)
+  - Multiple Sliders (N handles)
+
+- ** Automatically generates uniformly spaced, human-readable tick values to label your slider ✓**
+  - Supports passing custom set of ticks
+
+- ** Integrates seemlessly with any app styling approach ✓**
+  - CSS
+  - CSS-in-JS
+  - Inline-styles
+
+- ** Interaction modes ✓**
+  - Allow handles to cross
+  - Prevent crossing
+
+- Works as a controlled component (this is not implemented yet)
 
 ### Example Usage
 
