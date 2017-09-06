@@ -1,6 +1,7 @@
 ## react-compound-slider
 
 [![Build Status](https://travis-ci.org/sghall/react-compound-slider.svg?branch=master)](https://travis-ci.org/sghall/react-compound-slider)
+[![Coverage Status](https://coveralls.io/repos/github/sghall/react-compound-slider/badge.svg?branch=master)](https://coveralls.io/github/sghall/react-compound-slider?branch=master)
 ![](http://img.badgesize.io/sghall/react-compound-slider/gh-pages/fileSize/react-compound-slider.min.js?label=minified)
 ![](http://img.badgesize.io/sghall/react-compound-slider/gh-pages/fileSize/react-compound-slider.min.js?compression=gzip)
 
