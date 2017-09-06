@@ -34,6 +34,8 @@ npm install react-compound-slider
 
 ## [Documentation](https://sghall.github.io/react-compound-slider/#/component-api/slider)
 
+## [CodeSandbox](https://codesandbox.io/s/plzyr7lmj)
+
 ### Intro
 
 This library takes a [compound component](https://www.youtube.com/watch?v=hEGg-3pIHlE) approach to creating sliders that separates the data/logic from presentation.
