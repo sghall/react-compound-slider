@@ -39,7 +39,7 @@ In practical terms this means you can create just about any kind of slider you c
 The library also has nothing to do with markup.  You can render whatever markup you want.
 The `Slider` just streams you the data and really only cares about the dimensions of the outer div where it takes its measurements from.
 
-# Slider Features
+### Slider Features
 
 - ** Compound component design provides maximum customizability ✓**
   - Makes no assumptions about your markup
