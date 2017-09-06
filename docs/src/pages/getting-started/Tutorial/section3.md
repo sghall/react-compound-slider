@@ -1,8 +1,5 @@
 
-Better, but still not too impressive.  I want a blue track on the left hand side.
-I also want to be able to click on it.
-
-Let's add a track...
+Better, but still not too impressive.  Let's add a blue track on the left hand side and make it clickeable.
 
 ## Tracks
 

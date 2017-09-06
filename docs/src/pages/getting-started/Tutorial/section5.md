@@ -5,25 +5,6 @@ The tracks should only show on the connections between handles.
 ```jsx
 import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
 
-function Track({ source, target, getTrackProps }) { // your own track component
-  return (
-    <div
-      style={{
-        position: 'absolute',
-        height: 10,
-        zIndex: 1,
-        marginTop: 35,
-        backgroundColor: 'cornflowerblue',
-        borderRadius: 5,
-        cursor: 'pointer',
-        left: `${source.percent}%`,
-        width: `${target.percent - source.percent}%`,
-      }}
-      {...getTrackProps()} // this will set up events if you want it to be clickeable (optional)
-    />
-  )
-}
-
 ...
   <Slider
     rootStyle={sliderStyle}

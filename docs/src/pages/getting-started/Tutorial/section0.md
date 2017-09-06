@@ -5,6 +5,10 @@ Here we'll gradually build up a fully functional slider.
 ### Intro
 
 This library takes a [compound component](https://www.youtube.com/watch?v=hEGg-3pIHlE) approach to creating sliders that separates the data/logic from presentation.
+
+If your familiar with Kent Dodd's work on Paypal's [downshift](https://github.com/paypal/downshift) or [react-toggled](https://github.com/kentcdodds/react-toggled) then the pattern should seem familiar.
+The components use the [function as child components pattern](https://medium.com/merrickchristensen/function-as-child-components-5f3920a9ace9).
+
 In practical terms this means you can create just about any kind of slider you can imagine and use whatever style approach you want.
 By taking this approach it also frees you up to render whatever markup you want to customize your slider.
 The `Slider` streams you the data and really only cares about the dimensions of the outer div where it takes its measurements from.
@@ -66,4 +70,4 @@ const sliderStyle = {
   </Slider>
 ```
 
-Below is a walthrough of building an example slider. The final result of the tutorial is a slider like this:
+Below is a walk through of building a slider. The final result of the tutorial is a slider like this:

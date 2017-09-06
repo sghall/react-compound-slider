@@ -1,7 +1,7 @@
 # Handles
 
 The `Handles` component is used as a child of `Slider` to render the slider handles.
-Your child function receives an array of handle objects and functions for emitting events.
+Your child function receives an array of handle objects and a function to get handle props.
 
 Handle Object:
 
@@ -9,22 +9,28 @@ Handle Object:
 - value (number)
 - percent (number 0 to 100)
 
-## Typical Usage:
+### Example Usage:
 ```jsx
 import Slider, { Handles } from 'react-compound-slider'
 
 <Slider
   ...
 >
+  ...
   <Handles>
-    {({ handles, emitMouse, emitTouch }) => (
+    {({ handles, getHandleProps }) => (
       <div className="slider-handles">
-        {handles.map(handle => {
-          const { id, value, percent } = handle         
-          ... render your handle here  
-        })}
+        {handles.map(handle => (
+          return (
+            <div
+              {...props}
+              {...getHandleProps(handle.id)}
+            />
+          )
+        ))}
       </div>
     )}
   </Handles>
+  ...
 </Slider>
 ```
