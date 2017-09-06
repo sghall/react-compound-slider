@@ -1,5 +1,5 @@
 // @flow
-/* eslint react/prop-types: "off" */
+/* eslint react/prop-types: "off", max-lines: "off" */
 import React from 'react'
 import { Link } from 'react-router'
 import MarkdownElement from 'docs/src/components/MarkdownElement'

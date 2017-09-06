@@ -93,7 +93,7 @@ class Example extends Component {
               </div>
             )}
           </Tracks>
-          <Ticks count={15}>
+          <Ticks count={10}>
             {({ ticks }) => (
               <div className="slider-ticks">
                 {ticks.map(tick => (
