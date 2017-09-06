@@ -52,39 +52,33 @@ class Example extends Component {
           defaultValues={values}
         >
           <Rail>
-            {({ emitMouse, emitTouch }) => (
-              <div
-                style={railStyle}
-                onMouseDown={e => emitMouse(e)}
-                onTouchStart={e => emitTouch(e)}
-              />
+            {({ getRailProps }) => (
+              <div style={railStyle} {...getRailProps()} />
             )}
           </Rail>
           <Handles>
-            {({ handles, emitMouse, emitTouch }) => (
+            {({ handles, getHandleProps }) => (
               <div className="slider-handles">
                 {handles.map(handle => (
                   <Handle
                     key={handle.id}
                     handle={handle}
                     domain={domain}
-                    emitMouse={emitMouse}
-                    emitTouch={emitTouch}
+                    getHandleProps={getHandleProps}
                   />
                 ))}
               </div>
             )}
           </Handles>
-          <Tracks left={false} right={false}>
-            {({ tracks, emitMouse, emitTouch }) => (
+          <Tracks right={false}>
+            {({ tracks, getTrackProps }) => (
               <div className="slider-tracks">
                 {tracks.map(({ id, source, target }) => (
                   <Track
                     key={id}
                     source={source}
                     target={target}
-                    emitMouse={emitMouse}
-                    emitTouch={emitTouch}
+                    getTrackProps={getTrackProps}
                   />
                 ))}
               </div>
