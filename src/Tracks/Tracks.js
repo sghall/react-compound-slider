@@ -1,7 +1,22 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { callAll } from '../utils'
 
 class Tracks extends Component {
+  getTrackProps = (props = {}) => ({
+    ...props,
+    onMouseDown: callAll(props.onMouseDown, this.emitMouse),
+    onTouchStart: callAll(props.onTouchStart, this.emitTouch),
+  })
+
+  emitMouse = e => {
+    this.props.emitMouse(e)
+  }
+
+  emitTouch = e => {
+    this.props.emitTouch(e)
+  }
+
   render() {
     const {
       children,
@@ -34,7 +49,12 @@ class Tracks extends Component {
       }
     }
 
-    const renderedChildren = children({ tracks, emitMouse, emitTouch })
+    const renderedChildren = children({
+      tracks,
+      emitMouse,
+      emitTouch,
+      getTrackProps: this.getTrackProps,
+    })
     return renderedChildren && React.Children.only(renderedChildren)
   }
 }
