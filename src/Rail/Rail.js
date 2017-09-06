@@ -3,28 +3,20 @@ import PropTypes from 'prop-types'
 import { callAll } from '../utils'
 
 class Rail extends Component {
-  getRailProps = (props = {}) => ({
-    ...props,
-    onMouseDown: callAll(props.onMouseDown, this.emitMouse),
-    onTouchStart: callAll(props.onTouchStart, this.emitTouch),
-  })
+  getRailProps = (props = {}) => {
+    const { emitMouse, emitTouch } = this.props
 
-  emitMouse = e => {
-    this.props.emitMouse(e)
-  }
-
-  emitTouch = e => {
-    this.props.emitTouch(e)
+    return {
+      ...props,
+      onMouseDown: callAll(props.onMouseDown, emitMouse),
+      onTouchStart: callAll(props.onTouchStart, emitTouch),
+    }
   }
 
   render() {
-    const { children, emitMouse, emitTouch } = this.props
+    const { getRailProps, props: { children } } = this
 
-    const renderedChildren = children({
-      emitMouse,
-      emitTouch,
-      getRailProps: this.getRailProps,
-    })
+    const renderedChildren = children({ getRailProps })
     return renderedChildren && React.Children.only(renderedChildren)
   }
 }

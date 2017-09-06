@@ -3,18 +3,14 @@ import PropTypes from 'prop-types'
 import { callAll } from '../utils'
 
 class Handles extends Component {
-  getHandleProps = (id, props = {}) => ({
-    ...props,
-    onMouseDown: callAll(props.onMouseDown, e => this.emitMouse(e, id)),
-    onTouchStart: callAll(props.onTouchStart, e => this.emitTouch(e, id)),
-  })
+  getHandleProps = (id, props = {}) => {
+    const { emitMouse, emitTouch } = this.props
 
-  emitMouse = (e, id) => {
-    this.props.emitMouse(e, id)
-  }
-
-  emitTouch = (e, id) => {
-    this.props.emitTouch(e, id)
+    return {
+      ...props,
+      onMouseDown: callAll(props.onMouseDown, e => emitMouse(e, id)),
+      onTouchStart: callAll(props.onTouchStart, e => emitTouch(e, id)),
+    }
   }
 
   render() {

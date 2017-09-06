@@ -3,58 +3,44 @@ import PropTypes from 'prop-types'
 import { callAll } from '../utils'
 
 class Tracks extends Component {
-  getTrackProps = (props = {}) => ({
-    ...props,
-    onMouseDown: callAll(props.onMouseDown, this.emitMouse),
-    onTouchStart: callAll(props.onTouchStart, this.emitTouch),
-  })
+  getTrackProps = (props = {}) => {
+    const { emitMouse, emitTouch } = this.props
 
-  emitMouse = e => {
-    this.props.emitMouse(e)
-  }
-
-  emitTouch = e => {
-    this.props.emitTouch(e)
+    return {
+      ...props,
+      onMouseDown: callAll(props.onMouseDown, emitMouse),
+      onTouchStart: callAll(props.onTouchStart, emitTouch),
+    }
   }
 
   render() {
     const {
-      children,
-      left,
-      right,
-      scale,
-      handles,
-      emitMouse,
-      emitTouch,
-    } = this.props
+      getTrackProps,
+      props: { children, left, right, scale, handles },
+    } = this
     const domain = scale.domain()
     const tracks = []
 
     for (let i = 0; i < handles.length + 1; i++) {
-      let s = handles[i - 1]
-      let t = handles[i]
+      let source = handles[i - 1]
+      let target = handles[i]
 
       if (i === 0 && left === true) {
-        s = { id: '$', value: domain[0], percent: 0 }
+        source = { id: '$', value: domain[0], percent: 0 }
       } else if (i === handles.length && right === true) {
-        t = { id: '$', value: domain[1], percent: 100 }
+        target = { id: '$', value: domain[1], percent: 100 }
       }
 
-      if (s && t) {
+      if (source && target) {
         tracks.push({
-          id: `${s.id}-${t.id}`,
-          source: s,
-          target: t,
+          id: `${source.id}-${target.id}`,
+          source,
+          target,
         })
       }
     }
 
-    const renderedChildren = children({
-      tracks,
-      emitMouse,
-      emitTouch,
-      getTrackProps: this.getTrackProps,
-    })
+    const renderedChildren = children({ tracks, getTrackProps })
     return renderedChildren && React.Children.only(renderedChildren)
   }
 }
