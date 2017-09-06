@@ -18,6 +18,7 @@ class Tracks extends Component {
       getTrackProps,
       props: { children, left, right, scale, handles },
     } = this
+
     const domain = scale.domain()
     const tracks = []
 
