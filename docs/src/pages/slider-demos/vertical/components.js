@@ -9,8 +9,7 @@ import PropTypes from 'prop-types'
 export function Handle({
   domain: [min, max],
   handle: { id, value, percent },
-  emitMouse,
-  emitTouch,
+  getHandleProps,
 }) {
   return (
     <div
@@ -31,8 +30,7 @@ export function Handle({
         border: 'solid 2px rgb(200,200,200)',
         backgroundColor: '#ff3d00',
       }}
-      onMouseDown={e => emitMouse(e, id)}
-      onTouchStart={e => emitTouch(e, id)}
+      {...getHandleProps(id)}
     />
   )
 }
@@ -44,14 +42,13 @@ Handle.propTypes = {
     value: PropTypes.number.isRequired,
     percent: PropTypes.number.isRequired,
   }).isRequired,
-  emitMouse: PropTypes.func.isRequired,
-  emitTouch: PropTypes.func.isRequired,
+  getHandleProps: PropTypes.func.isRequired,
 }
 
 // *******************************************************
 // TRACK COMPONENT
 // *******************************************************
-export function Track({ source, target, emitMouse, emitTouch }) {
+export function Track({ source, target, getTrackProps }) {
   return (
     <div
       style={{
@@ -65,8 +62,7 @@ export function Track({ source, target, emitMouse, emitTouch }) {
         top: `${source.percent}%`,
         height: `${target.percent - source.percent}%`,
       }}
-      onMouseDown={e => emitMouse(e)}
-      onTouchStart={e => emitTouch(e)}
+      {...getTrackProps()}
     />
   )
 }
@@ -82,13 +78,7 @@ Track.propTypes = {
     value: PropTypes.number.isRequired,
     percent: PropTypes.number.isRequired,
   }).isRequired,
-  emitMouse: PropTypes.func.isRequired,
-  emitTouch: PropTypes.func.isRequired,
-}
-
-Track.defaultProps = {
-  emitMouse: () => {},
-  emitTouch: () => {},
+  getTrackProps: PropTypes.func.isRequired,
 }
 
 // *******************************************************
