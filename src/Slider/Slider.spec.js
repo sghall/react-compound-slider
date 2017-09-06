@@ -10,6 +10,14 @@ import Rail from '../Rail'
 import Handles from '../Handles'
 import Slider from './Slider'
 
+function createClientXY(x, y) {
+  return { clientX: x, clientY: y }
+}
+
+function createStartTouchEventObject({ x = 0, y = 0 }) {
+  return { touches: [createClientXY(x, y)] }
+}
+
 describe('<Slider />', () => {
   let spy
 
@@ -68,15 +76,15 @@ describe('<Slider />', () => {
   })
 
   it('calls onMouseDown when descendent emits event', () => {
-    const MyRail = ({ emitMouse }) => <div onMouseDown={e => emitMouse(e)} />
+    const MyRail = ({ getRailProps }) => <div {...getRailProps()} />
 
     const eventSpy = sinon.spy(Slider.prototype, 'onMouseDown')
 
     const wrapper = mount(
       <Slider step={10} domain={[100, 200]}>
         <Rail>
-          {({ emitMouse }) => {
-            return <MyRail emitMouse={emitMouse} />
+          {({ getRailProps }) => {
+            return <MyRail getRailProps={getRailProps} />
           }}
         </Rail>
       </Slider>,
@@ -89,10 +97,8 @@ describe('<Slider />', () => {
   })
 
   it('calls onTouchStart when descendent emits event', () => {
-    const mockTouch = { type: 'touchstart', touches: [{ pageX: 100 }] }
-
-    const MyRail = ({ emitTouch }) => {
-      return <div onTouchStart={() => emitTouch(mockTouch)} />
+    const MyRail = ({ getRailProps }) => {
+      return <div {...getRailProps()} />
     }
 
     const eventSpy = sinon.spy(Slider.prototype, 'onTouchStart')
@@ -100,31 +106,33 @@ describe('<Slider />', () => {
     const wrapper = mount(
       <Slider step={10} domain={[100, 200]}>
         <Rail>
-          {({ emitTouch }) => {
-            return <MyRail emitTouch={emitTouch} />
+          {({ getRailProps }) => {
+            return <MyRail getRailProps={getRailProps} />
           }}
         </Rail>
       </Slider>,
     )
 
-    wrapper.find('MyRail').simulate('touchstart')
+    wrapper
+      .find('MyRail')
+      .simulate('touchstart', createStartTouchEventObject({ x: 100, y: 0 }))
 
     assert.strictEqual(eventSpy.called, true)
     eventSpy.restore()
   })
 
   it('calls addMouseEvents when descendent emits event with an id', () => {
-    const MyHandle = ({ id, emitMouse }) => (
-      <div onMouseDown={e => emitMouse(e, id)} />
-    )
+    const MyHandle = ({ id, getHandleProps }) => <div {...getHandleProps(id)} />
 
     const eventSpy = sinon.spy(Slider.prototype, 'addMouseEvents')
 
     const wrapper = mount(
       <Slider step={1} domain={[0, 100]} defaultValues={[25]}>
         <Handles>
-          {({ handles, emitMouse }) => {
-            return <MyHandle id={handles[0].id} emitMouse={emitMouse} />
+          {({ handles, getHandleProps }) => {
+            return (
+              <MyHandle id={handles[0].id} getHandleProps={getHandleProps} />
+            )
           }}
         </Handles>
       </Slider>,
@@ -137,25 +145,25 @@ describe('<Slider />', () => {
   })
 
   it('calls addTouchEvents when descendent emits event with an id', () => {
-    const mockTouch = { type: 'touchstart', touches: [{ pageX: 100 }] }
-
-    const MyHandle = ({ id, emitTouch }) => (
-      <div onTouchStart={() => emitTouch(mockTouch, id)} />
-    )
+    const MyHandle = ({ id, getHandleProps }) => <div {...getHandleProps(id)} />
 
     const eventSpy = sinon.spy(Slider.prototype, 'addTouchEvents')
 
     const wrapper = mount(
       <Slider step={1} domain={[0, 100]} defaultValues={[25]}>
         <Handles>
-          {({ handles, emitTouch }) => {
-            return <MyHandle id={handles[0].id} emitTouch={emitTouch} />
+          {({ handles, getHandleProps }) => {
+            return (
+              <MyHandle id={handles[0].id} getHandleProps={getHandleProps} />
+            )
           }}
         </Handles>
       </Slider>,
     )
 
-    wrapper.find('MyHandle').simulate('touchstart')
+    wrapper
+      .find('MyHandle')
+      .simulate('touchstart', createStartTouchEventObject({ x: 100, y: 0 }))
 
     assert.strictEqual(eventSpy.called, true)
     eventSpy.restore()
