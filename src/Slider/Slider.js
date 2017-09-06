@@ -130,8 +130,8 @@ class Slider extends Component {
   onStart(e, key, isTouch) {
     const { values } = this.state
 
-    e.stopPropagation()
-    e.preventDefault()
+    e.stopPropagation && e.stopPropagation()
+    e.preventDefault && e.preventDefault()
 
     const active = values.find(value => {
       return value.key === key
