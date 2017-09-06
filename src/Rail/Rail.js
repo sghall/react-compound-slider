@@ -27,7 +27,7 @@ Rail.propTypes = {
   /** @ignore */
   emitTouch: PropTypes.func,
   /**
-   * A function to render to the rail. Functions for emitting events. `({ emitMouse, emitTouch }): element`
+   * A function to render the rail. `({ getRailProps }): element`
    */
   children: PropTypes.func.isRequired,
 }

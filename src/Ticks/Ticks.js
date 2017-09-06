@@ -37,9 +37,9 @@ Ticks.propTypes = {
   /** @ignore */
   emitTouch: PropTypes.func,
   /**
-   * A function to render to the ticks. 
-   * The function receives an object with an array of ticks and functions for emitting events.
-   * `({ ticks, emitMouse, emitTouch }): element`
+   * A function to render the ticks. 
+   * The function receives an object with an array of ticks.
+   * `({ ticks  }): element`
    */
   children: PropTypes.func.isRequired,
 }
