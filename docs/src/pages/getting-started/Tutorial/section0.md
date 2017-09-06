@@ -10,10 +10,7 @@ In practical terms this means you can create just about any kind of slider you c
 The library also has nothing to do with markup.  You can render whatever markup you want.
 The `Slider` just streams you the data and really only cares about the dimensions of the outer div where it takes its measurements from.
 
-### Basic Idea
-
-To give you a sense of how it works.
-You render your slider analogous to how you might render some tabs in react.
+### Example Usage
 
 ```jsx
 import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'

@@ -1,5 +1,8 @@
 ## react-compound-slider
 
+![](http://img.badgesize.io/sghall/react-compound-slider/gh-pages/fileSize/react-compound-slider.min.js?label=minified)
+![](http://img.badgesize.io/sghall/react-compound-slider/gh-pages/fileSize/react-compound-slider.min.js?compression=gzip)
+
 <div style="text-align:center;">
   <a href="https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal" target="\_parent"><img src="https://user-images.githubusercontent.com/4615775/30075819-cd06121e-922b-11e7-916c-a7c7de29f933.png" alt="React Compound Slider" style="width:450px;"/></a>
 </div>
@@ -38,10 +41,7 @@ In practical terms this means you can create just about any kind of slider you c
 The library also has nothing to do with markup.  You can render whatever markup you want.
 The `Slider` just streams you the data and really only cares about the dimensions of the outer div where it takes its measurements from.
 
-### Basic Idea
-
-To give you a sense of how it works.
-You render your slider analogous to how you might render some tabs in react.
+### Example Usage
 
 ```jsx
 import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
