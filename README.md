@@ -1,5 +1,6 @@
 ## react-compound-slider
 
+[![Build Status](https://travis-ci.org/sghall/react-compound-slider.svg?branch=master)](https://travis-ci.org/sghall/react-compound-slider)
 ![](http://img.badgesize.io/sghall/react-compound-slider/gh-pages/fileSize/react-compound-slider.min.js?label=minified)
 ![](http://img.badgesize.io/sghall/react-compound-slider/gh-pages/fileSize/react-compound-slider.min.js?compression=gzip)
 
