@@ -28,11 +28,7 @@ const railStyle = {
   backgroundColor: 'peru',
 }
 
-export function Handle({
-  handle: { id, value, percent },
-  emitMouse,
-  emitTouch,
-}) {
+export function Handle({ handle: { id, value, percent }, getHandleProps }) {
   return (
     <div
       style={{
@@ -49,15 +45,14 @@ export function Handle({
         border: 'solid 2px wheat',
         backgroundColor: 'burlywood',
       }}
-      onMouseDown={e => emitMouse(e, id)}
-      onTouchStart={e => emitTouch(e, id)}
+      {...getHandleProps(id)}
     >
       <div style={{ fontSize: 11, marginTop: -20 }}>{value}</div>
     </div>
   )
 }
 
-function Track({ source, target, emitMouse, emitTouch }) {
+function Track({ source, target, getTrackProps }) {
   return (
     <div
       style={{
@@ -71,8 +66,7 @@ function Track({ source, target, emitMouse, emitTouch }) {
         left: `${source.percent}%`,
         width: `${target.percent - source.percent}%`,
       }}
-      onMouseDown={e => emitMouse(e)}
-      onTouchStart={e => emitTouch(e)}
+      {...getTrackProps()}
     />
   )
 }
@@ -133,38 +127,30 @@ function Tutorial() {
         defaultValues={[10, 20, 30]}
       >
         <Rail>
-          {({ emitMouse, emitTouch }) => (
-            <div
-              style={railStyle}
-              onMouseDown={e => emitMouse(e)}
-              onTouchStart={e => emitTouch(e)}
-            />
-          )}
+          {({ getRailProps }) => <div style={railStyle} {...getRailProps()} />}
         </Rail>
         <Handles>
-          {({ handles, emitMouse, emitTouch }) => (
+          {({ handles, getHandleProps }) => (
             <div className="slider-handles">
               {handles.map(handle => (
                 <Handle
                   key={handle.id}
                   handle={handle}
-                  emitMouse={emitMouse}
-                  emitTouch={emitTouch}
+                  getHandleProps={getHandleProps}
                 />
               ))}
             </div>
           )}
         </Handles>
         <Tracks left={false} right={false}>
-          {({ tracks, emitMouse, emitTouch }) => (
+          {({ tracks, getTrackProps }) => (
             <div className="slider-tracks">
               {tracks.map(({ id, source, target }) => (
                 <Track
                   key={id}
                   source={source}
                   target={target}
-                  emitMouse={emitMouse}
-                  emitTouch={emitTouch}
+                  getTrackProps={getTrackProps}
                 />
               ))}
             </div>
@@ -216,14 +202,13 @@ function Tutorial() {
       >
         <div style={railStyle} />
         <Handles>
-          {({ handles, emitMouse, emitTouch }) => (
+          {({ handles, getHandleProps }) => (
             <div className="slider-handles">
               {handles.map(handle => (
                 <Handle
                   key={handle.id}
                   handle={handle}
-                  emitMouse={emitMouse}
-                  emitTouch={emitTouch}
+                  getHandleProps={getHandleProps}
                 />
               ))}
             </div>
@@ -240,29 +225,27 @@ function Tutorial() {
       >
         <div style={railStyle} />
         <Handles>
-          {({ handles, emitMouse, emitTouch }) => (
+          {({ handles, getHandleProps }) => (
             <div className="slider-handles">
               {handles.map(handle => (
                 <Handle
                   key={handle.id}
                   handle={handle}
-                  emitMouse={emitMouse}
-                  emitTouch={emitTouch}
+                  getHandleProps={getHandleProps}
                 />
               ))}
             </div>
           )}
         </Handles>
         <Tracks right={false}>
-          {({ tracks, emitMouse, emitTouch }) => (
+          {({ tracks, getTrackProps }) => (
             <div className="slider-tracks">
               {tracks.map(({ id, source, target }) => (
                 <Track
                   key={id}
                   source={source}
                   target={target}
-                  emitMouse={emitMouse}
-                  emitTouch={emitTouch}
+                  getTrackProps={getTrackProps}
                 />
               ))}
             </div>
@@ -278,38 +261,30 @@ function Tutorial() {
         defaultValues={[30]}
       >
         <Rail>
-          {({ emitMouse, emitTouch }) => (
-            <div
-              style={railStyle}
-              onMouseDown={e => emitMouse(e)}
-              onTouchStart={e => emitTouch(e)}
-            />
-          )}
+          {({ getRailProps }) => <div style={railStyle} {...getRailProps()} />}
         </Rail>
         <Handles>
-          {({ handles, emitMouse, emitTouch }) => (
+          {({ handles, getHandleProps }) => (
             <div className="slider-handles">
               {handles.map(handle => (
                 <Handle
                   key={handle.id}
                   handle={handle}
-                  emitMouse={emitMouse}
-                  emitTouch={emitTouch}
+                  getHandleProps={getHandleProps}
                 />
               ))}
             </div>
           )}
         </Handles>
         <Tracks right={false}>
-          {({ tracks, emitMouse, emitTouch }) => (
+          {({ tracks, getTrackProps }) => (
             <div className="slider-tracks">
               {tracks.map(({ id, source, target }) => (
                 <Track
                   key={id}
                   source={source}
                   target={target}
-                  emitMouse={emitMouse}
-                  emitTouch={emitTouch}
+                  getTrackProps={getTrackProps}
                 />
               ))}
             </div>
@@ -325,38 +300,30 @@ function Tutorial() {
         defaultValues={[10, 20, 30]}
       >
         <Rail>
-          {({ emitMouse, emitTouch }) => (
-            <div
-              style={railStyle}
-              onMouseDown={e => emitMouse(e)}
-              onTouchStart={e => emitTouch(e)}
-            />
-          )}
+          {({ getRailProps }) => <div style={railStyle} {...getRailProps()} />}
         </Rail>
         <Handles>
-          {({ handles, emitMouse, emitTouch }) => (
+          {({ handles, getHandleProps }) => (
             <div className="slider-handles">
               {handles.map(handle => (
                 <Handle
                   key={handle.id}
                   handle={handle}
-                  emitMouse={emitMouse}
-                  emitTouch={emitTouch}
+                  getHandleProps={getHandleProps}
                 />
               ))}
             </div>
           )}
         </Handles>
         <Tracks left={false} right={false}>
-          {({ tracks, emitMouse, emitTouch }) => (
+          {({ tracks, getTrackProps }) => (
             <div className="slider-tracks">
               {tracks.map(({ id, source, target }) => (
                 <Track
                   key={id}
                   source={source}
                   target={target}
-                  emitMouse={emitMouse}
-                  emitTouch={emitTouch}
+                  getTrackProps={getTrackProps}
                 />
               ))}
             </div>
@@ -372,38 +339,30 @@ function Tutorial() {
         defaultValues={[10, 20, 30]}
       >
         <Rail>
-          {({ emitMouse, emitTouch }) => (
-            <div
-              style={railStyle}
-              onMouseDown={e => emitMouse(e)}
-              onTouchStart={e => emitTouch(e)}
-            />
-          )}
+          {({ getRailProps }) => <div style={railStyle} {...getRailProps()} />}
         </Rail>
         <Handles>
-          {({ handles, emitMouse, emitTouch }) => (
+          {({ handles, getHandleProps }) => (
             <div className="slider-handles">
               {handles.map(handle => (
                 <Handle
                   key={handle.id}
                   handle={handle}
-                  emitMouse={emitMouse}
-                  emitTouch={emitTouch}
+                  getHandleProps={getHandleProps}
                 />
               ))}
             </div>
           )}
         </Handles>
         <Tracks left={false} right={false}>
-          {({ tracks, emitMouse, emitTouch }) => (
+          {({ tracks, getTrackProps }) => (
             <div className="slider-tracks">
               {tracks.map(({ id, source, target }) => (
                 <Track
                   key={id}
                   source={source}
                   target={target}
-                  emitMouse={emitMouse}
-                  emitTouch={emitTouch}
+                  getTrackProps={getTrackProps}
                 />
               ))}
             </div>
@@ -428,38 +387,30 @@ function Tutorial() {
         defaultValues={[20, 60, 80]}
       >
         <Rail>
-          {({ emitMouse, emitTouch }) => (
-            <div
-              style={railStyle}
-              onMouseDown={e => emitMouse(e)}
-              onTouchStart={e => emitTouch(e)}
-            />
-          )}
+          {({ getRailProps }) => <div style={railStyle} {...getRailProps()} />}
         </Rail>
         <Handles>
-          {({ handles, emitMouse, emitTouch }) => (
+          {({ handles, getHandleProps }) => (
             <div className="slider-handles">
               {handles.map(handle => (
                 <Handle
                   key={handle.id}
                   handle={handle}
-                  emitMouse={emitMouse}
-                  emitTouch={emitTouch}
+                  getHandleProps={getHandleProps}
                 />
               ))}
             </div>
           )}
         </Handles>
         <Tracks left={false} right={false}>
-          {({ tracks, emitMouse, emitTouch }) => (
+          {({ tracks, getTrackProps }) => (
             <div className="slider-tracks">
               {tracks.map(({ id, source, target }) => (
                 <Track
                   key={id}
                   source={source}
                   target={target}
-                  emitMouse={emitMouse}
-                  emitTouch={emitTouch}
+                  getTrackProps={getTrackProps}
                 />
               ))}
             </div>
@@ -485,38 +436,30 @@ function Tutorial() {
         defaultValues={[20, 60, 80]}
       >
         <Rail>
-          {({ emitMouse, emitTouch }) => (
-            <div
-              style={railStyle}
-              onMouseDown={e => emitMouse(e)}
-              onTouchStart={e => emitTouch(e)}
-            />
-          )}
+          {({ getRailProps }) => <div style={railStyle} {...getRailProps()} />}
         </Rail>
         <Handles>
-          {({ handles, emitMouse, emitTouch }) => (
+          {({ handles, getHandleProps }) => (
             <div className="slider-handles">
               {handles.map(handle => (
                 <Handle
                   key={handle.id}
                   handle={handle}
-                  emitMouse={emitMouse}
-                  emitTouch={emitTouch}
+                  getHandleProps={getHandleProps}
                 />
               ))}
             </div>
           )}
         </Handles>
         <Tracks left={false} right={false}>
-          {({ tracks, emitMouse, emitTouch }) => (
+          {({ tracks, getTrackProps }) => (
             <div className="slider-tracks">
               {tracks.map(({ id, source, target }) => (
                 <Track
                   key={id}
                   source={source}
                   target={target}
-                  emitMouse={emitMouse}
-                  emitTouch={emitTouch}
+                  getTrackProps={getTrackProps}
                 />
               ))}
             </div>

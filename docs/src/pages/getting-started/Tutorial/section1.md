@@ -6,7 +6,7 @@ The library itself contains absolutley no styles so it's critical to make sure y
 You can do that by passing the slider a rootStyle prop for inline styles or a className prop.
 
 ```jsx
-import Slider, { Handles, Tracks, Ticks } from 'react-compound-slider'
+import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
 
 const sliderStyle = {  // Give the slider some width
   position: 'relative',

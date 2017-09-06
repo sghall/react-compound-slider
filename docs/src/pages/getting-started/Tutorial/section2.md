@@ -4,12 +4,11 @@ Not too exciting.  Let's add a handle...
 ## Handles
 
 ```jsx
-import Slider, { Handles, Tracks, Ticks } from 'react-compound-slider'
+import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
 
-function Handle({ // Your own handle component
+export function Handle({ // your handle component
   handle: { id, value, percent }, // you get an id, the value and the percentage to place it.
-  emitMouse,
-  emitTouch,
+  getHandleProps,
 }) {
   return (
     <div
@@ -27,10 +26,9 @@ function Handle({ // Your own handle component
         border: 'solid 2px wheat',
         backgroundColor: 'burlywood',
       }}
-      onMouseDown={e => emitMouse(e, id)}
-      onTouchStart={e => emitTouch(e, id)}
+      {...getHandleProps(id)} // pass in the id
     >
-      <div style={{ fontSize: 10, marginTop: -20 }}>{value}</div>
+      <div style={{ fontSize: 11, marginTop: -20 }}>{value}</div>
     </div>
   )
 }
@@ -45,14 +43,13 @@ function Handle({ // Your own handle component
   >
     <div style={railStyle} />
     <Handles>
-      {({ handles, emitMouse, emitTouch }) => (
+      {({ handles, getHandleProps }) => (
         <div className="slider-handles">
-          {handles.map(handle => ( // you get streamed an array of handles
+          {handles.map(handle => (
             <Handle
               key={handle.id}
               handle={handle}
-              emitMouse={emitMouse}
-              emitTouch={emitTouch}
+              getHandleProps={getHandleProps}
             />
           ))}
         </div>

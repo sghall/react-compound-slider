@@ -6,7 +6,7 @@ Let's add some ticks...
 ```jsx
 import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
 
-function Tick({ tick, count }) { // your custom tick component
+function Tick({ tick, count }) {  // your own tick component
   return (
     <div>
       <div
@@ -37,55 +37,6 @@ function Tick({ tick, count }) { // your custom tick component
   )
 }
 
-function Track({ source, target, emitMouse, emitTouch }) {
-  return (
-    <div
-      style={{
-        position: 'absolute',
-        height: 10,
-        zIndex: 1,
-        marginTop: 35,
-        backgroundColor: 'cornflowerblue',
-        borderRadius: 5,
-        cursor: 'pointer',
-        left: `${source.percent}%`,
-        width: `${target.percent - source.percent}%`,
-      }}
-      onMouseDown={e => emitMouse(e)}
-      onTouchStart={e => emitTouch(e)}
-    />
-  )
-}
-
-function Handle({
-  handle: { id, value, percent },
-  emitMouse,
-  emitTouch,
-}) {
-  return (
-    <div
-      style={{
-        left: `${percent}%`,
-        position: 'absolute',
-        marginLeft: -15,
-        marginTop: 25,
-        zIndex: 2,
-        width: 30,
-        height: 30,
-        textAlign: 'center',
-        cursor: 'pointer',
-        borderRadius: '50%',
-        border: 'solid 2px wheat',
-        backgroundColor: 'burlywood',
-      }}
-      onMouseDown={e => emitMouse(e, id)}
-      onTouchStart={e => emitTouch(e, id)}
-    >
-      <div style={{ fontSize: 10, marginTop: -20 }}>{value}</div>
-    </div>
-  )
-}
-
 ...
   <Slider
     rootStyle={sliderStyle}
@@ -95,44 +46,38 @@ function Handle({
     defaultValues={[10, 20, 30]}
   >
     <Rail>
-      {({ emitMouse, emitTouch }) => (
-        <div
-          style={railStyle}
-          onMouseDown={e => emitMouse(e)}
-          onTouchStart={e => emitTouch(e)}
-        />
+      {({ getRailProps }) => (
+        <div style={railStyle} {...getRailProps()} />
       )}
     </Rail>
     <Handles>
-      {({ handles, emitMouse, emitTouch }) => (
+      {({ handles, getHandleProps }) => (
         <div className="slider-handles">
           {handles.map(handle => (
             <Handle
               key={handle.id}
               handle={handle}
-              emitMouse={emitMouse}
-              emitTouch={emitTouch}
+              getHandleProps={getHandleProps}
             />
           ))}
         </div>
       )}
     </Handles>
     <Tracks left={false} right={false}>
-      {({ tracks, emitMouse, emitTouch }) => (
+      {({ tracks, getTrackProps }) => (
         <div className="slider-tracks">
           {tracks.map(({ id, source, target }) => (
             <Track
               key={id}
               source={source}
               target={target}
-              emitMouse={emitMouse}
-              emitTouch={emitTouch}
+              getTrackProps={getTrackProps}
             />
           ))}
         </div>
       )}
     </Tracks>
-    <Ticks count={15}>
+    <Ticks count={15}> // generate approximately 15 ticks within the domain
       {({ ticks }) => (
         <div className="slider-ticks">
           {ticks.map(tick => (

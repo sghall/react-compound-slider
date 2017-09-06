@@ -5,7 +5,7 @@ The tracks should only show on the connections between handles.
 ```jsx
 import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
 
-function Track({ source, target, emitMouse, emitTouch }) {
+function Track({ source, target, getTrackProps }) { // your own track component
   return (
     <div
       style={{
@@ -19,38 +19,8 @@ function Track({ source, target, emitMouse, emitTouch }) {
         left: `${source.percent}%`,
         width: `${target.percent - source.percent}%`,
       }}
-      onMouseDown={e => emitMouse(e)}
-      onTouchStart={e => emitTouch(e)}
+      {...getTrackProps()} // this will set up events if you want it to be clickeable (optional)
     />
-  )
-}
-
-function Handle({
-  handle: { id, value, percent },
-  emitMouse,
-  emitTouch,
-}) {
-  return (
-    <div
-      style={{
-        left: `${percent}%`,
-        position: 'absolute',
-        marginLeft: -15,
-        marginTop: 25,
-        zIndex: 2,
-        width: 30,
-        height: 30,
-        textAlign: 'center',
-        cursor: 'pointer',
-        borderRadius: '50%',
-        border: 'solid 2px wheat',
-        backgroundColor: 'burlywood',
-      }}
-      onMouseDown={e => emitMouse(e, id)}
-      onTouchStart={e => emitTouch(e, id)}
-    >
-      <div style={{ fontSize: 10, marginTop: -20 }}>{value}</div>
-    </div>
   )
 }
 
@@ -60,41 +30,35 @@ function Handle({
     domain={[0, 100]}
     step={1}
     mode={2}
-    defaultValues={[10, 20, 30]}
+    defaultValues={[10, 20, 30]}  // three values = three handles
   >
     <Rail>
-      {({ emitMouse, emitTouch }) => (
-        <div
-          style={railStyle}
-          onMouseDown={e => emitMouse(e)}
-          onTouchStart={e => emitTouch(e)}
-        />
+      {({ getRailProps }) => (
+        <div style={railStyle} {...getRailProps()} />
       )}
     </Rail>
     <Handles>
-      {({ handles, emitMouse, emitTouch }) => (
+      {({ handles, getHandleProps }) => (
         <div className="slider-handles">
           {handles.map(handle => (
             <Handle
               key={handle.id}
               handle={handle}
-              emitMouse={emitMouse}
-              emitTouch={emitTouch}
+              getHandleProps={getHandleProps}
             />
           ))}
         </div>
       )}
     </Handles>
-    <Tracks left={false} right={false}>
-      {({ tracks, emitMouse, emitTouch }) => (
+    <Tracks left={false} right={false}>  // no outer tracks
+      {({ tracks, getTrackProps }) => (
         <div className="slider-tracks">
           {tracks.map(({ id, source, target }) => (
             <Track
               key={id}
               source={source}
               target={target}
-              emitMouse={emitMouse}
-              emitTouch={emitTouch}
+              getTrackProps={getTrackProps}
             />
           ))}
         </div>

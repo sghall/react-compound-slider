@@ -13,9 +13,9 @@ The last target will always be value equal to the max and the percentage 100.
 You can use the `left` and `right` props to eliminate the outer tracks as a convenience, but the tracks are just an array that you can manipulate however you want.
 
 ```jsx
-import Slider, { Handles, Tracks, Ticks } from 'react-compound-slider'
+import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
 
-function Track({ source, target, emitMouse, emitTouch }) { // your own track component
+function Track({ source, target, getTrackProps }) { // your own track component
   return (
     <div
       style={{
@@ -29,38 +29,8 @@ function Track({ source, target, emitMouse, emitTouch }) { // your own track com
         left: `${source.percent}%`,
         width: `${target.percent - source.percent}%`,
       }}
-      onMouseDown={e => emitMouse(e)}
-      onTouchStart={e => emitTouch(e)}
+      {...getTrackProps()} // this will set up events if you want it to be clickeable (optional)
     />
-  )
-}
-
-function Handle({
-  handle: { id, value, percent },
-  emitMouse,
-  emitTouch,
-}) {
-  return (
-    <div
-      style={{
-        left: `${percent}%`,
-        position: 'absolute',
-        marginLeft: -15,
-        marginTop: 25,
-        zIndex: 2,
-        width: 30,
-        height: 30,
-        textAlign: 'center',
-        cursor: 'pointer',
-        borderRadius: '50%',
-        border: 'solid 2px wheat',
-        backgroundColor: 'burlywood',
-      }}
-      onMouseDown={e => emitMouse(e, id)}
-      onTouchStart={e => emitTouch(e, id)}
-    >
-      <div style={{ fontSize: 10, marginTop: -20 }}>{value}</div>
-    </div>
   )
 }
 
@@ -74,29 +44,27 @@ function Handle({
   >
     <div style={railStyle} />
     <Handles>
-      {({ handles, emitMouse, emitTouch }) => (
+      {({ handles, getHandleProps }) => (
         <div className="slider-handles">
           {handles.map(handle => (
             <Handle
               key={handle.id}
               handle={handle}
-              emitMouse={emitMouse}
-              emitTouch={emitTouch}
+              getHandleProps={getHandleProps}
             />
           ))}
         </div>
       )}
     </Handles>
-    <Tracks right={false}>
-      {({ tracks, emitMouse, emitTouch }) => (
+    <Tracks right={false}> // no track on the right hand side
+      {({ tracks, getTrackProps }) => (
         <div className="slider-tracks">
           {tracks.map(({ id, source, target }) => (
             <Track
               key={id}
               source={source}
               target={target}
-              emitMouse={emitMouse}
-              emitTouch={emitTouch}
+              getTrackProps={getTrackProps}
             />
           ))}
         </div>
