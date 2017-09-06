@@ -58,12 +58,13 @@
     "minimist": "^1.2.0",
     "mocha": "^3.4.2",
     "nodemon": "^1.12.0",
-    "nyc": "11.0.1",
+    "nyc": "^11.0.3",
     "phantomjs-prebuilt": "^2.1.15",
     "prettier-eslint-cli": "^4.3.0",
     "react": "^15.5.3",
     "react-addons-test-utils": "^15.6.0",
     "react-dom": "^15.5.3",
+    "react-test-renderer": "^15.6.1",
     "recursive-readdir-sync": "^1.0.6",
     "rimraf": "^2.6.1",
     "sinon": "^2.1.0",
@@ -85,7 +86,7 @@
     "test": "cross-env NODE_ENV=test BABEL_ENV=test mocha \"src/**/*.spec.js\"",
     "test:karma": "karma start test/karma.conf.js --single-run",
     "test:watch": "npm run test -- -w",
-    "test:coverage": "cross-env NODE_ENV=test BABEL_ENV=coverage nyc mocha \"src/**/*.spec.js\" && nyc report --reporter=lcov",
+    "test:coverage": "cross-env NODE_ENV=test BABEL_ENV=coverage nyc mocha \"src/**/*.spec.js\" && nyc report -r lcovonly",
     "test:coverage:html": "cross-env NODE_ENV=test BABEL_ENV=coverage nyc mocha \"src/**/*.spec.js\" && nyc report --reporter=html",
     "pretty": "prettier-eslint src/**/*.js --write --no-semi --single-quote --trailing-comma=all --print-width 80",
     "pretty-docs": "prettier-eslint docs/src/**/*.js --write --no-semi --single-quote --trailing-comma=all --print-width 80",
@@ -101,5 +102,15 @@
       "prettier-eslint --write --no-semi --single-quote --trailing-comma=all --print-width 80",
       "git add"
     ]
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.js"
+    ],
+    "exclude": [
+      "**/*.spec.js"
+    ],
+    "sourceMap": false,
+    "instrument": false
   }
 }
