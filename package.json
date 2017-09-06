@@ -41,8 +41,8 @@
     "eslint": "^4.6.1",
     "eslint-config-kentcdodds": "^12.4.3",
     "eslint-plugin-prettier": "^2.2.0",
-    "flow-bin": "^0.47.0",
-    "fs-extra": "^2.1.2",
+    "flow-bin": "^0.54.0",
+    "fs-extra": "^4.0.1",
     "glob": "^7.1.1",
     "husky": "^0.14.3",
     "jsdom": "^11.0.0",
@@ -67,7 +67,7 @@
     "react-test-renderer": "^15.6.1",
     "recursive-readdir-sync": "^1.0.6",
     "rimraf": "^2.6.1",
-    "sinon": "^2.1.0",
+    "sinon": "^3.2.1",
     "webpack": "^3.5.5"
   },
   "peerDependencies": {
