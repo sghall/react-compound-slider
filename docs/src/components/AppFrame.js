@@ -68,7 +68,7 @@ const styles = theme => ({
       width: '250px',
     },
     appBarShift: {
-      width: 'calc(100% - 250px)',
+      width: '100%',
     },
     navIconHide: {
       display: 'none',
@@ -99,16 +99,16 @@ class AppFrame extends Component {
     const classes = this.props.classes
     const title = getTitle(routes)
 
-    let drawerDocked = isWidthUp('lg', width)
-    let navIconClassName = ''
+    // let drawerDocked = isWidthUp('lg', width)
+    const navIconClassName = ''
     let appBarClassName = classes.appBar
 
     if (title === null) {
       // home route, don't shift app bar or dock drawer
-      drawerDocked = false
-      appBarClassName += ` ${classes.appBarHome}`
+      // drawerDocked = false
+      // appBarClassName += ` ${classes.appBarHome}`
     } else {
-      navIconClassName += ` ${classes.navIconHide}`
+      // navIconClassName += ` ${classes.navIconHide}`
       appBarClassName += ` ${classes.appBarShift}`
     }
 
@@ -155,10 +155,9 @@ class AppFrame extends Component {
         </AppBar>
         <AppDrawer
           className={classes.drawer}
-          docked={drawerDocked}
           routes={routes}
           onRequestClose={this.handleDrawerClose}
-          open={drawerDocked || this.state.drawerOpen}
+          open={this.state.drawerOpen}
         />
         {children}
       </div>
