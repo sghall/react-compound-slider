@@ -9,7 +9,7 @@ import Typography from 'material-ui/Typography'
 import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import IconButton from 'material-ui/IconButton'
-import withWidth, { isWidthUp } from 'material-ui/utils/withWidth'
+import withWidth from 'material-ui/utils/withWidth'
 import MenuIcon from 'material-ui-icons/Menu'
 import LightbulbOutline from 'material-ui-icons/LightbulbOutline'
 import Github from 'docs/src/components/Github'
@@ -94,7 +94,7 @@ class AppFrame extends Component {
   }
 
   render() {
-    const { children, routes, width } = this.props
+    const { children, routes } = this.props
 
     const classes = this.props.classes
     const title = getTitle(routes)
@@ -170,7 +170,6 @@ AppFrame.propTypes = {
   classes: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
   routes: PropTypes.array.isRequired,
-  width: PropTypes.string.isRequired,
 }
 
 export default compose(
