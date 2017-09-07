@@ -1,5 +1,13 @@
-export { default } from './Slider'
-export { default as Rail } from './Rail'
-export { default as Ticks } from './Ticks'
-export { default as Tracks } from './Tracks'
-export { default as Handles } from './Handles'
+import Slider from './Slider'
+import Rail from './Rail'
+import Ticks from './Ticks'
+import Tracks from './Tracks'
+import Handles from './Handles'
+
+Slider.Rail = Rail
+Slider.Ticks = Ticks
+Slider.Tracks = Tracks
+Slider.Handles = Handles
+
+export default Slider
+export { Rail, Ticks, Tracks, Handles }
