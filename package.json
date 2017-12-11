@@ -71,7 +71,7 @@
     "webpack": "^3.10.0"
   },
   "peerDependencies": {
-    "react": "^15.0.0"
+    "react": "^15.0.0 || ^16.0.0"
   },
   "scripts": {
     "build": "npm run build:es2015 && npm run build:es2015modules && npm run build:copy-files && npm run build:umd:dev && npm run build:umd:min",
