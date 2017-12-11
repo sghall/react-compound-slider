@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/sghall/react-compound-slider.svg?branch=master)](https://travis-ci.org/sghall/react-compound-slider)
 [![Dependency Status](https://www.versioneye.com/user/projects/59b03e160fb24f004e1a5a3d/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/59b03e160fb24f004e1a5a3d)
 [![Coverage Status](https://coveralls.io/repos/github/sghall/react-compound-slider/badge.svg?branch=master)](https://coveralls.io/github/sghall/react-compound-slider?branch=master)
-![](http://img.badgesize.io/sghall/react-compound-slider/gh-pages/fileSize/react-compound-slider.min.js?label=minified)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/sghall/react-compound-slider/blob/master/LICENSE)
 ![](http://img.badgesize.io/sghall/react-compound-slider/gh-pages/fileSize/react-compound-slider.min.js?compression=gzip)
 
 <div style="text-align:center;">
