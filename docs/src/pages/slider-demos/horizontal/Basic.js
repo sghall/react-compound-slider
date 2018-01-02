@@ -20,7 +20,7 @@ const railStyle = {
 }
 
 const domain = [100, 500]
-const defaultValues = [450, 400, 300, 150]
+const defaultValues = [150, 300, 400, 450]
 
 class Example extends Component {
   state = {
