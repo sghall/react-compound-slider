@@ -37,7 +37,7 @@ function Track({ source, target, getTrackProps }) { // your own track component
     domain={[0, 100]}
     step={1}
     mode={2}
-    defaultValues={[30]}
+    values={[30]}
   >
     <div style={railStyle} />
     <Handles>

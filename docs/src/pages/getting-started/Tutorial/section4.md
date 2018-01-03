@@ -14,7 +14,7 @@ import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
     domain={[0, 100]}
     step={1}
     mode={2}
-    defaultValues={[30]}
+    values={[30]}
   >
     <Rail>
       {({ getRailProps }) => (  // adding the rail props sets up events on the rail

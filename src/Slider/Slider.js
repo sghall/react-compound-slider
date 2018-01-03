@@ -11,6 +11,10 @@ import { mode1, mode2 } from './modes'
 import * as utils from './utils'
 
 const noop = () => {}
+const areValuesEqual = (a, b) =>
+  a === b ||
+  (a.length === b.length &&
+    a.reduce((res, val, idx) => res && b[idx] === val, true))
 
 class Slider extends Component {
   constructor(props) {
@@ -21,8 +25,6 @@ class Slider extends Component {
     this.valueToPerc = scaleLinear()
     this.valueToStep = scaleQuantize()
     this.pixelToStep = scaleQuantize()
-
-    this.state = { values: [] }
 
     this.onMouseMove = this.onMouseMove.bind(this)
     this.onTouchMove = this.onTouchMove.bind(this)
@@ -37,15 +39,20 @@ class Slider extends Component {
   }
 
   componentWillMount() {
-    const { domain, defaultValues, step, reversed } = this.props
+    const { defaultValues, domain, step, reversed, values } = this.props
+
+    warning(
+      defaultValues === undefined,
+      `React Electric Slide: 'defaultValues' is being deprecated, use 'values' instead`,
+    )
 
     this.updateRange(domain, step, reversed)
-    this.setState(this.getValues(defaultValues, reversed))
+    this.updateValues(values || defaultValues, reversed)
   }
 
   componentWillReceiveProps(next) {
-    const { domain, step, reversed } = next
-    const { props, state: { values } } = this
+    const { domain, step, reversed, values } = next
+    const { props } = this
 
     if (
       domain[0] !== props.domain[0] ||
@@ -54,32 +61,36 @@ class Slider extends Component {
       reversed !== props.reversed
     ) {
       this.updateRange(domain, step, reversed)
-      const updated = this.getValues(values.map(d => d.val), reversed)
-      this.setState(updated)
-      props.onUpdate(updated.values.map(d => d.val))
-      props.onChange(updated.values.map(d => d.val))
+
+      if (values === props.values) {
+        this.updateValues(this.latestValues, reversed)
+        props.onUpdate(this.latestValues)
+        props.onChange(this.latestValues)
+      } else {
+        this.updateValues(values, reversed)
+      }
+    } else if (
+      values !== props.values &&
+      !areValuesEqual(values, this.latestValues)
+    ) {
+      this.updateValues(values, reversed)
     }
   }
 
-  getValues(arr = [], reversed) {
-    const values = []
-
-    const mapped = arr
+  updateValues(arr = [], reversed) {
+    this.values = arr
+      .map(x => {
+        const val = this.valueToStep(x)
+        warning(
+          x === val,
+          `React Electric Slide: Invalid value encountered. Changing ${x} to ${val}.`,
+        )
+        return val
+      })
       .map((val, i) => ({ key: `$$-${i}`, val }))
       .sort(utils.getSortByVal(reversed))
 
-    mapped.forEach(({ key, val }) => {
-      const v0 = this.valueToStep(val)
-
-      warning(
-        v0 === val,
-        `React Electric Slide: Invalid value encountered. Changing ${val} to ${v0}.`,
-      )
-
-      values.push({ key, val: v0 })
-    })
-
-    return { values }
+    this.latestValues = this.values.map(d => d.val)
   }
 
   updateRange([min, max], step, reversed) {
@@ -128,7 +139,7 @@ class Slider extends Component {
   }
 
   onStart(e, key, isTouch) {
-    const { values } = this.state
+    const { values } = this
 
     e.stopPropagation && e.stopPropagation()
     e.preventDefault && e.preventDefault()
@@ -147,7 +158,7 @@ class Slider extends Component {
   }
 
   requestMove(e, isTouch) {
-    const { state: { values: prev }, props: { vertical, reversed } } = this
+    const { values: prev, props: { vertical, reversed } } = this
     const { slider } = this
 
     this.pixelToStep.domain(utils.getSliderDomain(slider, vertical))
@@ -189,7 +200,7 @@ class Slider extends Component {
   }
 
   onMouseMove(e) {
-    const { state: { values: prev }, props: { vertical, reversed } } = this
+    const { values: prev, props: { vertical, reversed } } = this
     const { active, slider } = this
 
     this.pixelToStep.domain(utils.getSliderDomain(slider, vertical))
@@ -201,7 +212,7 @@ class Slider extends Component {
   }
 
   onTouchMove(e) {
-    const { state: { values: prev }, props: { vertical, reversed } } = this
+    const { values: prev, props: { vertical, reversed } } = this
     const { active, slider } = this
 
     if (utils.isNotValidTouch(e)) {
@@ -234,18 +245,19 @@ class Slider extends Component {
           warning(false, 'React Electric Slide: Invalid mode value.')
       }
 
-      onUpdate(values.map(d => d.val))
+      this.values = values
+      this.latestValues = values.map(d => d.val)
+
+      onUpdate(this.latestValues)
 
       if (submit) {
-        onChange(values.map(d => d.val))
+        onChange(this.latestValues)
       }
-
-      this.setState({ values })
     }
   }
 
   onMouseUp() {
-    const { state: { values }, props: { onChange } } = this
+    const { values, props: { onChange } } = this
     onChange(values.map(d => d.val))
 
     document.removeEventListener('mousemove', this.onMouseMove)
@@ -253,7 +265,7 @@ class Slider extends Component {
   }
 
   onTouchEnd() {
-    const { state: { values }, props: { onChange } } = this
+    const { values, props: { onChange } } = this
     onChange(values.map(d => d.val))
 
     document.removeEventListener('touchmove', this.onTouchMove)
@@ -261,7 +273,7 @@ class Slider extends Component {
   }
 
   render() {
-    const { state: { values }, props: { className, rootStyle } } = this
+    const { values, props: { className, rootStyle } } = this
 
     const handles = values.map(({ key, val }) => {
       return { id: key, value: val, percent: this.valueToPerc(val) }
@@ -313,8 +325,12 @@ Slider.propTypes = {
   domain: PropTypes.array,
   /**
    * An array of numbers. You can supply one for a value slider, two for a range slider or more to create n-handled sliders.
-   * The default values should correspond to valid step values in the domain.
+   * The values should correspond to valid step values in the domain.
    * The numbers will be forced into the domain if they are two small or large.
+   */
+  values: PropTypes.array,
+  /**
+   * [DEPRECATED]: use `values` instead.
    */
   defaultValues: PropTypes.array,
   /**
@@ -327,7 +343,7 @@ Slider.propTypes = {
    */
   mode: PropTypes.oneOf([1, 2]),
   /**
-   * Set to true if the slider is displayed vertically to tell the slider to use the height to calculate positions. 
+   * Set to true if the slider is displayed vertically to tell the slider to use the height to calculate positions.
    */
   vertical: PropTypes.bool,
   /**

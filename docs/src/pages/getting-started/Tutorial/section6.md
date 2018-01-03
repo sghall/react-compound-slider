@@ -43,7 +43,7 @@ function Tick({ tick, count }) {  // your own tick component
     domain={[0, 100]}
     step={1}
     mode={2}
-    defaultValues={[10, 20, 30]}
+    values={[10, 20, 30]}
   >
     <Rail>
       {({ getRailProps }) => (
