@@ -11,7 +11,7 @@ import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
     domain={[0, 100]}
     step={1}
     mode={2}
-    defaultValues={[10, 20, 30]}  // three values = three handles
+    values={[10, 20, 30]}  // three values = three handles
   >
     <Rail>
       {({ getRailProps }) => (

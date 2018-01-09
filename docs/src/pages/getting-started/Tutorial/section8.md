@@ -12,7 +12,7 @@ import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
     step={1}
     mode={2}
     reversed // just change the reversed prop
-    defaultValues={[20, 60, 80]}
+    values={[20, 60, 80]}
   >
     <Rail>
       {({ getRailProps }) => (

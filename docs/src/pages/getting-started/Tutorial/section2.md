@@ -39,7 +39,7 @@ export function Handle({ // your handle component
     domain={[0, 100]}
     step={1}
     mode={2}
-    defaultValues={[30]}
+    values={[30]}
   >
     <div style={railStyle} />
     <Handles>

@@ -28,7 +28,7 @@ const railStyle = {
 <Slider
 	rootStyle={sliderStyle} // inline styles for the outer div. Can also use className prop.
 	domain={[0, 100]}
-	defaultValues={[10]}
+	values={[10]}
  >
 	<div style={railStyle} /> // Add a rail as a child.  Later we'll make it interactive.
 </Slider>

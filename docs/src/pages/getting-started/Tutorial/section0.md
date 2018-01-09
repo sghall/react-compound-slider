@@ -33,7 +33,7 @@ const sliderStyle = {
     domain={[0, 100]}  // [min, max]
     step={1}
     mode={2} // 1 = allow-crossing of handles, 2 = no crossing
-    defaultValues={[10, 20, 30]} // the initial handle positions
+    values={[10, 20, 30]} // the initial handle positions
   >
     <Rail>
       {({ getRailProps }) => (
