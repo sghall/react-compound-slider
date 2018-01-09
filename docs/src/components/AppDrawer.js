@@ -93,7 +93,6 @@ function AppDrawer(props) {
       }}
       open={props.open}
       onRequestClose={onRequestClose}
-      docked={docked}
       {...other}
     >
       <div className={classes.nav}>
@@ -106,11 +105,13 @@ function AppDrawer(props) {
           {process.env.MATERIAL_UI_VERSION ? (
             <Link
               className={classes.anchor}
-              href={`${GITHUB_RELEASE_BASE_URL}v${process.env
-                .MATERIAL_UI_VERSION}`}
+              href={`${GITHUB_RELEASE_BASE_URL}v${
+                process.env.MATERIAL_UI_VERSION
+              }`}
             >
-              <Typography type="caption">{`v${process.env
-                .MATERIAL_UI_VERSION}`}</Typography>
+              <Typography type="caption">{`v${
+                process.env.MATERIAL_UI_VERSION
+              }`}</Typography>
             </Link>
           ) : null}
           <Divider absolute />
@@ -124,7 +125,6 @@ function AppDrawer(props) {
 AppDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
-  docked: PropTypes.bool.isRequired,
   onRequestClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   routes: PropTypes.array.isRequired,
