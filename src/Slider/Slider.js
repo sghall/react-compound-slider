@@ -43,7 +43,7 @@ class Slider extends Component {
 
     warning(
       defaultValues === undefined,
-      `React Electric Slide: 'defaultValues' is being deprecated, use 'values' instead`,
+      `react-compound-slider: 'defaultValues' is being deprecated, use 'values' instead`,
     )
 
     this.updateRange(domain, step, reversed)
@@ -83,7 +83,7 @@ class Slider extends Component {
         const val = this.valueToStep(x)
         warning(
           x === val,
-          `React Electric Slide: Invalid value encountered. Changing ${x} to ${val}.`,
+          `react-compound-slider: Invalid value encountered. Changing ${x} to ${val}.`,
         )
         return val
       })
@@ -111,19 +111,19 @@ class Slider extends Component {
 
     warning(
       max > min,
-      `React Electric Slide: Max must be greater than min (even if reversed). Max is ${max}. Min is ${min}.`,
+      `react-compound-slider: Max must be greater than min (even if reversed). Max is ${max}. Min is ${min}.`,
     )
 
     warning(
       range.length <= 10001,
-      `React Electric Slide: Increase step value. Found ${range.length.toLocaleString()} values in range.`,
+      `react-compound-slider: Increase step value. Found ${range.length.toLocaleString()} values in range.`,
     )
 
     const last = range.length - 1
 
     warning(
       range[reversed ? last : 0] === min && range[reversed ? 0 : last] === max,
-      `React Electric Slide: The range is incorrectly calculated. Check domain (min, max) and step values.`,
+      `react-compound-slider: The range is incorrectly calculated. Check domain (min, max) and step values.`,
     )
   }
 
@@ -242,7 +242,7 @@ class Slider extends Component {
           break
         default:
           values = next
-          warning(false, 'React Electric Slide: Invalid mode value.')
+          warning(false, 'react-compound-slider: Invalid mode value.')
       }
 
       this.values = values
