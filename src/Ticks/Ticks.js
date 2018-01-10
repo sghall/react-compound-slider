@@ -37,7 +37,7 @@ Ticks.propTypes = {
   /** @ignore */
   emitTouch: PropTypes.func,
   /**
-   * A function to render the ticks. 
+   * A function to render the ticks.
    * The function receives an object with an array of ticks.
    * `({ ticks  }): element`
    */

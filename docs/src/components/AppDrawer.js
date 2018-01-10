@@ -74,15 +74,12 @@ function reduceChildRoutes(props, items, childRoute, index) {
 }
 
 function AppDrawer(props) {
-  const { classes, className, docked, onRequestClose, routes } = props
+  const { classes, className, onRequestClose, routes } = props
   const GITHUB_RELEASE_BASE_URL =
     'https://github.com/callemall/material-ui/releases/tag/'
-  let other = {}
 
-  if (!docked) {
-    other = {
-      keepMounted: true,
-    }
+  const other = {
+    keepMounted: true,
   }
 
   return (
