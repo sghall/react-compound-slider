@@ -10,7 +10,10 @@ import Handles from '../Handles'
 import { mode1, mode2 } from './modes'
 import * as utils from './utils'
 
+const prfx = 'react-compound-slider:'
+
 const noop = () => {}
+
 const areValuesEqual = (a, b) =>
   a === b ||
   (a.length === b.length &&
@@ -43,7 +46,7 @@ class Slider extends Component {
 
     warning(
       defaultValues === undefined,
-      `react-compound-slider: 'defaultValues' is being deprecated, use 'values' instead`,
+      `${prfx} 'defaultValues' is being deprecated, use 'values' instead`,
     )
 
     this.updateRange(domain, step, reversed)
@@ -83,7 +86,7 @@ class Slider extends Component {
         const val = this.valueToStep(x)
         warning(
           x === val,
-          `react-compound-slider: Invalid value encountered. Changing ${x} to ${val}.`,
+          `${prfx} Invalid value encountered. Changing ${x} to ${val}.`,
         )
         return val
       })
@@ -111,19 +114,19 @@ class Slider extends Component {
 
     warning(
       max > min,
-      `react-compound-slider: Max must be greater than min (even if reversed). Max is ${max}. Min is ${min}.`,
+      `${prfx} Max must be greater than min (even if reversed). Max is ${max}. Min is ${min}.`,
     )
 
     warning(
       range.length <= 10001,
-      `react-compound-slider: Increase step value. Found ${range.length.toLocaleString()} values in range.`,
+      `${prfx} Increase step value. Found ${range.length.toLocaleString()} values in range.`,
     )
 
     const last = range.length - 1
 
     warning(
       range[reversed ? last : 0] === min && range[reversed ? 0 : last] === max,
-      `react-compound-slider: The range is incorrectly calculated. Check domain (min, max) and step values.`,
+      `${prfx} The range is incorrectly calculated. Check domain (min, max) and step values.`,
     )
   }
 
@@ -242,7 +245,7 @@ class Slider extends Component {
           break
         default:
           values = next
-          warning(false, 'react-compound-slider: Invalid mode value.')
+          warning(false, `${prfx} Invalid mode value.`)
       }
 
       this.values = values
