@@ -123,7 +123,7 @@ function Tutorial() {
         rootStyle={sliderStyle}
         domain={[0, 100]}
         step={1}
-        mode={2}
+        mode={1}
         defaultValues={[10, 20, 30]}
       >
         <Rail>

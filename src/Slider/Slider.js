@@ -9,8 +9,6 @@ import Handles from '../Handles'
 import { mode1, mode2 } from './modes'
 import * as utils from './utils'
 
-let count = 0
-
 const prfx = 'react-compound-slider:'
 
 const noop = () => {}
@@ -72,38 +70,43 @@ class Slider extends PureComponent {
       reversed !== props.reversed
     ) {
       this.updateRange(domain, step, reversed)
-      this.reMapValues(reversed)
+      const remapped = this.reMapValues(reversed)
+      next.onChange(remapped)
+      next.onUpdate(remapped)
     }
 
-    if (this.isControlled === true && !areValuesEqual(values, props.values)) {
-      console.log('new values', values, props.values)
+    if (
+      !this.active &&
+      this.isControlled === true &&
+      !areValuesEqual(values, props.values)
+    ) {
       this.updateValues(values, reversed)
     }
   }
 
   reMapValues(reversed) {
     const { values } = this.state
-    this.updateValues(values.map(d => d.val), reversed)
+    return this.updateValues(values.map(d => d.val), reversed)
   }
 
   updateValues(arr = [], reversed) {
-    this.setState(() => {
-      return {
-        values: arr
-          .map(x => {
-            const val = this.valueToStep(x)
+    const values = arr
+      .map(x => {
+        const val = this.valueToStep(x)
 
-            warning(
-              x === val,
-              `${prfx} Invalid value encountered. Changing ${x} to ${val}.`,
-            )
+        warning(
+          x === val,
+          `${prfx} Invalid value encountered. Changing ${x} to ${val}.`,
+        )
 
-            return val
-          })
-          .map((val, i) => ({ key: `$$-${i}`, val }))
-          .sort(utils.getSortByVal(reversed)),
-      }
-    })
+        return val
+      })
+      .map((val, i) => ({ key: `$$-${i}`, val }))
+      .sort(utils.getSortByVal(reversed))
+
+    this.setState(() => ({ values }))
+
+    return values.map(d => d.val)
   }
 
   updateRange([min, max], step, reversed) {
@@ -258,9 +261,7 @@ class Slider extends PureComponent {
           warning(false, `${prfx} Invalid mode value.`)
       }
 
-      if (!this.isControlled) {
-        this.setState({ values })
-      }
+      this.setState({ values })
 
       onUpdate(values.map(d => d.val))
 
@@ -272,7 +273,8 @@ class Slider extends PureComponent {
 
   onMouseUp() {
     const { state: { values }, props: { onChange } } = this
-    // onChange(values.map(d => d.val))
+    this.active = null
+    onChange(values.map(d => d.val))
 
     document.removeEventListener('mousemove', this.onMouseMove)
     document.removeEventListener('mouseup', this.onMouseUp)
@@ -280,7 +282,8 @@ class Slider extends PureComponent {
 
   onTouchEnd() {
     const { state: { values }, props: { onChange } } = this
-    // onChange(values.map(d => d.val))
+    this.active = null
+    onChange(values.map(d => d.val))
 
     document.removeEventListener('touchmove', this.onTouchMove)
     document.removeEventListener('touchend', this.onTouchEnd)
@@ -288,7 +291,7 @@ class Slider extends PureComponent {
 
   render() {
     const { state: { values }, props: { className, rootStyle } } = this
-    console.log('render', count++)
+
     const handles = values.map(({ key, val }) => {
       return { id: key, value: val, percent: this.valueToPerc(val) }
     })
