@@ -66,7 +66,7 @@ function deinterpolateValue(a, b) {
   return (b -= a = +a) ? x => (x - a) / b : () => b
 }
 
-function createScale(domain, range) {
+function initialize(domain, range) {
   let d0 = domain[0]
   const d1 = domain[1]
 
@@ -85,11 +85,10 @@ function createScale(domain, range) {
 }
 
 const coerceNumeric = d => +d
-const unit = [0, 1]
 
 export function linear() {
-  let domain = unit
-  let range = unit
+  let domain = [0, 1]
+  let range = [0, 1]
 
   let output
 
@@ -99,7 +98,7 @@ export function linear() {
   }
 
   function scale(x) {
-    return (output || (output = createScale(domain, range)))(+x)
+    return (output || (output = initialize(domain, range)))(+x)
   }
 
   scale.domain = function(val) {
