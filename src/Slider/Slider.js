@@ -13,10 +13,11 @@ const prfx = 'react-compound-slider:'
 
 const noop = () => {}
 
-const areValuesEqual = (a, b) =>
-  a === b ||
-  (a.length === b.length &&
-    a.reduce((res, val, idx) => res && b[idx] === val, true))
+const compare = b => (m, d, i) => m && b[i] === d
+
+const areValuesEqual = (a, b) => {
+  return a === b || (a.length === b.length && a.reduce(compare(b), true))
+}
 
 class Slider extends Component {
   constructor(props) {
