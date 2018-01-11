@@ -341,13 +341,13 @@ Slider.propTypes = {
    */
   domain: PropTypes.array,
   /**
-   * An array of numbers. You can supply one for a value slider, two for a range slider or more to create n-handled sliders.
+   * Use the values prop for a 'controlled' slider i.e. you want to be able to set tha values manually after mounting. Note: you CAN'T set BOTH values and defaultValues. <br /><br />An array of numbers. You can supply one for a value slider, two for a range slider or more to create n-handled sliders.
    * The values should correspond to valid step values in the domain.
    * The numbers will be forced into the domain if they are two small or large.
    */
   values: PropTypes.array,
   /**
-   * An array of numbers. You can supply one for a value slider, two for a range slider or more to create n-handled sliders.
+   * Use defaultValues if you want to set the values when the component mounts and just receive updates as the values change. Note: you CAN'T set BOTH values and defaultValues. <br /><br />An array of numbers. You can supply one for a value slider, two for a range slider or more to create n-handled sliders.
    * The values should correspond to valid step values in the domain.
    * The numbers will be forced into the domain if they are two small or large.
    */
