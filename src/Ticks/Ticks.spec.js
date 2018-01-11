@@ -4,7 +4,7 @@
 import React from 'react'
 import { assert } from 'chai'
 import { shallow } from 'enzyme'
-import { scaleLinear } from 'd3-scale'
+import { linear } from '../Slider/scales'
 import Ticks from './Ticks'
 
 const noop = () => {}
@@ -12,12 +12,7 @@ const noop = () => {}
 describe('<Ticks />', () => {
   it('renders the result of child function', () => {
     const wrapper = shallow(
-      <Ticks
-        scale={scaleLinear()}
-        handles={[]}
-        emitMouse={noop}
-        emitTouch={noop}
-      >
+      <Ticks scale={linear()} handles={[]} emitMouse={noop} emitTouch={noop}>
         {() => {
           return <div className="wu-tang" />
         }}
