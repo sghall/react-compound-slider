@@ -70,7 +70,7 @@ class Example extends Component {
               </div>
             )}
           </Handles>
-          <Tracks right={false}>
+          <Tracks left={false} right={false}>
             {({ tracks, getTrackProps }) => (
               <div className="slider-tracks">
                 {tracks.map(({ id, source, target }) => (
