@@ -15,11 +15,11 @@ const config = {
   external: ['react'],
   plugins: [
     babel({
-      exclude: ['node_modules/warning/**', 'node_modules/prop-types/**'],
+      exclude: 'node_modules/**',
     }),
     resolve(),
     commonjs({
-      include: /node_modules\/(?!(d3-scale)\/).*/,
+      include: /node_modules/,
     }),
     replace({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),

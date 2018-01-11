@@ -10,9 +10,7 @@ export function discrete() {
   let n = 1
 
   function scale(x) {
-    if (x <= x) {
-      return range[bisect(domain, x, 0, n)]
-    }
+    return range[bisect(domain, x, 0, n)]
   }
 
   function rescale() {
@@ -27,7 +25,7 @@ export function discrete() {
     return scale
   }
 
-  scale.domain = function(val) {
+  scale.domain = val => {
     if (!val) {
       return [x0, x1]
     }
@@ -38,7 +36,7 @@ export function discrete() {
     return rescale()
   }
 
-  scale.range = function(val) {
+  scale.range = val => {
     if (!val) {
       return range.slice()
     }
@@ -56,14 +54,14 @@ function interpolateValue(a, b) {
   return (
     (a = +a),
     (b -= a),
-    function(t) {
+    function i(t) {
       return a + b * t
     }
   )
 }
 
 function deinterpolateValue(a, b) {
-  return (b -= a = +a) ? x => (x - a) / b : () => b
+  return (b -= a = +a) ? x => (x - a) / b : () => b // eslint-disable-line
 }
 
 function initialize(domain, range) {
@@ -101,26 +99,30 @@ export function linear() {
     return (output || (output = initialize(domain, range)))(+x)
   }
 
-  scale.domain = function(val) {
+  scale.domain = val => {
     if (!val) {
       return domain.slice()
     }
 
-    return (domain = val.map(coerceNumeric)), rescale()
+    domain = val.map(coerceNumeric)
+
+    return rescale()
   }
 
-  scale.range = function(val) {
+  scale.range = val => {
     if (!val) {
       return range.slice()
     }
 
-    return (range = val.map(coerceNumeric)), rescale()
+    range = val.map(coerceNumeric)
+
+    return rescale()
   }
 
-  scale.ticks = function(count) {
+  scale.ticks = count => {
     const d = domain
 
-    return ticks(d[0], d[d.length - 1], count == null ? 10 : count)
+    return ticks(d[0], d[d.length - 1], count ? 10 : count)
   }
 
   return rescale()
