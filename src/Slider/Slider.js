@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import warning from 'warning'
 import PropTypes from 'prop-types'
-import scaleLinear from 'd3-scale/src/linear'
-import scaleQuantize from 'd3-scale/src/quantize'
+import { discrete, linear } from './scales'
 import Rail from '../Rail'
 import Ticks from '../Ticks'
 import Tracks from '../Tracks'
@@ -25,9 +24,9 @@ class Slider extends Component {
 
     this.slider = null
 
-    this.valueToPerc = scaleLinear()
-    this.valueToStep = scaleQuantize()
-    this.pixelToStep = scaleQuantize()
+    this.valueToPerc = linear()
+    this.valueToStep = discrete()
+    this.pixelToStep = discrete()
 
     this.onMouseMove = this.onMouseMove.bind(this)
     this.onTouchMove = this.onTouchMove.bind(this)
