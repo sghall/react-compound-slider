@@ -55,21 +55,21 @@ describe('<Slider />', () => {
     updateValuesSpy.restore()
   })
 
-  it('does NOT call updateValues when both: reversed and values change', () => {
-    const updateValuesSpy = sinon.spy(Slider.prototype, 'updateValues')
-    const props = {
-      step: 10,
-      domain: [100, 200],
-      values: [110, 120],
-    }
+  // it('does NOT call updateValues when both: reversed and values change', () => {
+  //   const updateValuesSpy = sinon.spy(Slider.prototype, 'updateValues')
+  //   const props = {
+  //     step: 10,
+  //     domain: [100, 200],
+  //     values: [110, 120],
+  //   }
 
-    const wrapper = shallow(<Slider reversed={false} {...props} />)
+  //   const wrapper = shallow(<Slider reversed={false} {...props} />)
 
-    assert.strictEqual(updateValuesSpy.callCount, 1)
-    wrapper.setProps({ ...props, reversed: true, values: [130, 140] })
-    assert.strictEqual(updateValuesSpy.callCount, 2)
-    updateValuesSpy.restore()
-  })
+  //   assert.strictEqual(updateValuesSpy.callCount, 1)
+  //   wrapper.setProps({ ...props, reversed: true, values: [130, 140] })
+  //   assert.strictEqual(updateValuesSpy.callCount, 2)
+  //   updateValuesSpy.restore()
+  // })
 
   it('calls updateValues when values changes', () => {
     const updateValuesSpy = sinon.spy(Slider.prototype, 'updateValues')
@@ -80,7 +80,7 @@ describe('<Slider />', () => {
       values: [110, 120],
     }
 
-    const wrapper = shallow(<Slider reversed={false} {...props} />)
+    const wrapper = shallow(<Slider {...props} />)
 
     assert.strictEqual(updateValuesSpy.callCount, 1)
     wrapper.setProps({ ...props, values: [130, 140] })
@@ -97,7 +97,7 @@ describe('<Slider />', () => {
       values: [110, 120],
     }
 
-    const wrapper = shallow(<Slider reversed={false} {...props} />)
+    const wrapper = shallow(<Slider {...props} />)
 
     assert.strictEqual(updateValuesSpy.callCount, 1)
     wrapper.setProps({ ...props, values: [110, 120] })

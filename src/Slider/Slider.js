@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import warning from 'warning'
 import PropTypes from 'prop-types'
 import { discrete, linear } from './scales'
@@ -8,6 +8,8 @@ import Tracks from '../Tracks'
 import Handles from '../Handles'
 import { mode1, mode2 } from './modes'
 import * as utils from './utils'
+
+let count = 0
 
 const prfx = 'react-compound-slider:'
 
@@ -19,11 +21,13 @@ const areValuesEqual = (a, b) => {
   return a === b || (a.length === b.length && a.reduce(compare(b), true))
 }
 
-class Slider extends Component {
+class Slider extends PureComponent {
   constructor(props) {
     super(props)
 
     this.slider = null
+
+    this.isControlled = false
 
     this.valueToPerc = linear()
     this.valueToStep = discrete()
@@ -42,11 +46,15 @@ class Slider extends Component {
   }
 
   componentWillMount() {
-    const { defaultValues, domain, step, reversed, values } = this.props
+    const { defaultValues, values, domain, step, reversed } = this.props
+
+    if (values) {
+      this.isControlled = true
+    }
 
     warning(
-      defaultValues === undefined,
-      `${prfx} 'defaultValues' is being deprecated, use 'values' instead`,
+      defaultValues === undefined || values === undefined,
+      `${prfx} Cannot set both 'defaultValues' and 'values' props.`,
     )
 
     this.updateRange(domain, step, reversed)
@@ -64,36 +72,38 @@ class Slider extends Component {
       reversed !== props.reversed
     ) {
       this.updateRange(domain, step, reversed)
+      this.reMapValues(reversed)
+    }
 
-      if (values === props.values) {
-        this.updateValues(this.latestValues, reversed)
-        props.onUpdate(this.latestValues)
-        props.onChange(this.latestValues)
-      } else {
-        this.updateValues(values, reversed)
-      }
-    } else if (
-      values !== props.values &&
-      !areValuesEqual(values, this.latestValues)
-    ) {
+    if (this.isControlled === true && !areValuesEqual(values, props.values)) {
+      console.log('new values', values, props.values)
       this.updateValues(values, reversed)
     }
   }
 
-  updateValues(arr = [], reversed) {
-    this.values = arr
-      .map(x => {
-        const val = this.valueToStep(x)
-        warning(
-          x === val,
-          `${prfx} Invalid value encountered. Changing ${x} to ${val}.`,
-        )
-        return val
-      })
-      .map((val, i) => ({ key: `$$-${i}`, val }))
-      .sort(utils.getSortByVal(reversed))
+  reMapValues(reversed) {
+    const { values } = this.state
+    this.updateValues(values.map(d => d.val), reversed)
+  }
 
-    this.latestValues = this.values.map(d => d.val)
+  updateValues(arr = [], reversed) {
+    this.setState(() => {
+      return {
+        values: arr
+          .map(x => {
+            const val = this.valueToStep(x)
+
+            warning(
+              x === val,
+              `${prfx} Invalid value encountered. Changing ${x} to ${val}.`,
+            )
+
+            return val
+          })
+          .map((val, i) => ({ key: `$$-${i}`, val }))
+          .sort(utils.getSortByVal(reversed)),
+      }
+    })
   }
 
   updateRange([min, max], step, reversed) {
@@ -142,7 +152,7 @@ class Slider extends Component {
   }
 
   onStart(e, key, isTouch) {
-    const { values } = this
+    const { values } = this.state
 
     e.stopPropagation && e.stopPropagation()
     e.preventDefault && e.preventDefault()
@@ -161,7 +171,7 @@ class Slider extends Component {
   }
 
   requestMove(e, isTouch) {
-    const { values: prev, props: { vertical, reversed } } = this
+    const { state: { values: prev }, props: { vertical, reversed } } = this
     const { slider } = this
 
     this.pixelToStep.domain(utils.getSliderDomain(slider, vertical))
@@ -203,7 +213,7 @@ class Slider extends Component {
   }
 
   onMouseMove(e) {
-    const { values: prev, props: { vertical, reversed } } = this
+    const { state: { values: prev }, props: { vertical, reversed } } = this
     const { active, slider } = this
 
     this.pixelToStep.domain(utils.getSliderDomain(slider, vertical))
@@ -215,7 +225,7 @@ class Slider extends Component {
   }
 
   onTouchMove(e) {
-    const { values: prev, props: { vertical, reversed } } = this
+    const { state: { values: prev }, props: { vertical, reversed } } = this
     const { active, slider } = this
 
     if (utils.isNotValidTouch(e)) {
@@ -248,36 +258,37 @@ class Slider extends Component {
           warning(false, `${prfx} Invalid mode value.`)
       }
 
-      this.values = values
-      this.latestValues = values.map(d => d.val)
+      if (!this.isControlled) {
+        this.setState({ values })
+      }
 
-      onUpdate(this.latestValues)
+      onUpdate(values.map(d => d.val))
 
       if (submit) {
-        onChange(this.latestValues)
+        onChange(values.map(d => d.val))
       }
     }
   }
 
   onMouseUp() {
-    const { values, props: { onChange } } = this
-    onChange(values.map(d => d.val))
+    const { state: { values }, props: { onChange } } = this
+    // onChange(values.map(d => d.val))
 
     document.removeEventListener('mousemove', this.onMouseMove)
     document.removeEventListener('mouseup', this.onMouseUp)
   }
 
   onTouchEnd() {
-    const { values, props: { onChange } } = this
-    onChange(values.map(d => d.val))
+    const { state: { values }, props: { onChange } } = this
+    // onChange(values.map(d => d.val))
 
     document.removeEventListener('touchmove', this.onTouchMove)
     document.removeEventListener('touchend', this.onTouchEnd)
   }
 
   render() {
-    const { values, props: { className, rootStyle } } = this
-
+    const { state: { values }, props: { className, rootStyle } } = this
+    console.log('render', count++)
     const handles = values.map(({ key, val }) => {
       return { id: key, value: val, percent: this.valueToPerc(val) }
     })
@@ -333,7 +344,9 @@ Slider.propTypes = {
    */
   values: PropTypes.array,
   /**
-   * [DEPRECATED]: use `values` instead.
+   * An array of numbers. You can supply one for a value slider, two for a range slider or more to create n-handled sliders.
+   * The values should correspond to valid step values in the domain.
+   * The numbers will be forced into the domain if they are two small or large.
    */
   defaultValues: PropTypes.array,
   /**
