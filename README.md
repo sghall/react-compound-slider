@@ -100,7 +100,7 @@ const sliderStyle = {
     domain={[0, 100]}  // [min, max]
     step={1}
     mode={2} // 1 = allow-crossing of handles, 2 = no crossing
-    values={[10, 20, 30]} // use it as a controlled component, update values as needed
+    values={[10, 20, 30]} // one value would be a value slider, two a range slider, etc
   >
     <Rail>
       {({ getRailProps }) => (
