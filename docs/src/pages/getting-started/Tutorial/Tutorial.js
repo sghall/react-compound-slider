@@ -124,7 +124,7 @@ function Tutorial() {
         domain={[0, 100]}
         step={1}
         mode={1}
-        defaultValues={[10, 20, 30]}
+        values={[10, 20, 30]}
       >
         <Rail>
           {({ getRailProps }) => <div style={railStyle} {...getRailProps()} />}
@@ -194,7 +194,7 @@ function Tutorial() {
         domain={[0, 100]}
         step={1}
         mode={2}
-        defaultValues={[30]}
+        values={[30]}
       >
         <div style={railStyle} />
         <Handles>
@@ -217,7 +217,7 @@ function Tutorial() {
         domain={[0, 100]}
         step={1}
         mode={2}
-        defaultValues={[30]}
+        values={[30]}
       >
         <div style={railStyle} />
         <Handles>
@@ -254,7 +254,7 @@ function Tutorial() {
         domain={[0, 100]}
         step={1}
         mode={2}
-        defaultValues={[30]}
+        values={[30]}
       >
         <Rail>
           {({ getRailProps }) => <div style={railStyle} {...getRailProps()} />}
@@ -293,7 +293,7 @@ function Tutorial() {
         domain={[0, 100]}
         step={1}
         mode={2}
-        defaultValues={[10, 20, 30]}
+        values={[10, 20, 30]}
       >
         <Rail>
           {({ getRailProps }) => <div style={railStyle} {...getRailProps()} />}
@@ -332,7 +332,7 @@ function Tutorial() {
         domain={[0, 100]}
         step={1}
         mode={2}
-        defaultValues={[10, 20, 30]}
+        values={[10, 20, 30]}
       >
         <Rail>
           {({ getRailProps }) => <div style={railStyle} {...getRailProps()} />}
@@ -380,7 +380,7 @@ function Tutorial() {
         domain={[0, 100]}
         step={1}
         mode={2}
-        defaultValues={[20, 60, 80]}
+        values={[20, 60, 80]}
       >
         <Rail>
           {({ getRailProps }) => <div style={railStyle} {...getRailProps()} />}
@@ -429,7 +429,7 @@ function Tutorial() {
         step={1}
         mode={2}
         reversed
-        defaultValues={[20, 60, 80]}
+        values={[20, 60, 80]}
       >
         <Rail>
           {({ getRailProps }) => <div style={railStyle} {...getRailProps()} />}

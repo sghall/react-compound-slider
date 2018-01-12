@@ -8,9 +8,6 @@
 
 - The display of values can be reversed ✓
 
-- Only 16.6kb gzipped ✓
-  - Less than half the size of similar slider libs
-
 - Supports mouse and touch events ✓
   - Supports IE9+, Chrome, Firefox & Safari
 
@@ -32,4 +29,4 @@
   - Allow handles to cross
   - Prevent crossing
 
-- Works as a controlled component (this is not implemented yet)
+- Works as a controlled component ✓
