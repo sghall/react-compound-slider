@@ -5,6 +5,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/sghall/react-compound-slider/badge.svg?branch=master)](https://coveralls.io/github/sghall/react-compound-slider?branch=master)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/sghall/react-compound-slider/blob/master/LICENSE)
 ![](http://img.badgesize.io/sghall/react-compound-slider/gh-pages/fileSize/react-compound-slider.umd.min.js?compression=gzip)
+[![npm version](https://img.shields.io/npm/v/react-compound-slider.svg)](https://www.npmjs.com/package/react-compound-slider)
 
 <div style="text-align:center;">
   <a href="https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal" target="\_parent"><img src="https://user-images.githubusercontent.com/4615775/30075819-cd06121e-922b-11e7-916c-a7c7de29f933.png" alt="React Compound Slider" style="width:450px;"/></a>
@@ -15,6 +16,10 @@
 <div style="text-align:center;">
   <a href="https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal" target="\_parent"><img src="https://user-images.githubusercontent.com/4615775/30075818-cd02968e-922b-11e7-9d89-7b449e70367e.png" alt="React Compound Slider" style="width:450px;"/></a>
 </div>
+
+Welcome to the future.
+
+React Compound Slider is tiny (5kb) slider component with no opinion about markup or styles.
 
 # Installation
 
