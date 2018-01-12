@@ -60,9 +60,6 @@ In this library the `Handles`, `Tracks`, and `Ticks` components are used as chil
 
 - The display of values can be reversed ✓
 
-- Only 16.6kb gzipped ✓
-  - Less than half the size of similar slider libs
-
 - Supports mouse and touch events ✓
   - Supports IE9+, Chrome, Firefox & Safari
 
@@ -84,7 +81,7 @@ In this library the `Handles`, `Tracks`, and `Ticks` components are used as chil
   - Allow handles to cross
   - Prevent crossing
 
-- Works as a controlled component (this is not implemented yet)
+- Works as a controlled component
 
 ### Example Usage
 
@@ -103,7 +100,7 @@ const sliderStyle = {
     domain={[0, 100]}  // [min, max]
     step={1}
     mode={2} // 1 = allow-crossing of handles, 2 = no crossing
-    defaultValues={[10, 20, 30]} // the initial handle positions
+    values={[10, 20, 30]} // use it as a controlled component, update values as needed
   >
     <Rail>
       {({ getRailProps }) => (
