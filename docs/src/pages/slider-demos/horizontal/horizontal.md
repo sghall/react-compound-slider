@@ -15,3 +15,7 @@
 
 ### Updating Domain/Change Direction - (mode = 1) - Step 10
 {{demo='pages/slider-demos/horizontal/UpdateDomain.js'}}
+
+### Updating Values - (mode = 1) - Step 10
+{{demo='pages/slider-demos/horizontal/UpdateValues.js'}}
+
