@@ -81,7 +81,7 @@ In this library the `Handles`, `Tracks`, and `Ticks` components are used as chil
   - Allow handles to cross
   - Prevent crossing
 
-- Works as a controlled component
+- Works as a controlled component ✓
 
 ### Example Usage
 
