@@ -17,9 +17,8 @@
   <a href="https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal" target="\_parent"><img src="https://user-images.githubusercontent.com/4615775/30075818-cd02968e-922b-11e7-9d89-7b449e70367e.png" alt="React Compound Slider" style="width:450px;"/></a>
 </div>
 
-Welcome to the future.
 
-React Compound Slider is tiny (5kb) slider component with no opinion about markup or styles.
+Welcome to the future. React Compound Slider is tiny (5kb) slider component with no opinion about markup or styles.
 
 # Installation
 
@@ -41,7 +40,7 @@ npm install react-compound-slider
 
 ## [CodeSandbox](https://codesandbox.io/s/plzyr7lmj)
 
-### Intro
+### Approach
 
 This library takes a [compound component](https://www.youtube.com/watch?v=hEGg-3pIHlE) approach to creating sliders that separates the data/logic from presentation.
 
