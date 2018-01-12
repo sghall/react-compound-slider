@@ -23,21 +23,19 @@ Welcome to the future. React Compound Slider is tiny (5kb) slider component with
 
 React Compound Slider is available as an [npm package](https://www.npmjs.org/package/react-compound-slider).
 
-## npm
-
 To install and save in your `package.json` dependencies, run:
 
 ```
 npm install react-compound-slider
 ```
 
-## [Live Demos](https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal)
+### [Live Demos](https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal)
 
-## [Tutorial](https://sghall.github.io/react-compound-slider/#/getting-started/tutorial)
+### [Tutorial](https://sghall.github.io/react-compound-slider/#/getting-started/tutorial)
 
-## [Documentation](https://sghall.github.io/react-compound-slider/#/component-api/slider)
+### [Documentation](https://sghall.github.io/react-compound-slider/#/component-api/slider)
 
-## [CodeSandbox](https://codesandbox.io/s/plzyr7lmj)
+### [CodeSandbox](https://codesandbox.io/s/plzyr7lmj)
 
 ### Approach
 
