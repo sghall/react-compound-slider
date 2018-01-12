@@ -15,7 +15,7 @@ const noop = () => {}
 
 const compare = b => (m, d, i) => m && b[i] === d
 
-const areValuesEqual = (a, b) => {
+const equal = (a, b) => {
   return a === b || (a.length === b.length && a.reduce(compare(b), true))
 }
 
@@ -24,8 +24,6 @@ class Slider extends PureComponent {
     super(props)
 
     this.slider = null
-
-    this.isControlled = false
 
     this.valueToPerc = linear()
     this.valueToStep = discrete()
@@ -46,13 +44,9 @@ class Slider extends PureComponent {
   componentWillMount() {
     const { defaultValues, values, domain, step, reversed } = this.props
 
-    if (values) {
-      this.isControlled = true
-    }
-
     warning(
-      defaultValues === undefined || values === undefined,
-      `${prfx} Cannot set both 'defaultValues' and 'values' props.`,
+      defaultValues === undefined,
+      `${prfx} defaultValues is deprecated. Use 'values' prop.`,
     )
 
     this.updateRange(domain, step, reversed)
@@ -75,11 +69,7 @@ class Slider extends PureComponent {
       next.onUpdate(remapped)
     }
 
-    if (
-      !this.active &&
-      this.isControlled === true &&
-      !areValuesEqual(values, props.values)
-    ) {
+    if (!this.active && !equal(values, props.values)) {
       this.updateValues(values, reversed)
     }
   }
@@ -347,9 +337,7 @@ Slider.propTypes = {
    */
   values: PropTypes.array,
   /**
-   * Use defaultValues if you want to set the values when the component mounts and just receive updates as the values change. Note: you CAN'T set BOTH values and defaultValues. <br /><br />An array of numbers. You can supply one for a value slider, two for a range slider or more to create n-handled sliders.
-   * The values should correspond to valid step values in the domain.
-   * The numbers will be forced into the domain if they are two small or large.
+   * DEPRECATED - Use 'values' prop
    */
   defaultValues: PropTypes.array,
   /**
