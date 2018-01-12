@@ -1,5 +1,7 @@
 ## react-compound-slider
 
+Welcome to the future. React Compound Slider is tiny (5kb) slider component with no opinion about markup or styles.
+
 [![Build Status](https://travis-ci.org/sghall/react-compound-slider.svg?branch=master)](https://travis-ci.org/sghall/react-compound-slider)
 [![Dependency Status](https://www.versioneye.com/user/projects/59b03e160fb24f004e1a5a3d/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/59b03e160fb24f004e1a5a3d)
 [![Coverage Status](https://coveralls.io/repos/github/sghall/react-compound-slider/badge.svg?branch=master)](https://coveralls.io/github/sghall/react-compound-slider?branch=master)
@@ -16,9 +18,6 @@
 <div style="text-align:center;">
   <a href="https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal" target="\_parent"><img src="https://user-images.githubusercontent.com/4615775/30075818-cd02968e-922b-11e7-9d89-7b449e70367e.png" alt="React Compound Slider" style="width:450px;"/></a>
 </div>
-
-
-Welcome to the future. React Compound Slider is tiny (5kb) slider component with no opinion about markup or styles.
 
 # Installation
 
