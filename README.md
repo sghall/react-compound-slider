@@ -1,6 +1,6 @@
 ## react-compound-slider
 
-Welcome to the future. React Compound Slider is tiny (5kb) slider component with no opinion about markup or styles.
+Welcome to the future. React Compound Slider is a tiny (5kb) slider component with no opinion about markup or styles.
 
 [![Build Status](https://travis-ci.org/sghall/react-compound-slider.svg?branch=master)](https://travis-ci.org/sghall/react-compound-slider)
 [![Dependency Status](https://www.versioneye.com/user/projects/59b03e160fb24f004e1a5a3d/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/59b03e160fb24f004e1a5a3d)
