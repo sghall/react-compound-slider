@@ -69,7 +69,7 @@ class Slider extends PureComponent {
       next.onUpdate(remapped)
     }
 
-    if (!this.active && !equal(values, props.values)) {
+    if (!equal(values, props.values)) {
       this.updateValues(values, reversed)
     }
   }
