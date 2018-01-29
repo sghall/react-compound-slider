@@ -74,6 +74,13 @@ class Slider extends PureComponent {
     }
   }
 
+  componentWillUnmount() {
+    document.removeEventListener('mousemove', this.onMouseMove)
+    document.removeEventListener('mouseup', this.onMouseUp)
+    document.removeEventListener('touchmove', this.onTouchMove)
+    document.removeEventListener('touchend', this.onTouchEnd)
+  }
+
   reMapValues(reversed) {
     const { values } = this.state
     return this.updateValues(values.map(d => d.val), reversed)
