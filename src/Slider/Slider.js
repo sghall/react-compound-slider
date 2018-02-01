@@ -65,8 +65,10 @@ class Slider extends PureComponent {
     ) {
       this.updateRange(domain, step, reversed)
       const remapped = this.reMapValues(reversed)
-      next.onChange(remapped)
-      next.onUpdate(remapped)
+      if (values === undefined || values === props.values) {
+        next.onChange(remapped)
+        next.onUpdate(remapped)
+      }
     }
 
     if (!equal(values, props.values)) {

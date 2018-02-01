@@ -105,6 +105,50 @@ describe('<Slider />', () => {
     updateValuesSpy.restore()
   })
 
+  it('does call onChange/onUpdate when it should', () => {
+    const onUpdate = sinon.spy()
+    const onChange = sinon.spy()
+
+    const props = {
+      onChange,
+      onUpdate,
+      reversed: false,
+      step: 10,
+      domain: [100, 200],
+      values: [100, 200],
+    }
+
+    const wrapper = shallow(<Slider {...props} />)
+
+    assert.strictEqual(onUpdate.callCount, 0)
+    assert.strictEqual(onChange.callCount, 0)
+    wrapper.setProps({ ...props, domain: [50, 200] })
+    assert.strictEqual(onUpdate.callCount, 1)
+    assert.strictEqual(onChange.callCount, 1)
+  })
+
+  it("does NOT call onChange/onUpdate when it shouldn't", () => {
+    const onUpdate = sinon.spy()
+    const onChange = sinon.spy()
+
+    const props = {
+      onChange,
+      onUpdate,
+      reversed: false,
+      step: 10,
+      domain: [100, 200],
+      values: [100, 200],
+    }
+
+    const wrapper = shallow(<Slider {...props} />)
+
+    assert.strictEqual(onUpdate.callCount, 0)
+    assert.strictEqual(onChange.callCount, 0)
+    wrapper.setProps({ ...props, domain: [50, 200], values: [50, 200] })
+    assert.strictEqual(onUpdate.callCount, 0)
+    assert.strictEqual(onChange.callCount, 0)
+  })
+
   it('does NOT call updateRange when reversed, domain and step are unchanged', () => {
     const wrapper = shallow(
       <Slider reversed={false} step={10} domain={[100, 200]} />,
