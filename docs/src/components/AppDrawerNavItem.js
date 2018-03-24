@@ -94,7 +94,7 @@ class AppDrawerNavItem extends Component {
         >
           {title}
         </Button>
-        <Collapse in={this.state.open} transitionDuration="auto" unmountOnExit>
+        <Collapse in={this.state.open} unmountOnExit>
           {children}
         </Collapse>
       </ListItem>

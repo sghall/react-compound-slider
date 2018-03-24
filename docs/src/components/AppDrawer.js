@@ -65,7 +65,7 @@ function reduceChildRoutes(props, items, childRoute, index) {
           key={index}
           title={childRoute.title}
           to={childRoute.path}
-          onClick={props.onRequestClose}
+          onClick={props.onClose}
         />,
       )
     }
@@ -74,7 +74,7 @@ function reduceChildRoutes(props, items, childRoute, index) {
 }
 
 function AppDrawer(props) {
-  const { classes, className, onRequestClose, routes } = props
+  const { classes, className, onClose, routes } = props
   const GITHUB_RELEASE_BASE_URL = ''
 
   const other = {
@@ -88,12 +88,12 @@ function AppDrawer(props) {
         paper: classes.paper,
       }}
       open={props.open}
-      onRequestClose={onRequestClose}
+      onClose={onClose}
       {...other}
     >
       <div className={classes.nav}>
         <Toolbar className={classes.toolbar}>
-          <Link className={classes.title} to="/" onClick={onRequestClose}>
+          <Link className={classes.title} to="/" onClick={onClose}>
             <Typography type="body1" gutterBottom color="inherit">
               React Compound Slider
             </Typography>
@@ -121,7 +121,7 @@ function AppDrawer(props) {
 AppDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
-  onRequestClose: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   routes: PropTypes.array.isRequired,
 }

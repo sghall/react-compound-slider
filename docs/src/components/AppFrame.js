@@ -117,7 +117,7 @@ class AppFrame extends Component {
         <AppBar className={appBarClassName}>
           <Toolbar>
             <IconButton
-              color="contrast"
+              color="default"
               aria-label="open drawer"
               onClick={this.handleDrawerToggle}
               className={navIconClassName}
@@ -137,7 +137,7 @@ class AppFrame extends Component {
             <div className={classes.grow} />
             <IconButton
               title="Toggle light/dark theme"
-              color="contrast"
+              color="default"
               aria-label="change theme"
               onClick={this.handleToggleShade}
             >
@@ -146,7 +146,7 @@ class AppFrame extends Component {
             <IconButton
               component="a"
               title="GitHub"
-              color="contrast"
+              color="default"
               href="https://github.com/sghall/react-compound-slider"
             >
               <Github />
@@ -156,7 +156,7 @@ class AppFrame extends Component {
         <AppDrawer
           className={classes.drawer}
           routes={routes}
-          onRequestClose={this.handleDrawerClose}
+          onClose={this.handleDrawerClose}
           open={this.state.drawerOpen}
         />
         {children}

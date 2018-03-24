@@ -29,7 +29,7 @@ function DemoButton(props) {
 
   return (
     <IconButton
-      color="contrast"
+      color="primary"
       component={Link}
       to={`/component-demos/${kebabCase(item.demo.name)}`}
     >
