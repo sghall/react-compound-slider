@@ -47,7 +47,7 @@ class Example extends Component {
           </Slider.Rail>
           <Slider.Handles>
             {({ handles, getHandleProps }) => (
-              <div className="slider-handles">
+              <div>
                 {handles.map(handle => (
                   <Handle
                     key={handle.id}
@@ -61,7 +61,7 @@ class Example extends Component {
           </Slider.Handles>
           <Slider.Tracks right={false}>
             {({ tracks, getTrackProps }) => (
-              <div className="slider-tracks">
+              <div>
                 {tracks.map(({ id, source, target }) => (
                   <Track
                     key={id}
