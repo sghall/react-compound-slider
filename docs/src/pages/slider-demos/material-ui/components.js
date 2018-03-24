@@ -2,13 +2,37 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
+import { withStyles } from 'material-ui/styles'
 
 // *******************************************************
 // HANDLE COMPONENT
 // *******************************************************
-export function Handle({
+
+const handleStyle = theme => ({
+  root: {
+    position: 'absolute',
+    marginLeft: '-11px',
+    marginTop: '-9px',
+    zIndex: 2,
+    width: 24,
+    height: 24,
+    cursor: 'pointer',
+    borderRadius: '50%',
+    border: theme.palette.primary.contrastText,
+    backgroundColor: theme.palette.primary.main,
+    '&:hover': {
+      backgroundColor: theme.palette.primary.dark,
+      '@media (hover: none)': {
+        backgroundColor: theme.palette.primary.main,
+      },
+    },
+  },
+})
+
+function HandleComponent({
   domain: [min, max],
   handle: { id, value, percent },
+  classes,
   getHandleProps,
 }) {
   return (
@@ -17,25 +41,14 @@ export function Handle({
       aria-valuemin={min}
       aria-valuemax={max}
       aria-valuenow={value}
-      style={{
-        left: `${percent}%`,
-        position: 'absolute',
-        marginLeft: '-11px',
-        marginTop: '-9px',
-        zIndex: 2,
-        width: 24,
-        height: 24,
-        cursor: 'pointer',
-        borderRadius: '50%',
-        border: 'solid 2px rgb(200,200,200)',
-        backgroundColor: '#ff3d00',
-      }}
+      className={classes.root}
+      style={{ left: `${percent}%` }}
       {...getHandleProps(id)}
     />
   )
 }
 
-Handle.propTypes = {
+HandleComponent.propTypes = {
   domain: PropTypes.array.isRequired,
   handle: PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -44,6 +57,8 @@ Handle.propTypes = {
   }).isRequired,
   getHandleProps: PropTypes.func.isRequired,
 }
+
+export const Handle = withStyles(handleStyle)(HandleComponent)
 
 // *******************************************************
 // TRACK COMPONENT
