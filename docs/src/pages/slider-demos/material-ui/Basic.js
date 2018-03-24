@@ -1,7 +1,7 @@
 // @flow weak
 
 import React, { Component } from 'react'
-import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
+import Slider from 'react-compound-slider'
 import ValueViewer from 'docs/src/pages/ValueViewer' // for examples only - displays the table above slider
 import { Handle, Track, Tick } from './components' // example render components - source below
 
@@ -51,12 +51,12 @@ class Example extends Component {
           onChange={this.onChange}
           values={update}
         >
-          <Rail>
+          <Slider.Rail>
             {({ getRailProps }) => (
               <div style={railStyle} {...getRailProps()} />
             )}
-          </Rail>
-          <Handles>
+          </Slider.Rail>
+          <Slider.Handles>
             {({ handles, getHandleProps }) => (
               <div className="slider-handles">
                 {handles.map(handle => (
@@ -69,8 +69,8 @@ class Example extends Component {
                 ))}
               </div>
             )}
-          </Handles>
-          <Tracks left={false} right={false}>
+          </Slider.Handles>
+          <Slider.Tracks left={false} right={false}>
             {({ tracks, getTrackProps }) => (
               <div className="slider-tracks">
                 {tracks.map(({ id, source, target }) => (
@@ -83,8 +83,8 @@ class Example extends Component {
                 ))}
               </div>
             )}
-          </Tracks>
-          <Ticks count={10}>
+          </Slider.Tracks>
+          <Slider.Ticks count={10}>
             {({ ticks }) => (
               <div className="slider-ticks">
                 {ticks.map(tick => (
@@ -92,7 +92,7 @@ class Example extends Component {
                 ))}
               </div>
             )}
-          </Ticks>
+          </Slider.Ticks>
         </Slider>
       </div>
     )

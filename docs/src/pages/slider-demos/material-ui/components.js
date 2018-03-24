@@ -5,6 +5,31 @@ import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
 
 // *******************************************************
+// RAIL COMPONENT
+// *******************************************************
+
+const railStyle = theme => ({
+  root: {
+    position: 'absolute',
+    width: '100%',
+    height: 8,
+    borderRadius: 4,
+    cursor: 'pointer',
+    backgroundColor: theme.palette.text.primary,
+  },
+})
+
+function RailComponent({ classes, getRailProps }) {
+  return <div className={classes.root} {...getRailProps()} />
+}
+
+RailComponent.propTypes = {
+  getRailProps: PropTypes.func.isRequired,
+}
+
+export const Rail = withStyles(railStyle)(RailComponent)
+
+// *******************************************************
 // HANDLE COMPONENT
 // *******************************************************
 
