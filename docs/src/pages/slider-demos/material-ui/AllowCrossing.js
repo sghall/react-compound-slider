@@ -10,15 +10,6 @@ const sliderStyle = {
   width: '100%',
 }
 
-const railStyle = {
-  position: 'absolute',
-  width: '100%',
-  height: 8,
-  borderRadius: 4,
-  cursor: 'pointer',
-  backgroundColor: 'rgb(155,155,155)',
-}
-
 const domain = [100, 500]
 const defaultValues = [150, 300, 400, 450]
 
@@ -52,9 +43,7 @@ class Example extends Component {
           values={update}
         >
           <Slider.Rail>
-            {({ getRailProps }) => (
-              <div style={railStyle} {...getRailProps()} />
-            )}
+            {({ getRailProps }) => <Rail getRailProps={getRailProps} />}
           </Slider.Rail>
           <Slider.Handles>
             {({ handles, getHandleProps }) => (

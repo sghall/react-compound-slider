@@ -3,20 +3,11 @@
 import React, { Component } from 'react'
 import Slider from 'react-compound-slider'
 import ValueViewer from 'docs/src/pages/ValueViewer' // for examples only - displays the table above slider
-import { Handle, Track, Tick } from './components' // example render components - source below
+import { Rail, Handle, Track, Tick } from './components' // example render components - source below
 
 const sliderStyle = {
   position: 'relative',
   width: '100%',
-}
-
-const railStyle = {
-  position: 'absolute',
-  width: '100%',
-  height: 8,
-  borderRadius: 4,
-  cursor: 'pointer',
-  backgroundColor: 'rgb(155,155,155)',
 }
 
 const defaultValues = [250, 350]
@@ -71,9 +62,7 @@ class Example extends Component {
           values={update}
         >
           <Slider.Rail>
-            {({ getRailProps }) => (
-              <div style={railStyle} {...getRailProps()} />
-            )}
+            {({ getRailProps }) => <Rail getRailProps={getRailProps} />}
           </Slider.Rail>
           <Slider.Handles>
             {({ handles, getHandleProps }) => (

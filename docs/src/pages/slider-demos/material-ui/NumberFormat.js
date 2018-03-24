@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { format } from 'd3-format'
 import Slider from 'react-compound-slider'
 import ValueViewer from 'docs/src/pages/ValueViewer' // for examples only - displays the table above slider
-import { Handle, Track, Tick } from './components' // example render components - source below
+import { Rail, Handle, Track, Tick } from './components' // example render components - source below
 
 const tickFormat = format('.2f')
 
@@ -55,9 +55,7 @@ class Example extends Component {
           values={update}
         >
           <Slider.Rail>
-            {({ getRailProps }) => (
-              <div style={railStyle} {...getRailProps()} />
-            )}
+            {({ getRailProps }) => <Rail getRailProps={getRailProps} />}
           </Slider.Rail>
           <Slider.Handles>
             {({ handles, getHandleProps }) => (
