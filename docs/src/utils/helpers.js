@@ -16,12 +16,27 @@ export function kebabCase(string) {
 }
 
 export function titleize(string) {
-  return string
-    .split('-')
-    .map(word => word.split(''))
-    .map(letters => {
-      const first = letters.shift()
-      return [first.toUpperCase(), ...letters].join('')
+  return capsForAbbrv(
+    string
+      .split('-')
+      .map(word => word.split(''))
+      .map(letters => {
+        const first = letters.shift()
+        return [first.toUpperCase(), ...letters].join('')
+      })
+      .join(' '),
+  )
+}
+
+function capsForAbbrv(text) {
+  if (typeof text !== 'string') {
+    return text
+  }
+
+  return text
+    .split(' ')
+    .map(d => {
+      return d.length <= 2 ? d.toUpperCase() : d
     })
     .join(' ')
 }
