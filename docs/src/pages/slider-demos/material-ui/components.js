@@ -63,16 +63,23 @@ export const Handle = withStyles(handleStyle)(HandleComponent)
 // *******************************************************
 // TRACK COMPONENT
 // *******************************************************
-export function Track({ source, target, getTrackProps }) {
+
+const trackStyle = theme => ({
+  root: {
+    position: 'absolute',
+    height: 8,
+    zIndex: 1,
+    borderRadius: 4,
+    cursor: 'pointer',
+    backgroundColor: theme.palette.primary.dark,
+  },
+})
+
+function TrackComponent({ classes, source, target, getTrackProps }) {
   return (
     <div
+      className={classes.root}
       style={{
-        position: 'absolute',
-        height: 8,
-        zIndex: 1,
-        backgroundColor: '#ff3d00',
-        borderRadius: 4,
-        cursor: 'pointer',
         left: `${source.percent}%`,
         width: `${target.percent - source.percent}%`,
       }}
@@ -81,7 +88,7 @@ export function Track({ source, target, getTrackProps }) {
   )
 }
 
-Track.propTypes = {
+TrackComponent.propTypes = {
   source: PropTypes.shape({
     id: PropTypes.string.isRequired,
     value: PropTypes.number.isRequired,
@@ -94,6 +101,8 @@ Track.propTypes = {
   }).isRequired,
   getTrackProps: PropTypes.func.isRequired,
 }
+
+export const Track = withStyles(trackStyle)(TrackComponent)
 
 // *******************************************************
 // TICK COMPONENT
