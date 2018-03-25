@@ -23,8 +23,7 @@ export function Handle({ // your handle component
         textAlign: 'center',
         cursor: 'pointer',
         borderRadius: '50%',
-        border: 'solid 2px wheat',
-        backgroundColor: 'burlywood',
+        backgroundColor: '#2C4870',
       }}
       {...getHandleProps(id)} // pass in the id
     >

@@ -21,7 +21,7 @@ const railStyle = {
   height: 10,
   marginTop: 35,
   borderRadius: 5,
-  backgroundColor: 'peru',
+  backgroundColor: '#8B9CB6',
 }
 
 ...

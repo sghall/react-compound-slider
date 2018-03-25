@@ -20,7 +20,7 @@ function Track({ source, target, getTrackProps }) { // your own track component
         height: 10,
         zIndex: 1,
         marginTop: 35,
-        backgroundColor: 'cornflowerblue',
+        backgroundColor: '#8B9CB6',
         borderRadius: 5,
         cursor: 'pointer',
         left: `${source.percent}%`,

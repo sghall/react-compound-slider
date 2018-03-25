@@ -25,7 +25,7 @@ const railStyle = {
   marginTop: 35,
   borderRadius: 5,
   cursor: 'pointer',
-  backgroundColor: 'peru',
+  backgroundColor: '#8B9CB6',
 }
 
 export function Handle({ handle: { id, value, percent }, getHandleProps }) {
@@ -42,12 +42,13 @@ export function Handle({ handle: { id, value, percent }, getHandleProps }) {
         textAlign: 'center',
         cursor: 'pointer',
         borderRadius: '50%',
-        border: 'solid 2px wheat',
-        backgroundColor: 'burlywood',
+        backgroundColor: '#2C4870',
       }}
       {...getHandleProps(id)}
     >
-      <div style={{ fontSize: 11, marginTop: -20 }}>{value}</div>
+      <div style={{ fontFamily: 'Roboto', fontSize: 11, marginTop: -20 }}>
+        {value}
+      </div>
     </div>
   )
 }
@@ -60,7 +61,7 @@ function Track({ source, target, getTrackProps }) {
         height: 10,
         zIndex: 1,
         marginTop: 35,
-        backgroundColor: 'cornflowerblue',
+        backgroundColor: '#546C91',
         borderRadius: 5,
         cursor: 'pointer',
         left: `${source.percent}%`,
@@ -90,6 +91,7 @@ function Tick({ tick, count }) {
           position: 'absolute',
           marginTop: 60,
           fontSize: 10,
+          fontFamily: 'Roboto',
           textAlign: 'center',
           marginLeft: `${-(100 / count) / 2}%`,
           width: `${100 / count}%`,
