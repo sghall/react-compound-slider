@@ -1,17 +1,25 @@
 // @flow weak
 
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { format } from 'd3-format'
 import Slider from 'react-compound-slider'
+import { withStyles } from 'material-ui/styles'
 import ValueViewer from 'docs/src/pages/ValueViewer' // for examples only - displays the table above slider
 import { Rail, Handle, Track, Tick } from './components' // example render components - source below
 
 const tickFormat = format('.2f')
 
-const sliderStyle = {
-  position: 'relative',
-  width: '100%',
-}
+const style = () => ({
+  root: {
+    height: 120,
+    width: '100%',
+  },
+  slider: {
+    position: 'relative',
+    width: '100%',
+  },
+})
 
 const domain = [0, 1]
 const defaultValues = [0.25, 0.55, 0.75, 0.85]
@@ -31,16 +39,16 @@ class Example extends Component {
   }
 
   render() {
-    const { state: { values, update } } = this
+    const { props: { classes }, state: { values, update } } = this
 
     return (
-      <div style={{ height: 120, width: '100%' }}>
+      <div className={classes.root}>
         <ValueViewer values={values} update={update} format={tickFormat} />
         <Slider
           mode={2}
           step={0.01}
           domain={domain}
-          rootStyle={sliderStyle}
+          className={classes.slider}
           onUpdate={this.onUpdate}
           onChange={this.onChange}
           values={update}
@@ -96,4 +104,8 @@ class Example extends Component {
   }
 }
 
-export default Example
+Example.propTypes = {
+  classes: PropTypes.object.isRequired,
+}
+
+export default withStyles(style)(Example)

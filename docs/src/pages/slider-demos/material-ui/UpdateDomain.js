@@ -1,14 +1,22 @@
 // @flow weak
 
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Slider from 'react-compound-slider'
+import { withStyles } from 'material-ui/styles'
 import ValueViewer from 'docs/src/pages/ValueViewer' // for examples only - displays the table above slider
 import { Rail, Handle, Track, Tick } from './components' // example render components - source below
 
-const sliderStyle = {
-  position: 'relative',
-  width: '100%',
-}
+const style = () => ({
+  root: {
+    height: 120,
+    width: '100%',
+  },
+  slider: {
+    position: 'relative',
+    width: '100%',
+  },
+})
 
 const defaultValues = [250, 350]
 
@@ -37,10 +45,13 @@ class Example extends Component {
   }
 
   render() {
-    const { state: { domain, values, update, reversed } } = this
+    const {
+      props: { classes },
+      state: { domain, values, update, reversed },
+    } = this
 
     return (
-      <div style={{ height: 150, width: '100%' }}>
+      <div className={classes.root}>
         <button onClick={() => this.setDomain([100, 400])}>
           SET DOMAIN [100, 400]
         </button>
@@ -56,7 +67,7 @@ class Example extends Component {
           step={10}
           domain={domain}
           reversed={reversed}
-          rootStyle={sliderStyle}
+          className={classes.slider}
           onUpdate={this.onUpdate}
           onChange={this.onChange}
           values={update}
@@ -107,4 +118,8 @@ class Example extends Component {
   }
 }
 
-export default Example
+Example.propTypes = {
+  classes: PropTypes.object.isRequired,
+}
+
+export default withStyles(style)(Example)
