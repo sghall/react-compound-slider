@@ -79,7 +79,7 @@ In this library the `Handles`, `Tracks`, and `Ticks` components are used as chil
   - Inline-styles
 
 - Interaction modes ✓
-  - Allow handles to cross
+  - Pushable
   - Prevent crossing
 
 - Works as a controlled component ✓

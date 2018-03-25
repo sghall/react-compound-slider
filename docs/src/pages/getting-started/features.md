@@ -26,7 +26,7 @@
   - Inline-styles
 
 - Interaction modes ✓
-  - Allow handles to cross
+  - Pushable
   - Prevent crossing
 
 - Works as a controlled component ✓

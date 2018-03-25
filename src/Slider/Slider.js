@@ -354,7 +354,7 @@ Slider.propTypes = {
    */
   step: PropTypes.number,
   /**
-   * The interaction mode. Value of 1 will allow handles to cross.
+   * The interaction mode. Value of 1 will allow handles to push each other.
    * Value of 2 will keep the sliders from crossing and separated by a step.
    */
   mode: PropTypes.oneOf([1, 2]),
