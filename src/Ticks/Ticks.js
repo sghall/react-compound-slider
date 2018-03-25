@@ -4,11 +4,11 @@ import PropTypes from 'prop-types'
 class Ticks extends Component {
   render() {
     const { children, values, scale, count, emitMouse, emitTouch } = this.props
-    const ticks = (values ? values : scale.ticks(count)).map(value => {
+    const ticks = (values ? values : scale.getTicks(count)).map(value => {
       return {
         id: `$$-${value}`,
         value,
-        percent: scale(value),
+        percent: scale.getValue(value),
       }
     })
 
@@ -19,7 +19,7 @@ class Ticks extends Component {
 
 Ticks.propTypes = {
   /** @ignore */
-  scale: PropTypes.func,
+  scale: PropTypes.object,
   /**
    * Approximate number of ticks you want to render.
    * If you supply your own ticks using the values prop this prop has no effect.

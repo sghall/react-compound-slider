@@ -19,7 +19,7 @@ class Tracks extends Component {
       props: { children, left, right, scale, handles },
     } = this
 
-    const domain = scale.domain()
+    const domain = scale.getDomain()
     const tracks = []
 
     for (let i = 0; i < handles.length + 1; i++) {
@@ -56,7 +56,7 @@ Tracks.propTypes = {
    */
   right: PropTypes.bool,
   /** @ignore */
-  scale: PropTypes.func,
+  scale: PropTypes.object,
   /** @ignore */
   handles: PropTypes.array,
   /** @ignore */

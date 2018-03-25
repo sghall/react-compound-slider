@@ -1,13 +1,13 @@
 import React, { PureComponent } from 'react'
 import warning from 'warning'
 import PropTypes from 'prop-types'
-import { linear } from './scales'
 import Rail from '../Rail'
 import Ticks from '../Ticks'
 import Tracks from '../Tracks'
 import Handles from '../Handles'
 import { mode1, mode2 } from './modes'
 import {
+  LinearScale,
   DiscreteScale,
   isNotValidTouch,
   getTouchPosition,
@@ -33,7 +33,7 @@ class Slider extends PureComponent {
 
     this.slider = null
 
-    this.valueToPerc = linear()
+    this.valueToPerc = new LinearScale()
     this.valueToStep = new DiscreteScale()
     this.pixelToStep = new DiscreteScale()
 
@@ -124,10 +124,10 @@ class Slider extends PureComponent {
       .setDomain([min - step / 2, max + step / 2])
 
     if (reversed === true) {
-      this.valueToPerc.domain([min, max]).range([100, 0])
+      this.valueToPerc.setDomain([min, max]).setRange([100, 0])
       range.reverse()
     } else {
-      this.valueToPerc.domain([min, max]).range([0, 100])
+      this.valueToPerc.setDomain([min, max]).setRange([0, 100])
     }
 
     this.pixelToStep.setRange(range)
@@ -300,7 +300,7 @@ class Slider extends PureComponent {
     const { state: { values }, props: { className, rootStyle } } = this
 
     const handles = values.map(({ key, val }) => {
-      return { id: key, value: val, percent: this.valueToPerc(val) }
+      return { id: key, value: val, percent: this.valueToPerc.getValue(val) }
     })
 
     const children = React.Children.map(this.props.children, child => {
