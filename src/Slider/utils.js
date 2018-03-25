@@ -194,7 +194,6 @@ export class LinearScale {
 
   getTicks(count) {
     const d = this.domain
-
-    return ticks(d[0], d[d.length - 1], count ? 10 : count)
+    return ticks(d[0], d[d.length - 1], count ? count : 10)
   }
 }
