@@ -32,6 +32,7 @@ const styles = theme => ({
     position: 'absolute',
     top: 2,
     right: 7,
+    fontSize: 8,
   },
   code: {
     display: 'none',
@@ -85,7 +86,7 @@ class Demo extends Component {
           onClick={this.handleCodeButtonClick}
           className={classes.codeButton}
         >
-          <CodeIcon />
+          Source <CodeIcon />
         </IconButton>
         <Collapse in={this.state.codeOpen}>
           <h3 style={{ fontWeight: 300, marginLeft: 10 }}>
