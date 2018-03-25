@@ -20,4 +20,24 @@ describe('utils', () => {
       assert.notEqual(result, values)
     })
   })
+  describe('LinearScale', () => {
+    it('should return correct values', () => {
+      const scale = new utils.LinearScale()
+      scale.setDomain([0, 100]).setRange([0, 1])
+
+      assert.strictEqual(scale.getValue(50), 0.5)
+    })
+    it('should handle reversed domains', () => {
+      const scale = new utils.LinearScale()
+      scale.setDomain([100, 0]).setRange([0, 1])
+
+      assert.strictEqual(scale.getValue(50), 0.5)
+    })
+    it('should return the correct number of ticks', () => {
+      const scale = new utils.LinearScale()
+      scale.setDomain([0, 1000]).setRange([0, 100])
+
+      assert.strictEqual(scale.getTicks(3).length, 3)
+    })
+  })
 })
