@@ -1,13 +1,21 @@
 import React, { PureComponent } from 'react'
 import warning from 'warning'
 import PropTypes from 'prop-types'
-import { discrete, linear } from './scales'
+import { linear } from './scales'
 import Rail from '../Rail'
 import Ticks from '../Ticks'
 import Tracks from '../Tracks'
 import Handles from '../Handles'
 import { mode1, mode2 } from './modes'
-import * as utils from './utils'
+import {
+  DiscreteScale,
+  isNotValidTouch,
+  getTouchPosition,
+  updateValues,
+  getSliderDomain,
+  getStepRange,
+  getSortByVal,
+} from './utils'
 
 const prfx = 'react-compound-slider:'
 
@@ -26,8 +34,8 @@ class Slider extends PureComponent {
     this.slider = null
 
     this.valueToPerc = linear()
-    this.valueToStep = discrete()
-    this.pixelToStep = discrete()
+    this.valueToStep = new DiscreteScale()
+    this.pixelToStep = new DiscreteScale()
 
     this.onMouseMove = this.onMouseMove.bind(this)
     this.onTouchMove = this.onTouchMove.bind(this)
@@ -91,7 +99,7 @@ class Slider extends PureComponent {
   updateValues(arr = [], reversed) {
     const values = arr
       .map(x => {
-        const val = this.valueToStep(x)
+        const val = this.valueToStep.getValue(x)
 
         warning(
           x === val,
@@ -101,7 +109,7 @@ class Slider extends PureComponent {
         return val
       })
       .map((val, i) => ({ key: `$$-${i}`, val }))
-      .sort(utils.getSortByVal(reversed))
+      .sort(getSortByVal(reversed))
 
     this.setState(() => ({ values }))
 
@@ -109,11 +117,11 @@ class Slider extends PureComponent {
   }
 
   updateRange([min, max], step, reversed) {
-    const range = utils.getStepRange(min, max, step)
+    const range = getStepRange(min, max, step)
 
     this.valueToStep
-      .range(range.slice())
-      .domain([min - step / 2, max + step / 2])
+      .setRange(range.slice())
+      .setDomain([min - step / 2, max + step / 2])
 
     if (reversed === true) {
       this.valueToPerc.domain([min, max]).range([100, 0])
@@ -122,7 +130,7 @@ class Slider extends PureComponent {
       this.valueToPerc.domain([min, max]).range([0, 100])
     }
 
-    this.pixelToStep.range(range)
+    this.pixelToStep.setRange(range)
 
     warning(
       max > min,
@@ -147,7 +155,7 @@ class Slider extends PureComponent {
   }
 
   onTouchStart(e, key) {
-    if (utils.isNotValidTouch(e)) {
+    if (isNotValidTouch(e)) {
       return
     }
     this.onStart(e, key, true)
@@ -176,21 +184,21 @@ class Slider extends PureComponent {
     const { state: { values: prev }, props: { vertical, reversed } } = this
     const { slider } = this
 
-    this.pixelToStep.domain(utils.getSliderDomain(slider, vertical))
+    this.pixelToStep.setDomain(getSliderDomain(slider, vertical))
 
     let step
 
     if (isTouch) {
-      step = this.pixelToStep(utils.getTouchPosition(vertical, e))
+      step = this.pixelToStep.getValue(getTouchPosition(vertical, e))
     } else {
-      step = this.pixelToStep(vertical ? e.clientY : e.pageX)
+      step = this.pixelToStep.getValue(vertical ? e.clientY : e.pageX)
     }
 
     let active = null
     let lowest = Infinity
 
     for (let i = 0; i < prev.length; i++) {
-      const diff = Math.abs(this.valueToStep(prev[i].val) - step)
+      const diff = Math.abs(this.valueToStep.getValue(prev[i].val) - step)
 
       if (diff < lowest) {
         active = prev[i].key
@@ -199,7 +207,7 @@ class Slider extends PureComponent {
     }
 
     if (active) {
-      const next = utils.updateValues(prev, active, step, reversed)
+      const next = updateValues(prev, active, step, reversed)
       this.onMove(prev, next, true)
     }
   }
@@ -218,10 +226,10 @@ class Slider extends PureComponent {
     const { state: { values: prev }, props: { vertical, reversed } } = this
     const { active, slider } = this
 
-    this.pixelToStep.domain(utils.getSliderDomain(slider, vertical))
+    this.pixelToStep.setDomain(getSliderDomain(slider, vertical))
 
-    const step = this.pixelToStep(vertical ? e.clientY : e.pageX)
-    const next = utils.updateValues(prev, active, step, reversed)
+    const step = this.pixelToStep.getValue(vertical ? e.clientY : e.pageX)
+    const next = updateValues(prev, active, step, reversed)
 
     this.onMove(prev, next)
   }
@@ -230,14 +238,14 @@ class Slider extends PureComponent {
     const { state: { values: prev }, props: { vertical, reversed } } = this
     const { active, slider } = this
 
-    if (utils.isNotValidTouch(e)) {
+    if (isNotValidTouch(e)) {
       return
     }
 
-    this.pixelToStep.domain(utils.getSliderDomain(slider, vertical))
+    this.pixelToStep.setDomain(getSliderDomain(slider, vertical))
 
-    const step = this.pixelToStep(utils.getTouchPosition(vertical, e))
-    const next = utils.updateValues(prev, active, step, reversed)
+    const step = this.pixelToStep.setValue(getTouchPosition(vertical, e))
+    const next = updateValues(prev, active, step, reversed)
 
     this.onMove(prev, next)
   }
