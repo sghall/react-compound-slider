@@ -18,6 +18,8 @@ import {
 } from './utils'
 
 const prfx = 'react-compound-slider:'
+const isBrowser =
+  typeof window !== 'undefined' && typeof document !== 'undefined'
 
 const noop = () => {}
 
@@ -85,10 +87,12 @@ class Slider extends PureComponent {
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousemove', this.onMouseMove)
-    document.removeEventListener('mouseup', this.onMouseUp)
-    document.removeEventListener('touchmove', this.onTouchMove)
-    document.removeEventListener('touchend', this.onTouchEnd)
+    if (isBrowser) {
+      document.removeEventListener('mousemove', this.onMouseMove)
+      document.removeEventListener('mouseup', this.onMouseUp)
+      document.removeEventListener('touchmove', this.onTouchMove)
+      document.removeEventListener('touchend', this.onTouchEnd)
+    }
   }
 
   reMapValues(reversed) {
@@ -213,13 +217,17 @@ class Slider extends PureComponent {
   }
 
   addMouseEvents() {
-    document.addEventListener('mousemove', this.onMouseMove)
-    document.addEventListener('mouseup', this.onMouseUp)
+    if (isBrowser) {
+      document.addEventListener('mousemove', this.onMouseMove)
+      document.addEventListener('mouseup', this.onMouseUp)
+    }
   }
 
   addTouchEvents() {
-    document.addEventListener('touchmove', this.onTouchMove)
-    document.addEventListener('touchend', this.onTouchEnd)
+    if (isBrowser) {
+      document.addEventListener('touchmove', this.onTouchMove)
+      document.addEventListener('touchend', this.onTouchEnd)
+    }
   }
 
   onMouseMove(e) {
@@ -283,8 +291,10 @@ class Slider extends PureComponent {
     this.active = null
     onChange(values.map(d => d.val))
 
-    document.removeEventListener('mousemove', this.onMouseMove)
-    document.removeEventListener('mouseup', this.onMouseUp)
+    if (isBrowser) {
+      document.removeEventListener('mousemove', this.onMouseMove)
+      document.removeEventListener('mouseup', this.onMouseUp)
+    }
   }
 
   onTouchEnd() {
@@ -292,8 +302,10 @@ class Slider extends PureComponent {
     this.active = null
     onChange(values.map(d => d.val))
 
-    document.removeEventListener('touchmove', this.onTouchMove)
-    document.removeEventListener('touchend', this.onTouchEnd)
+    if (isBrowser) {
+      document.removeEventListener('touchmove', this.onTouchMove)
+      document.removeEventListener('touchend', this.onTouchEnd)
+    }
   }
 
   render() {
