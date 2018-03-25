@@ -62,19 +62,14 @@ function Home(props) {
       <div className={classes.hero}>
         <div className={classes.content}>
           <div className={classes.text}>
-            <Typography
-              type="display2"
-              component="h1"
-              color="inherit"
-              gutterBottom
-            >
+            <Typography variant="display1" color="inherit" gutterBottom>
               {'React Compound Slider'}
             </Typography>
             <Button
               component={Link}
               className={classes.button}
               raised
-              to="/getting-started/installation"
+              to="/getting-started/tutorial"
             >
               {'Get Started'}
             </Button>
