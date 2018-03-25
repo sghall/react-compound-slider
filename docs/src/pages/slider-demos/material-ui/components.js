@@ -2,6 +2,7 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
+import Typography from 'material-ui/Typography'
 import { withStyles } from 'material-ui/styles'
 
 // *******************************************************
@@ -96,7 +97,7 @@ const trackStyle = theme => ({
     zIndex: 1,
     borderRadius: 4,
     cursor: 'pointer',
-    backgroundColor: theme.palette.primary.dark,
+    backgroundColor: theme.palette.primary.main,
   },
 })
 
@@ -132,37 +133,41 @@ export const Track = withStyles(trackStyle)(TrackComponent)
 // *******************************************************
 // TICK COMPONENT
 // *******************************************************
-export function Tick({ tick, count, format }) {
+
+const tickStyle = theme => ({
+  tick: {
+    position: 'absolute',
+    marginTop: 14,
+    width: 1,
+    height: 5,
+    backgroundColor: theme.palette.text.primary,
+  },
+  label: {
+    position: 'absolute',
+    marginTop: 22,
+    textAlign: 'center',
+  },
+})
+
+export function TickComponent({ classes, tick, count, format }) {
   return (
     <div>
-      <div
+      <div className={classes.tick} style={{ left: `${tick.percent}%` }} />
+      <Typography
+        className={classes.label}
         style={{
-          position: 'absolute',
-          marginTop: 14,
-          width: 1,
-          height: 5,
-          backgroundColor: 'rgb(200,200,200)',
-          left: `${tick.percent}%`,
-        }}
-      />
-      <div
-        style={{
-          position: 'absolute',
-          marginTop: 22,
-          fontSize: 10,
-          textAlign: 'center',
           marginLeft: `${-(100 / count) / 2}%`,
           width: `${100 / count}%`,
           left: `${tick.percent}%`,
         }}
       >
         {format(tick.value)}
-      </div>
+      </Typography>
     </div>
   )
 }
 
-Tick.propTypes = {
+TickComponent.propTypes = {
   tick: PropTypes.shape({
     id: PropTypes.string.isRequired,
     value: PropTypes.number.isRequired,
@@ -172,6 +177,8 @@ Tick.propTypes = {
   format: PropTypes.func.isRequired,
 }
 
-Tick.defaultProps = {
+TickComponent.defaultProps = {
   format: d => d,
 }
+
+export const Tick = withStyles(tickStyle)(TickComponent)
