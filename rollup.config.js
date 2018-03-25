@@ -7,10 +7,12 @@ import commonjs from 'rollup-plugin-commonjs'
 import resolve from 'rollup-plugin-node-resolve'
 
 const config = {
-  input: 'src/index.js',
-  name: 'react-compound-slider',
-  globals: {
-    react: 'React',
+  input: 'src/index.umd.js',
+  output: {
+    name: 'react-compound-slider',
+    globals: {
+      react: 'React',
+    },
   },
   external: ['react'],
   plugins: [
