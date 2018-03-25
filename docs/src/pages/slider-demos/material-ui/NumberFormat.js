@@ -13,15 +13,6 @@ const sliderStyle = {
   width: '100%',
 }
 
-const railStyle = {
-  position: 'absolute',
-  width: '100%',
-  height: 8,
-  borderRadius: 4,
-  cursor: 'pointer',
-  backgroundColor: 'rgb(155,155,155)',
-}
-
 const domain = [0, 1]
 const defaultValues = [0.25, 0.55, 0.75, 0.85]
 

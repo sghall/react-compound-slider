@@ -25,6 +25,7 @@ function RailComponent({ classes, getRailProps }) {
 }
 
 RailComponent.propTypes = {
+  classes: PropTypes.object.isRequired,
   getRailProps: PropTypes.func.isRequired,
 }
 
@@ -81,6 +82,7 @@ HandleComponent.propTypes = {
     value: PropTypes.number.isRequired,
     percent: PropTypes.number.isRequired,
   }).isRequired,
+  classes: PropTypes.object.isRequired,
   getHandleProps: PropTypes.func.isRequired,
 }
 
@@ -125,6 +127,7 @@ TrackComponent.propTypes = {
     value: PropTypes.number.isRequired,
     percent: PropTypes.number.isRequired,
   }).isRequired,
+  classes: PropTypes.object.isRequired,
   getTrackProps: PropTypes.func.isRequired,
 }
 
@@ -173,6 +176,7 @@ TickComponent.propTypes = {
     value: PropTypes.number.isRequired,
     percent: PropTypes.number.isRequired,
   }).isRequired,
+  classes: PropTypes.object.isRequired,
   count: PropTypes.number.isRequired,
   format: PropTypes.func.isRequired,
 }
