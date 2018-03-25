@@ -9,7 +9,7 @@ import preset from 'jss-preset-default'
 import createGenerateClassName from 'material-ui/styles/createGenerateClassName'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { createMuiTheme } from 'material-ui/styles'
-import blueGrey from 'material-ui/colors/blueGrey'
+import blue from 'material-ui/colors/blue'
 import deepOrange from 'material-ui/colors/deepOrange'
 import { lightTheme, darkTheme, setPrismTheme } from '../utils/prism'
 import AppRouter from './AppRouter'
@@ -19,7 +19,7 @@ function AppContainer(props) {
 
   const theme = createMuiTheme({
     palette: {
-      primary: blueGrey,
+      primary: blue,
       accent: deepOrange,
       type: dark ? 'dark' : 'light',
     },
