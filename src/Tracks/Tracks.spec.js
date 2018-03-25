@@ -3,9 +3,12 @@
 
 import React from 'react'
 import { assert } from 'chai'
-import { shallow } from 'enzyme'
+import { shallow, configure } from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
 import { linear } from '../Slider/scales'
 import Tracks from './Tracks'
+
+configure({ adapter: new Adapter() })
 
 const noop = () => {}
 

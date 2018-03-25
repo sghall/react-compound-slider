@@ -5,10 +5,13 @@
 import React from 'react'
 import sinon from 'sinon'
 import { assert } from 'chai'
-import { shallow, mount } from 'enzyme'
+import { shallow, mount, configure } from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
 import Rail from '../Rail'
 import Handles from '../Handles'
 import Slider from './Slider'
+
+configure({ adapter: new Adapter() })
 
 function createClientXY(x, y) {
   return { clientX: x, clientY: y }
