@@ -32,7 +32,7 @@ const sliderStyle = {
     rootStyle={sliderStyle}
     domain={[0, 100]}  // [min, max]
     step={1}
-    mode={2} // 1 = allow-crossing of handles, 2 = no crossing
+    mode={2} // 1 = pushable, 2 = no crossing
     values={[10, 20, 30]} // the initial handle positions
   >
     <Rail>
