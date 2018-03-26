@@ -13,12 +13,12 @@ import Slider from './Slider'
 
 configure({ adapter: new Adapter() })
 
-function createClientXY(x, y) {
+function createEvent(x = 0, y = 0) {
   return { clientX: x, clientY: y }
 }
 
-function createStartTouchEventObject({ x = 0, y = 0 }) {
-  return { touches: [createClientXY(x, y)] }
+function createTouchEvent({ x, y } = {}) {
+  return { touches: [createEvent(x, y)] }
 }
 
 const getTestProps = () => ({
@@ -29,7 +29,8 @@ const getTestProps = () => ({
 })
 
 describe('<Slider />', () => {
-  let setStateSpy,
+  let onMoveSpy,
+    setStateSpy,
     updateRangeSpy,
     onMouseDownSpy,
     updateValuesSpy,
@@ -37,6 +38,7 @@ describe('<Slider />', () => {
     removeListenersSpy
 
   beforeEach(() => {
+    onMoveSpy = sinon.spy(Slider.prototype, 'onMove')
     setStateSpy = sinon.spy(Slider.prototype, 'setState')
     updateRangeSpy = sinon.spy(Slider.prototype, 'updateRange')
     onMouseDownSpy = sinon.spy(Slider.prototype, 'onMouseDown')
@@ -46,6 +48,7 @@ describe('<Slider />', () => {
   })
 
   afterEach(() => {
+    onMoveSpy.restore()
     setStateSpy.restore()
     updateRangeSpy.restore()
     onMouseDownSpy.restore()
@@ -162,6 +165,22 @@ describe('<Slider />', () => {
     assert.strictEqual(updateRangeSpy.callCount, 2)
   })
 
+  it('should ALWAYS call onMove when onMouseMove is called', () => {
+    const wrapper = shallow(<Slider {...getTestProps()} />)
+
+    assert.strictEqual(onMoveSpy.callCount, 0)
+    wrapper.instance().onMouseMove(createEvent())
+    assert.strictEqual(onMoveSpy.callCount, 1)
+  })
+
+  it('should call onMove when onTouchMove is called', () => {
+    const wrapper = shallow(<Slider {...getTestProps()} />)
+
+    assert.strictEqual(onMoveSpy.callCount, 0)
+    wrapper.instance().onTouchMove(createTouchEvent())
+    assert.strictEqual(onMoveSpy.callCount, 1)
+  })
+
   it('calls onMouseDown when descendent emits event', () => {
     const RailComponent = ({ getRailProps }) => <div {...getRailProps()} />
 
@@ -198,7 +217,7 @@ describe('<Slider />', () => {
 
     wrapper
       .find('RailComponent')
-      .simulate('touchstart', createStartTouchEventObject({ x: 100, y: 0 }))
+      .simulate('touchstart', createTouchEvent({ x: 100, y: 0 }))
 
     assert.strictEqual(eventSpy.called, true)
     eventSpy.restore()
@@ -254,7 +273,7 @@ describe('<Slider />', () => {
 
     wrapper
       .find('HandleComponent')
-      .simulate('touchstart', createStartTouchEventObject({ x: 100, y: 0 }))
+      .simulate('touchstart', createTouchEvent({ x: 100, y: 0 }))
 
     assert.strictEqual(addTouchEventsSpy.called, true)
   })

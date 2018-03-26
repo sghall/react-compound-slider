@@ -69,7 +69,7 @@ export function getStepRange(min, max, step) {
   return range
 }
 
-export function isNotValidTouch({ type, touches }) {
+export function isNotValidTouch({ type = '', touches }) {
   return (
     !touches ||
     touches.length > 1 ||
