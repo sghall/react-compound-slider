@@ -22,14 +22,20 @@ function createStartTouchEventObject({ x = 0, y = 0 }) {
 }
 
 describe('<Slider />', () => {
-  let spy
+  let setStateSpy, updateRangeSpy, onMouseDownSpy, updateValuesSpy
 
   beforeEach(() => {
-    spy = sinon.spy(Slider.prototype, 'updateRange')
+    setStateSpy = sinon.spy(Slider.prototype, 'setState')
+    updateRangeSpy = sinon.spy(Slider.prototype, 'updateRange')
+    onMouseDownSpy = sinon.spy(Slider.prototype, 'onMouseDown')
+    updateValuesSpy = sinon.spy(Slider.prototype, 'updateValues')
   })
 
   afterEach(() => {
-    spy.restore()
+    setStateSpy.restore()
+    updateRangeSpy.restore()
+    onMouseDownSpy.restore()
+    updateValuesSpy.restore()
   })
 
   it('renders children when passed in', () => {
@@ -43,7 +49,6 @@ describe('<Slider />', () => {
   })
 
   it("calls updateValues when reversed changes and values prop doesn't", () => {
-    const updateValuesSpy = sinon.spy(Slider.prototype, 'updateValues')
     const props = {
       step: 10,
       domain: [100, 200],
@@ -55,27 +60,9 @@ describe('<Slider />', () => {
     assert.strictEqual(updateValuesSpy.callCount, 1)
     wrapper.setProps({ reversed: true, ...props })
     assert.strictEqual(updateValuesSpy.callCount, 2)
-    updateValuesSpy.restore()
   })
 
-  // it('does NOT call updateValues when both: reversed and values change', () => {
-  //   const updateValuesSpy = sinon.spy(Slider.prototype, 'updateValues')
-  //   const props = {
-  //     step: 10,
-  //     domain: [100, 200],
-  //     values: [110, 120],
-  //   }
-
-  //   const wrapper = shallow(<Slider reversed={false} {...props} />)
-
-  //   assert.strictEqual(updateValuesSpy.callCount, 1)
-  //   wrapper.setProps({ ...props, reversed: true, values: [130, 140] })
-  //   assert.strictEqual(updateValuesSpy.callCount, 2)
-  //   updateValuesSpy.restore()
-  // })
-
   it('calls updateValues when values changes', () => {
-    const updateValuesSpy = sinon.spy(Slider.prototype, 'updateValues')
     const props = {
       reversed: false,
       step: 10,
@@ -88,11 +75,9 @@ describe('<Slider />', () => {
     assert.strictEqual(updateValuesSpy.callCount, 1)
     wrapper.setProps({ ...props, values: [130, 140] })
     assert.strictEqual(updateValuesSpy.callCount, 2)
-    updateValuesSpy.restore()
   })
 
   it('does NOT call updateValues when values is changes to a different Array with the same values', () => {
-    const updateValuesSpy = sinon.spy(Slider.prototype, 'updateValues')
     const props = {
       reversed: false,
       step: 10,
@@ -105,7 +90,6 @@ describe('<Slider />', () => {
     assert.strictEqual(updateValuesSpy.callCount, 1)
     wrapper.setProps({ ...props, values: [110, 120] })
     assert.strictEqual(updateValuesSpy.callCount, 1)
-    updateValuesSpy.restore()
   })
 
   it('does call onChange/onUpdate when it should', () => {
@@ -157,9 +141,9 @@ describe('<Slider />', () => {
       <Slider reversed={false} step={10} domain={[100, 200]} />,
     )
 
-    assert.strictEqual(spy.callCount, 1)
+    assert.strictEqual(updateRangeSpy.callCount, 1)
     wrapper.setProps({ reversed: false, step: 10, domain: [100, 200] })
-    assert.strictEqual(spy.callCount, 1)
+    assert.strictEqual(updateRangeSpy.callCount, 1)
   })
 
   it('calls updateRange when domain changes', () => {
@@ -167,31 +151,29 @@ describe('<Slider />', () => {
       <Slider reversed={false} step={10} domain={[100, 200]} />,
     )
 
-    assert.strictEqual(spy.callCount, 1)
+    assert.strictEqual(updateRangeSpy.callCount, 1)
     wrapper.setProps({ reversed: true, step: 10, domain: [100, 200] })
-    assert.strictEqual(spy.callCount, 2)
+    assert.strictEqual(updateRangeSpy.callCount, 2)
   })
 
   it('calls updateRange when step changes', () => {
     const wrapper = shallow(<Slider reversed step={10} domain={[100, 200]} />)
 
-    assert.strictEqual(spy.callCount, 1)
+    assert.strictEqual(updateRangeSpy.callCount, 1)
     wrapper.setProps({ step: 5, domain: [100, 200] })
-    assert.strictEqual(spy.callCount, 2)
+    assert.strictEqual(updateRangeSpy.callCount, 2)
   })
 
   it('calls updateRange when reversed changes', () => {
     const wrapper = shallow(<Slider reversed step={10} domain={[100, 200]} />)
 
-    assert.strictEqual(spy.callCount, 1)
+    assert.strictEqual(updateRangeSpy.callCount, 1)
     wrapper.setProps({ reversed: false })
-    assert.strictEqual(spy.callCount, 2)
+    assert.strictEqual(updateRangeSpy.callCount, 2)
   })
 
   it('calls onMouseDown when descendent emits event', () => {
     const MyRail = ({ getRailProps }) => <div {...getRailProps()} />
-
-    const eventSpy = sinon.spy(Slider.prototype, 'onMouseDown')
 
     const wrapper = mount(
       <Slider step={10} domain={[100, 200]}>
@@ -205,8 +187,7 @@ describe('<Slider />', () => {
 
     wrapper.find('MyRail').simulate('mousedown')
 
-    assert.strictEqual(eventSpy.called, true)
-    eventSpy.restore()
+    assert.strictEqual(onMouseDownSpy.called, true)
   })
 
   it('calls onTouchStart when descendent emits event', () => {
@@ -280,5 +261,40 @@ describe('<Slider />', () => {
 
     assert.strictEqual(eventSpy.called, true)
     eventSpy.restore()
+  })
+
+  it('does call setState when onMove called with prev !== next', () => {
+    const wrapper = mount(<Slider step={1} domain={[0, 100]} values={[25]} />)
+
+    const values = wrapper.state().values
+    wrapper.instance().onMove(values, [...values], true)
+
+    assert.strictEqual(setStateSpy.callCount, 2)
+  })
+
+  it('does NOT call setState when onMove called with prev === next', () => {
+    const wrapper = mount(<Slider step={1} domain={[0, 100]} values={[25]} />)
+
+    const values = wrapper.state().values
+
+    wrapper.instance().onMove(values, values, true)
+
+    assert.strictEqual(setStateSpy.callCount, 1)
+    setStateSpy.restore()
+  })
+
+  it('calls removeListeners when it unmounts', () => {
+    const removeListenersSpy = sinon.spy(Slider.prototype, 'removeListeners')
+    const props = {
+      step: 10,
+      domain: [100, 200],
+      values: [110, 120],
+    }
+
+    const wrapper = shallow(<Slider reversed={false} {...props} />)
+    wrapper.unmount()
+
+    assert.strictEqual(removeListenersSpy.callCount, 1)
+    removeListenersSpy.restore()
   })
 })

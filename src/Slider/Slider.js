@@ -33,6 +33,8 @@ class Slider extends PureComponent {
   constructor(props) {
     super(props)
 
+    this.state = { values: [] }
+
     this.slider = null
 
     this.valueToPerc = new LinearScale()
@@ -87,6 +89,10 @@ class Slider extends PureComponent {
   }
 
   componentWillUnmount() {
+    this.removeListeners()
+  }
+
+  removeListeners() {
     if (isBrowser) {
       document.removeEventListener('mousemove', this.onMouseMove)
       document.removeEventListener('mouseup', this.onMouseUp)
