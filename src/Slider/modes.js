@@ -1,4 +1,4 @@
-// Default mode allows crossing.
+// Default pushable mode
 export function mode1(prev, next) {
   return next
 }
@@ -7,10 +7,6 @@ export function mode1(prev, next) {
 export function mode2(prev, next) {
   for (let i = 0; i < prev.length; i++) {
     if (prev[i].key !== next[i].key) {
-      return prev
-    }
-
-    if (next[i - 1] && next[i].val === next[i - 1].val) {
       return prev
     }
 
