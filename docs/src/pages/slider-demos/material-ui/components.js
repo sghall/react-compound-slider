@@ -45,6 +45,7 @@ const handleStyle = theme => ({
     height: 24,
     cursor: 'pointer',
     borderRadius: '50%',
+    boxShadow: '1px 1px 1px 1px rgba(0, 0, 0, 0.2)',
     border: theme.palette.primary.contrastText,
     backgroundColor: theme.palette.primary.main,
     '&:hover': {
