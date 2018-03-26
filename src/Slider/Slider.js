@@ -258,7 +258,7 @@ class Slider extends PureComponent {
 
     this.pixelToStep.setDomain(getSliderDomain(slider, vertical))
 
-    const step = this.pixelToStep.setValue(getTouchPosition(vertical, e))
+    const step = this.pixelToStep.getValue(getTouchPosition(vertical, e))
     const next = updateValues(prev, active, step, reversed)
 
     this.onMove(prev, next)
