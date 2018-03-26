@@ -21,11 +21,19 @@ function createStartTouchEventObject({ x = 0, y = 0 }) {
   return { touches: [createClientXY(x, y)] }
 }
 
+const getTestProps = () => ({
+  step: 1,
+  domain: [100, 200],
+  values: [110, 150],
+  reversed: false,
+})
+
 describe('<Slider />', () => {
   let setStateSpy,
     updateRangeSpy,
     onMouseDownSpy,
     updateValuesSpy,
+    addTouchEventsSpy,
     removeListenersSpy
 
   beforeEach(() => {
@@ -33,6 +41,7 @@ describe('<Slider />', () => {
     updateRangeSpy = sinon.spy(Slider.prototype, 'updateRange')
     onMouseDownSpy = sinon.spy(Slider.prototype, 'onMouseDown')
     updateValuesSpy = sinon.spy(Slider.prototype, 'updateValues')
+    addTouchEventsSpy = sinon.spy(Slider.prototype, 'addTouchEvents')
     removeListenersSpy = sinon.spy(Slider.prototype, 'removeListeners')
   })
 
@@ -41,12 +50,13 @@ describe('<Slider />', () => {
     updateRangeSpy.restore()
     onMouseDownSpy.restore()
     updateValuesSpy.restore()
+    addTouchEventsSpy.restore()
     removeListenersSpy.restore()
   })
 
   it('renders children when passed in', () => {
     const wrapper = shallow(
-      <Slider reversed step={10} domain={[100, 200]}>
+      <Slider {...getTestProps()}>
         <div className="unique" />
       </Slider>,
     )
@@ -55,46 +65,30 @@ describe('<Slider />', () => {
   })
 
   it("calls updateValues when reversed changes and values prop doesn't", () => {
-    const props = {
-      step: 10,
-      domain: [100, 200],
-      values: [110, 120],
-    }
-
-    const wrapper = shallow(<Slider reversed={false} {...props} />)
+    const wrapper = shallow(<Slider {...getTestProps()} />)
 
     assert.strictEqual(updateValuesSpy.callCount, 1)
-    wrapper.setProps({ reversed: true, ...props })
+    wrapper.setProps({ ...getTestProps(), reversed: true })
     assert.strictEqual(updateValuesSpy.callCount, 2)
   })
 
-  it('calls updateValues when values changes', () => {
-    const props = {
-      reversed: false,
-      step: 10,
-      domain: [100, 200],
-      values: [110, 120],
-    }
-
-    const wrapper = shallow(<Slider {...props} />)
+  it('calls updateValues when values change', () => {
+    const wrapper = shallow(<Slider {...getTestProps()} />)
 
     assert.strictEqual(updateValuesSpy.callCount, 1)
-    wrapper.setProps({ ...props, values: [130, 140] })
+    wrapper.setProps({ ...getTestProps(), values: [130, 140] })
     assert.strictEqual(updateValuesSpy.callCount, 2)
   })
 
-  it('does NOT call updateValues when values is changes to a different Array with the same values', () => {
+  it('does NOT call updateValues when values change to a different array with the same values', () => {
+    const wrapper = shallow(<Slider {...getTestProps()} />)
+
     const props = {
-      reversed: false,
-      step: 10,
-      domain: [100, 200],
-      values: [110, 120],
+      ...getTestProps(),
     }
 
-    const wrapper = shallow(<Slider {...props} />)
-
     assert.strictEqual(updateValuesSpy.callCount, 1)
-    wrapper.setProps({ ...props, values: [110, 120] })
+    wrapper.setProps({ ...props, values: [...props.values] })
     assert.strictEqual(updateValuesSpy.callCount, 1)
   })
 
@@ -103,12 +97,9 @@ describe('<Slider />', () => {
     const onChange = sinon.spy()
 
     const props = {
+      ...getTestProps(),
       onChange,
       onUpdate,
-      reversed: false,
-      step: 10,
-      domain: [100, 200],
-      values: [100, 200],
     }
 
     const wrapper = shallow(<Slider {...props} />)
@@ -125,12 +116,9 @@ describe('<Slider />', () => {
     const onChange = sinon.spy()
 
     const props = {
+      ...getTestProps(),
       onChange,
       onUpdate,
-      reversed: false,
-      step: 10,
-      domain: [100, 200],
-      values: [100, 200],
     }
 
     const wrapper = shallow(<Slider {...props} />)
@@ -143,78 +131,73 @@ describe('<Slider />', () => {
   })
 
   it('does NOT call updateRange when reversed, domain and step are unchanged', () => {
-    const wrapper = shallow(
-      <Slider reversed={false} step={10} domain={[100, 200]} />,
-    )
+    const wrapper = shallow(<Slider {...getTestProps()} />)
 
     assert.strictEqual(updateRangeSpy.callCount, 1)
-    wrapper.setProps({ reversed: false, step: 10, domain: [100, 200] })
+    wrapper.setProps({ ...getTestProps() })
     assert.strictEqual(updateRangeSpy.callCount, 1)
   })
 
   it('calls updateRange when domain changes', () => {
-    const wrapper = shallow(
-      <Slider reversed={false} step={10} domain={[100, 200]} />,
-    )
+    const wrapper = shallow(<Slider {...getTestProps()} />)
 
     assert.strictEqual(updateRangeSpy.callCount, 1)
-    wrapper.setProps({ reversed: true, step: 10, domain: [100, 200] })
+    wrapper.setProps({ ...getTestProps(), domain: [100, 400] })
     assert.strictEqual(updateRangeSpy.callCount, 2)
   })
 
   it('calls updateRange when step changes', () => {
-    const wrapper = shallow(<Slider reversed step={10} domain={[100, 200]} />)
+    const wrapper = shallow(<Slider {...getTestProps()} />)
 
     assert.strictEqual(updateRangeSpy.callCount, 1)
-    wrapper.setProps({ step: 5, domain: [100, 200] })
+    wrapper.setProps({ ...getTestProps(), step: 10 })
     assert.strictEqual(updateRangeSpy.callCount, 2)
   })
 
   it('calls updateRange when reversed changes', () => {
-    const wrapper = shallow(<Slider reversed step={10} domain={[100, 200]} />)
+    const wrapper = shallow(<Slider {...getTestProps()} />)
 
     assert.strictEqual(updateRangeSpy.callCount, 1)
-    wrapper.setProps({ reversed: false })
+    wrapper.setProps({ ...getTestProps(), reversed: true })
     assert.strictEqual(updateRangeSpy.callCount, 2)
   })
 
   it('calls onMouseDown when descendent emits event', () => {
-    const MyRail = ({ getRailProps }) => <div {...getRailProps()} />
+    const RailComponent = ({ getRailProps }) => <div {...getRailProps()} />
 
     const wrapper = mount(
-      <Slider step={10} domain={[100, 200]}>
+      <Slider {...getTestProps()}>
         <Rail>
           {({ getRailProps }) => {
-            return <MyRail getRailProps={getRailProps} />
+            return <RailComponent getRailProps={getRailProps} />
           }}
         </Rail>
       </Slider>,
     )
 
-    wrapper.find('MyRail').simulate('mousedown')
-
+    wrapper.find('RailComponent').simulate('mousedown')
     assert.strictEqual(onMouseDownSpy.called, true)
   })
 
   it('calls onTouchStart when descendent emits event', () => {
-    const MyRail = ({ getRailProps }) => {
+    const RailComponent = ({ getRailProps }) => {
       return <div {...getRailProps()} />
     }
 
     const eventSpy = sinon.spy(Slider.prototype, 'onTouchStart')
 
     const wrapper = mount(
-      <Slider step={10} domain={[100, 200]}>
+      <Slider {...getTestProps()}>
         <Rail>
           {({ getRailProps }) => {
-            return <MyRail getRailProps={getRailProps} />
+            return <RailComponent getRailProps={getRailProps} />
           }}
         </Rail>
       </Slider>,
     )
 
     wrapper
-      .find('MyRail')
+      .find('RailComponent')
       .simulate('touchstart', createStartTouchEventObject({ x: 100, y: 0 }))
 
     assert.strictEqual(eventSpy.called, true)
@@ -222,39 +205,47 @@ describe('<Slider />', () => {
   })
 
   it('calls addMouseEvents when descendent emits event with an id', () => {
-    const MyHandle = ({ id, getHandleProps }) => <div {...getHandleProps(id)} />
+    const HandleComponent = ({ id, getHandleProps }) => (
+      <div {...getHandleProps(id)} />
+    )
 
     const eventSpy = sinon.spy(Slider.prototype, 'addMouseEvents')
 
     const wrapper = mount(
-      <Slider step={1} domain={[0, 100]} values={[25]}>
+      <Slider {...getTestProps()}>
         <Handles>
           {({ handles, getHandleProps }) => {
             return (
-              <MyHandle id={handles[0].id} getHandleProps={getHandleProps} />
+              <HandleComponent
+                id={handles[0].id}
+                getHandleProps={getHandleProps}
+              />
             )
           }}
         </Handles>
       </Slider>,
     )
 
-    wrapper.find('MyHandle').simulate('mousedown')
+    wrapper.find('HandleComponent').simulate('mousedown')
 
     assert.strictEqual(eventSpy.called, true)
     eventSpy.restore()
   })
 
   it('calls addTouchEvents when descendent emits event with an id', () => {
-    const MyHandle = ({ id, getHandleProps }) => <div {...getHandleProps(id)} />
-
-    const eventSpy = sinon.spy(Slider.prototype, 'addTouchEvents')
+    const HandleComponent = ({ id, getHandleProps }) => (
+      <div {...getHandleProps(id)} />
+    )
 
     const wrapper = mount(
-      <Slider step={1} domain={[0, 100]} values={[25]}>
+      <Slider {...getTestProps()}>
         <Handles>
           {({ handles, getHandleProps }) => {
             return (
-              <MyHandle id={handles[0].id} getHandleProps={getHandleProps} />
+              <HandleComponent
+                id={handles[0].id}
+                getHandleProps={getHandleProps}
+              />
             )
           }}
         </Handles>
@@ -262,15 +253,14 @@ describe('<Slider />', () => {
     )
 
     wrapper
-      .find('MyHandle')
+      .find('HandleComponent')
       .simulate('touchstart', createStartTouchEventObject({ x: 100, y: 0 }))
 
-    assert.strictEqual(eventSpy.called, true)
-    eventSpy.restore()
+    assert.strictEqual(addTouchEventsSpy.called, true)
   })
 
   it('does call setState when onMove called with prev !== next', () => {
-    const wrapper = mount(<Slider step={1} domain={[0, 100]} values={[25]} />)
+    const wrapper = mount(<Slider {...getTestProps()} />)
 
     const values = wrapper.state().values
     wrapper.instance().onMove(values, [...values], true)
@@ -279,7 +269,7 @@ describe('<Slider />', () => {
   })
 
   it('does NOT call setState when onMove called with prev === next', () => {
-    const wrapper = mount(<Slider step={1} domain={[0, 100]} values={[25]} />)
+    const wrapper = mount(<Slider {...getTestProps()} />)
 
     const values = wrapper.state().values
     wrapper.instance().onMove(values, values, true)
@@ -288,36 +278,26 @@ describe('<Slider />', () => {
   })
 
   it('calls removeListeners when it unmounts', () => {
-    const props = {
-      step: 10,
-      domain: [100, 200],
-      values: [110, 120],
-    }
-
-    const wrapper = shallow(<Slider reversed={false} {...props} />)
+    const wrapper = shallow(<Slider {...getTestProps()} />)
     wrapper.unmount()
 
     assert.strictEqual(removeListenersSpy.callCount, 1)
   })
 
   it('calls onChange when onMouseUp or onTouchEnd are called', () => {
+    const onChange = sinon.spy()
+
     const props = {
-      step: 10,
-      domain: [100, 200],
-      values: [110, 120],
-      onChange: () => {},
+      ...getTestProps(),
+      onChange,
     }
 
-    const onChangeSpy = sinon.spy(props, 'onChange')
-
-    const wrapper = shallow(<Slider reversed={false} {...props} />)
+    const wrapper = shallow(<Slider {...props} />)
 
     wrapper.instance().onMouseUp()
-    assert.strictEqual(onChangeSpy.callCount, 1)
+    assert.strictEqual(onChange.callCount, 1)
 
     wrapper.instance().onTouchEnd()
-    assert.strictEqual(onChangeSpy.callCount, 2)
-
-    onChangeSpy.restore()
+    assert.strictEqual(onChange.callCount, 2)
   })
 })
