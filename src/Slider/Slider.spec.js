@@ -22,13 +22,18 @@ function createStartTouchEventObject({ x = 0, y = 0 }) {
 }
 
 describe('<Slider />', () => {
-  let setStateSpy, updateRangeSpy, onMouseDownSpy, updateValuesSpy
+  let setStateSpy,
+    updateRangeSpy,
+    onMouseDownSpy,
+    updateValuesSpy,
+    removeListenersSpy
 
   beforeEach(() => {
     setStateSpy = sinon.spy(Slider.prototype, 'setState')
     updateRangeSpy = sinon.spy(Slider.prototype, 'updateRange')
     onMouseDownSpy = sinon.spy(Slider.prototype, 'onMouseDown')
     updateValuesSpy = sinon.spy(Slider.prototype, 'updateValues')
+    removeListenersSpy = sinon.spy(Slider.prototype, 'removeListeners')
   })
 
   afterEach(() => {
@@ -36,6 +41,7 @@ describe('<Slider />', () => {
     updateRangeSpy.restore()
     onMouseDownSpy.restore()
     updateValuesSpy.restore()
+    removeListenersSpy.restore()
   })
 
   it('renders children when passed in', () => {
@@ -276,15 +282,12 @@ describe('<Slider />', () => {
     const wrapper = mount(<Slider step={1} domain={[0, 100]} values={[25]} />)
 
     const values = wrapper.state().values
-
     wrapper.instance().onMove(values, values, true)
 
     assert.strictEqual(setStateSpy.callCount, 1)
-    setStateSpy.restore()
   })
 
   it('calls removeListeners when it unmounts', () => {
-    const removeListenersSpy = sinon.spy(Slider.prototype, 'removeListeners')
     const props = {
       step: 10,
       domain: [100, 200],
@@ -295,6 +298,26 @@ describe('<Slider />', () => {
     wrapper.unmount()
 
     assert.strictEqual(removeListenersSpy.callCount, 1)
-    removeListenersSpy.restore()
+  })
+
+  it('calls onChange when onMouseUp or onTouchEnd are called', () => {
+    const props = {
+      step: 10,
+      domain: [100, 200],
+      values: [110, 120],
+      onChange: () => {},
+    }
+
+    const onChangeSpy = sinon.spy(props, 'onChange')
+
+    const wrapper = shallow(<Slider reversed={false} {...props} />)
+
+    wrapper.instance().onMouseUp()
+    assert.strictEqual(onChangeSpy.callCount, 1)
+
+    wrapper.instance().onTouchEnd()
+    assert.strictEqual(onChangeSpy.callCount, 2)
+
+    onChangeSpy.restore()
   })
 })
