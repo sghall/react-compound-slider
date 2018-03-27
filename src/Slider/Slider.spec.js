@@ -33,7 +33,7 @@ describe('<Slider />', () => {
     setStateSpy,
     updateRangeSpy,
     onMouseDownSpy,
-    updateValuesSpy,
+    setValuesSpy,
     addTouchEventsSpy,
     removeListenersSpy
 
@@ -42,7 +42,7 @@ describe('<Slider />', () => {
     setStateSpy = sinon.spy(Slider.prototype, 'setState')
     updateRangeSpy = sinon.spy(Slider.prototype, 'updateRange')
     onMouseDownSpy = sinon.spy(Slider.prototype, 'onMouseDown')
-    updateValuesSpy = sinon.spy(Slider.prototype, 'updateValues')
+    setValuesSpy = sinon.spy(Slider.prototype, 'setValues')
     addTouchEventsSpy = sinon.spy(Slider.prototype, 'addTouchEvents')
     removeListenersSpy = sinon.spy(Slider.prototype, 'removeListeners')
   })
@@ -52,7 +52,7 @@ describe('<Slider />', () => {
     setStateSpy.restore()
     updateRangeSpy.restore()
     onMouseDownSpy.restore()
-    updateValuesSpy.restore()
+    setValuesSpy.restore()
     addTouchEventsSpy.restore()
     removeListenersSpy.restore()
   })
@@ -67,32 +67,32 @@ describe('<Slider />', () => {
     assert.strictEqual(wrapper.contains(<div className="unique" />), true)
   })
 
-  it("calls updateValues when reversed changes and values prop doesn't", () => {
+  it("calls setValues when reversed changes and values prop doesn't", () => {
     const wrapper = shallow(<Slider {...getTestProps()} />)
 
-    assert.strictEqual(updateValuesSpy.callCount, 1)
+    assert.strictEqual(setValuesSpy.callCount, 1)
     wrapper.setProps({ ...getTestProps(), reversed: true })
-    assert.strictEqual(updateValuesSpy.callCount, 2)
+    assert.strictEqual(setValuesSpy.callCount, 2)
   })
 
-  it('calls updateValues when values change', () => {
+  it('calls setValues when values change', () => {
     const wrapper = shallow(<Slider {...getTestProps()} />)
 
-    assert.strictEqual(updateValuesSpy.callCount, 1)
+    assert.strictEqual(setValuesSpy.callCount, 1)
     wrapper.setProps({ ...getTestProps(), values: [130, 140] })
-    assert.strictEqual(updateValuesSpy.callCount, 2)
+    assert.strictEqual(setValuesSpy.callCount, 2)
   })
 
-  it('does NOT call updateValues when values change to a different array with the same values', () => {
+  it('does NOT call setValues when values change to a different array with the same values', () => {
     const wrapper = shallow(<Slider {...getTestProps()} />)
 
     const props = {
       ...getTestProps(),
     }
 
-    assert.strictEqual(updateValuesSpy.callCount, 1)
+    assert.strictEqual(setValuesSpy.callCount, 1)
     wrapper.setProps({ ...props, values: [...props.values] })
-    assert.strictEqual(updateValuesSpy.callCount, 1)
+    assert.strictEqual(setValuesSpy.callCount, 1)
   })
 
   it('does call onChange/onUpdate when it should', () => {

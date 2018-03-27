@@ -9,7 +9,7 @@ import { mode1, mode2 } from './modes'
 import {
   isNotValidTouch,
   getTouchPosition,
-  updateValues,
+  getUpdatedValues,
   getSliderDomain,
   getStepRange,
   getSortByVal,
@@ -63,7 +63,7 @@ class Slider extends PureComponent {
     )
 
     this.updateRange(domain, step, reversed)
-    this.updateValues(values || defaultValues, reversed)
+    this.setValues(values || defaultValues, reversed)
   }
 
   componentWillReceiveProps(next) {
@@ -85,7 +85,7 @@ class Slider extends PureComponent {
     }
 
     if (!equal(values, props.values)) {
-      this.updateValues(values, reversed)
+      this.setValues(values, reversed)
     }
   }
 
@@ -104,10 +104,10 @@ class Slider extends PureComponent {
 
   reMapValues(reversed) {
     const { values } = this.state
-    return this.updateValues(values.map(d => d.val), reversed)
+    return this.setValues(values.map(d => d.val), reversed)
   }
 
-  updateValues(arr = [], reversed) {
+  setValues(arr = [], reversed) {
     const values = arr
       .map(x => {
         const val = this.valueToStep.getValue(x)
@@ -130,9 +130,7 @@ class Slider extends PureComponent {
   updateRange([min, max], step, reversed) {
     const range = getStepRange(min, max, step)
 
-    this.valueToStep
-      .setRange(range.slice())
-      .setDomain([min - step / 2, max + step / 2])
+    this.valueToStep.setRange(range).setDomain([min - step / 2, max + step / 2])
 
     if (reversed === true) {
       this.valueToPerc.setDomain([min, max]).setRange([100, 0])
@@ -161,66 +159,79 @@ class Slider extends PureComponent {
     )
   }
 
-  onMouseDown(e, key) {
-    this.onStart(e, key, false)
+  onMouseDown(e, handleID) {
+    this.onStart(e, handleID, false)
   }
 
-  onTouchStart(e, key) {
+  onTouchStart(e, handleID) {
     if (isNotValidTouch(e)) {
       return
     }
-    this.onStart(e, key, true)
+
+    this.onStart(e, handleID, true)
   }
 
-  onStart(e, key, isTouch) {
+  onStart(e, handleID, isTouch) {
     const { values } = this.state
 
     e.stopPropagation && e.stopPropagation()
     e.preventDefault && e.preventDefault()
 
-    const active = values.find(value => {
-      return value.key === key
-    })
+    if (handleID) {
+      const found = values.find(value => {
+        return value.key === handleID
+      })
 
-    if (active) {
-      this.active = key
-      isTouch ? this.addTouchEvents() : this.addMouseEvents()
+      if (found) {
+        this.active = handleID
+        isTouch ? this.addTouchEvents() : this.addMouseEvents()
+      } else {
+        this.active = null
+      }
     } else {
       this.active = null
-      this.requestMove(e, isTouch)
+      this.handleRailAndTrackClicks(e, isTouch)
     }
   }
 
-  requestMove(e, isTouch) {
-    const { state: { values: prev }, props: { vertical, reversed } } = this
+  handleRailAndTrackClicks(e, isTouch) {
+    const {
+      state: { values: currValues },
+      props: { vertical, reversed },
+    } = this
     const { slider } = this
 
+    // double check the dimensions of the slider
     this.pixelToStep.setDomain(getSliderDomain(slider, vertical))
 
-    let step
+    // find the closest step to the event location
+    let eventStep
 
     if (isTouch) {
-      step = this.pixelToStep.getValue(getTouchPosition(vertical, e))
+      eventStep = this.pixelToStep.getValue(getTouchPosition(vertical, e))
     } else {
-      step = this.pixelToStep.getValue(vertical ? e.clientY : e.pageX)
+      eventStep = this.pixelToStep.getValue(vertical ? e.clientY : e.pageX)
     }
 
-    let active = null
-    let lowest = Infinity
+    // find the closest handle key
+    let closest = null
+    let minDiff = Infinity
 
-    for (let i = 0; i < prev.length; i++) {
-      const diff = Math.abs(this.valueToStep.getValue(prev[i].val) - step)
+    for (let i = 0; i < currValues.length; i++) {
+      const { key, val } = currValues[i]
+      const diff = Math.abs(this.valueToStep.getValue(val) - eventStep)
 
-      if (diff < lowest) {
-        active = prev[i].key
-        lowest = diff
+      if (diff < minDiff) {
+        closest = key
+        minDiff = diff
       }
     }
 
-    if (active) {
-      const next = updateValues(prev, active, step, reversed)
-      this.onMove(prev, next, true)
-    }
+    // generate a candidate set of values - a suggestion of what to do
+    const next = getUpdatedValues(currValues, closest, eventStep, reversed)
+
+    // submit the candidate values
+    this.onMove(currValues, next, true)
   }
 
   addMouseEvents() {
@@ -244,7 +255,7 @@ class Slider extends PureComponent {
     this.pixelToStep.setDomain(getSliderDomain(slider, vertical))
 
     const step = this.pixelToStep.getValue(vertical ? e.clientY : e.pageX)
-    const next = updateValues(prev, active, step, reversed)
+    const next = getUpdatedValues(prev, active, step, reversed)
 
     this.onMove(prev, next)
   }
@@ -260,7 +271,7 @@ class Slider extends PureComponent {
     this.pixelToStep.setDomain(getSliderDomain(slider, vertical))
 
     const step = this.pixelToStep.getValue(getTouchPosition(vertical, e))
-    const next = updateValues(prev, active, step, reversed)
+    const next = getUpdatedValues(prev, active, step, reversed)
 
     this.onMove(prev, next)
   }
