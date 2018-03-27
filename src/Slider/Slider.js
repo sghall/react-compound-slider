@@ -167,7 +167,7 @@ class Slider extends PureComponent {
   }
 
   onStart(e, handleID, isTouch) {
-    const { values } = this.state
+    const { state: { values }, props: { onSlideStart } } = this
 
     e.stopPropagation && e.stopPropagation()
     e.preventDefault && e.preventDefault()
@@ -179,6 +179,7 @@ class Slider extends PureComponent {
 
       if (found) {
         this.active = handleID
+        onSlideStart(values.map(d => d.val))
         isTouch ? this.addTouchEvents() : this.addMouseEvents()
       } else {
         this.active = null
@@ -199,31 +200,31 @@ class Slider extends PureComponent {
     // double check the dimensions of the slider
     this.pixelToStep.setDomain(getSliderDomain(slider, vertical))
 
-    // find the closest step to the event location
-    let eventStep
+    // find the closest value i.e. step to the event location
+    let updateValue
 
     if (isTouch) {
-      eventStep = this.pixelToStep.getValue(getTouchPosition(vertical, e))
+      updateValue = this.pixelToStep.getValue(getTouchPosition(vertical, e))
     } else {
-      eventStep = this.pixelToStep.getValue(vertical ? e.clientY : e.pageX)
+      updateValue = this.pixelToStep.getValue(vertical ? e.clientY : e.pageX)
     }
 
     // find the closest handle key
-    let closest = null
+    let updateKey = null
     let minDiff = Infinity
 
     for (let i = 0; i < currValues.length; i++) {
       const { key, val } = currValues[i]
-      const diff = Math.abs(this.valueToStep.getValue(val) - eventStep)
+      const diff = Math.abs(val - updateValue)
 
       if (diff < minDiff) {
-        closest = key
+        updateKey = key
         minDiff = diff
       }
     }
 
-    // generate a candidate set of values - a suggestion of what to do
-    const next = getUpdatedValues(currValues, closest, eventStep, reversed)
+    // generate a "candidate" set of values - a suggestion of what to do
+    const next = getUpdatedValues(currValues, updateKey, updateValue, reversed)
 
     // submit the candidate values
     this.onMove(currValues, next, true)
@@ -300,9 +301,11 @@ class Slider extends PureComponent {
   }
 
   onMouseUp() {
-    const { state: { values }, props: { onChange } } = this
+    const { state: { values }, props: { onChange, onSlideEnd } } = this
     this.active = null
+
     onChange(values.map(d => d.val))
+    onSlideEnd(values.map(d => d.val))
 
     if (isBrowser) {
       document.removeEventListener('mousemove', this.onMouseMove)
@@ -311,9 +314,11 @@ class Slider extends PureComponent {
   }
 
   onTouchEnd() {
-    const { state: { values }, props: { onChange } } = this
+    const { state: { values }, props: { onChange, onSlideEnd } } = this
     this.active = null
+
     onChange(values.map(d => d.val))
+    onSlideEnd(values.map(d => d.val))
 
     if (isBrowser) {
       document.removeEventListener('touchmove', this.onTouchMove)
@@ -396,13 +401,21 @@ Slider.propTypes = {
    */
   reversed: PropTypes.bool,
   /**
+   * Function triggered when the value of the slider is changed. Receives values.
+   */
+  onChange: PropTypes.func,
+  /**
    * Function called with the values at each update (caution: high-volume updates when dragging).
    */
   onUpdate: PropTypes.func,
   /**
-   * Function called with the values when interaction stops.
+   * Function triggered with ontouchstart or onmousedown on a handle. Receives values.
    */
-  onChange: PropTypes.func,
+  onSlideStart: PropTypes.func,
+  /**
+   * Function triggered on ontouchend or onmouseup on a handle. Receives values.
+   */
+  onSlideEnd: PropTypes.func,
   /**
    * Component children to render
    */
@@ -415,8 +428,10 @@ Slider.defaultProps = {
   domain: [0, 100],
   vertical: false,
   reversed: false,
-  onUpdate: noop,
   onChange: noop,
+  onUpdate: noop,
+  onSlideStart: noop,
+  onSlideEnd: noop,
 }
 
 export default Slider
