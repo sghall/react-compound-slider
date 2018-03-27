@@ -7,8 +7,6 @@ import Tracks from '../Tracks'
 import Handles from '../Handles'
 import { mode1, mode2 } from './modes'
 import {
-  LinearScale,
-  DiscreteScale,
   isNotValidTouch,
   getTouchPosition,
   updateValues,
@@ -16,8 +14,11 @@ import {
   getStepRange,
   getSortByVal,
 } from './utils'
+import LinearScale from './LinearScale'
+import DiscreteScale from './DiscreteScale'
 
 const prfx = 'react-compound-slider:'
+
 const isBrowser =
   typeof window !== 'undefined' && typeof document !== 'undefined'
 

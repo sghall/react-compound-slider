@@ -5,7 +5,7 @@ import React from 'react'
 import { assert } from 'chai'
 import { shallow, configure } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import { LinearScale } from '../Slider/utils'
+import LinearScale from '../Slider/LinearScale'
 import Tracks from './Tracks'
 
 configure({ adapter: new Adapter() })
