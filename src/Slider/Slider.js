@@ -55,15 +55,10 @@ class Slider extends PureComponent {
   }
 
   componentWillMount() {
-    const { defaultValues, values, domain, step, reversed } = this.props
-
-    warning(
-      defaultValues === undefined,
-      `${prfx} defaultValues is deprecated. Use 'values' prop.`,
-    )
+    const { values, domain, step, reversed } = this.props
 
     this.updateRange(domain, step, reversed)
-    this.setValues(values || defaultValues, reversed)
+    this.setValues(values, reversed)
   }
 
   componentWillReceiveProps(next) {
@@ -383,10 +378,6 @@ Slider.propTypes = {
    * The numbers will be forced into the domain if they are two small or large.
    */
   values: PropTypes.array,
-  /**
-   * DEPRECATED - Use 'values' prop
-   */
-  defaultValues: PropTypes.array,
   /**
    * The step value for the slider.
    */
