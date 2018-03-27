@@ -401,7 +401,7 @@ Slider.propTypes = {
    */
   reversed: PropTypes.bool,
   /**
-   * Function triggered when the value of the slider is changed. Receives values.
+   * Function triggered when the value of the slider has changed. This will recieve changes at the end of a slide as well as changes from clicks on rails and tracks. Receives values.
    */
   onChange: PropTypes.func,
   /**
