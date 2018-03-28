@@ -1,6 +1,9 @@
 ### Simple Value Slider - Step 5 
 {{demo='pages/slider-demos/material-ui/SimpleValue.js'}}
 
+### Custom Mode  - Max separation of 100
+{{demo='pages/slider-demos/material-ui/CustomMode.js'}}
+
 ### Prevent Crossing (mode = 2) - Step 5 
 {{demo='pages/slider-demos/material-ui/Basic.js'}}
 

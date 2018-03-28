@@ -312,16 +312,24 @@ class Slider extends PureComponent {
       let values
 
       // given the current values and a candidate set, decide what to do
-      switch (mode) {
-        case 1:
-          values = mode1(currValues, nextValues)
-          break
-        case 2:
-          values = mode2(currValues, nextValues)
-          break
-        default:
-          values = nextValues
-          warning(false, `${prfx} Invalid mode value.`)
+      if (typeof mode === 'function') {
+        values = mode(currValues, nextValues)
+        warning(
+          Array.isArray(values),
+          `Custom mode function did not return an array.`,
+        )
+      } else {
+        switch (mode) {
+          case 1:
+            values = mode1(currValues, nextValues)
+            break
+          case 2:
+            values = mode2(currValues, nextValues)
+            break
+          default:
+            values = nextValues
+            warning(false, `${prfx} Invalid mode value.`)
+        }
       }
 
       onUpdate(values.map(d => d.val))
@@ -424,8 +432,10 @@ Slider.propTypes = {
   /**
    * The interaction mode. Value of 1 will allow handles to push each other.
    * Value of 2 will keep the sliders from crossing and separated by a step.
+   * ADVANCED: You can also supply a function that will be passed the current values and the incoming update.
+   * Your function should return what the state should be set as.
    */
-  mode: PropTypes.oneOf([1, 2]),
+  mode: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
   /**
    * Set to true if the slider is displayed vertically to tell the slider to use the height to calculate positions.
    */
