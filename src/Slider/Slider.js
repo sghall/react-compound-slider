@@ -5,7 +5,7 @@ import Rail from '../Rail'
 import Ticks from '../Ticks'
 import Tracks from '../Tracks'
 import Handles from '../Handles'
-import { mode1, mode2 } from './modes'
+import { mode1, mode2, mode3 } from './modes'
 import {
   isNotValidTouch,
   getTouchPosition,
@@ -281,7 +281,7 @@ class Slider extends PureComponent {
       state: { values: currValues },
       props: { vertical, reversed },
     } = this
-    const { active, slider } = this
+    const { active: updateKey, slider } = this
 
     if (isNotValidTouch(e)) {
       return
@@ -296,7 +296,7 @@ class Slider extends PureComponent {
     // generate a "candidate" set of values - a suggestion of what to do
     const nextValues = getUpdatedValues(
       currValues,
-      active,
+      updateKey,
       updateValue,
       reversed,
     )
@@ -306,14 +306,15 @@ class Slider extends PureComponent {
   }
 
   submitUpdate(nextValues, callOnChange) {
-    const { mode, onUpdate, onChange } = this.props
+    const { mode, step, onUpdate, onChange } = this.props
+    const { getValue } = this.valueToStep
 
     this.setState(({ values: currValues }) => {
       let values
 
       // given the current values and a candidate set, decide what to do
       if (typeof mode === 'function') {
-        values = mode(currValues, nextValues)
+        values = mode(currValues, nextValues, step)
         warning(
           Array.isArray(values),
           `Custom mode function did not return an array.`,
@@ -325,6 +326,9 @@ class Slider extends PureComponent {
             break
           case 2:
             values = mode2(currValues, nextValues)
+            break
+          case 3:
+            values = mode3(currValues, nextValues, step, getValue)
             break
           default:
             values = nextValues
