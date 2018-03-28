@@ -48,7 +48,7 @@ class Example extends Component {
           className={classes.slider}
           onUpdate={this.onUpdate}
           onChange={this.onChange}
-          values={update}
+          values={values}
         >
           <Slider.Rail>
             {({ getRailProps }) => <Rail getRailProps={getRailProps} />}

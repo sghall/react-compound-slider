@@ -49,7 +49,7 @@ class Example extends Component {
           rootStyle={sliderStyle}
           onUpdate={this.onUpdate}
           onChange={this.onChange}
-          values={update}
+          values={values}
         >
           <Rail>
             {({ getRailProps }) => (
