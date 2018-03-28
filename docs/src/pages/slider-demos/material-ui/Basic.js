@@ -23,6 +23,7 @@ const defaultValues = [150, 300, 400, 450]
 
 class Example extends Component {
   state = {
+    step: 10,
     values: defaultValues.slice(),
     update: defaultValues.slice(),
   }
@@ -35,15 +36,32 @@ class Example extends Component {
     this.setState({ values })
   }
 
+  incStep = () => {
+    this.setState(({ step }) => ({
+      step: step <= 50 ? step + 5 : step,
+    }))
+  }
+
+  decStep = () => {
+    this.setState(({ step }) => ({
+      step: step >= 10 ? step - 5 : step,
+    }))
+  }
+
   render() {
-    const { props: { classes }, state: { values, update } } = this
+    const { props: { classes }, state: { step, values, update } } = this
 
     return (
       <div className={classes.root}>
         <ValueViewer values={values} update={update} />
+        <div>Step Value {step}</div>
+        <button onClick={this.decStep}>Decrement Step by 5</button>
+        <button onClick={this.incStep}>Increment Step by 5</button>
+        <br />
+        <br />
         <Slider
-          mode={2}
-          step={5}
+          mode={3}
+          step={step}
           domain={domain}
           className={classes.slider}
           onUpdate={this.onUpdate}

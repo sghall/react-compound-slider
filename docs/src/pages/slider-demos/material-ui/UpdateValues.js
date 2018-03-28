@@ -52,10 +52,10 @@ class Example extends Component {
 
     return (
       <div className={classes.root}>
-        <button onClick={() => this.onUpdate([200, 300])}>
+        <button onClick={() => this.onChange([200, 300])}>
           SET VALUES [200, 300]
         </button>
-        <button onClick={() => this.onUpdate([350, 450])}>
+        <button onClick={() => this.onChange([350, 450])}>
           SET VALUES [350, 450]
         </button>
         <button onClick={() => this.toggleReverse()}>
