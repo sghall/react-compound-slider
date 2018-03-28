@@ -11,7 +11,7 @@ export default class DiscreteScale {
     this.n = 1
   }
 
-  getValue(x) {
+  getValue = x => {
     const { range, domain, n } = this
     return range[bisect(domain, x, 0, n)]
   }
