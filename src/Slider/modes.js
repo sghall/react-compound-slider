@@ -1,3 +1,5 @@
+/* eslint complexity: "off" */
+
 // default mode
 export function mode1(curr, next) {
   return next
@@ -49,17 +51,17 @@ export function mode3(curr, next, step, getValue) {
       if (n1 && n0.val === n1.val) {
         if (i === indexForMovingHandle) {
           const newStep = n1.val + increment
-          if (getValue(newStep) !== newStep) {
-            return curr
-          } else {
+          if (getValue(newStep) === newStep) {
             n1.val = n1.val + increment
+          } else {
+            return curr
           }
         } else {
           const newStep = n0.val + increment
-          if (getValue(newStep) !== newStep) {
-            return curr
-          } else {
+          if (getValue(newStep) === newStep) {
             n0.val = n0.val + increment
+          } else {
+            return curr
           }
         }
       }
