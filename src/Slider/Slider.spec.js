@@ -29,7 +29,7 @@ const getTestProps = () => ({
 })
 
 describe('<Slider />', () => {
-  let onMoveSpy,
+  let submitUpdateSpy,
     setStateSpy,
     updateRangeSpy,
     onMouseDownSpy,
@@ -38,7 +38,7 @@ describe('<Slider />', () => {
     removeListenersSpy
 
   beforeEach(() => {
-    onMoveSpy = sinon.spy(Slider.prototype, 'onMove')
+    submitUpdateSpy = sinon.spy(Slider.prototype, 'submitUpdate')
     setStateSpy = sinon.spy(Slider.prototype, 'setState')
     updateRangeSpy = sinon.spy(Slider.prototype, 'updateRange')
     onMouseDownSpy = sinon.spy(Slider.prototype, 'onMouseDown')
@@ -48,7 +48,7 @@ describe('<Slider />', () => {
   })
 
   afterEach(() => {
-    onMoveSpy.restore()
+    submitUpdateSpy.restore()
     setStateSpy.restore()
     updateRangeSpy.restore()
     onMouseDownSpy.restore()
@@ -165,20 +165,20 @@ describe('<Slider />', () => {
     assert.strictEqual(updateRangeSpy.callCount, 2)
   })
 
-  it('should ALWAYS call onMove when onMouseMove is called', () => {
+  it('should ALWAYS call submitUpdate when onMouseMove is called', () => {
     const wrapper = shallow(<Slider {...getTestProps()} />)
 
-    assert.strictEqual(onMoveSpy.callCount, 0)
+    assert.strictEqual(submitUpdateSpy.callCount, 0)
     wrapper.instance().onMouseMove(createEvent())
-    assert.strictEqual(onMoveSpy.callCount, 1)
+    assert.strictEqual(submitUpdateSpy.callCount, 1)
   })
 
-  it('should call onMove when onTouchMove is called', () => {
+  it('should call submitUpdate when onTouchMove is called', () => {
     const wrapper = shallow(<Slider {...getTestProps()} />)
 
-    assert.strictEqual(onMoveSpy.callCount, 0)
+    assert.strictEqual(submitUpdateSpy.callCount, 0)
     wrapper.instance().onTouchMove(createTouchEvent())
-    assert.strictEqual(onMoveSpy.callCount, 1)
+    assert.strictEqual(submitUpdateSpy.callCount, 1)
   })
 
   it('calls onMouseDown when descendent emits event', () => {
@@ -278,22 +278,13 @@ describe('<Slider />', () => {
     assert.strictEqual(addTouchEventsSpy.called, true)
   })
 
-  it('does call setState when onMove called with prev !== next', () => {
+  it('does call setState when submitUpdate called', () => {
     const wrapper = mount(<Slider {...getTestProps()} />)
 
     const values = wrapper.state().values
-    wrapper.instance().onMove(values, [...values], true)
+    wrapper.instance().submitUpdate(values, [...values], true)
 
     assert.strictEqual(setStateSpy.callCount, 2)
-  })
-
-  it('does NOT call setState when onMove called with prev === next', () => {
-    const wrapper = mount(<Slider {...getTestProps()} />)
-
-    const values = wrapper.state().values
-    wrapper.instance().onMove(values, values, true)
-
-    assert.strictEqual(setStateSpy.callCount, 1)
   })
 
   it('calls removeListeners when it unmounts', () => {

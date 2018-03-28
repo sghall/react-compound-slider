@@ -1,19 +1,19 @@
-// Default pushable mode
-export function mode1(prev, next) {
-  return next
+// default mode
+export function mode1(currValues, nextValues) {
+  return nextValues
 }
 
-// Prevent duplicate values and crossing
-export function mode2(prev, next) {
-  for (let i = 0; i < prev.length; i++) {
-    if (prev[i].key !== next[i].key) {
-      return prev
+// prevent duplicate values and crossing
+export function mode2(currValues, nextValues) {
+  for (let i = 0; i < currValues.length; i++) {
+    if (currValues[i].key !== nextValues[i].key) {
+      return currValues
     }
 
-    if (next[i + 1] && next[i].val === next[i + 1].val) {
-      return prev
+    if (nextValues[i + 1] && nextValues[i].val === nextValues[i + 1].val) {
+      return currValues
     }
   }
 
-  return next
+  return nextValues
 }

@@ -44,7 +44,7 @@ class Slider extends PureComponent {
 
     this.onMouseMove = this.onMouseMove.bind(this)
     this.onTouchMove = this.onTouchMove.bind(this)
-    this.onMove = this.onMove.bind(this)
+    this.submitUpdate = this.submitUpdate.bind(this)
 
     this.onMouseDown = this.onMouseDown.bind(this)
     this.onTouchStart = this.onTouchStart.bind(this)
@@ -200,7 +200,7 @@ class Slider extends PureComponent {
     // double check the dimensions of the slider
     this.pixelToStep.setDomain(getSliderDomain(slider, vertical))
 
-    // find the closest value i.e. step to the event location
+    // find the closest value (aka step) to the event location
     let updateValue
 
     if (isTouch) {
@@ -224,10 +224,15 @@ class Slider extends PureComponent {
     }
 
     // generate a "candidate" set of values - a suggestion of what to do
-    const next = getUpdatedValues(currValues, updateKey, updateValue, reversed)
+    const nextValues = getUpdatedValues(
+      currValues,
+      updateKey,
+      updateValue,
+      reversed,
+    )
 
     // submit the candidate values
-    this.onMove(currValues, next, true)
+    this.submitUpdate(nextValues, true)
   }
 
   addMouseEvents() {
@@ -245,59 +250,88 @@ class Slider extends PureComponent {
   }
 
   onMouseMove(e) {
-    const { state: { values: prev }, props: { vertical, reversed } } = this
-    const { active, slider } = this
+    const {
+      state: { values: currValues },
+      props: { vertical, reversed },
+    } = this
+    const { active: updateKey, slider } = this
 
+    // double check the dimensions of the slider
     this.pixelToStep.setDomain(getSliderDomain(slider, vertical))
 
-    const step = this.pixelToStep.getValue(vertical ? e.clientY : e.pageX)
-    const next = getUpdatedValues(prev, active, step, reversed)
+    // find the closest value (aka step) to the event location
+    const updateValue = this.pixelToStep.getValue(
+      vertical ? e.clientY : e.pageX,
+    )
 
-    this.onMove(prev, next)
+    // generate a "candidate" set of values - a suggestion of what to do
+    const nextValues = getUpdatedValues(
+      currValues,
+      updateKey,
+      updateValue,
+      reversed,
+    )
+
+    // submit the candidate values
+    this.submitUpdate(nextValues)
   }
 
   onTouchMove(e) {
-    const { state: { values: prev }, props: { vertical, reversed } } = this
+    const {
+      state: { values: currValues },
+      props: { vertical, reversed },
+    } = this
     const { active, slider } = this
 
     if (isNotValidTouch(e)) {
       return
     }
 
+    // double check the dimensions of the slider
     this.pixelToStep.setDomain(getSliderDomain(slider, vertical))
 
-    const step = this.pixelToStep.getValue(getTouchPosition(vertical, e))
-    const next = getUpdatedValues(prev, active, step, reversed)
+    // find the closest value (aka step) to the event location
+    const updateValue = this.pixelToStep.getValue(getTouchPosition(vertical, e))
 
-    this.onMove(prev, next)
+    // generate a "candidate" set of values - a suggestion of what to do
+    const nextValues = getUpdatedValues(
+      currValues,
+      active,
+      updateValue,
+      reversed,
+    )
+
+    // submit the candidate values
+    this.submitUpdate(nextValues)
   }
 
-  onMove(prev, next, submit) {
+  submitUpdate(nextValues, callOnChange) {
     const { mode, onUpdate, onChange } = this.props
 
-    if (next !== prev) {
+    this.setState(({ values: currValues }) => {
       let values
 
+      // given the current values and a candidate set, decide what to do
       switch (mode) {
         case 1:
-          values = mode1(prev, next)
+          values = mode1(currValues, nextValues)
           break
         case 2:
-          values = mode2(prev, next)
+          values = mode2(currValues, nextValues)
           break
         default:
-          values = next
+          values = nextValues
           warning(false, `${prfx} Invalid mode value.`)
       }
 
-      this.setState({ values })
-
       onUpdate(values.map(d => d.val))
 
-      if (submit) {
+      if (callOnChange) {
         onChange(values.map(d => d.val))
       }
-    }
+
+      return { values }
+    })
   }
 
   onMouseUp() {
