@@ -1,13 +1,13 @@
 ### Simple Value Slider - Step 5 
 {{demo='pages/slider-demos/material-ui/Example1.js'}}
 
-### Allow Crossing (mode = 1) - Step 5 
+### Allow Crossing (mode = 1) - Step 1
 {{demo='pages/slider-demos/material-ui/Example2.js'}}
 
-### Pushable (mode = 1) - Step 10
+### Prevent Crossing (mode = 2) - Step 10
 {{demo='pages/slider-demos/material-ui/Example3.js'}}
 
-### Reversed - Prevent Crossing (mode = 2) - Step 5 
+### Reversed - Pushable Mode (mode = 3) - Step 5 
 {{demo='pages/slider-demos/material-ui/Example4.js'}}
 
 ### Formatting Ticks - Prevent Crossing (mode = 2) - Step 0.01

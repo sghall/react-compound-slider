@@ -42,7 +42,7 @@ class Example extends Component {
       <div className={classes.root}>
         <ValueViewer values={values} update={update} />
         <Slider
-          mode={1}
+          mode={2}
           step={10}
           domain={domain}
           className={classes.slider}
