@@ -18,7 +18,7 @@
   - Multiple Sliders (N handles)
 
 - Automatically generates uniformly spaced, human-readable tick values to label your slider ✓
-  - Supports passing custom set of ticks
+  - Supports passing custom sets of ticks
 
 - Integrates seemlessly with any app styling approach ✓
   - CSS
@@ -26,7 +26,9 @@
   - Inline-styles
 
 - Interaction modes ✓
-  - Pushable
-  - Prevent crossing
+  - Allow crossing (mode = 1)
+  - Prevent crossing (mode = 2)
+  - Pushable mode (mode = 3)
+  - Create your own custom mode (function)
 
 - Works as a controlled component ✓
