@@ -1,4 +1,6 @@
 /* eslint complexity: "off" */
+import { getUpdatedValues } from './utils'
+import { reverse } from 'dns'
 
 // default mode
 export function mode1(curr, next) {
@@ -21,7 +23,7 @@ export function mode2(curr, next) {
 }
 
 // pushable mode
-export function mode3(curr, next, step, getValue) {
+export function mode3(curr, next, step, reversed, getValue) {
   let indexForMovingHandle = -1
   let handleMoveIsPositive = true
 
@@ -52,14 +54,38 @@ export function mode3(curr, next, step, getValue) {
         if (i === indexForMovingHandle) {
           const newStep = n1.val + increment
           if (getValue(newStep) === newStep) {
-            n1.val = n1.val + increment
+            const clone = getUpdatedValues(
+              next,
+              n1.key,
+              n1.val + increment,
+              reversed,
+            )
+            const check = mode3(next, clone, step, reversed, getValue)
+
+            if (check === next) {
+              return curr
+            } else {
+              return check
+            }
           } else {
             return curr
           }
         } else {
           const newStep = n0.val + increment
           if (getValue(newStep) === newStep) {
-            n0.val = n0.val + increment
+            const clone = getUpdatedValues(
+              next,
+              n0.key,
+              n0.val + increment,
+              reversed,
+            )
+            const check = mode3(next, clone, step, reversed, getValue)
+
+            if (check === next) {
+              return curr
+            } else {
+              return check
+            }
           } else {
             return curr
           }

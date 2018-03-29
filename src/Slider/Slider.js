@@ -306,7 +306,7 @@ class Slider extends PureComponent {
   }
 
   submitUpdate(nextValues, callOnChange) {
-    const { mode, step, onUpdate, onChange } = this.props
+    const { mode, step, onUpdate, onChange, reversed } = this.props
     const { getValue } = this.valueToStep
 
     this.setState(({ values: currValues }) => {
@@ -328,7 +328,7 @@ class Slider extends PureComponent {
             values = mode2(currValues, nextValues)
             break
           case 3:
-            values = mode3(currValues, nextValues, step, getValue)
+            values = mode3(currValues, nextValues, step, reversed, getValue)
             break
           default:
             values = nextValues
