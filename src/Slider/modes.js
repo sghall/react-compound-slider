@@ -1,6 +1,5 @@
-/* eslint complexity: "off" */
+/* eslint complexity: "off", max-statements: "off", max-depth: "off" */
 import { getUpdatedValues } from './utils'
-import { reverse } from 'dns'
 
 // default mode
 export function mode1(curr, next) {

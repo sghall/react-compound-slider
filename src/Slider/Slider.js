@@ -191,10 +191,7 @@ class Slider extends PureComponent {
   }
 
   handleRailAndTrackClicks(e, isTouch) {
-    const {
-      state: { values: currValues },
-      props: { vertical, reversed },
-    } = this
+    const { state: { values: curr }, props: { vertical, reversed } } = this
     const { slider } = this
 
     // double check the dimensions of the slider
@@ -213,8 +210,8 @@ class Slider extends PureComponent {
     let updateKey = null
     let minDiff = Infinity
 
-    for (let i = 0; i < currValues.length; i++) {
-      const { key, val } = currValues[i]
+    for (let i = 0; i < curr.length; i++) {
+      const { key, val } = curr[i]
       const diff = Math.abs(val - updateValue)
 
       if (diff < minDiff) {
@@ -224,12 +221,7 @@ class Slider extends PureComponent {
     }
 
     // generate a "candidate" set of values - a suggestion of what to do
-    const nextValues = getUpdatedValues(
-      currValues,
-      updateKey,
-      updateValue,
-      reversed,
-    )
+    const nextValues = getUpdatedValues(curr, updateKey, updateValue, reversed)
 
     // submit the candidate values
     this.submitUpdate(nextValues, true)
@@ -250,10 +242,7 @@ class Slider extends PureComponent {
   }
 
   onMouseMove(e) {
-    const {
-      state: { values: currValues },
-      props: { vertical, reversed },
-    } = this
+    const { state: { values: curr }, props: { vertical, reversed } } = this
     const { active: updateKey, slider } = this
 
     // double check the dimensions of the slider
@@ -265,22 +254,14 @@ class Slider extends PureComponent {
     )
 
     // generate a "candidate" set of values - a suggestion of what to do
-    const nextValues = getUpdatedValues(
-      currValues,
-      updateKey,
-      updateValue,
-      reversed,
-    )
+    const nextValues = getUpdatedValues(curr, updateKey, updateValue, reversed)
 
     // submit the candidate values
     this.submitUpdate(nextValues)
   }
 
   onTouchMove(e) {
-    const {
-      state: { values: currValues },
-      props: { vertical, reversed },
-    } = this
+    const { state: { values: curr }, props: { vertical, reversed } } = this
     const { active: updateKey, slider } = this
 
     if (isNotValidTouch(e)) {
@@ -294,27 +275,22 @@ class Slider extends PureComponent {
     const updateValue = this.pixelToStep.getValue(getTouchPosition(vertical, e))
 
     // generate a "candidate" set of values - a suggestion of what to do
-    const nextValues = getUpdatedValues(
-      currValues,
-      updateKey,
-      updateValue,
-      reversed,
-    )
+    const nextValues = getUpdatedValues(curr, updateKey, updateValue, reversed)
 
     // submit the candidate values
     this.submitUpdate(nextValues)
   }
 
-  submitUpdate(nextValues, callOnChange) {
+  submitUpdate(next, callOnChange) {
     const { mode, step, onUpdate, onChange, reversed } = this.props
     const { getValue } = this.valueToStep
 
-    this.setState(({ values: currValues }) => {
+    this.setState(({ values: curr }) => {
       let values
 
       // given the current values and a candidate set, decide what to do
       if (typeof mode === 'function') {
-        values = mode(currValues, nextValues, step)
+        values = mode(curr, next, step)
         warning(
           Array.isArray(values),
           `Custom mode function did not return an array.`,
@@ -322,16 +298,16 @@ class Slider extends PureComponent {
       } else {
         switch (mode) {
           case 1:
-            values = mode1(currValues, nextValues)
+            values = mode1(curr, next)
             break
           case 2:
-            values = mode2(currValues, nextValues)
+            values = mode2(curr, next)
             break
           case 3:
-            values = mode3(currValues, nextValues, step, reversed, getValue)
+            values = mode3(curr, next, step, reversed, getValue)
             break
           default:
-            values = nextValues
+            values = next
             warning(false, `${prfx} Invalid mode value.`)
         }
       }
