@@ -3,7 +3,7 @@ Looks pretty good.  Now, can we display it in reverse?
 
 Not a problem:
 ```jsx
-import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
+import Slider from 'react-compound-slider'
 
 ...
   <Slider
@@ -14,12 +14,12 @@ import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
     reversed // just change the reversed prop
     values={[20, 60, 80]}
   >
-    <Rail>
+    <Slider.Rail>
       {({ getRailProps }) => (
         <div style={railStyle} {...getRailProps()} />
       )}
-    </Rail>
-    <Handles>
+    </Slider.Rail>
+    <Slider.Handles>
       {({ handles, getHandleProps }) => (
         <div className="slider-handles">
           {handles.map(handle => (
@@ -31,8 +31,8 @@ import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
           ))}
         </div>
       )}
-    </Handles>
-    <Tracks left={false} right={false}>
+    </Slider.Handles>
+    <Slider.Tracks left={false} right={false}>
       {({ tracks, getTrackProps }) => (
         <div className="slider-tracks">
           {tracks.map(({ id, source, target }) => (
@@ -45,8 +45,8 @@ import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
           ))}
         </div>
       )}
-    </Tracks>
-    <Ticks values={[0, 25, 50, 75, 100]}>
+    </Slider.Tracks>
+    <Slider.Ticks values={[0, 25, 50, 75, 100]}>
       {({ ticks }) => (
         <div className="slider-ticks">
           {ticks.map(tick => (
@@ -54,7 +54,7 @@ import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
           ))}
         </div>
       )}
-    </Ticks>
+    </Slider.Ticks>
   </Slider>
 ...
 ```

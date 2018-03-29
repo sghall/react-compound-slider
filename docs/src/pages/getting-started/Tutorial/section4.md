@@ -6,7 +6,7 @@ Let's fix that...
 ## Rail
 
 ```jsx
-import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
+import Slider from 'react-compound-slider'
 
 ...
   <Slider
@@ -16,12 +16,12 @@ import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
     mode={2}
     values={[30]}
   >
-    <Rail>
+    <Slider.Rail>
       {({ getRailProps }) => (  // adding the rail props sets up events on the rail
         <div style={railStyle} {...getRailProps()} /> 
       )}
-    </Rail>
-    <Handles>
+    </Slider.Rail>
+    <Slider.Handles>
       {({ handles, getHandleProps }) => (
         <div className="slider-handles">
           {handles.map(handle => (
@@ -33,8 +33,8 @@ import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
           ))}
         </div>
       )}
-    </Handles>
-    <Tracks right={false}>
+    </Slider.Handles>
+    <Slider.Tracks right={false}>
       {({ tracks, getTrackProps }) => (
         <div className="slider-tracks">
           {tracks.map(({ id, source, target }) => (
@@ -47,7 +47,7 @@ import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
           ))}
         </div>
       )}
-    </Tracks>
+    </Slider.Tracks>
   </Slider>
 ...
 ```

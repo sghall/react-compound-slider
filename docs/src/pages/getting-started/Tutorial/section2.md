@@ -3,8 +3,13 @@ Not too exciting.  Let's add a handle...
 
 ## Handles
 
+Note that I am putting all the styles inline to make the tutorial easier to follow.
+That's not a great idea for code organization or for performance.
+In your own project you can use whatever style library you want.
+Take a look at the Material-UI examples in this site to see how you might handle styles for your slider components.
+
 ```jsx
-import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
+import Slider from 'react-compound-slider'
 
 export function Handle({ // your handle component
   handle: { id, value, percent }, // you get an id, the value and the percentage to place it.
@@ -41,7 +46,7 @@ export function Handle({ // your handle component
     values={[30]}
   >
     <div style={railStyle} />
-    <Handles>
+    <Slider.Handles>
       {({ handles, getHandleProps }) => (
         <div className="slider-handles">
           {handles.map(handle => (
@@ -53,7 +58,7 @@ export function Handle({ // your handle component
           ))}
         </div>
       )}
-    </Handles>
+    </Slider.Handles>
   </Slider>
 ...
 ```
