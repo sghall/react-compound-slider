@@ -19,7 +19,7 @@ const railStyle = {
   backgroundColor: 'rgb(155,155,155)',
 }
 
-const defaultValues = [250, 350]
+const defaultValues = [240, 360]
 
 class Example extends Component {
   state = {
@@ -62,7 +62,7 @@ class Example extends Component {
         <ValueViewer values={values} update={update} />
         <Slider
           mode={1}
-          step={10}
+          step={5}
           domain={domain}
           reversed={reversed}
           rootStyle={sliderStyle}

@@ -43,7 +43,7 @@ class Example extends Component {
       <div style={{ height: 120, width: '100%' }}>
         <ValueViewer values={values} update={update} />
         <Slider
-          mode={2}
+          mode={1}
           step={5}
           domain={domain}
           rootStyle={sliderStyle}

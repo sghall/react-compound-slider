@@ -20,7 +20,7 @@ const railStyle = {
 }
 
 const domain = [100, 500]
-const defaultValues = [150, 300, 400, 450]
+const defaultValues = [160, 300, 400, 440]
 
 class Example extends Component {
   state = {
@@ -43,8 +43,8 @@ class Example extends Component {
       <div style={{ height: 120, width: '100%' }}>
         <ValueViewer values={values} update={update} />
         <Slider
-          mode={1}
-          step={10}
+          mode={3}
+          step={20}
           domain={domain}
           rootStyle={sliderStyle}
           onUpdate={this.onUpdate}
