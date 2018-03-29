@@ -410,8 +410,9 @@ Slider.propTypes = {
    */
   step: PropTypes.number,
   /**
-   * The interaction mode. Value of 1 will allow handles to push each other.
+   * The interaction mode. Value of 1 will allow handles to cross each other.
    * Value of 2 will keep the sliders from crossing and separated by a step.
+   * Value of 3 will make the handles pushable and keep them a step apart.
    * ADVANCED: You can also supply a function that will be passed the current values and the incoming update.
    * Your function should return what the state should be set as.
    */
@@ -429,7 +430,7 @@ Slider.propTypes = {
    */
   onChange: PropTypes.func,
   /**
-   * Function called with the values at each update (caution: high-volume updates when dragging).
+   * Function called with the values at each update (caution: high-volume updates when dragging). Receives values.
    */
   onUpdate: PropTypes.func,
   /**
