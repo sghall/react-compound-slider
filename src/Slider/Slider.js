@@ -172,18 +172,14 @@ class Slider extends PureComponent {
     e.stopPropagation && e.stopPropagation()
     e.preventDefault && e.preventDefault()
 
-    if (handleID) {
-      const found = values.find(value => {
-        return value.key === handleID
-      })
+    const found = values.find(value => {
+      return value.key === handleID
+    })
 
-      if (found) {
-        this.active = handleID
-        onSlideStart(values.map(d => d.val))
-        isTouch ? this.addTouchEvents() : this.addMouseEvents()
-      } else {
-        this.active = null
-      }
+    if (found) {
+      this.active = handleID
+      onSlideStart(values.map(d => d.val))
+      isTouch ? this.addTouchEvents() : this.addMouseEvents()
     } else {
       this.active = null
       this.handleRailAndTrackClicks(e, isTouch)
