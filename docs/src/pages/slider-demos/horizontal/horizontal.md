@@ -1,21 +1,15 @@
 ### Simple Value Slider - Step 5 
-{{demo='pages/slider-demos/horizontal/SimpleValue.js'}}
+{{demo='pages/slider-demos/horizontal/Example1.js'}}
 
 ### Prevent Crossing (mode = 2) - Step 5 
-{{demo='pages/slider-demos/horizontal/Basic.js'}}
+{{demo='pages/slider-demos/horizontal/Example2.js'}}
 
 ### Pushable (mode = 1) - Step 10
-{{demo='pages/slider-demos/horizontal/AllowCrossing.js'}}
-
-### Reversed - Prevent Crossing (mode = 2) - Step 5 
-{{demo='pages/slider-demos/horizontal/Reversed.js'}}
-
-### Formatting Ticks - Prevent Crossing (mode = 2) - Step 0.01
-{{demo='pages/slider-demos/horizontal/NumberFormat.js'}}
+{{demo='pages/slider-demos/horizontal/Example3.js'}}
 
 ### Updating Domain/Change Direction - (mode = 1) - Step 10
-{{demo='pages/slider-demos/horizontal/UpdateDomain.js'}}
+{{demo='pages/slider-demos/horizontal/Example4.js'}}
 
 ### Updating Values - (mode = 1) - Step 10
-{{demo='pages/slider-demos/horizontal/UpdateValues.js'}}
+{{demo='pages/slider-demos/horizontal/Example5.js'}}
 
