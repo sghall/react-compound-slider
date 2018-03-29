@@ -290,7 +290,7 @@ class Slider extends PureComponent {
 
       // given the current values and a candidate set, decide what to do
       if (typeof mode === 'function') {
-        values = mode(curr, next, step)
+        values = mode(curr, next, step, reversed, getValue)
         warning(
           Array.isArray(values),
           `Custom mode function did not return an array.`,
