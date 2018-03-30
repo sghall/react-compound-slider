@@ -322,7 +322,7 @@ describe('<Slider />', () => {
       onChange,
     }
 
-    const wrapper = shallow(<Slider {...props} />)
+    shallow(<Slider {...props} />)
 
     assert.strictEqual(onUpdate.callCount, 1)
     assert.strictEqual(onChange.callCount, 1)
