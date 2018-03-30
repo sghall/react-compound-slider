@@ -13,8 +13,8 @@ const sliderStyle = {
 const railStyle = {
   position: 'absolute',
   width: '100%',
-  height: 8,
-  borderRadius: 4,
+  height: 14,
+  borderRadius: 7,
   cursor: 'pointer',
   backgroundColor: 'rgb(155,155,155)',
 }
@@ -44,7 +44,7 @@ class Example extends Component {
         <ValueViewer values={values} update={update} />
         <Slider
           mode={3}
-          step={20}
+          step={10}
           domain={domain}
           rootStyle={sliderStyle}
           onUpdate={this.onUpdate}

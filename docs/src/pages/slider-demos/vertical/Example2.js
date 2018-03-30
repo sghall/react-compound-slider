@@ -13,11 +13,11 @@ const sliderStyle = {
 
 const railStyle = {
   position: 'absolute',
-  width: '6px',
+  width: '14px',
   height: '100%',
   cursor: 'pointer',
   marginLeft: '-1px',
-  borderRadius: '3px',
+  borderRadius: '7px',
   backgroundColor: 'rgb(155,155,155)',
 }
 

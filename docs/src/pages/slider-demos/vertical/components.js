@@ -20,7 +20,7 @@ export function Handle({
       style={{
         top: `${percent}%`,
         position: 'absolute',
-        marginLeft: -10,
+        marginLeft: -6,
         marginTop: -12,
         zIndex: 2,
         width: 24,
@@ -55,10 +55,10 @@ export function Track({ source, target, getTrackProps }) {
         position: 'absolute',
         zIndex: 1,
         backgroundColor: '#7aa0c4',
-        borderRadius: 6,
+        borderRadius: 7,
         cursor: 'pointer',
-        width: 8,
-        marginLeft: -2,
+        width: 14,
+        marginLeft: -1,
         top: `${source.percent}%`,
         height: `${target.percent - source.percent}%`,
       }}

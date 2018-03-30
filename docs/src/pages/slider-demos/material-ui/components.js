@@ -13,10 +13,10 @@ const railStyle = theme => ({
   root: {
     position: 'absolute',
     width: '100%',
-    height: 8,
-    borderRadius: 4,
+    height: 14,
+    borderRadius: 7,
     cursor: 'pointer',
-    backgroundColor: theme.palette.text.primary,
+    backgroundColor: theme.palette.grey[500],
   },
 })
 
@@ -39,7 +39,7 @@ const handleStyle = theme => ({
   root: {
     position: 'absolute',
     marginLeft: '-11px',
-    marginTop: '-9px',
+    marginTop: '-6px',
     zIndex: 2,
     width: 24,
     height: 24,
@@ -96,9 +96,9 @@ export const Handle = withStyles(handleStyle)(HandleComponent)
 const trackStyle = theme => ({
   root: {
     position: 'absolute',
-    height: 8,
+    height: 14,
     zIndex: 1,
-    borderRadius: 4,
+    borderRadius: 7,
     cursor: 'pointer',
     backgroundColor: theme.palette.primary.main,
   },

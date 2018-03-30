@@ -21,7 +21,7 @@ export function Handle({
         left: `${percent}%`,
         position: 'absolute',
         marginLeft: '-11px',
-        marginTop: '-9px',
+        marginTop: '-6px',
         zIndex: 2,
         width: 24,
         height: 24,
@@ -53,10 +53,10 @@ export function Track({ source, target, getTrackProps }) {
     <div
       style={{
         position: 'absolute',
-        height: 8,
+        height: 14,
         zIndex: 1,
         backgroundColor: '#7aa0c4',
-        borderRadius: 4,
+        borderRadius: 7,
         cursor: 'pointer',
         left: `${source.percent}%`,
         width: `${target.percent - source.percent}%`,
