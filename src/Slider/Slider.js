@@ -73,6 +73,7 @@ class Slider extends PureComponent {
     ) {
       this.updateRange(domain, step, reversed)
       const remapped = this.reMapValues(reversed)
+
       if (values === undefined || values === props.values) {
         next.onChange(remapped)
         next.onUpdate(remapped)
@@ -103,23 +104,35 @@ class Slider extends PureComponent {
   }
 
   setValues(arr = [], reversed) {
+    let changes = 0
+
     const values = arr
       .map(x => {
         const val = this.valueToStep.getValue(x)
 
-        warning(
-          x === val,
-          `${prfx} Invalid value encountered. Changing ${x} to ${val}.`,
-        )
+        if (x !== val) {
+          changes += 1
+          warning(
+            false,
+            `${prfx} Invalid value encountered. Changing ${x} to ${val}.`,
+          )
+        }
 
         return val
       })
       .map((val, i) => ({ key: `$$-${i}`, val }))
       .sort(getSortByVal(reversed))
 
+    const valuesArr = values.map(d => d.val)
+
+    if (changes > 0) {
+      this.props.onUpdate(valuesArr)
+      this.props.onChange(valuesArr)
+    }
+
     this.setState(() => ({ values }))
 
-    return values.map(d => d.val)
+    return valuesArr
   }
 
   updateRange([min, max], step, reversed) {

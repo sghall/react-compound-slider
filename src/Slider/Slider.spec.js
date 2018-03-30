@@ -310,4 +310,49 @@ describe('<Slider />', () => {
     wrapper.instance().onTouchEnd()
     assert.strictEqual(onChange.callCount, 2)
   })
+
+  it('calls onUpdate/onChange on initial render when values are NOT valid steps', () => {
+    const onUpdate = sinon.spy()
+    const onChange = sinon.spy()
+
+    const props = {
+      ...getTestProps(),
+      values: [110.5, 150],
+      onUpdate,
+      onChange,
+    }
+
+    const wrapper = shallow(<Slider {...props} />)
+
+    assert.strictEqual(onUpdate.callCount, 1)
+    assert.strictEqual(onChange.callCount, 1)
+  })
+
+  it('calls onUpdate/onChange on props update when values are NOT valid steps', () => {
+    const onUpdate = sinon.spy()
+    const onChange = sinon.spy()
+
+    const props = {
+      ...getTestProps(),
+      values: [110, 150],
+      onUpdate,
+      onChange,
+    }
+
+    const wrapper = shallow(<Slider {...props} />)
+    wrapper.setProps({ values: [110.5, 150] }) // update with invalid 110.5
+
+    assert.strictEqual(onUpdate.callCount, 1)
+    assert.strictEqual(onChange.callCount, 1)
+
+    wrapper.setProps({ values: [120, 150] }) // update with valid values
+
+    assert.strictEqual(onUpdate.callCount, 1)
+    assert.strictEqual(onChange.callCount, 1)
+
+    wrapper.setProps({ values: [120, 150.5] }) // update with invalid 150.5
+
+    assert.strictEqual(onUpdate.callCount, 2)
+    assert.strictEqual(onChange.callCount, 2)
+  })
 })
