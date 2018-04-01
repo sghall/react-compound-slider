@@ -68,7 +68,7 @@ function Home(props) {
             <Button
               component={Link}
               className={classes.button}
-              raised
+              variant="raised"
               to="/getting-started/tutorial"
             >
               {'Get Started'}

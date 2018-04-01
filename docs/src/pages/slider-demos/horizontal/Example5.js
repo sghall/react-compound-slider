@@ -50,10 +50,20 @@ class Example extends Component {
 
     return (
       <div style={{ height: 150, width: '100%' }}>
-        <button onClick={() => this.onChange([200, 300])}>
+        <button
+          onClick={() => {
+            this.onChange([200, 300])
+            this.onUpdate([200, 300])
+          }}
+        >
           SET VALUES [200, 300]
         </button>
-        <button onClick={() => this.onChange([350, 450])}>
+        <button
+          onClick={() => {
+            this.onChange([350, 450])
+            this.onUpdate([250, 450])
+          }}
+        >
           SET VALUES [350, 450]
         </button>
         <button onClick={() => this.toggleReverse()}>
