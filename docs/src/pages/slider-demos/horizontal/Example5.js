@@ -61,7 +61,7 @@ class Example extends Component {
         <button
           onClick={() => {
             this.onChange([350, 450])
-            this.onUpdate([250, 450])
+            this.onUpdate([350, 450])
           }}
         >
           SET VALUES [350, 450]
