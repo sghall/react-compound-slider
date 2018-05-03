@@ -191,7 +191,7 @@ class Slider extends PureComponent {
 
     if (found) {
       this.active = handleID
-      onSlideStart(values.map(d => d.val))
+      onSlideStart(values.map(d => d.val), {activeHandleID: handleID})
       isTouch ? this.addTouchEvents() : this.addMouseEvents()
     } else {
       this.active = null
@@ -333,10 +333,11 @@ class Slider extends PureComponent {
 
   onMouseUp() {
     const { state: { values }, props: { onChange, onSlideEnd } } = this
+    const activeHandleID = this.active
     this.active = null
 
     onChange(values.map(d => d.val))
-    onSlideEnd(values.map(d => d.val))
+    onSlideEnd(values.map(d => d.val), {activeHandleID})
 
     if (isBrowser) {
       document.removeEventListener('mousemove', this.onMouseMove)
