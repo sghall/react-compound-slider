@@ -367,10 +367,10 @@ class Slider extends PureComponent {
 
     const children = React.Children.map(this.props.children, child => {
       if (
-        child.type === Rail ||
-        child.type === Ticks ||
-        child.type === Tracks ||
-        child.type === Handles
+        child.type.name === Rail.name ||
+        child.type.name === Ticks.name ||
+        child.type.name === Tracks.name ||
+        child.type.name === Handles.name
       ) {
         return React.cloneElement(child, {
           scale: this.valueToPerc,
