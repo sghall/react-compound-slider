@@ -29,13 +29,16 @@ To install and save in your `package.json` dependencies, run:
 npm install react-compound-slider
 ```
 
-### [Live Demos](https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal)
+## Documentation
 
-### [Tutorial](https://sghall.github.io/react-compound-slider/#/getting-started/tutorial)
+You can find the full documentation [on the website](https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal).  
 
-### [Documentation](https://sghall.github.io/react-compound-slider/#/component-api/slider)
+The documentation is divided into several sections:
 
-### [CodeSandbox](https://codesandbox.io/s/plzyr7lmj)
+* [Live Demos](https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal)
+* [Tutorial](https://sghall.github.io/react-compound-slider/#/getting-started/tutorial)
+* [Documentation](https://sghall.github.io/react-compound-slider/#/component-api/slider)
+* [CodeSandbox](https://codesandbox.io/s/plzyr7lmj)
 
 ### Slider Features
 
