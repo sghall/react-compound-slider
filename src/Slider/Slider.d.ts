@@ -1,12 +1,16 @@
 import * as React from 'react';
 
 export interface SliderProps {
-  mode: number;
-  step: number;
-  domain: Array<number>;
+  mode?: number;
+  step?: number;
+  domain?: Array<number>;
   values: Array<number>;
-  onUpdate: (values: Array<number>) => void;
-  onChange: (values: Array<number>) => void;
+  vertical?: boolean;
+  reversed?: boolean;
+  onUpdate?: (values: Array<number>) => void;
+  onChange?: (values: Array<number>) => void;
+  onSlideStart?: (values: Array<number>) => void;
+  onSlideEnd?: (values: Array<number>) => void;
   className?: string;
   rootStyle?: React.CSSProperties;
   children: Array<JSX.Element>;
