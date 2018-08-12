@@ -30,9 +30,7 @@ npm install react-compound-slider
 ```
 
 ## Documentation
-
-You can find the full documentation [on the website](https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal).  
-
+ 
 The documentation is divided into several sections:
 
 * [Live Demos](https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal)
