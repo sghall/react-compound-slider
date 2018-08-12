@@ -10,4 +10,4 @@ Slider.Tracks = Tracks
 Slider.Handles = Handles
 
 export default Slider
-export { Rail, Ticks, Tracks, Handles }
+export { Slider, Rail, Ticks, Tracks, Handles }
