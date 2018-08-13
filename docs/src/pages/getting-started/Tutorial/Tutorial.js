@@ -1,7 +1,6 @@
 // @flow
 /* eslint react/prop-types: "off", max-lines: "off" */
 import React from 'react'
-import { Link } from 'react-router'
 import MarkdownElement from 'docs/src/components/MarkdownElement'
 import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
 
@@ -109,13 +108,6 @@ const requireMarkdown = require.context(
   true,
   /\.md$/,
 )
-
-const linkStyle = {
-  outline: 'none',
-  display: 'inline-block',
-  fontFamily: 'Roboto',
-  color: 'rgba(127, 127, 127, 0.7)',
-}
 
 function Tutorial() {
   return (
