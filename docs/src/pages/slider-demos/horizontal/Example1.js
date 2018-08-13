@@ -44,7 +44,7 @@ class Example extends Component {
         <ValueViewer values={values} update={update} />
         <Slider
           mode={1}
-          step={5}
+          step={1}
           domain={domain}
           rootStyle={sliderStyle}
           onUpdate={this.onUpdate}

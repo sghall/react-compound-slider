@@ -1,4 +1,4 @@
-### Simple Value Slider - Step 5 
+### Simple Value Slider - Step 1 
 {{demo='pages/slider-demos/horizontal/Example1.js'}}
 
 ### Prevent Crossing (mode = 2) - Step 5 
