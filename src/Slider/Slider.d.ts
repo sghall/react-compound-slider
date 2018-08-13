@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 export interface SliderProps {
-  mode?: number;
+  mode?: number | (() => Array<number>);
   step?: number;
   domain?: Array<number>;
   values: Array<number>;
@@ -13,7 +13,7 @@ export interface SliderProps {
   onSlideEnd?: (values: Array<number>) => void;
   className?: string;
   rootStyle?: React.CSSProperties;
-  children: Array<JSX.Element>;
+  children: React.ReactNode;
 }
 
 declare const Slider: React.ComponentType<SliderProps>;
