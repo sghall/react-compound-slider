@@ -3,7 +3,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 import MarkdownElement from 'docs/src/components/MarkdownElement'
-import Slider from 'react-compound-slider'
+import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
 
 const sliderStyleWithBorder = {
   position: 'relative',
@@ -128,10 +128,10 @@ function Tutorial() {
         mode={2}
         values={[10, 20, 30]}
       >
-        <Slider.Rail>
+        <Rail>
           {({ getRailProps }) => <div style={railStyle} {...getRailProps()} />}
-        </Slider.Rail>
-        <Slider.Handles>
+        </Rail>
+        <Handles>
           {({ handles, getHandleProps }) => (
             <div className="slider-handles">
               {handles.map(handle => (
@@ -143,8 +143,8 @@ function Tutorial() {
               ))}
             </div>
           )}
-        </Slider.Handles>
-        <Slider.Tracks left={false} right={false}>
+        </Handles>
+        <Tracks left={false} right={false}>
           {({ tracks, getTrackProps }) => (
             <div className="slider-tracks">
               {tracks.map(({ id, source, target }) => (
@@ -157,8 +157,8 @@ function Tutorial() {
               ))}
             </div>
           )}
-        </Slider.Tracks>
-        <Slider.Ticks count={15}>
+        </Tracks>
+        <Ticks count={15}>
           {({ ticks }) => (
             <div className="slider-ticks">
               {ticks.map(tick => (
@@ -166,26 +166,8 @@ function Tutorial() {
               ))}
             </div>
           )}
-        </Slider.Ticks>
+        </Ticks>
       </Slider>
-      <h1 style={{ ...linkStyle, display: 'inherit', marginLeft: 10 }}>
-        Component Docs:
-      </h1>
-      <Link style={linkStyle} to="/component-api/slider">
-        <h2 style={{ marginLeft: 10 }}>Slider</h2>
-      </Link>
-      <Link style={linkStyle} to="/component-api/rail">
-        <h2 style={{ marginLeft: 10 }}>Rail</h2>
-      </Link>
-      <Link style={linkStyle} to="/component-api/handles">
-        <h2 style={{ marginLeft: 10 }}>Handles</h2>
-      </Link>
-      <Link style={linkStyle} to="/component-api/tracks">
-        <h2 style={{ marginLeft: 10 }}>Tracks</h2>
-      </Link>
-      <Link style={linkStyle} to="/component-api/ticks">
-        <h2 style={{ marginLeft: 10 }}>Ticks</h2>
-      </Link>
       <MarkdownElement text={requireMarkdown('./section1.md')} />
       <Slider rootStyle={sliderStyleWithBorder} domain={[0, 100]} values={[10]}>
         <div style={railStyle} />
@@ -199,7 +181,7 @@ function Tutorial() {
         values={[30]}
       >
         <div style={railStyle} />
-        <Slider.Handles>
+        <Handles>
           {({ handles, getHandleProps }) => (
             <div className="slider-handles">
               {handles.map(handle => (
@@ -211,7 +193,7 @@ function Tutorial() {
               ))}
             </div>
           )}
-        </Slider.Handles>
+        </Handles>
       </Slider>
       <MarkdownElement text={requireMarkdown('./section3.md')} />
       <Slider
@@ -222,7 +204,7 @@ function Tutorial() {
         values={[30]}
       >
         <div style={railStyle} />
-        <Slider.Handles>
+        <Handles>
           {({ handles, getHandleProps }) => (
             <div className="slider-handles">
               {handles.map(handle => (
@@ -234,8 +216,8 @@ function Tutorial() {
               ))}
             </div>
           )}
-        </Slider.Handles>
-        <Slider.Tracks right={false}>
+        </Handles>
+        <Tracks right={false}>
           {({ tracks, getTrackProps }) => (
             <div className="slider-tracks">
               {tracks.map(({ id, source, target }) => (
@@ -248,7 +230,7 @@ function Tutorial() {
               ))}
             </div>
           )}
-        </Slider.Tracks>
+        </Tracks>
       </Slider>
       <MarkdownElement text={requireMarkdown('./section4.md')} />
       <Slider
@@ -258,10 +240,10 @@ function Tutorial() {
         mode={2}
         values={[30]}
       >
-        <Slider.Rail>
+        <Rail>
           {({ getRailProps }) => <div style={railStyle} {...getRailProps()} />}
-        </Slider.Rail>
-        <Slider.Handles>
+        </Rail>
+        <Handles>
           {({ handles, getHandleProps }) => (
             <div className="slider-handles">
               {handles.map(handle => (
@@ -273,8 +255,8 @@ function Tutorial() {
               ))}
             </div>
           )}
-        </Slider.Handles>
-        <Slider.Tracks right={false}>
+        </Handles>
+        <Tracks right={false}>
           {({ tracks, getTrackProps }) => (
             <div className="slider-tracks">
               {tracks.map(({ id, source, target }) => (
@@ -287,7 +269,7 @@ function Tutorial() {
               ))}
             </div>
           )}
-        </Slider.Tracks>
+        </Tracks>
       </Slider>
       <MarkdownElement text={requireMarkdown('./section5.md')} />
       <Slider
@@ -297,10 +279,10 @@ function Tutorial() {
         mode={2}
         values={[10, 20, 30]}
       >
-        <Slider.Rail>
+        <Rail>
           {({ getRailProps }) => <div style={railStyle} {...getRailProps()} />}
-        </Slider.Rail>
-        <Slider.Handles>
+        </Rail>
+        <Handles>
           {({ handles, getHandleProps }) => (
             <div className="slider-handles">
               {handles.map(handle => (
@@ -312,8 +294,8 @@ function Tutorial() {
               ))}
             </div>
           )}
-        </Slider.Handles>
-        <Slider.Tracks left={false} right={false}>
+        </Handles>
+        <Tracks left={false} right={false}>
           {({ tracks, getTrackProps }) => (
             <div className="slider-tracks">
               {tracks.map(({ id, source, target }) => (
@@ -326,7 +308,7 @@ function Tutorial() {
               ))}
             </div>
           )}
-        </Slider.Tracks>
+        </Tracks>
       </Slider>
       <MarkdownElement text={requireMarkdown('./section6.md')} />
       <Slider
@@ -336,10 +318,10 @@ function Tutorial() {
         mode={2}
         values={[10, 20, 30]}
       >
-        <Slider.Rail>
+        <Rail>
           {({ getRailProps }) => <div style={railStyle} {...getRailProps()} />}
-        </Slider.Rail>
-        <Slider.Handles>
+        </Rail>
+        <Handles>
           {({ handles, getHandleProps }) => (
             <div className="slider-handles">
               {handles.map(handle => (
@@ -351,8 +333,8 @@ function Tutorial() {
               ))}
             </div>
           )}
-        </Slider.Handles>
-        <Slider.Tracks left={false} right={false}>
+        </Handles>
+        <Tracks left={false} right={false}>
           {({ tracks, getTrackProps }) => (
             <div className="slider-tracks">
               {tracks.map(({ id, source, target }) => (
@@ -365,8 +347,8 @@ function Tutorial() {
               ))}
             </div>
           )}
-        </Slider.Tracks>
-        <Slider.Ticks count={15}>
+        </Tracks>
+        <Ticks count={15}>
           {({ ticks }) => (
             <div className="slider-ticks">
               {ticks.map(tick => (
@@ -374,7 +356,7 @@ function Tutorial() {
               ))}
             </div>
           )}
-        </Slider.Ticks>
+        </Ticks>
       </Slider>
       <MarkdownElement text={requireMarkdown('./section7.md')} />
       <Slider
@@ -384,10 +366,10 @@ function Tutorial() {
         mode={2}
         values={[20, 60, 80]}
       >
-        <Slider.Rail>
+        <Rail>
           {({ getRailProps }) => <div style={railStyle} {...getRailProps()} />}
-        </Slider.Rail>
-        <Slider.Handles>
+        </Rail>
+        <Handles>
           {({ handles, getHandleProps }) => (
             <div className="slider-handles">
               {handles.map(handle => (
@@ -399,8 +381,8 @@ function Tutorial() {
               ))}
             </div>
           )}
-        </Slider.Handles>
-        <Slider.Tracks left={false} right={false}>
+        </Handles>
+        <Tracks left={false} right={false}>
           {({ tracks, getTrackProps }) => (
             <div className="slider-tracks">
               {tracks.map(({ id, source, target }) => (
@@ -413,8 +395,8 @@ function Tutorial() {
               ))}
             </div>
           )}
-        </Slider.Tracks>
-        <Slider.Ticks values={[0, 25, 50, 75, 100]}>
+        </Tracks>
+        <Ticks values={[0, 25, 50, 75, 100]}>
           {({ ticks }) => (
             <div className="slider-ticks">
               {ticks.map(tick => (
@@ -422,7 +404,7 @@ function Tutorial() {
               ))}
             </div>
           )}
-        </Slider.Ticks>
+        </Ticks>
       </Slider>
       <MarkdownElement text={requireMarkdown('./section8.md')} />
       <Slider
@@ -433,10 +415,10 @@ function Tutorial() {
         reversed
         values={[20, 60, 80]}
       >
-        <Slider.Rail>
+        <Rail>
           {({ getRailProps }) => <div style={railStyle} {...getRailProps()} />}
-        </Slider.Rail>
-        <Slider.Handles>
+        </Rail>
+        <Handles>
           {({ handles, getHandleProps }) => (
             <div className="slider-handles">
               {handles.map(handle => (
@@ -448,8 +430,8 @@ function Tutorial() {
               ))}
             </div>
           )}
-        </Slider.Handles>
-        <Slider.Tracks left={false} right={false}>
+        </Handles>
+        <Tracks left={false} right={false}>
           {({ tracks, getTrackProps }) => (
             <div className="slider-tracks">
               {tracks.map(({ id, source, target }) => (
@@ -462,8 +444,8 @@ function Tutorial() {
               ))}
             </div>
           )}
-        </Slider.Tracks>
-        <Slider.Ticks values={[0, 25, 50, 75, 100]}>
+        </Tracks>
+        <Ticks values={[0, 25, 50, 75, 100]}>
           {({ ticks }) => (
             <div className="slider-ticks">
               {ticks.map(tick => (
@@ -471,7 +453,7 @@ function Tutorial() {
               ))}
             </div>
           )}
-        </Slider.Ticks>
+        </Ticks>
       </Slider>
     </div>
   )

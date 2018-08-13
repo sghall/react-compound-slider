@@ -3,7 +3,7 @@ You can specify exactly what the tick values should be as well.
 Pass the values and get back the percentages to place them correctly.
 
 ```jsx
-import Slider from 'react-compound-slider'
+import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
 
 ...
   <Slider
@@ -18,7 +18,7 @@ import Slider from 'react-compound-slider'
         <div style={railStyle} {...getRailProps()} />
       )}
     </Rail>
-    <Slider.Handles>
+    <Handles>
       {({ handles, getHandleProps }) => (
         <div className="slider-handles">
           {handles.map(handle => (
@@ -30,8 +30,8 @@ import Slider from 'react-compound-slider'
           ))}
         </div>
       )}
-    </Slider.Handles>
-    <Slider.Tracks left={false} right={false}>
+    </Handles>
+    <Tracks left={false} right={false}>
       {({ tracks, getTrackProps }) => (
         <div className="slider-tracks">
           {tracks.map(({ id, source, target }) => (
@@ -44,8 +44,8 @@ import Slider from 'react-compound-slider'
           ))}
         </div>
       )}
-    </Slider.Tracks>
-    <Slider.Ticks values={[0, 25, 50, 75, 100]}> // pass in an array of values
+    </Tracks>
+    <Ticks values={[0, 25, 50, 75, 100]}> // pass in an array of values
       {({ ticks }) => (
         <div className="slider-ticks">
           {ticks.map(tick => ( // get back ids, values and percents (to place them)
@@ -53,7 +53,7 @@ import Slider from 'react-compound-slider'
           ))}
         </div>
       )}
-    </Slider.Ticks>
+    </Ticks>
   </Slider>
 ...
 ```

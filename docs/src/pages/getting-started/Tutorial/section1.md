@@ -7,7 +7,7 @@ You can do that by passing the slider a rootStyle prop for inline styles or a cl
 
 Note: In ES6 enviroments you can import the components in two different ways:
 ```jsx
-import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
+import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
 
 ```
 OR
@@ -24,10 +24,10 @@ Slider.Ticks
 
 ```
 
-I prefer to just import the default and use the dot style, but both work.  If you are using the UMD build you have to use the single Slider import.
+### Start with Rendering Just a Rail
 
 ```jsx
-import Slider from 'react-compound-slider'
+import { Slider } from 'react-compound-slider'
 
 const sliderStyle = {  // Give the slider some width
   position: 'relative',

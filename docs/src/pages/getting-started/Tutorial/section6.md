@@ -4,7 +4,7 @@ Let's add some ticks...
 ## Ticks
 
 ```jsx
-import Slider from 'react-compound-slider'
+import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
 
 function Tick({ tick, count }) {  // your own tick component
   return (
@@ -45,12 +45,12 @@ function Tick({ tick, count }) {  // your own tick component
     mode={2}
     values={[10, 20, 30]}
   >
-    <Slider.Rail>
+    <Rail>
       {({ getRailProps }) => (
         <div style={railStyle} {...getRailProps()} />
       )}
-    </Slider.Rail>
-    <Slider.Handles>
+    </Rail>
+    <Handles>
       {({ handles, getHandleProps }) => (
         <div className="slider-handles">
           {handles.map(handle => (
@@ -62,8 +62,8 @@ function Tick({ tick, count }) {  // your own tick component
           ))}
         </div>
       )}
-    </Slider.Handles>
-    <Slider.Tracks left={false} right={false}>
+    </Handles>
+    <Tracks left={false} right={false}>
       {({ tracks, getTrackProps }) => (
         <div className="slider-tracks">
           {tracks.map(({ id, source, target }) => (
@@ -76,8 +76,8 @@ function Tick({ tick, count }) {  // your own tick component
           ))}
         </div>
       )}
-    </Slider.Tracks>
-    <Slider.Ticks count={15}> // generate approximately 15 ticks within the domain
+    </Tracks>
+    <Ticks count={15}> // generate approximately 15 ticks within the domain
       {({ ticks }) => (
         <div className="slider-ticks">
           {ticks.map(tick => (
@@ -85,7 +85,7 @@ function Tick({ tick, count }) {  // your own tick component
           ))}
         </div>
       )}
-    </Slider.Ticks>
+    </Ticks>
   </Slider>
 ...
 ```

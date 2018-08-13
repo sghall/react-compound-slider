@@ -10,7 +10,7 @@ The last target will always be value equal to the max and the percentage 100.
 You can use the `left` and `right` props to eliminate the outer tracks as a convenience, but the tracks are just an array that you can manipulate however you want.
 
 ```jsx
-import Slider from 'react-compound-slider'
+import { Slider, Handles, Tracks }  from 'react-compound-slider'
 
 function Track({ source, target, getTrackProps }) { // your own track component
   return (
@@ -40,7 +40,7 @@ function Track({ source, target, getTrackProps }) { // your own track component
     values={[30]}
   >
     <div style={railStyle} />
-    <Slider.Handles>
+    <Handles>
       {({ handles, getHandleProps }) => (
         <div className="slider-handles">
           {handles.map(handle => (
@@ -52,8 +52,8 @@ function Track({ source, target, getTrackProps }) { // your own track component
           ))}
         </div>
       )}
-    </Slider.Handles>
-    <Slider.Tracks right={false}> // no track on the right hand side
+    </Handles>
+    <Tracks right={false}> // no track on the right hand side
       {({ tracks, getTrackProps }) => (
         <div className="slider-tracks">
           {tracks.map(({ id, source, target }) => (
@@ -66,7 +66,7 @@ function Track({ source, target, getTrackProps }) { // your own track component
           ))}
         </div>
       )}
-    </Slider.Tracks>
+    </Tracks>
   </Slider>
 ...
 ```

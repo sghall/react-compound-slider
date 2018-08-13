@@ -3,7 +3,7 @@ Nice.  Let's say we actually need three handles.
 The tracks should only show on the connections between handles.
 
 ```jsx
-import Slider from 'react-compound-slider'
+import { Slider, Rail, Handles, Tracks } from 'react-compound-slider'
 
 ...
   <Slider
@@ -13,12 +13,12 @@ import Slider from 'react-compound-slider'
     mode={2}
     values={[10, 20, 30]}  // three values = three handles
   >
-    <Slider.Rail>
+    <Rail>
       {({ getRailProps }) => (
         <div style={railStyle} {...getRailProps()} />
       )}
-    </Slider.Rail>
-    <Slider.Handles>
+    </Rail>
+    <Handles>
       {({ handles, getHandleProps }) => (
         <div className="slider-handles">
           {handles.map(handle => (
@@ -30,8 +30,8 @@ import Slider from 'react-compound-slider'
           ))}
         </div>
       )}
-    </Slider.Handles>
-    <Slider.Tracks left={false} right={false}>  // no outer tracks
+    </Handles>
+    <Tracks left={false} right={false}>  // no outer tracks
       {({ tracks, getTrackProps }) => (
         <div className="slider-tracks">
           {tracks.map(({ id, source, target }) => (
@@ -44,7 +44,7 @@ import Slider from 'react-compound-slider'
           ))}
         </div>
       )}
-    </Slider.Tracks>
+    </Tracks>
   </Slider>
 ...
 ```
