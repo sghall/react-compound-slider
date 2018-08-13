@@ -40,38 +40,17 @@ The documentation is divided into several sections:
 
 ### Slider Features
 
-- Compound component design provides maximum customizability ✓
-  - Makes no assumptions about your markup
-  - Precise control over user interactions and styling
-
-- Horizontal/vertical display ✓
-
-- The display of values can be reversed ✓
-
-- Supports mouse and touch events ✓
-  - Supports IE9+, Chrome, Firefox & Safari
-
-- Create any type of slider ✓
-  - One API for all sliders types
-  - Single value slider
-  - Range slider (2 handles)
-  - Multiple Sliders (N handles)
-
-- Automatically generates uniformly spaced, human-readable tick values to label your slider ✓
-  - Supports passing custom sets of ticks
-
-- Integrates seemlessly with any app styling approach ✓
-  - CSS
-  - CSS-in-JS
-  - Inline-styles
-
-- Interaction modes ✓
-  - Allow crossing (mode = 1)
-  - Prevent crossing (mode = 2)
-  - Pushable mode (mode = 3)
-  - Create your own custom mode (function)
-
-- Works as a controlled component ✓
+- Makes no assumptions about your markup
+- Supports typescript
+- Precise control over user interactions and styling
+- Horizontal/vertical display
+- The display of values can be reversed
+- Supports mouse and touch events (tested in IE9+, Chrome, Firefox & Safari)
+- Create any type of slider (value, range, n-handled sliders)
+- Generates uniformly spaced, human-readable tick values to label your slider
+- Integrates seemlessly with any app styling approach (CSS, CSS-in-JS, Inline-styles)
+- Interaction modes (Allow crossing, Prevent crossing, Pushable mode, Create your own mode)
+- Works as a controlled component
 
 ### Example Usage
 
