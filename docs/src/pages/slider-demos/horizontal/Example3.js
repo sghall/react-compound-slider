@@ -1,7 +1,7 @@
 // @flow weak
 
 import React, { Component } from 'react'
-import Slider, { Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
+import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
 import ValueViewer from 'docs/src/pages/ValueViewer' // for examples only - displays the table above slider
 import { Handle, Track, Tick } from './components' // example render components - source below
 
