@@ -55,7 +55,7 @@ The documentation is divided into several sections:
 ### Example Usage
 
 ```jsx
-import Slider from 'react-compound-slider'
+import { Slider, Handles, Tracks } from 'react-compound-slider'
 import { Handle, Track, Tick } from './your-local-slider-components'
 
   <Slider
@@ -65,24 +65,12 @@ import { Handle, Track, Tick } from './your-local-slider-components'
     mode={2} // 1 = allow-crossing, 2 = no crossing, 3 = pushable (also custom modes)
     values={[10, 20, 30]} // one value would be a value slider, two a range slider, etc
   >
-    <Slider.Handles>
-      {({ handles, getHandleProps }) => (
-        <div className="slider-handles">
-          {handles.map(handle => (
-            ...render your handle here
-          ))}
-        </div>
-      )}
-    </Slider.Handles>
-    <Slider.Tracks left={false} right={false}>  // you can toggle the left and right tracks
-      {({ tracks, getTrackProps }) => (
-        <div className="slider-tracks">
-          {tracks.map(({ id, source, target }) => (
-            ...render your track here
-          ))}
-        </div>
-      )}
-    </Slider.Tracks>
+    <Handles>
+        ...render your handles
+    </Handles>
+    <Tracks left={false} right={false}>  // you can toggle the left and right tracks
+        ...render your tracks
+    </Tracks>
   </Slider>
 ```
 
