@@ -36,6 +36,7 @@ The documentation is divided into several sections:
 * [Tutorial](https://sghall.github.io/react-compound-slider/#/getting-started/tutorial)
 * [Documentation](https://sghall.github.io/react-compound-slider/#/component-api/slider)
 * [CodeSandbox](https://codesandbox.io/s/plzyr7lmj)
+* [Typescript CodeSandbox](https://codesandbox.io/s/6zpjmw1x3w)
 
 ### Slider Features
 
