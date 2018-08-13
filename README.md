@@ -58,7 +58,7 @@ The documentation is divided into several sections:
 
 ```jsx
 import { Slider, Handles, Tracks } from 'react-compound-slider'
-import { Handle, Track, Tick } from './your-local-slider-components'
+import { Handle, Track } from './your-local-slider-components'
 
   <Slider
     rootStyle={sliderStyle}
