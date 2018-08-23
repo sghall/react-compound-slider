@@ -7,7 +7,7 @@ export interface TicksObject {
 
 export interface TicksProps {
   count?: number;
-  values?: Array<number>;
+  values?: ReadonlyArray<number>;
   children: (ticksObject: TicksObject) => React.ReactNode;
 }
 
