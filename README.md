@@ -38,8 +38,8 @@ The documentation is divided into several sections:
 * [CodeSandbox](https://codesandbox.io/s/plzyr7lmj)
 * [Value Slider (Typescript) CodeSandbox](https://codesandbox.io/s/6zpjmw1x3w)
 * [Range Slider (Typescript) CodeSandbox](https://codesandbox.io/s/zl8nrlp9x)
-* [Custom Feet-Inches Ticks (Typescript)](https://codesandbox.io/s/5262w7r9yx)
-* [Custom Feet-Inches Ticks - Vertical (Typescript)](https://codesandbox.io/s/18lkz04y8j)
+* [Custom Feet-Inches Ticks (Typescript) CodeSandbox](https://codesandbox.io/s/5262w7r9yx)
+* [Custom Feet-Inches Ticks - Vertical (Typescript) CodeSandbox](https://codesandbox.io/s/18lkz04y8j)
 
 ### Slider Features
 
