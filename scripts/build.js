@@ -13,13 +13,13 @@ const exec = (command, extraEnv) =>
 
 console.log('Building CommonJS modules...')
 
-exec('babel ./src --ignore *.spec.js --out-dir ./build', {
+exec('babel src -d build --ignore *.spec.js', {
   BABEL_ENV: 'cjs',
 })
 
 console.log('\nBuilding ES module index...')
 
-exec('babel ./src/index.js --out-file ./build/index.es.js', {
+exec('babel src -d build/es --ignore *.spec.js', {
   BABEL_ENV: 'es',
 })
 
