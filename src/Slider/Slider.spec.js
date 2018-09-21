@@ -17,6 +17,10 @@ function createEvent(x = 0, y = 0) {
   return { clientX: x, clientY: y }
 }
 
+function createKeyboardEvent(key) {
+  return { key }
+}
+
 function createTouchEvent({ x, y } = {}) {
   return { touches: [createEvent(x, y)] }
 }
@@ -225,7 +229,7 @@ describe('<Slider />', () => {
 
   it('calls addMouseEvents when descendent emits event with an id', () => {
     const HandleComponent = ({ id, getHandleProps }) => (
-      <div {...getHandleProps(id)} />
+      <button {...getHandleProps(id)} />
     )
 
     const eventSpy = sinon.spy(Slider.prototype, 'addMouseEvents')
@@ -253,7 +257,7 @@ describe('<Slider />', () => {
 
   it('calls addTouchEvents when descendent emits event with an id', () => {
     const HandleComponent = ({ id, getHandleProps }) => (
-      <div {...getHandleProps(id)} />
+      <button {...getHandleProps(id)} />
     )
 
     const wrapper = mount(
@@ -276,6 +280,80 @@ describe('<Slider />', () => {
       .simulate('touchstart', createTouchEvent({ x: 100, y: 0 }))
 
     assert.strictEqual(addTouchEventsSpy.called, true)
+  })
+
+  it('should call submitUpdate ONLY when a valid key is pressed', () => {
+    const HandleComponent = ({ id, getHandleProps }) => (
+      <button {...getHandleProps(id)} />
+    )
+
+    const wrapper = mount(
+      <Slider {...getTestProps()}>
+        <Handles>
+          {({ handles, getHandleProps }) => {
+            return (
+              <HandleComponent
+                id={handles[0].id}
+                getHandleProps={getHandleProps}
+              />
+            )
+          }}
+        </Handles>
+      </Slider>,
+    )
+
+    assert.strictEqual(submitUpdateSpy.callCount, 0)
+    wrapper
+      .find('HandleComponent')
+      .simulate('keydown', createKeyboardEvent('ArrowUp'))
+    assert.strictEqual(submitUpdateSpy.callCount, 1)
+    wrapper
+      .find('HandleComponent')
+      .simulate('keydown', createKeyboardEvent('Escape'))
+    assert.strictEqual(submitUpdateSpy.callCount, 1)
+    wrapper
+      .find('HandleComponent')
+      .simulate('keydown', createKeyboardEvent('ArrowLeft'))
+    assert.strictEqual(submitUpdateSpy.callCount, 2)
+  })
+
+  it('should not go over the domain when using the keyboard', () => {
+    const onChange = sinon.spy()
+
+    const HandleComponent = ({ id, getHandleProps }) => (
+      <button {...getHandleProps(id)} />
+    )
+
+    const props = {
+      ...getTestProps(),
+      step: 5,
+      values: [105],
+      onChange,
+    }
+
+    const wrapper = mount(
+      <Slider {...props}>
+        <Handles>
+          {({ handles, getHandleProps }) => {
+            return (
+              <HandleComponent
+                id={handles[0].id}
+                getHandleProps={getHandleProps}
+              />
+            )
+          }}
+        </Handles>
+      </Slider>,
+    )
+
+    wrapper
+      .find('HandleComponent')
+      .simulate('keydown', createKeyboardEvent('ArrowDown'))
+    assert.deepEqual(onChange.getCall(0).args[0], [100])
+    wrapper
+      .find('HandleComponent')
+      .simulate('keydown', createKeyboardEvent('ArrowDown'))
+    assert.deepEqual(onChange.getCall(0).args[0], [100])
   })
 
   it('does call setState when submitUpdate called', () => {
