@@ -16,7 +16,7 @@ export function Handle({ // your handle component
   getHandleProps,
 }) {
   return (
-    <div
+    <button
       style={{
         left: `${percent}%`,
         position: 'absolute',
@@ -27,13 +27,15 @@ export function Handle({ // your handle component
         height: 30,
         textAlign: 'center',
         cursor: 'pointer',
+        border: '0',
         borderRadius: '50%',
         backgroundColor: '#2C4870',
+        color: '#fff',
       }}
       {...getHandleProps(id)} // pass in the id
     >
-      <div style={{ fontSize: 11, marginTop: -20 }}>{value}</div>
-    </div>
+      <div style={{ fontSize: 11, marginTop: -35 }}>{value}</div>
+    </button>
   )
 }
 

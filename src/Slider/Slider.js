@@ -30,6 +30,18 @@ const equal = (a, b) => {
   return a === b || (a.length === b.length && a.reduce(compare(b), true))
 }
 
+const getNextValue = (curr, step, domain, reversed) => {
+  let newVal = curr
+  newVal = reversed ? curr - step : curr + step
+  return reversed ? Math.max(domain[0], newVal) : Math.min(domain[1], newVal)
+}
+
+const getPrevValue = (curr, step, domain, reversed) => {
+  let newVal = curr
+  newVal = reversed ? curr + step : curr - step
+  return reversed ? Math.min(domain[1], newVal) : Math.max(domain[0], newVal)
+}
+
 class Slider extends PureComponent {
   constructor(props) {
     super(props)
@@ -48,6 +60,7 @@ class Slider extends PureComponent {
 
     this.onMouseDown = this.onMouseDown.bind(this)
     this.onTouchStart = this.onTouchStart.bind(this)
+    this.onKeyDown = this.onKeyDown.bind(this)
     this.onStart = this.onStart.bind(this)
 
     this.onMouseUp = this.onMouseUp.bind(this)
@@ -167,6 +180,48 @@ class Slider extends PureComponent {
     )
   }
 
+  onKeyDown(e, handleID) {
+    let validUpKeys = ['ArrowRight', 'ArrowUp']
+    let validDownKeys = ['ArrowDown', 'ArrowLeft']
+    const {
+      state: { values },
+      props: { step, reversed, vertical, domain },
+    } = this
+    const key = e.key || e.keyCode
+
+    if (!validUpKeys.concat(validDownKeys).includes(key)) {
+      return
+    }
+
+    if (vertical) {
+      [validUpKeys, validDownKeys] = [validDownKeys, validUpKeys]
+    }
+
+    e.stopPropagation && e.stopPropagation()
+    e.preventDefault && e.preventDefault()
+
+    const found = values.find(value => {
+      return value.key === handleID
+    })
+    if (!found) {
+      return
+    }
+
+    const currVal = found.val
+    let newVal = currVal
+
+    if (validUpKeys.includes(key)) {
+      newVal = getNextValue(currVal, step, domain, reversed)
+    } else if (validDownKeys.includes(key)) {
+      newVal = getPrevValue(currVal, step, domain, reversed)
+    }
+    const nextValues = values.map(
+      v => (v.key === handleID ? { key: v.key, val: newVal } : v),
+    )
+
+    this.submitUpdate(nextValues, true)
+  }
+
   onMouseDown(e, handleID) {
     this.onStart(e, handleID, false)
   }
@@ -191,7 +246,7 @@ class Slider extends PureComponent {
 
     if (found) {
       this.active = handleID
-      onSlideStart(values.map(d => d.val), {activeHandleID: handleID})
+      onSlideStart(values.map(d => d.val), { activeHandleID: handleID })
       isTouch ? this.addTouchEvents() : this.addMouseEvents()
     } else {
       this.active = null
@@ -337,7 +392,7 @@ class Slider extends PureComponent {
     this.active = null
 
     onChange(values.map(d => d.val))
-    onSlideEnd(values.map(d => d.val), {activeHandleID})
+    onSlideEnd(values.map(d => d.val), { activeHandleID })
 
     if (isBrowser) {
       document.removeEventListener('mousemove', this.onMouseMove)
@@ -375,6 +430,7 @@ class Slider extends PureComponent {
         return React.cloneElement(child, {
           scale: this.valueToPerc,
           handles,
+          emitKeyboard: this.onKeyDown,
           emitMouse: this.onMouseDown,
           emitTouch: this.onTouchStart,
         })

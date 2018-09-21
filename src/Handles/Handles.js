@@ -3,12 +3,19 @@ import PropTypes from 'prop-types'
 import { callAll } from '../utils'
 
 class Handles extends Component {
+  autofocus = e => {
+    e.target.focus()
+  }
+
   getHandleProps = (id, props = {}) => {
-    const { emitMouse, emitTouch } = this.props
+    const { emitKeyboard, emitMouse, emitTouch } = this.props
 
     return {
       ...props,
-      onMouseDown: callAll(props.onMouseDown, e => emitMouse(e, id)),
+      onKeyDown: callAll(props.onKeyDown, e => emitKeyboard(e, id)),
+      onMouseDown: callAll(props.onMouseDown, this.autofocus, e =>
+        emitMouse(e, id),
+      ),
       onTouchStart: callAll(props.onTouchStart, e => emitTouch(e, id)),
     }
   }
@@ -24,6 +31,8 @@ class Handles extends Component {
 Handles.propTypes = {
   /** @ignore */
   handles: PropTypes.array,
+  /** @ignore */
+  emitKeyboard: PropTypes.func,
   /** @ignore */
   emitMouse: PropTypes.func,
   /** @ignore */

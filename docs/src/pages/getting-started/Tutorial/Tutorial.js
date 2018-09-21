@@ -29,7 +29,7 @@ const railStyle = {
 
 export function Handle({ handle: { id, value, percent }, getHandleProps }) {
   return (
-    <div
+    <button
       style={{
         left: `${percent}%`,
         position: 'absolute',
@@ -38,17 +38,19 @@ export function Handle({ handle: { id, value, percent }, getHandleProps }) {
         zIndex: 2,
         width: 30,
         height: 30,
+        border: 0,
         textAlign: 'center',
         cursor: 'pointer',
         borderRadius: '50%',
         backgroundColor: '#2C4870',
+        color: '#fff',
       }}
       {...getHandleProps(id)}
     >
-      <div style={{ fontFamily: 'Roboto', fontSize: 11, marginTop: -20 }}>
+      <div style={{ fontFamily: 'Roboto', fontSize: 11, marginTop: -35 }}>
         {value}
       </div>
-    </div>
+    </button>
   )
 }
 

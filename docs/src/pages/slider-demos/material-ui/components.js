@@ -64,7 +64,7 @@ function HandleComponent({
   getHandleProps,
 }) {
   return (
-    <div
+    <button
       role="slider"
       aria-valuemin={min}
       aria-valuemax={max}

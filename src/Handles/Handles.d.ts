@@ -2,6 +2,7 @@ import * as React from 'react';
 import { SliderItem } from '..'
 
 interface HandleEventHandlers {
+  onKeyDown: () => void;
   onMouseDown: () => void;
   onTouchStart: () => void;
 }
