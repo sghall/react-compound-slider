@@ -72,15 +72,13 @@ class Slider extends PureComponent {
       reversed !== props.reversed
     ) {
       this.updateRange(domain, step, reversed)
-      const remapped = this.reMapValues(reversed)
+      const remapped = this.reMapValues(reversed, values)
 
       if (values === undefined || values === props.values) {
         next.onChange(remapped)
         next.onUpdate(remapped)
       }
-    }
-
-    if (!equal(values, props.values)) {
+    } else if (!equal(values, props.values)) {
       this.setValues(values, reversed)
     }
   }
@@ -98,9 +96,9 @@ class Slider extends PureComponent {
     }
   }
 
-  reMapValues(reversed) {
+  reMapValues(reversed, vals) {
     const { values } = this.state
-    return this.setValues(values.map(d => d.val), reversed)
+    return this.setValues(vals || values.map(d => d.val), reversed)
   }
 
   setValues(arr = [], reversed) {
@@ -165,6 +163,7 @@ class Slider extends PureComponent {
       range[reversed ? last : 0] === min && range[reversed ? 0 : last] === max,
       `${prfx} The range is incorrectly calculated. Check domain (min, max) and step values.`,
     )
+    return range
   }
 
   onMouseDown(e, handleID) {
@@ -191,7 +190,7 @@ class Slider extends PureComponent {
 
     if (found) {
       this.active = handleID
-      onSlideStart(values.map(d => d.val), {activeHandleID: handleID})
+      onSlideStart(values.map(d => d.val), { activeHandleID: handleID })
       isTouch ? this.addTouchEvents() : this.addMouseEvents()
     } else {
       this.active = null
@@ -337,7 +336,7 @@ class Slider extends PureComponent {
     this.active = null
 
     onChange(values.map(d => d.val))
-    onSlideEnd(values.map(d => d.val), {activeHandleID})
+    onSlideEnd(values.map(d => d.val), { activeHandleID })
 
     if (isBrowser) {
       document.removeEventListener('mousemove', this.onMouseMove)
