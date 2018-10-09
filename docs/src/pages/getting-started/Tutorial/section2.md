@@ -12,8 +12,8 @@ Take a look at the Material-UI examples in this site to see how you might handle
 import { Slider, Handles } from 'react-compound-slider'
 
 export function Handle({ // your handle component
-  handle: { id, value, percent }, // you get an id, the value and the percentage to place it.
-  getHandleProps,
+  handle: { id, value, percent }, 
+  getHandleProps
 }) {
   return (
     <div
@@ -25,16 +25,18 @@ export function Handle({ // your handle component
         zIndex: 2,
         width: 30,
         height: 30,
+        border: 0,
         textAlign: 'center',
         cursor: 'pointer',
-        border: '0',
         borderRadius: '50%',
         backgroundColor: '#2C4870',
         color: '#fff',
       }}
-      {...getHandleProps(id)} // pass in the id
+      {...getHandleProps(id)}
     >
-      <div style={{ fontSize: 11, marginTop: -35 }}>{value}</div>
+      <div style={{ fontFamily: 'Roboto', fontSize: 11, marginTop: -35 }}>
+        {value}
+      </div>
     </div>
   )
 }
