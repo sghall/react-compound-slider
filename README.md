@@ -53,7 +53,7 @@ The documentation is divided into several sections:
 
 ### Example Usage
 
-You have full control of everyhting that is rendered.  You can use whatever styling method you prefer. Use can use these components from the demos to jumpstart your slider:
+You have full control of everything that is rendered. Just create your own local handle, track and tick components.  You can use whatever style library / approach you prefer. You can use these components from the demos to jumpstart your slider:
 
 [Starter Components - Horizontal](https://github.com/sghall/react-compound-slider/blob/master/docs/src/pages/slider-demos/horizontal/components.js)
 
@@ -63,7 +63,7 @@ You have full control of everyhting that is rendered.  You can use whatever styl
 
 ```jsx
 import { Slider, Handles, Tracks } from 'react-compound-slider'
-import { Handle, Track } from './your-local-slider-components'
+import { Handle, Track, Tick } from './your-local-slider-components'
 
   <Slider
     rootStyle={sliderStyle}
