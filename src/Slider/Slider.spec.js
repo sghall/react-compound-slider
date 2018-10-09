@@ -141,9 +141,12 @@ describe('<Slider />', () => {
     assert.strictEqual(updateRangeSpy.callCount, 1)
   })
 
-  it('uses value props when domain changes', () => {
+  it('uses valid value props when domain changes', () => {
     const onUpdate = sinon.spy()
-    const wrapper = shallow(<Slider onUpdate={onUpdate} {...getTestProps()} />)
+    const onChange = sinon.spy()
+    const wrapper = shallow(
+      <Slider onUpdate={onUpdate} onChange={onChange} {...getTestProps()} />,
+    )
 
     assert.strictEqual(updateRangeSpy.callCount, 1)
     assert.strictEqual(setValuesSpy.callCount, 1)
@@ -151,18 +154,22 @@ describe('<Slider />', () => {
     assert.strictEqual(setValuesSpy.callCount, 2)
     assert.strictEqual(updateRangeSpy.callCount, 2)
     assert.strictEqual(onUpdate.callCount, 0)
-    
+    assert.strictEqual(onChange.callCount, 0)
   })
 
-  it('recalculates value when domain changes', () => {
+  it('recalculates invalid value when domain changes', () => {
     const onUpdate = sinon.spy()
-    const wrapper = shallow(<Slider onUpdate={onUpdate}  {...getTestProps()} />)
+    const onChange = sinon.spy()
+    const wrapper = shallow(
+      <Slider onUpdate={onUpdate} onChange={onChange} {...getTestProps()} />,
+    )
 
     assert.strictEqual(updateRangeSpy.callCount, 1)
     wrapper.setProps({ ...getTestProps(), domain: [1, 2] })
     assert.strictEqual(setValuesSpy.callCount, 2)
     assert.strictEqual(updateRangeSpy.callCount, 2)
     assert.strictEqual(onUpdate.callCount, 1)
+    assert.strictEqual(onChange.callCount, 1)
   })
 
   it('calls updateRange when domain changes', () => {
