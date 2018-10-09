@@ -11,6 +11,9 @@
 - Supports mouse and touch events ✓
   - Supports IE9+, Chrome, Firefox & Safari
 
+- Support keyboard events ✓
+  - Handles can be moved using arrow keys 
+
 - Create any type of slider ✓
   - One API for all sliders types
   - Single value slider

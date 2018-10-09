@@ -50,6 +50,7 @@ The documentation is divided into several sections:
 - Horizontal/vertical display
 - The display of values can be reversed
 - Supports mouse and touch events (tested in IE9+, Chrome, Firefox & Safari)
+- Supports keyboard events so handles can be moved using arrow keys
 - Create any type of slider (value, range, n-handled sliders)
 - Generates uniformly spaced, human-readable tick values to label your slider
 - Integrates seemlessly with any app styling approach (CSS, CSS-in-JS, Inline-styles)
