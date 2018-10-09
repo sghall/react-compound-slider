@@ -59,6 +59,7 @@ class Example extends Component {
               <div>
                 {handles.map(handle => (
                   <Handle
+                    divOrButton="button"
                     key={handle.id}
                     handle={handle}
                     domain={domain}

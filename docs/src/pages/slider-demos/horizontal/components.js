@@ -7,12 +7,13 @@ import PropTypes from 'prop-types'
 // HANDLE COMPONENT
 // *******************************************************
 export function Handle({
+  divOrButton: Comp,
   domain: [min, max],
   handle: { id, value, percent },
   getHandleProps,
 }) {
   return (
-    <button
+    <Comp
       role="slider"
       aria-valuemin={min}
       aria-valuemax={max}
@@ -37,6 +38,7 @@ export function Handle({
 }
 
 Handle.propTypes = {
+  divOrButton: PropTypes.oneOf(['div', 'button']).isRequired, // button allows keyboard events
   domain: PropTypes.array.isRequired,
   handle: PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -44,6 +46,10 @@ Handle.propTypes = {
     percent: PropTypes.number.isRequired,
   }).isRequired,
   getHandleProps: PropTypes.func.isRequired,
+}
+
+Handle.defaultProps = {
+  divOrButton: 'div',
 }
 
 // *******************************************************

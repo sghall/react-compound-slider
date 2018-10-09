@@ -5,6 +5,7 @@
 {{demo='pages/slider-demos/horizontal/Example2.js'}}
 
 ### Pushable Mode (mode = 3) - Step 10
+This example also demonstrates keyboard events. Click on a handle (tab) and use arrow keys.
 {{demo='pages/slider-demos/horizontal/Example3.js'}}
 
 ### Updating Domain/Change Direction - (mode = 1) - Step 5

@@ -58,13 +58,14 @@ const handleStyle = theme => ({
 })
 
 function HandleComponent({
+  divOrButton: Comp,
   domain: [min, max],
   handle: { id, value, percent },
   classes,
   getHandleProps,
 }) {
   return (
-    <button
+    <Comp
       role="slider"
       aria-valuemin={min}
       aria-valuemax={max}
@@ -77,6 +78,7 @@ function HandleComponent({
 }
 
 HandleComponent.propTypes = {
+  divOrButton: PropTypes.oneOf(['div', 'button']).isRequired,
   domain: PropTypes.array.isRequired,
   handle: PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -85,6 +87,10 @@ HandleComponent.propTypes = {
   }).isRequired,
   classes: PropTypes.object.isRequired,
   getHandleProps: PropTypes.func.isRequired,
+}
+
+HandleComponent.defaultProps = {
+  divOrButton: 'div',
 }
 
 export const Handle = withStyles(handleStyle)(HandleComponent)
