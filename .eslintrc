@@ -11,5 +11,6 @@
     "babel/object-curly-spacing": "off",
     "import/no-unresolved": "off",
     "import/no-extraneous-dependencies": "off",
+    "max-lines": "off"
   }
 }
