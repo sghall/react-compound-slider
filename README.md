@@ -72,7 +72,7 @@ import { Handle, Track, Tick } from './your-local-slider-components'
   >
     <Rail>
       {({ getRailProps }) => (
-        <div style={railStyle} {...getRailProps()} /> // rende your clickable rail!
+        <div style={railStyle} {...getRailProps()} /> // render your clickable rail!
       )}
     </Rail>
     <Handles>
