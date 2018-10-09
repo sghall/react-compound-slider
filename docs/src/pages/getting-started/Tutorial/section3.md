@@ -20,7 +20,7 @@ function Track({ source, target, getTrackProps }) { // your own track component
         height: 10,
         zIndex: 1,
         marginTop: 35,
-        backgroundColor: '#8B9CB6',
+        backgroundColor: '#546C91',
         borderRadius: 5,
         cursor: 'pointer',
         left: `${source.percent}%`,
@@ -53,7 +53,7 @@ function Track({ source, target, getTrackProps }) { // your own track component
         </div>
       )}
     </Handles>
-    <Tracks right={false}> // no track on the right hand side
+    <Tracks right={false}>
       {({ tracks, getTrackProps }) => (
         <div className="slider-tracks">
           {tracks.map(({ id, source, target }) => (
