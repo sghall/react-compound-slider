@@ -53,23 +53,44 @@ The documentation is divided into several sections:
 
 ### Example Usage
 
+You have full control of everyhting that is rendered.  You can use whatever styling method you prefer. Use can use these components from the demos to jumpstart your slider:
+
+[Starter Components - Horizontal](https://github.com/sghall/react-compound-slider/blob/master/docs/src/pages/slider-demos/horizontal/components.js)
+
+[Starter Components - Vertical](https://github.com/sghall/react-compound-slider/blob/master/docs/src/pages/slider-demos/vertical/components.js)
+
+[Starter Components - Material UI](https://github.com/sghall/react-compound-slider/blob/master/docs/src/pages/slider-demos/material-ui/components.js)
+
 ```jsx
 import { Slider, Handles, Tracks } from 'react-compound-slider'
 import { Handle, Track } from './your-local-slider-components'
 
   <Slider
     rootStyle={sliderStyle}
-    domain={[0, 100]}  // [min, max]
-    step={1}
-    mode={2} // 1 = allow-crossing, 2 = no crossing, 3 = pushable (also custom modes)
-    values={[10, 20, 30]} // one value would be a value slider, two a range slider, etc
+    domain={[0, 100]} // [min, max]
+    values={[20, 60, 80]} // slider values
   >
+    <Rail>
+      {({ getRailProps }) => (
+        <div style={railStyle} {...getRailProps()} /> // rende your clickable rail!
+      )}
+    </Rail>
     <Handles>
-        ...render your handles
+      {({ handles, getHandleProps }) => (
+        // render your handles!
+      )}
     </Handles>
-    <Tracks left={false} right={false}>  // you can toggle the left and right tracks
-        ...render your tracks
+    <Tracks left={false} right={false}>
+      {({ tracks, getTrackProps }) => (
+        // render your (optional) tracks!
+      )}
     </Tracks>
+    <Ticks count={10}> 
+      {({ ticks }) => (
+        // render your (optional) ticks!
+        // count prop = auto generate approximately 10 uniformly spaced, human-readable ticks
+      )}
+    </Ticks>
   </Slider>
 ```
 
