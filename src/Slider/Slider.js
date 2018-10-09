@@ -72,6 +72,8 @@ class Slider extends PureComponent {
       reversed !== props.reversed
     ) {
       this.updateRange(domain, step, reversed)
+      // after adjusting the range based on the changed domain or step, make sure to update the values
+      // to fit with the new range
       const remapped = this.reMapValues(reversed, values)
 
       if (values === undefined || values === props.values) {
@@ -79,6 +81,7 @@ class Slider extends PureComponent {
         next.onUpdate(remapped)
       }
     } else if (!equal(values, props.values)) {
+      // if domain didnt change, but the value props did, set the values
       this.setValues(values, reversed)
     }
   }
@@ -96,9 +99,9 @@ class Slider extends PureComponent {
     }
   }
 
-  reMapValues(reversed, vals) {
-    const { values } = this.state
-    return this.setValues(vals || values.map(d => d.val), reversed)
+  reMapValues(reversed, values) {
+    // if values was not passed, fall back to using state
+    return this.setValues(values || this.state.values.map(d => d.val), reversed)
   }
 
   setValues(arr = [], reversed) {
@@ -163,7 +166,6 @@ class Slider extends PureComponent {
       range[reversed ? last : 0] === min && range[reversed ? 0 : last] === max,
       `${prfx} The range is incorrectly calculated. Check domain (min, max) and step values.`,
     )
-    return range
   }
 
   onMouseDown(e, handleID) {
