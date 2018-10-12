@@ -260,7 +260,9 @@ class Slider extends PureComponent {
     const { slider } = this
 
     // double check the dimensions of the slider
-    this.pixelToStep.setDomain(getSliderDomain(slider, vertical))
+    this.pixelToStep.setDomain(
+      getSliderDomain(slider, vertical, this.pixelToStep),
+    )
 
     // find the closest value (aka step) to the event location
     let updateValue
@@ -311,7 +313,9 @@ class Slider extends PureComponent {
     const { active: updateKey, slider } = this
 
     // double check the dimensions of the slider
-    this.pixelToStep.setDomain(getSliderDomain(slider, vertical))
+    this.pixelToStep.setDomain(
+      getSliderDomain(slider, vertical, this.pixelToStep),
+    )
 
     // find the closest value (aka step) to the event location
     const updateValue = this.pixelToStep.getValue(
@@ -334,7 +338,9 @@ class Slider extends PureComponent {
     }
 
     // double check the dimensions of the slider
-    this.pixelToStep.setDomain(getSliderDomain(slider, vertical))
+    this.pixelToStep.setDomain(
+      getSliderDomain(slider, vertical, this.pixelToStep),
+    )
 
     // find the closest value (aka step) to the event location
     const updateValue = this.pixelToStep.getValue(getTouchPosition(vertical, e))

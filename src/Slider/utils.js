@@ -32,13 +32,19 @@ export function getUpdatedValues(values, updateKey, updateValue, reversed) {
   return values
 }
 
-export function getSliderDomain(slider, vertical) {
+export function getSliderDomain(slider, vertical, scale) {
   if (!slider) {
     return [0, 0]
   }
 
   const s = slider.getBoundingClientRect()
-  return vertical ? [s.top, s.bottom] : [s.left, s.right]
+
+  const d0 = vertical ? s.top : s.left
+  const d1 = vertical ? s.bottom : s.right
+
+  const k = Math.abs(d0 - d1) / scale.n / 2
+
+  return [d0 - k, d1 + k]
 }
 
 function precision(num) {
