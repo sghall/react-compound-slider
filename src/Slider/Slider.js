@@ -168,9 +168,11 @@ class Slider extends PureComponent {
       `${prfx} Max must be greater than min (even if reversed). Max is ${max}. Min is ${min}.`,
     )
 
+    const maxInRange = 100001
+
     warning(
-      range.length <= 10001,
-      `${prfx} Increase step value. Found ${range.length.toLocaleString()} values in range.`,
+      range.length <= maxInRange,
+      `${prfx} Increase step value (set to ${step} currently). Found ${range.length.toLocaleString()} values in range. Max is ${maxInRange.toLocaleString()}.`,
     )
 
     const last = range.length - 1

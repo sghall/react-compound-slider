@@ -70,6 +70,10 @@ export function getStepRange(min, max, step) {
   while (next <= pMax) {
     range.push(next)
     next = +(next + step).toFixed(fixed)
+
+    if (range.length > 1000000) {
+      throw new Error('Slider range is too large.  Increase step value.')
+    }
   }
 
   return range
