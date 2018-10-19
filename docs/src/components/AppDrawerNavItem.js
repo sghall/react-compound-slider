@@ -50,7 +50,7 @@ class AppDrawerNavItem extends Component {
   }
 
   state = {
-    open: false,
+    open: true,
   }
 
   componentWillMount() {
