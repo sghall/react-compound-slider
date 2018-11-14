@@ -1,7 +1,19 @@
 import * as React from 'react';
 
+export type SliderModeValue = {
+  key: string;
+  value: number;
+}
+export type SliderModeFunction = (
+  current: SliderModeValue[],
+  next: SliderModeValue[],
+  step: number,
+  reverse: boolean,
+  getValue: (x: number) => number
+) => ReadonlyArray<SliderModeValue>
+
 export interface SliderProps {
-  mode?: number | (() => ReadonlyArray<number>);
+  mode?: number | SliderModeFunction;
   step?: number;
   domain?: ReadonlyArray<number>;
   values: ReadonlyArray<number>;
