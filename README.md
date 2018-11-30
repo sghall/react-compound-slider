@@ -12,6 +12,17 @@ Welcome to the future. React Compound Slider is a tiny (5kb) slider component wi
   <a href="https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal" target="\_parent"><img src="https://user-images.githubusercontent.com/4615775/46690444-2aa96b80-cbb7-11e8-8cdd-d1af59df59fe.png" alt="React Compound Slider" style="width:450px;"/></a>
 </div>
 
+
+# Material Design Spec w/ MUI Example
+Thanks to @RafeSacks for the styles! https://github.com/sghall/react-compound-slider/issues/41
+
+<div style="text-align:center;">
+  <a href="https://codesandbox.io/s/k91omlr1wo" target="\_parent"><img src="https://user-images.githubusercontent.com/4615775/49270889-9de99400-f428-11e8-9f9d-5ba64de66e89.png" alt="React Compound Slider" style="width:450px;"/></a>
+</div>
+
+
+
+
 # Installation
 
 React Compound Slider is available as an [npm package](https://www.npmjs.org/package/react-compound-slider).
