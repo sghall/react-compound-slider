@@ -23,6 +23,7 @@ export interface SliderProps {
   onChange?: (values: ReadonlyArray<number>) => void;
   onSlideStart?: (values: ReadonlyArray<number>) => void;
   onSlideEnd?: (values: ReadonlyArray<number>) => void;
+  onPressRail?: (values: ReadonlyArray<number>) => void;
   className?: string;
   rootStyle?: React.CSSProperties;
   children: React.ReactNode;

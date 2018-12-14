@@ -258,7 +258,10 @@ class Slider extends PureComponent {
   }
 
   handleRailAndTrackClicks(e, isTouch) {
-    const { state: { values: curr }, props: { vertical, reversed } } = this
+    const {
+      state: { values: curr },
+      props: { vertical, reversed, onPressRail },
+    } = this
     const { slider } = this
 
     // double check the dimensions of the slider
@@ -293,7 +296,7 @@ class Slider extends PureComponent {
     const nextValues = getUpdatedValues(curr, updateKey, updateValue, reversed)
 
     // submit the candidate values
-    this.submitUpdate(nextValues, true)
+    this.submitUpdate(nextValues, true, onPressRail)
   }
 
   addMouseEvents() {
@@ -354,7 +357,7 @@ class Slider extends PureComponent {
     this.submitUpdate(nextValues)
   }
 
-  submitUpdate(next, callOnChange) {
+  submitUpdate(next, callOnChange, callback) {
     const { mode, step, onUpdate, onChange, reversed } = this.props
     const { getValue } = this.valueToStep
 
@@ -389,6 +392,10 @@ class Slider extends PureComponent {
 
       if (callOnChange) {
         onChange(values.map(d => d.val))
+      }
+
+      if (typeof callback === 'function') {
+        callback(values)
       }
 
       return { values }
@@ -517,6 +524,10 @@ Slider.propTypes = {
    */
   onSlideEnd: PropTypes.func,
   /**
+   * Function triggered with ontouchstart or onmousedown on a rail. Receives values.
+   */
+  onPressRail: PropTypes.func,
+  /**
    * Component children to render
    */
   children: PropTypes.any,
@@ -532,6 +543,7 @@ Slider.defaultProps = {
   onUpdate: noop,
   onSlideStart: noop,
   onSlideEnd: noop,
+  onPressRail: noop,
 }
 
 export default Slider
