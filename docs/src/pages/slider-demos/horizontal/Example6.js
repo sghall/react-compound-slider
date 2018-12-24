@@ -56,6 +56,8 @@ class Example extends Component {
           step={1}
           domain={domain}
           rootStyle={sliderStyle}
+          onUpdate={this.onUpdate}
+          onChange={this.onChange}
           values={values}
         >
           <Rail>
@@ -72,6 +74,7 @@ class Example extends Component {
                     handle={handle}
                     domain={domain}
                     getHandleProps={getHandleProps}
+                    disabled={disabled}
                   />
                 ))}
               </div>
@@ -86,6 +89,7 @@ class Example extends Component {
                     source={source}
                     target={target}
                     getTrackProps={getTrackProps}
+                    disabled={disabled}
                   />
                 ))}
               </div>

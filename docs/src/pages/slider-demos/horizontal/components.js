@@ -31,7 +31,7 @@ export function Handle({
         border: 0,
         borderRadius: '50%',
         boxShadow: '1px 1px 1px 1px rgba(0, 0, 0, 0.2)',
-        backgroundColor: disabled ? '#333' : '#34568f',
+        backgroundColor: disabled ? '#666' : '#34568f',
       }}
       {...getHandleProps(id)}
     />
@@ -56,14 +56,14 @@ Handle.defaultProps = {
 // *******************************************************
 // TRACK COMPONENT
 // *******************************************************
-export function Track({ source, target, getTrackProps }) {
+export function Track({ source, target, getTrackProps, disabled }) {
   return (
     <div
       style={{
         position: 'absolute',
         height: 14,
         zIndex: 1,
-        backgroundColor: '#7aa0c4',
+        backgroundColor: disabled ? '#999' : '#7aa0c4',
         borderRadius: 7,
         cursor: 'pointer',
         left: `${source.percent}%`,
