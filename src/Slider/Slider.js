@@ -55,17 +55,17 @@ class Slider extends PureComponent {
     this.valueToStep = new DiscreteScale()
     this.pixelToStep = new DiscreteScale()
 
-    this.onMouseMove = disabled ? noop : this.onMouseMove.bind(this)
-    this.onTouchMove = disabled ? noop : this.onTouchMove.bind(this)
+    this.onMouseMove = this.onMouseMove.bind(this)
+    this.onTouchMove = this.onTouchMove.bind(this)
     this.submitUpdate = this.submitUpdate.bind(this)
 
-    this.onMouseDown = disabled ? noop : this.onMouseDown.bind(this)
-    this.onTouchStart = disabled ? noop : this.onTouchStart.bind(this)
-    this.onKeyDown = disabled ? noop : this.onKeyDown.bind(this)
-    this.onStart = disabled ? noop : this.onStart.bind(this)
+    this.onMouseDown = this.onMouseDown.bind(this)
+    this.onTouchStart = this.onTouchStart.bind(this)
+    this.onKeyDown = this.onKeyDown.bind(this)
+    this.onStart = this.onStart.bind(this)
 
-    this.onMouseUp = disabled ? noop : this.onMouseUp.bind(this)
-    this.onTouchEnd = disabled ? noop : this.onTouchEnd.bind(this)
+    this.onMouseUp = this.onMouseUp.bind(this)
+    this.onTouchEnd = this.onTouchEnd.bind(this)
   }
 
   componentWillMount() {
@@ -424,7 +424,10 @@ class Slider extends PureComponent {
   }
 
   render() {
-    const { state: { values }, props: { className, rootStyle } } = this
+    const {
+      state: { values },
+      props: { className, rootStyle, disabled },
+    } = this
 
     const handles = values.map(({ key, val }) => {
       return { id: key, value: val, percent: this.valueToPerc.getValue(val) }
@@ -440,9 +443,9 @@ class Slider extends PureComponent {
         return React.cloneElement(child, {
           scale: this.valueToPerc,
           handles,
-          emitKeyboard: this.onKeyDown,
-          emitMouse: this.onMouseDown,
-          emitTouch: this.onTouchStart,
+          emitKeyboard: disabled ? noop : this.onKeyDown,
+          emitMouse: disabled ? noop : this.onMouseDown,
+          emitTouch: disabled ? noop : this.onTouchStart,
         })
       }
 
