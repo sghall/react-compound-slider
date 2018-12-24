@@ -233,6 +233,58 @@ describe('<Slider />', () => {
     assert.strictEqual(onMouseDownSpy.called, true)
   })
 
+  describe('disabled', () => {
+    const RailComponent = ({ getRailProps }) => <div {...getRailProps()} />
+
+    const sliderProps = {
+      ...getTestProps(),
+      disabled: true,
+      values: [110],
+    }
+
+    const HandleComponent = ({ id, getHandleProps }) => (
+      <button {...getHandleProps(id)} />
+    )
+
+    const wrapper = mount(
+      <Slider {...sliderProps}>
+        <Handles>
+          {({ handles, getHandleProps }) => {
+            return (
+              <HandleComponent
+                id={handles[0].id}
+                getHandleProps={getHandleProps}
+              />
+            )
+          }}
+        </Handles>
+        <Rail>
+          {({ getRailProps }) => {
+            return <RailComponent getRailProps={getRailProps} />
+          }}
+        </Rail>
+      </Slider>,
+    )
+
+    it('should not call keyboard events when disabled', () => {
+      wrapper
+        .find('HandleComponent')
+        .simulate('keydown', createKeyboardEvent('ArrowUp'))
+        .simulate('keydown', createKeyboardEvent('ArrowRight'))
+
+      const values = wrapper.state().values
+      assert.strictEqual(values[0].val, 110)
+    })
+
+    it('should not call mouse events when descendent emits mouse event', () => {
+      wrapper.find('RailComponent').simulate('mousedown')
+      assert.strictEqual(onMouseDownSpy.called, false)
+
+      wrapper.find('HandleComponent').simulate('mousedown')
+      assert.strictEqual(onMouseDownSpy.called, false)
+    })
+  })
+
   it('calls onTouchStart when descendent emits event', () => {
     const RailComponent = ({ getRailProps }) => {
       return <div {...getRailProps()} />

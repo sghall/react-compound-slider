@@ -47,6 +47,7 @@ class Slider extends PureComponent {
     super(props)
 
     this.state = { values: [] }
+    const { disabled } = props
 
     this.slider = null
 
@@ -54,17 +55,17 @@ class Slider extends PureComponent {
     this.valueToStep = new DiscreteScale()
     this.pixelToStep = new DiscreteScale()
 
-    this.onMouseMove = this.onMouseMove.bind(this)
-    this.onTouchMove = this.onTouchMove.bind(this)
+    this.onMouseMove = disabled ? noop : this.onMouseMove.bind(this)
+    this.onTouchMove = disabled ? noop : this.onTouchMove.bind(this)
     this.submitUpdate = this.submitUpdate.bind(this)
 
-    this.onMouseDown = this.onMouseDown.bind(this)
-    this.onTouchStart = this.onTouchStart.bind(this)
-    this.onKeyDown = this.onKeyDown.bind(this)
-    this.onStart = this.onStart.bind(this)
+    this.onMouseDown = disabled ? noop : this.onMouseDown.bind(this)
+    this.onTouchStart = disabled ? noop : this.onTouchStart.bind(this)
+    this.onKeyDown = disabled ? noop : this.onKeyDown.bind(this)
+    this.onStart = disabled ? noop : this.onStart.bind(this)
 
-    this.onMouseUp = this.onMouseUp.bind(this)
-    this.onTouchEnd = this.onTouchEnd.bind(this)
+    this.onMouseUp = disabled ? noop : this.onMouseUp.bind(this)
+    this.onTouchEnd = disabled ? noop : this.onTouchEnd.bind(this)
   }
 
   componentWillMount() {
@@ -517,6 +518,10 @@ Slider.propTypes = {
    */
   onSlideEnd: PropTypes.func,
   /**
+   * Ignore all mouse, touch and keyboard events
+   */
+  disabled: PropTypes.bool,
+  /**
    * Component children to render
    */
   children: PropTypes.any,
@@ -532,6 +537,7 @@ Slider.defaultProps = {
   onUpdate: noop,
   onSlideStart: noop,
   onSlideEnd: noop,
+  disabled: false,
 }
 
 export default Slider
