@@ -10,6 +10,7 @@ export function Handle({
   divOrButton: Comp,
   domain: [min, max],
   handle: { id, value, percent },
+  disabled,
   getHandleProps,
 }) {
   return (
@@ -30,7 +31,7 @@ export function Handle({
         border: 0,
         borderRadius: '50%',
         boxShadow: '1px 1px 1px 1px rgba(0, 0, 0, 0.2)',
-        backgroundColor: '#34568f',
+        backgroundColor: disabled ? '#333' : '#34568f',
       }}
       {...getHandleProps(id)}
     />

@@ -25,16 +25,34 @@ const defaultValues = [200]
 class Example extends Component {
   state = {
     values: defaultValues.slice(),
+    update: defaultValues.slice(),
+    disabled: false,
+  }
+
+  onUpdate = update => {
+    this.setState({ update })
+  }
+
+  onChange = values => {
+    this.setState({ values })
+  }
+
+  toggleDisabled = () => {
+    this.setState({ disabled: !this.state.disabled })
   }
 
   render() {
-    const { state: { values } } = this
+    const { state: { values, update, disabled } } = this
 
     return (
       <div style={{ height: 120, width: '100%' }}>
-        <ValueViewer values={values} update={values} />
+        <button onClick={() => this.toggleDisabled()}>
+          {disabled ? 'ENABLE' : 'DISABLE'}
+        </button>
+
+        <ValueViewer values={values} update={update} />
         <Slider
-          disabled={true}
+          disabled={disabled}
           step={1}
           domain={domain}
           rootStyle={sliderStyle}
