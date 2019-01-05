@@ -47,10 +47,12 @@ Handle.propTypes = {
     percent: PropTypes.number.isRequired,
   }).isRequired,
   getHandleProps: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
 }
 
 Handle.defaultProps = {
   divOrButton: 'div',
+  disabled: false,
 }
 
 // *******************************************************
@@ -86,6 +88,11 @@ Track.propTypes = {
     percent: PropTypes.number.isRequired,
   }).isRequired,
   getTrackProps: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
+}
+
+Track.defaultProps = {
+  disabled: false,
 }
 
 // *******************************************************
