@@ -47,7 +47,6 @@ class Slider extends PureComponent {
     super(props)
 
     this.state = { values: [] }
-    const { disabled } = props
 
     this.slider = null
 
