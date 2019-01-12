@@ -41,6 +41,7 @@ The documentation is divided into several sections:
 * [Tutorial](https://sghall.github.io/react-compound-slider/#/getting-started/tutorial)
 * [Documentation](https://sghall.github.io/react-compound-slider/#/component-api/slider)
 * [CodeSandbox](https://codesandbox.io/s/plzyr7lmj)
+* [Video Slider](https://codesandbox.io/s/1z51zn6q23)
 * [Value Slider (Typescript) CodeSandbox](https://codesandbox.io/s/6zpjmw1x3w)
 * [Range Slider (Typescript) CodeSandbox](https://codesandbox.io/s/zl8nrlp9x)
 * [Custom Feet-Inches Ticks (Typescript) CodeSandbox](https://codesandbox.io/s/5262w7r9yx)
