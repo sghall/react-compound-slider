@@ -20,7 +20,14 @@ Thanks to @RafeSacks for the styles! [CodeSandbox](https://codesandbox.io/s/k91o
   <a href="https://codesandbox.io/s/k91omlr1wo" target="\_parent"><img src="https://user-images.githubusercontent.com/4615775/49270889-9de99400-f428-11e8-9f9d-5ba64de66e89.png" alt="React Compound Slider" style="width:450px;"/></a>
 </div>
 
+### More Examples
 
+* [Basic Multi-Slider on CodeSandbox](https://codesandbox.io/s/plzyr7lmj)
+* [Video Slider on CodeSandbox](https://codesandbox.io/s/1z51zn6q23)
+* [Value Slider on CodeSandbox (Typescript)](https://codesandbox.io/s/6zpjmw1x3w)
+* [Range Slider on CodeSandbox (Typescript)](https://codesandbox.io/s/zl8nrlp9x)
+* [Custom Feet-Inches Ticks on CodeSandbox (Typescript)](https://codesandbox.io/s/5262w7r9yx)
+* [Custom Feet-Inches Ticks - Vertical on CodeSandbox (Typescript)](https://codesandbox.io/s/18lkz04y8j)
 
 
 # Installation
@@ -40,12 +47,6 @@ The documentation is divided into several sections:
 * [Live Demos](https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal)
 * [Tutorial](https://sghall.github.io/react-compound-slider/#/getting-started/tutorial)
 * [Documentation](https://sghall.github.io/react-compound-slider/#/component-api/slider)
-* [Basic Multi-Slider on CodeSandbox](https://codesandbox.io/s/plzyr7lmj)
-* [Video Slider on CodeSandbox](https://codesandbox.io/s/1z51zn6q23)
-* [Value Slider on CodeSandbox (Typescript)](https://codesandbox.io/s/6zpjmw1x3w)
-* [Range Slider on CodeSandbox (Typescript)](https://codesandbox.io/s/zl8nrlp9x)
-* [Custom Feet-Inches Ticks on CodeSandbox (Typescript)](https://codesandbox.io/s/5262w7r9yx)
-* [Custom Feet-Inches Ticks - Vertical on CodeSandbox (Typescript)](https://codesandbox.io/s/18lkz04y8j)
 
 ### Slider Features
 
