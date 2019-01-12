@@ -40,12 +40,12 @@ The documentation is divided into several sections:
 * [Live Demos](https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal)
 * [Tutorial](https://sghall.github.io/react-compound-slider/#/getting-started/tutorial)
 * [Documentation](https://sghall.github.io/react-compound-slider/#/component-api/slider)
-* [CodeSandbox](https://codesandbox.io/s/plzyr7lmj)
-* [Video Slider](https://codesandbox.io/s/1z51zn6q23)
-* [Value Slider (Typescript) CodeSandbox](https://codesandbox.io/s/6zpjmw1x3w)
-* [Range Slider (Typescript) CodeSandbox](https://codesandbox.io/s/zl8nrlp9x)
-* [Custom Feet-Inches Ticks (Typescript) CodeSandbox](https://codesandbox.io/s/5262w7r9yx)
-* [Custom Feet-Inches Ticks - Vertical (Typescript) CodeSandbox](https://codesandbox.io/s/18lkz04y8j)
+* [Basic Multi-Slider on CodeSandbox](https://codesandbox.io/s/plzyr7lmj)
+* [Video Slider on CodeSandbox](https://codesandbox.io/s/1z51zn6q23)
+* [Value Slider on CodeSandbox (Typescript)](https://codesandbox.io/s/6zpjmw1x3w)
+* [Range Slider on CodeSandbox (Typescript)](https://codesandbox.io/s/zl8nrlp9x)
+* [Custom Feet-Inches Ticks on CodeSandbox (Typescript)](https://codesandbox.io/s/5262w7r9yx)
+* [Custom Feet-Inches Ticks - Vertical on CodeSandbox (Typescript)](https://codesandbox.io/s/18lkz04y8j)
 
 ### Slider Features
 
