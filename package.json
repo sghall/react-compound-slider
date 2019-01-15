@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.2.0",
+    "babel-plugin-istanbul": "^5.1.0",
     "d3-array": "^1.2.4",
     "prop-types": "^15.6.2",
     "warning": "^3.0.0"
@@ -68,7 +69,6 @@
   },
   "scripts": {
     "docs": "cd docs && npm install && npm run start",
-    "roll": "rollup -c",
     "prebuild": "npm run build:cln",
     "build": "npm run build:lib && npm run build:cpy",
     "build:cln": "rimraf build",
@@ -78,7 +78,7 @@
     "test": "cross-env BABEL_ENV=test mocha \"src/**/*.spec.js\"",
     "test:watch": "npm run test -- -w",
     "test:coverage": "cross-env BABEL_ENV=coverage nyc mocha \"src/**/*.spec.js\" && nyc report --reporter=lcov",
-    "test:coverage:html": "cross-env NODE_ENV=test BABEL_ENV=coverage nyc mocha \"src/**/*.spec.js\" && nyc report --reporter=html",
+    "test:coverage:html": "cross-env BABEL_ENV=coverage nyc mocha \"src/**/*.spec.js\" && nyc report --reporter=html",
     "pretty": "prettier-eslint src/**/*.js --write --no-semi --single-quote --trailing-comma=all --print-width 80",
     "pretty-docs": "prettier-eslint docs/src/**/*.js --write --no-semi --single-quote --trailing-comma=all --print-width 80"
   },
