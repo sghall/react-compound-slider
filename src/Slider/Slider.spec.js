@@ -71,7 +71,7 @@ describe('<Slider />', () => {
     assert.strictEqual(wrapper.contains(<div className="unique" />), true)
   })
 
-  it("calls setValues when reversed changes and values prop doesn't", () => {
+  it('calls setValues when reversed changes and values prop doesn\'t', () => {
     const wrapper = shallow(<Slider {...getTestProps()} />)
 
     assert.strictEqual(setValuesSpy.callCount, 1)
@@ -118,7 +118,7 @@ describe('<Slider />', () => {
     assert.strictEqual(onChange.callCount, 1)
   })
 
-  it("does NOT call onChange/onUpdate when it shouldn't", () => {
+  it('does NOT call onChange/onUpdate when it shouldn\'t', () => {
     const onUpdate = sinon.spy()
     const onChange = sinon.spy()
 

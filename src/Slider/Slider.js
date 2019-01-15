@@ -218,8 +218,8 @@ class Slider extends PureComponent {
     } else if (validDownKeys.includes(key)) {
       newVal = getPrevValue(currVal, step, domain, reversed)
     }
-    const nextValues = values.map(
-      v => (v.key === handleID ? { key: v.key, val: newVal } : v),
+    const nextValues = values.map(v =>
+      v.key === handleID ? { key: v.key, val: newVal } : v,
     )
 
     this.submitUpdate(nextValues, true)
@@ -238,7 +238,10 @@ class Slider extends PureComponent {
   }
 
   onStart(e, handleID, isTouch) {
-    const { state: { values }, props: { onSlideStart } } = this
+    const {
+      state: { values },
+      props: { onSlideStart },
+    } = this
 
     e.stopPropagation && e.stopPropagation()
     e.preventDefault && e.preventDefault()
@@ -258,7 +261,10 @@ class Slider extends PureComponent {
   }
 
   handleRailAndTrackClicks(e, isTouch) {
-    const { state: { values: curr }, props: { vertical, reversed } } = this
+    const {
+      state: { values: curr },
+      props: { vertical, reversed },
+    } = this
     const { slider } = this
 
     // double check the dimensions of the slider
@@ -311,7 +317,10 @@ class Slider extends PureComponent {
   }
 
   onMouseMove(e) {
-    const { state: { values: curr }, props: { vertical, reversed } } = this
+    const {
+      state: { values: curr },
+      props: { vertical, reversed },
+    } = this
     const { active: updateKey, slider } = this
 
     // double check the dimensions of the slider
@@ -332,7 +341,10 @@ class Slider extends PureComponent {
   }
 
   onTouchMove(e) {
-    const { state: { values: curr }, props: { vertical, reversed } } = this
+    const {
+      state: { values: curr },
+      props: { vertical, reversed },
+    } = this
     const { active: updateKey, slider } = this
 
     if (isNotValidTouch(e)) {
@@ -366,7 +378,7 @@ class Slider extends PureComponent {
         values = mode(curr, next, step, reversed, getValue)
         warning(
           Array.isArray(values),
-          `Custom mode function did not return an array.`,
+          'Custom mode function did not return an array.',
         )
       } else {
         switch (mode) {
@@ -396,7 +408,10 @@ class Slider extends PureComponent {
   }
 
   onMouseUp() {
-    const { state: { values }, props: { onChange, onSlideEnd } } = this
+    const {
+      state: { values },
+      props: { onChange, onSlideEnd },
+    } = this
     const activeHandleID = this.active
     this.active = null
 
@@ -410,7 +425,10 @@ class Slider extends PureComponent {
   }
 
   onTouchEnd() {
-    const { state: { values }, props: { onChange, onSlideEnd } } = this
+    const {
+      state: { values },
+      props: { onChange, onSlideEnd },
+    } = this
     this.active = null
 
     onChange(values.map(d => d.val))
