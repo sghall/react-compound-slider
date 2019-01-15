@@ -82,7 +82,7 @@ function createPackageFile() {
           if (err) {
             throw err
           }
-          console.log(`Created package.json in ${buildPath}`)
+          console.log(`\nCreated package.json in ${buildPath}\n`)
           resolve()
         })
       })
