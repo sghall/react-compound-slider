@@ -42,34 +42,18 @@ const getPrevValue = (curr, step, domain, reversed) => {
 }
 
 class Slider extends PureComponent {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      step: null,
-      values: null,
-      domain: null,
-      handles: null,
-      reversed: null,
-      valueToPerc: null,
-      valueToStep: null,
-      pixelToStep: null,
-    }
-
-    this.slider = null
-
-    this.onMouseMove = this.onMouseMove.bind(this)
-    this.onTouchMove = this.onTouchMove.bind(this)
-    this.submitUpdate = this.submitUpdate.bind(this)
-
-    this.onMouseDown = this.onMouseDown.bind(this)
-    this.onTouchStart = this.onTouchStart.bind(this)
-    this.onKeyDown = this.onKeyDown.bind(this)
-    this.onStart = this.onStart.bind(this)
-
-    this.onMouseUp = this.onMouseUp.bind(this)
-    this.onTouchEnd = this.onTouchEnd.bind(this)
+  state = {
+    step: null,
+    values: null,
+    domain: null,
+    handles: null,
+    reversed: null,
+    valueToPerc: null,
+    valueToStep: null,
+    pixelToStep: null,
   }
+
+  slider = React.createRef()
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { step, values, domain, reversed, onUpdate, onChange } = nextProps
@@ -181,7 +165,7 @@ class Slider extends PureComponent {
     }
   }
 
-  onKeyDown(e, handleID) {
+  onKeyDown = (e, handleID) => {
     let validUpKeys = ['ArrowRight', 'ArrowUp']
     let validDownKeys = ['ArrowDown', 'ArrowLeft']
     const {
@@ -223,11 +207,11 @@ class Slider extends PureComponent {
     this.submitUpdate(nextHandles, true)
   }
 
-  onMouseDown(e, handleID) {
+  onMouseDown = (e, handleID) => {
     this.onStart(e, handleID, false)
   }
 
-  onTouchStart(e, handleID) {
+  onTouchStart = (e, handleID) => {
     if (isNotValidTouch(e)) {
       return
     }
@@ -266,7 +250,9 @@ class Slider extends PureComponent {
     const { slider } = this
 
     // double check the dimensions of the slider
-    pixelToStep.setDomain(getSliderDomain(slider, vertical, pixelToStep))
+    pixelToStep.setDomain(
+      getSliderDomain(slider.current, vertical, pixelToStep),
+    )
 
     // find the closest value (aka step) to the event location
     let updateValue
@@ -317,7 +303,7 @@ class Slider extends PureComponent {
     }
   }
 
-  onMouseMove(e) {
+  onMouseMove = e => {
     const {
       state: { handles: curr, pixelToStep },
       props: { vertical, reversed },
@@ -325,7 +311,9 @@ class Slider extends PureComponent {
     const { active: updateKey, slider } = this
 
     // double check the dimensions of the slider
-    pixelToStep.setDomain(getSliderDomain(slider, vertical, pixelToStep))
+    pixelToStep.setDomain(
+      getSliderDomain(slider.current, vertical, pixelToStep),
+    )
 
     // find the closest value (aka step) to the event location
     const updateValue = pixelToStep.getValue(vertical ? e.clientY : e.pageX)
@@ -342,7 +330,7 @@ class Slider extends PureComponent {
     this.submitUpdate(nextHandles)
   }
 
-  onTouchMove(e) {
+  onTouchMove = e => {
     const {
       state: { handles: curr, pixelToStep },
       props: { vertical, reversed },
@@ -354,7 +342,9 @@ class Slider extends PureComponent {
     }
 
     // double check the dimensions of the slider
-    pixelToStep.setDomain(getSliderDomain(slider, vertical, pixelToStep))
+    pixelToStep.setDomain(
+      getSliderDomain(slider.current, vertical, pixelToStep),
+    )
 
     // find the closest value (aka step) to the event location
     const updateValue = pixelToStep.getValue(getTouchPosition(vertical, e))
@@ -412,7 +402,7 @@ class Slider extends PureComponent {
     })
   }
 
-  onMouseUp() {
+  onMouseUp = () => {
     const {
       state: { handles },
       props: { onChange, onSlideEnd },
@@ -429,7 +419,7 @@ class Slider extends PureComponent {
     }
   }
 
-  onTouchEnd() {
+  onTouchEnd = () => {
     const {
       state: { handles },
       props: { onChange, onSlideEnd },
@@ -463,7 +453,7 @@ class Slider extends PureComponent {
         child.type.name === Handles.name
       ) {
         return React.cloneElement(child, {
-          scale: this.valueToPerc,
+          scale: valueToPerc,
           handles: mappedHandles,
           emitKeyboard: disabled ? noop : this.onKeyDown,
           emitMouse: disabled ? noop : this.onMouseDown,
@@ -475,11 +465,7 @@ class Slider extends PureComponent {
     })
 
     return (
-      <div
-        style={rootStyle || {}}
-        className={className}
-        ref={d => (this.slider = d)}
-      >
+      <div style={rootStyle || {}} className={className} ref={this.slider}>
         {children}
       </div>
     )
