@@ -24,7 +24,6 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.2.0",
-    "babel-plugin-istanbul": "^5.1.0",
     "d3-array": "^1.2.4",
     "prop-types": "^15.6.2",
     "warning": "^3.0.0"
@@ -39,6 +38,7 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.0.0",
     "babel-eslint": "^10.0.1",
+    "babel-plugin-istanbul": "^5.1.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.21",
     "chai": "^4.2.0",
     "coveralls": "^3.0.2",
@@ -74,7 +74,7 @@
     "build": "npm run build:lib && npm run build:cpy",
     "build:cln": "rimraf build",
     "build:lib": "node ./scripts/build.js",
-    "build:cpy": "babel-node --config-file ./scripts/babel/cjs.js ./scripts/copy-files.js",
+    "build:cpy": "cross-env BABEL_ENV=cjs babel-node ./scripts/copy-files.js",
     "lint": "eslint --fix src docs/src test --quiet --cache && echo \"eslint: no lint errors\"",
     "test": "cross-env BABEL_ENV=test mocha \"src/**/*.spec.js\"",
     "test:watch": "npm run test -- -w",

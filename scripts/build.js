@@ -5,13 +5,13 @@ const execSync = require('child_process').execSync
 
 console.log('Building CJS modules...')
 execSync(
-  'babel src -d build --config-file ./scripts/babel/cjs.js --ignore "src/**/*.spec.js"',
+  'cross-env BABEL_ENV=cjs babel src -d build --ignore "src/**/*.spec.js"',
 )
 
 console.log('Building ESM modules...')
 execSync(
-  'babel src -d build/es --config-file ./scripts/babel/esm.js --ignore "src/**/*.spec.js"',
+  'cross-env BABEL_ENV=esm babel src -d build/es --ignore "src/**/*.spec.js"',
 )
 
-// console.log('Building UMD files...')
-// execSync('rollup -c')
+console.log('Building UMD files...')
+execSync('rollup -c')
