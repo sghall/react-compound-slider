@@ -11,13 +11,11 @@ import {
   getTouchPosition,
   getUpdatedValues,
   getSliderDomain,
-  getStepRange,
   getSortByVal,
+  prfx,
 } from './utils'
 import LinearScale from './LinearScale'
 import DiscreteScale from './DiscreteScale'
-
-const prfx = 'react-compound-slider:'
 
 const isBrowser =
   typeof window !== 'undefined' && typeof document !== 'undefined'
@@ -46,7 +44,12 @@ class Slider extends PureComponent {
   constructor(props) {
     super(props)
 
-    this.state = { values: [] }
+    this.state = {
+      values: [],
+      valueToPerc: null,
+      valueToStep: null,
+      pixelToStep: null,
+    }
 
     this.slider = null
 
@@ -72,6 +75,25 @@ class Slider extends PureComponent {
 
     this.updateRange(domain, step, reversed)
     this.setValues(values, reversed)
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    let values = state.values
+    let valueToPerc = state.valueToPerc
+    let valueToStep = state.valueToStep
+    let pixelToStep = state.pixelToStep
+
+    if (!valueToPerc || !valueToStep || !pixelToStep) {
+      valueToPerc = new LinearScale()
+      valueToStep = new DiscreteScale()
+      pixelToStep = new DiscreteScale()
+    }
+
+    if (values !== props.values) {
+      values = props.values
+    }
+
+    return
   }
 
   componentWillReceiveProps(next) {
@@ -147,40 +169,6 @@ class Slider extends PureComponent {
     this.setState(() => ({ values }))
 
     return valuesArr
-  }
-
-  updateRange([min, max], step, reversed) {
-    const range = getStepRange(min, max, step)
-
-    this.valueToStep.setRange(range).setDomain([min - step / 2, max + step / 2])
-
-    if (reversed === true) {
-      this.valueToPerc.setDomain([min, max]).setRange([100, 0])
-      range.reverse()
-    } else {
-      this.valueToPerc.setDomain([min, max]).setRange([0, 100])
-    }
-
-    this.pixelToStep.setRange(range)
-
-    warning(
-      max > min,
-      `${prfx} Max must be greater than min (even if reversed). Max is ${max}. Min is ${min}.`,
-    )
-
-    const maxInRange = 100001
-
-    warning(
-      range.length <= maxInRange,
-      `${prfx} Increase step value (set to ${step} currently). Found ${range.length.toLocaleString()} values in range. Max is ${maxInRange.toLocaleString()}.`,
-    )
-
-    const last = range.length - 1
-
-    warning(
-      range[reversed ? last : 0] === min && range[reversed ? 0 : last] === max,
-      `${prfx} The range is incorrectly calculated. Check domain (min, max) and step values.`,
-    )
   }
 
   onKeyDown(e, handleID) {
