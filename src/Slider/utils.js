@@ -1,3 +1,7 @@
+import warning from 'warning'
+
+export const prfx = 'react-compound-slider:'
+
 export function getSortByVal(reversed) {
   return function sortByVal(a, b) {
     if (a.val > b.val) {
@@ -12,24 +16,24 @@ export function getSortByVal(reversed) {
   }
 }
 
-export function getUpdatedValues(values, updateKey, updateValue, reversed) {
-  const index = values.findIndex(v => v.key === updateKey)
+export function getUpdatedHandles(handles, updateKey, updateValue, reversed) {
+  const index = handles.findIndex(v => v.key === updateKey)
 
   if (index !== -1) {
-    const { key, val } = values[index]
+    const { key, val } = handles[index]
 
     if (val === updateValue) {
-      return values
+      return handles
     }
 
     return [
-      ...values.slice(0, index),
+      ...handles.slice(0, index),
       { key, val: updateValue },
-      ...values.slice(index + 1),
+      ...handles.slice(index + 1),
     ].sort(getSortByVal(reversed))
   }
 
-  return values
+  return handles
 }
 
 export function getSliderDomain(slider, vertical, scale) {
@@ -89,4 +93,27 @@ export function isNotValidTouch({ type = '', touches }) {
 
 export function getTouchPosition(vertical, e) {
   return vertical ? e.touches[0].clientY : e.touches[0].pageX
+}
+
+export function getHandles(values = [], reversed, valueToStep) {
+  let changes = 0
+
+  const handles = values
+    .map(x => {
+      const val = valueToStep.getValue(x)
+
+      if (x !== val) {
+        changes += 1
+        warning(
+          false,
+          `${prfx} Invalid value encountered. Changing ${x} to ${val}.`,
+        )
+      }
+
+      return val
+    })
+    .map((val, i) => ({ key: `$$-${i}`, val }))
+    .sort(getSortByVal(reversed))
+
+  return { handles, changes }
 }

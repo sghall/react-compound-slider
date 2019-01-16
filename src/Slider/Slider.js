@@ -9,15 +9,14 @@ import { mode1, mode2, mode3 } from './modes'
 import {
   isNotValidTouch,
   getTouchPosition,
-  getUpdatedValues,
+  getUpdatedHandles,
   getSliderDomain,
   getStepRange,
-  getSortByVal,
+  getHandles,
+  prfx,
 } from './utils'
 import LinearScale from './LinearScale'
 import DiscreteScale from './DiscreteScale'
-
-const prfx = 'react-compound-slider:'
 
 const isBrowser =
   typeof window !== 'undefined' && typeof document !== 'undefined'
@@ -43,60 +42,114 @@ const getPrevValue = (curr, step, domain, reversed) => {
 }
 
 class Slider extends PureComponent {
-  constructor(props) {
-    super(props)
-
-    this.state = { values: [] }
-
-    this.slider = null
-
-    this.valueToPerc = new LinearScale()
-    this.valueToStep = new DiscreteScale()
-    this.pixelToStep = new DiscreteScale()
-
-    this.onMouseMove = this.onMouseMove.bind(this)
-    this.onTouchMove = this.onTouchMove.bind(this)
-    this.submitUpdate = this.submitUpdate.bind(this)
-
-    this.onMouseDown = this.onMouseDown.bind(this)
-    this.onTouchStart = this.onTouchStart.bind(this)
-    this.onKeyDown = this.onKeyDown.bind(this)
-    this.onStart = this.onStart.bind(this)
-
-    this.onMouseUp = this.onMouseUp.bind(this)
-    this.onTouchEnd = this.onTouchEnd.bind(this)
+  state = {
+    step: null,
+    values: null,
+    domain: null,
+    handles: null,
+    reversed: null,
+    valueToPerc: null,
+    valueToStep: null,
+    pixelToStep: null,
   }
 
-  componentWillMount() {
-    const { values, domain, step, reversed } = this.props
+  slider = React.createRef()
 
-    this.updateRange(domain, step, reversed)
-    this.setValues(values, reversed)
-  }
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { step, values, domain, reversed, onUpdate, onChange } = nextProps
 
-  componentWillReceiveProps(next) {
-    const { domain, step, reversed, values } = next
-    const { props } = this
+    let valueToPerc = prevState.valueToPerc
+    let valueToStep = prevState.valueToStep
+    let pixelToStep = prevState.pixelToStep
+
+    const nextState = {}
+
+    if (!valueToPerc || !valueToStep || !pixelToStep) {
+      valueToPerc = new LinearScale()
+      valueToStep = new DiscreteScale()
+      pixelToStep = new DiscreteScale()
+
+      nextState.valueToPerc = valueToPerc
+      nextState.valueToStep = valueToStep
+      nextState.pixelToStep = pixelToStep
+    }
 
     if (
-      domain[0] !== props.domain[0] ||
-      domain[1] !== props.domain[1] ||
-      step !== props.step ||
-      reversed !== props.reversed
+      prevState.step === null ||
+      prevState.domain === null ||
+      prevState.reversed === null ||
+      step !== prevState.step ||
+      domain[0] !== prevState.domain[0] ||
+      domain[1] !== prevState.domain[1] ||
+      reversed !== prevState.reversed
     ) {
-      this.updateRange(domain, step, reversed)
-      // after adjusting the range based on the changed domain or step, make sure to update the values
-      // to fit with the new range
-      const remapped = this.reMapValues(reversed, values)
+      const [min, max] = domain
+      const range = getStepRange(min, max, step)
 
-      if (values === undefined || values === props.values) {
-        next.onChange(remapped)
-        next.onUpdate(remapped)
+      valueToStep.setRange(range).setDomain([min - step / 2, max + step / 2])
+
+      if (reversed === true) {
+        valueToPerc.setDomain([min, max]).setRange([100, 0])
+        range.reverse()
+      } else {
+        valueToPerc.setDomain([min, max]).setRange([0, 100])
       }
-    } else if (!equal(values, props.values)) {
-      // if domain didnt change, but the value props did, set the values
-      this.setValues(values, reversed)
+
+      pixelToStep.setRange(range)
+
+      warning(
+        max > min,
+        `${prfx} Max must be greater than min (even if reversed). Max is ${max}. Min is ${min}.`,
+      )
+
+      const maxInRange = 100001
+
+      warning(
+        range.length <= maxInRange,
+        `${prfx} Increase step value (set to ${step} currently). Found ${range.length.toLocaleString()} values in range. Max is ${maxInRange.toLocaleString()}.`,
+      )
+
+      const last = range.length - 1
+
+      warning(
+        range[reversed ? last : 0] === min &&
+          range[reversed ? 0 : last] === max,
+        `${prfx} The range is incorrectly calculated. Check domain (min, max) and step values.`,
+      )
+
+      const { handles, changes } = getHandles(
+        values || prevState.values,
+        reversed,
+        valueToStep,
+      )
+
+      if (changes || values === undefined || values === prevState.values) {
+        onUpdate(handles.map(d => d.val))
+        onChange(handles.map(d => d.val))
+      }
+
+      nextState.step = step
+      nextState.values = values
+      nextState.domain = domain
+      nextState.handles = handles
+      nextState.reversed = reversed
+    } else if (!equal(values, prevState.values)) {
+      const { handles, changes } = getHandles(values, reversed, valueToStep)
+
+      if (changes) {
+        onUpdate(handles.map(d => d.val))
+        onChange(handles.map(d => d.val))
+      }
+
+      nextState.values = values
+      nextState.handles = handles
     }
+
+    if (Object.keys(nextState).length) {
+      return nextState
+    }
+
+    return null
   }
 
   componentWillUnmount() {
@@ -112,82 +165,11 @@ class Slider extends PureComponent {
     }
   }
 
-  reMapValues(reversed, values) {
-    // if values was not passed, fall back to using state
-    return this.setValues(values || this.state.values.map(d => d.val), reversed)
-  }
-
-  setValues(arr = [], reversed) {
-    let changes = 0
-
-    const values = arr
-      .map(x => {
-        const val = this.valueToStep.getValue(x)
-
-        if (x !== val) {
-          changes += 1
-          warning(
-            false,
-            `${prfx} Invalid value encountered. Changing ${x} to ${val}.`,
-          )
-        }
-
-        return val
-      })
-      .map((val, i) => ({ key: `$$-${i}`, val }))
-      .sort(getSortByVal(reversed))
-
-    const valuesArr = values.map(d => d.val)
-
-    if (changes > 0) {
-      this.props.onUpdate(valuesArr)
-      this.props.onChange(valuesArr)
-    }
-
-    this.setState(() => ({ values }))
-
-    return valuesArr
-  }
-
-  updateRange([min, max], step, reversed) {
-    const range = getStepRange(min, max, step)
-
-    this.valueToStep.setRange(range).setDomain([min - step / 2, max + step / 2])
-
-    if (reversed === true) {
-      this.valueToPerc.setDomain([min, max]).setRange([100, 0])
-      range.reverse()
-    } else {
-      this.valueToPerc.setDomain([min, max]).setRange([0, 100])
-    }
-
-    this.pixelToStep.setRange(range)
-
-    warning(
-      max > min,
-      `${prfx} Max must be greater than min (even if reversed). Max is ${max}. Min is ${min}.`,
-    )
-
-    const maxInRange = 100001
-
-    warning(
-      range.length <= maxInRange,
-      `${prfx} Increase step value (set to ${step} currently). Found ${range.length.toLocaleString()} values in range. Max is ${maxInRange.toLocaleString()}.`,
-    )
-
-    const last = range.length - 1
-
-    warning(
-      range[reversed ? last : 0] === min && range[reversed ? 0 : last] === max,
-      `${prfx} The range is incorrectly calculated. Check domain (min, max) and step values.`,
-    )
-  }
-
-  onKeyDown(e, handleID) {
+  onKeyDown = (e, handleID) => {
     let validUpKeys = ['ArrowRight', 'ArrowUp']
     let validDownKeys = ['ArrowDown', 'ArrowLeft']
     const {
-      state: { values },
+      state: { handles },
       props: { step, reversed, vertical, domain },
     } = this
     const key = e.key || e.keyCode
@@ -203,7 +185,7 @@ class Slider extends PureComponent {
     e.stopPropagation && e.stopPropagation()
     e.preventDefault && e.preventDefault()
 
-    const found = values.find(value => {
+    const found = handles.find(value => {
       return value.key === handleID
     })
     if (!found) {
@@ -218,18 +200,18 @@ class Slider extends PureComponent {
     } else if (validDownKeys.includes(key)) {
       newVal = getPrevValue(currVal, step, domain, reversed)
     }
-    const nextValues = values.map(v =>
+    const nextHandles = handles.map(v =>
       v.key === handleID ? { key: v.key, val: newVal } : v,
     )
 
-    this.submitUpdate(nextValues, true)
+    this.submitUpdate(nextHandles, true)
   }
 
-  onMouseDown(e, handleID) {
+  onMouseDown = (e, handleID) => {
     this.onStart(e, handleID, false)
   }
 
-  onTouchStart(e, handleID) {
+  onTouchStart = (e, handleID) => {
     if (isNotValidTouch(e)) {
       return
     }
@@ -239,20 +221,20 @@ class Slider extends PureComponent {
 
   onStart(e, handleID, isTouch) {
     const {
-      state: { values },
+      state: { handles },
       props: { onSlideStart },
     } = this
 
     e.stopPropagation && e.stopPropagation()
     e.preventDefault && e.preventDefault()
 
-    const found = values.find(value => {
+    const found = handles.find(value => {
       return value.key === handleID
     })
 
     if (found) {
       this.active = handleID
-      onSlideStart(values.map(d => d.val), { activeHandleID: handleID })
+      onSlideStart(handles.map(d => d.val), { activeHandleID: handleID })
       isTouch ? this.addTouchEvents() : this.addMouseEvents()
     } else {
       this.active = null
@@ -262,23 +244,23 @@ class Slider extends PureComponent {
 
   handleRailAndTrackClicks(e, isTouch) {
     const {
-      state: { values: curr },
+      state: { handles: curr, pixelToStep },
       props: { vertical, reversed },
     } = this
     const { slider } = this
 
     // double check the dimensions of the slider
-    this.pixelToStep.setDomain(
-      getSliderDomain(slider, vertical, this.pixelToStep),
+    pixelToStep.setDomain(
+      getSliderDomain(slider.current, vertical, pixelToStep),
     )
 
     // find the closest value (aka step) to the event location
     let updateValue
 
     if (isTouch) {
-      updateValue = this.pixelToStep.getValue(getTouchPosition(vertical, e))
+      updateValue = pixelToStep.getValue(getTouchPosition(vertical, e))
     } else {
-      updateValue = this.pixelToStep.getValue(vertical ? e.clientY : e.pageX)
+      updateValue = pixelToStep.getValue(vertical ? e.clientY : e.pageX)
     }
 
     // find the closest handle key
@@ -296,10 +278,15 @@ class Slider extends PureComponent {
     }
 
     // generate a "candidate" set of values - a suggestion of what to do
-    const nextValues = getUpdatedValues(curr, updateKey, updateValue, reversed)
+    const nextHandles = getUpdatedHandles(
+      curr,
+      updateKey,
+      updateValue,
+      reversed,
+    )
 
     // submit the candidate values
-    this.submitUpdate(nextValues, true)
+    this.submitUpdate(nextHandles, true)
   }
 
   addMouseEvents() {
@@ -316,33 +303,36 @@ class Slider extends PureComponent {
     }
   }
 
-  onMouseMove(e) {
+  onMouseMove = e => {
     const {
-      state: { values: curr },
+      state: { handles: curr, pixelToStep },
       props: { vertical, reversed },
     } = this
     const { active: updateKey, slider } = this
 
     // double check the dimensions of the slider
-    this.pixelToStep.setDomain(
-      getSliderDomain(slider, vertical, this.pixelToStep),
+    pixelToStep.setDomain(
+      getSliderDomain(slider.current, vertical, pixelToStep),
     )
 
     // find the closest value (aka step) to the event location
-    const updateValue = this.pixelToStep.getValue(
-      vertical ? e.clientY : e.pageX,
-    )
+    const updateValue = pixelToStep.getValue(vertical ? e.clientY : e.pageX)
 
     // generate a "candidate" set of values - a suggestion of what to do
-    const nextValues = getUpdatedValues(curr, updateKey, updateValue, reversed)
+    const nextHandles = getUpdatedHandles(
+      curr,
+      updateKey,
+      updateValue,
+      reversed,
+    )
 
     // submit the candidate values
-    this.submitUpdate(nextValues)
+    this.submitUpdate(nextHandles)
   }
 
-  onTouchMove(e) {
+  onTouchMove = e => {
     const {
-      state: { values: curr },
+      state: { handles: curr, pixelToStep },
       props: { vertical, reversed },
     } = this
     const { active: updateKey, slider } = this
@@ -352,71 +342,76 @@ class Slider extends PureComponent {
     }
 
     // double check the dimensions of the slider
-    this.pixelToStep.setDomain(
-      getSliderDomain(slider, vertical, this.pixelToStep),
+    pixelToStep.setDomain(
+      getSliderDomain(slider.current, vertical, pixelToStep),
     )
 
     // find the closest value (aka step) to the event location
-    const updateValue = this.pixelToStep.getValue(getTouchPosition(vertical, e))
+    const updateValue = pixelToStep.getValue(getTouchPosition(vertical, e))
 
     // generate a "candidate" set of values - a suggestion of what to do
-    const nextValues = getUpdatedValues(curr, updateKey, updateValue, reversed)
+    const nextHandles = getUpdatedHandles(
+      curr,
+      updateKey,
+      updateValue,
+      reversed,
+    )
 
     // submit the candidate values
-    this.submitUpdate(nextValues)
+    this.submitUpdate(nextHandles)
   }
 
   submitUpdate(next, callOnChange) {
     const { mode, step, onUpdate, onChange, reversed } = this.props
-    const { getValue } = this.valueToStep
+    const { getValue } = this.state.valueToStep
 
-    this.setState(({ values: curr }) => {
-      let values
+    this.setState(({ handles: curr }) => {
+      let handles
 
-      // given the current values and a candidate set, decide what to do
+      // given the current handles and a candidate set, decide what to do
       if (typeof mode === 'function') {
-        values = mode(curr, next, step, reversed, getValue)
+        handles = mode(curr, next, step, reversed, getValue)
         warning(
-          Array.isArray(values),
+          Array.isArray(handles),
           'Custom mode function did not return an array.',
         )
       } else {
         switch (mode) {
           case 1:
-            values = mode1(curr, next)
+            handles = mode1(curr, next)
             break
           case 2:
-            values = mode2(curr, next)
+            handles = mode2(curr, next)
             break
           case 3:
-            values = mode3(curr, next, step, reversed, getValue)
+            handles = mode3(curr, next, step, reversed, getValue)
             break
           default:
-            values = next
+            handles = next
             warning(false, `${prfx} Invalid mode value.`)
         }
       }
 
-      onUpdate(values.map(d => d.val))
+      onUpdate(handles.map(d => d.val))
 
       if (callOnChange) {
-        onChange(values.map(d => d.val))
+        onChange(handles.map(d => d.val))
       }
 
-      return { values }
+      return { handles }
     })
   }
 
-  onMouseUp() {
+  onMouseUp = () => {
     const {
-      state: { values },
+      state: { handles },
       props: { onChange, onSlideEnd },
     } = this
     const activeHandleID = this.active
     this.active = null
 
-    onChange(values.map(d => d.val))
-    onSlideEnd(values.map(d => d.val), { activeHandleID })
+    onChange(handles.map(d => d.val))
+    onSlideEnd(handles.map(d => d.val), { activeHandleID })
 
     if (isBrowser) {
       document.removeEventListener('mousemove', this.onMouseMove)
@@ -424,15 +419,15 @@ class Slider extends PureComponent {
     }
   }
 
-  onTouchEnd() {
+  onTouchEnd = () => {
     const {
-      state: { values },
+      state: { handles },
       props: { onChange, onSlideEnd },
     } = this
     this.active = null
 
-    onChange(values.map(d => d.val))
-    onSlideEnd(values.map(d => d.val))
+    onChange(handles.map(d => d.val))
+    onSlideEnd(handles.map(d => d.val))
 
     if (isBrowser) {
       document.removeEventListener('touchmove', this.onTouchMove)
@@ -442,12 +437,12 @@ class Slider extends PureComponent {
 
   render() {
     const {
-      state: { values },
+      state: { handles, valueToPerc },
       props: { className, rootStyle, disabled },
     } = this
 
-    const handles = values.map(({ key, val }) => {
-      return { id: key, value: val, percent: this.valueToPerc.getValue(val) }
+    const mappedHandles = handles.map(({ key, val }) => {
+      return { id: key, value: val, percent: valueToPerc.getValue(val) }
     })
 
     const children = React.Children.map(this.props.children, child => {
@@ -458,8 +453,8 @@ class Slider extends PureComponent {
         child.type.name === Handles.name
       ) {
         return React.cloneElement(child, {
-          scale: this.valueToPerc,
-          handles,
+          scale: valueToPerc,
+          handles: mappedHandles,
           emitKeyboard: disabled ? noop : this.onKeyDown,
           emitMouse: disabled ? noop : this.onMouseDown,
           emitTouch: disabled ? noop : this.onTouchStart,
@@ -470,11 +465,7 @@ class Slider extends PureComponent {
     })
 
     return (
-      <div
-        style={rootStyle || {}}
-        className={className}
-        ref={d => (this.slider = d)}
-      >
+      <div style={rootStyle || {}} className={className} ref={this.slider}>
         {children}
       </div>
     )

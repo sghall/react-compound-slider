@@ -1,6 +1,6 @@
 import { bisect } from 'd3-array'
 
-export default class DiscreteScale {
+class DiscreteScale {
   constructor() {
     this.x0 = 0
     this.x1 = 1
@@ -43,3 +43,5 @@ export default class DiscreteScale {
     return this
   }
 }
+
+export default DiscreteScale

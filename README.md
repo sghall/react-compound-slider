@@ -50,7 +50,7 @@ The documentation is divided into several sections:
 
 ### Slider Features
 
-- Small size (5kb)
+- Small size (4.4kb)
 - Makes no assumptions about your markup
 - Supports typescript
 - Precise control over user interactions and styling
