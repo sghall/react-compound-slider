@@ -37,7 +37,7 @@ describe('<Slider />', () => {
   let submitUpdateSpy,
     setStateSpy,
     getStepRangeSpy,
-    onMouseDownSpy,
+    handleRailAndTrackClicksSpy,
     getHandlesSpy,
     addTouchEventsSpy,
     removeListenersSpy
@@ -46,8 +46,11 @@ describe('<Slider />', () => {
     submitUpdateSpy = sinon.spy(Slider.prototype, 'submitUpdate')
     setStateSpy = sinon.spy(Slider.prototype, 'setState')
     getStepRangeSpy = sinon.spy(utils, 'getStepRange')
-    onMouseDownSpy = sinon.spy(Slider.prototype, 'onMouseDown')
     getHandlesSpy = sinon.spy(utils, 'getHandles')
+    handleRailAndTrackClicksSpy = sinon.spy(
+      Slider.prototype,
+      'handleRailAndTrackClicks',
+    )
     addTouchEventsSpy = sinon.spy(Slider.prototype, 'addTouchEvents')
     removeListenersSpy = sinon.spy(Slider.prototype, 'removeListeners')
   })
@@ -56,7 +59,7 @@ describe('<Slider />', () => {
     submitUpdateSpy.restore()
     setStateSpy.restore()
     getStepRangeSpy.restore()
-    onMouseDownSpy.restore()
+    handleRailAndTrackClicksSpy.restore()
     getHandlesSpy.restore()
     addTouchEventsSpy.restore()
     removeListenersSpy.restore()
@@ -217,7 +220,7 @@ describe('<Slider />', () => {
     assert.strictEqual(submitUpdateSpy.callCount, 1)
   })
 
-  it('calls onMouseDown when descendent emits event', () => {
+  it('calls handleRailAndTrackClicks when descendent emits event', () => {
     const RailComponent = ({ getRailProps }) => <div {...getRailProps()} />
 
     const wrapper = mount(
@@ -231,7 +234,7 @@ describe('<Slider />', () => {
     )
 
     wrapper.find('RailComponent').simulate('mousedown')
-    assert.strictEqual(onMouseDownSpy.called, true)
+    assert.strictEqual(handleRailAndTrackClicksSpy.called, true)
   })
 
   describe('disabled', () => {
@@ -279,19 +282,17 @@ describe('<Slider />', () => {
 
     it('should not call mouse events when descendent emits mouse event', () => {
       wrapper.find('RailComponent').simulate('mousedown')
-      assert.strictEqual(onMouseDownSpy.called, false)
+      assert.strictEqual(handleRailAndTrackClicksSpy.called, false)
 
       wrapper.find('HandleComponent').simulate('mousedown')
-      assert.strictEqual(onMouseDownSpy.called, false)
+      assert.strictEqual(handleRailAndTrackClicksSpy.called, false)
     })
   })
 
-  it('calls onTouchStart when descendent emits event', () => {
+  it('calls handleRailAndTrackClicks when descendent emits touch event', () => {
     const RailComponent = ({ getRailProps }) => {
       return <div {...getRailProps()} />
     }
-
-    const eventSpy = sinon.spy(Slider.prototype, 'onTouchStart')
 
     const wrapper = mount(
       <Slider {...getTestProps()}>
@@ -307,16 +308,14 @@ describe('<Slider />', () => {
       .find('RailComponent')
       .simulate('touchstart', createTouchEvent({ x: 100, y: 0 }))
 
-    assert.strictEqual(eventSpy.called, true)
-    eventSpy.restore()
+    assert.strictEqual(handleRailAndTrackClicksSpy.called, true)
+    handleRailAndTrackClicksSpy.restore()
   })
 
-  it('calls addMouseEvents when descendent emits event with an id', () => {
+  it('calls addTouchEvents when descendent emits touch event with an id', () => {
     const HandleComponent = ({ id, getHandleProps }) => (
       <button {...getHandleProps(id)} />
     )
-
-    const eventSpy = sinon.spy(Slider.prototype, 'addMouseEvents')
 
     const wrapper = mount(
       <Slider {...getTestProps()}>
@@ -333,10 +332,12 @@ describe('<Slider />', () => {
       </Slider>,
     )
 
-    wrapper.find('HandleComponent').simulate('mousedown')
+    wrapper
+      .find('HandleComponent')
+      .simulate('touchstart', createTouchEvent({ x: 100, y: 0 }))
 
-    assert.strictEqual(eventSpy.called, true)
-    eventSpy.restore()
+    assert.strictEqual(addTouchEventsSpy.called, true)
+    addTouchEventsSpy.restore()
   })
 
   it('calls addTouchEvents when descendent emits event with an id', () => {
