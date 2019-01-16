@@ -1,3 +1,7 @@
+import warning from 'warning'
+
+export const prfx = 'react-compound-slider:'
+
 export function getSortByVal(reversed) {
   return function sortByVal(a, b) {
     if (a.val > b.val) {
@@ -89,4 +93,40 @@ export function isNotValidTouch({ type = '', touches }) {
 
 export function getTouchPosition(vertical, e) {
   return vertical ? e.touches[0].clientY : e.touches[0].pageX
+}
+
+export function updateRange([min, max], step, reversed, state) {
+  const { valueToStep, valueToPerc, pixelToStep } = state
+
+  const range = getStepRange(min, max, step)
+
+  valueToStep.setRange(range).setDomain([min - step / 2, max + step / 2])
+
+  if (reversed === true) {
+    valueToPerc.setDomain([min, max]).setRange([100, 0])
+    range.reverse()
+  } else {
+    valueToPerc.setDomain([min, max]).setRange([0, 100])
+  }
+
+  pixelToStep.setRange(range)
+
+  warning(
+    max > min,
+    `${prfx} Max must be greater than min (even if reversed). Max is ${max}. Min is ${min}.`,
+  )
+
+  const maxInRange = 100001
+
+  warning(
+    range.length <= maxInRange,
+    `${prfx} Increase step value (set to ${step} currently). Found ${range.length.toLocaleString()} values in range. Max is ${maxInRange.toLocaleString()}.`,
+  )
+
+  const last = range.length - 1
+
+  warning(
+    range[reversed ? last : 0] === min && range[reversed ? 0 : last] === max,
+    `${prfx} The range is incorrectly calculated. Check domain (min, max) and step values.`,
+  )
 }
