@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid'
 
 const styles = () => ({
   root: {
+    marginTop: 100,
     textAlign: 'center',
   },
 })

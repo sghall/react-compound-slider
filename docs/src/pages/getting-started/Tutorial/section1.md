@@ -5,22 +5,9 @@ In this example the slider is horizontal so we just need to give it a width.
 The library itself contains absolutley no styles so it's critical to make sure you give your slider its width or height (if vertically oriented).
 You can do that by passing the slider a rootStyle prop for inline styles or a className prop.
 
-Note: In ES6 enviroments you can import the components in two different ways:
+In ES6 enviroments you can import the components like this:
 ```jsx
 import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
-
-```
-OR
-
-```jsx
-import Slider from 'react-compound-slider'
-
-Then use...
-
-Slider.Rail
-Slider.Handles
-Slider.Tracks
-Slider.Ticks
 
 ```
 

@@ -30,7 +30,7 @@ export function Handle({
         border: 0,
         borderRadius: '50%',
         boxShadow: '1px 1px 1px 1px rgba(0, 0, 0, 0.2)',
-        backgroundColor: '#34568f',
+        backgroundColor: '#ffc400',
       }}
       {...getHandleProps(id)}
     />
@@ -61,7 +61,7 @@ export function Track({ source, target, getTrackProps }) {
       style={{
         position: 'absolute',
         zIndex: 1,
-        backgroundColor: '#7aa0c4',
+        backgroundColor: '#b28900',
         borderRadius: 7,
         cursor: 'pointer',
         width: 14,

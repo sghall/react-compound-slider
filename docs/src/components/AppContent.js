@@ -8,7 +8,6 @@ import MarkdownElement from 'docs/src/components/MarkdownElement'
 
 const styles = theme => ({
   content: theme.mixins.gutters({
-    paddingTop: 80,
     flex: '1 1 100%',
     maxWidth: '100%',
     margin: '0 auto',
