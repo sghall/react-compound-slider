@@ -8,9 +8,8 @@
     "url": "https://github.com/sghall/react-compound-slider.git"
   },
   "scripts": {
-    "start": "cross-env BABEL_ENV=dev npm run clean && ../node_modules/.bin/babel-node webpack.dev.server.js",
-    "build": "npm run clean && npm run build:dll && cross-env NODE_ENV=production webpack --config webpack.prd.config.js",
-    "build:dll": "cross-env NODE_ENV=production webpack --config webpack.prd.dll.config.js",
+    "start": "cross-env npm run clean && ../node_modules/.bin/babel-node webpack.dev.server.js",
+    "build": "cross-env npm run clean && NODE_ENV=production webpack --config webpack.prd.config.js",
     "clean": "../node_modules/.bin/rimraf build"
   },
   "dependencies": {
