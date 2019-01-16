@@ -1,5 +1,5 @@
 .propTypeDescription table td, .propTypeDescription table th {
-  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  border-top: 1px solid lightgray;
   border-left: 0 none;
   border-right: 0 none;
   display: table-cell;
@@ -7,7 +7,7 @@
 }
 
 .propTypeDescription table th {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid lightgray;
   border-top: 0 none;
   display: table-cell;
   font-weight: normal;
