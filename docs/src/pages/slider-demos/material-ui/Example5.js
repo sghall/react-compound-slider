@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { format } from 'd3-format'
 import Slider from 'react-compound-slider'
-import { withStyles } from 'material-ui/styles'
+import { withStyles } from '@material-ui/core/styles'
 import ValueViewer from 'docs/src/pages/ValueViewer' // for examples only - displays the table above slider
 import { Rail, Handle, Track, Tick } from './components' // example render components - source below
 
@@ -39,7 +39,10 @@ class Example extends Component {
   }
 
   render() {
-    const { props: { classes }, state: { values, update } } = this
+    const {
+      props: { classes },
+      state: { values, update },
+    } = this
 
     return (
       <div className={classes.root}>

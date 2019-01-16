@@ -1,181 +1,153 @@
-// @flow
-
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import compose from 'recompose/compose'
-import { withStyles } from 'material-ui/styles'
-import Typography from 'material-ui/Typography'
-import AppBar from 'material-ui/AppBar'
-import Toolbar from 'material-ui/Toolbar'
-import IconButton from 'material-ui/IconButton'
-import withWidth from 'material-ui/utils/withWidth'
-import MenuIcon from 'material-ui-icons/Menu'
-import LightbulbOutline from 'material-ui-icons/LightbulbOutline'
-import Github from 'docs/src/components/Github'
-import AppDrawer from 'docs/src/components/AppDrawer'
+import AppBar from '@material-ui/core/AppBar'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Divider from '@material-ui/core/Divider'
+import Drawer from '@material-ui/core/Drawer'
+import Hidden from '@material-ui/core/Hidden'
+import IconButton from '@material-ui/core/IconButton'
+import InboxIcon from '@material-ui/icons/MoveToInbox'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import MailIcon from '@material-ui/icons/Mail'
+import MenuIcon from '@material-ui/icons/Menu'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import { withStyles } from '@material-ui/core/styles'
 
-function getTitle(routes) {
-  for (let i = routes.length - 1; i >= 0; i -= 1) {
-    if (routes[i].hasOwnProperty('title')) {
-      return routes[i].title
-    }
-  }
-
-  return null
-}
+const drawerWidth = 240
 
 const styles = theme => ({
-  '@global': {
-    html: {
-      boxSizing: 'border-box',
-    },
-    '*, *:before, *:after': {
-      boxSizing: 'inherit',
-    },
-    body: {
-      margin: 0,
-      background: theme.palette.background.default,
-      color: theme.palette.text.primary,
-      lineHeight: '1.2',
-      overflowX: 'hidden',
-      WebkitFontSmoothing: 'antialiased', // Antialiasing.
-      MozOsxFontSmoothing: 'grayscale', // Antialiasing.
-    },
-  },
   root: {
     display: 'flex',
-    alignItems: 'stretch',
-    minHeight: '100vh',
-    width: '100%',
   },
-  grow: {
-    flex: '1 1 auto',
-  },
-  title: {
-    marginLeft: 24,
-    flex: '0 1 auto',
+  drawer: {
+    [theme.breakpoints.up('sm')]: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
   },
   appBar: {
-    transition: theme.transitions.create('width'),
-  },
-  appBarHome: {
-    backgroundColor: 'transparent',
-    boxShadow: 'none',
-  },
-  [theme.breakpoints.up('lg')]: {
-    drawer: {
-      width: '250px',
+    marginLeft: drawerWidth,
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${drawerWidth}px)`,
     },
-    appBarShift: {
-      width: '100%',
-    },
-    navIconHide: {
+  },
+  menuButton: {
+    marginRight: 20,
+    [theme.breakpoints.up('sm')]: {
       display: 'none',
     },
   },
+  toolbar: theme.mixins.toolbar,
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing.unit * 3,
+  },
 })
 
-class AppFrame extends Component {
+class ResponsiveDrawer extends React.Component {
   state = {
-    drawerOpen: false,
-  }
-
-  handleDrawerClose = () => {
-    this.setState({ drawerOpen: false })
+    mobileOpen: false,
   }
 
   handleDrawerToggle = () => {
-    this.setState({ drawerOpen: !this.state.drawerOpen })
-  }
-
-  handleToggleShade = () => {
-    this.props.dispatch({ type: 'TOGGLE_THEME_SHADE' })
+    this.setState(state => ({ mobileOpen: !state.mobileOpen }))
   }
 
   render() {
-    const { children, routes } = this.props
+    const { theme, classes, children } = this.props
 
-    const classes = this.props.classes
-    const title = getTitle(routes)
-
-    // let drawerDocked = isWidthUp('lg', width)
-    const navIconClassName = ''
-    let appBarClassName = classes.appBar
-
-    if (title === null) {
-      // home route, don't shift app bar or dock drawer
-      // drawerDocked = false
-      // appBarClassName += ` ${classes.appBarHome}`
-    } else {
-      // navIconClassName += ` ${classes.navIconHide}`
-      appBarClassName += ` ${classes.appBarShift}`
-    }
+    const drawer = (
+      <div>
+        <div className={classes.toolbar} />
+        <Divider />
+        <List>
+          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+      </div>
+    )
 
     return (
       <div className={classes.root}>
-        <AppBar className={appBarClassName}>
+        <CssBaseline />
+        <AppBar position="fixed" className={classes.appBar}>
           <Toolbar>
             <IconButton
-              color="default"
-              aria-label="open drawer"
+              color="inherit"
+              aria-label="Open drawer"
               onClick={this.handleDrawerToggle}
-              className={navIconClassName}
+              className={classes.menuButton}
             >
               <MenuIcon />
             </IconButton>
-            {title !== null && (
-              <Typography
-                className={classes.title}
-                type="title"
-                color="inherit"
-                noWrap
-              >
-                {title}
-              </Typography>
-            )}
-            <div className={classes.grow} />
-            <IconButton
-              title="Toggle light/dark theme"
-              color="default"
-              aria-label="change theme"
-              onClick={this.handleToggleShade}
-            >
-              <LightbulbOutline />
-            </IconButton>
-            <IconButton
-              component="a"
-              title="GitHub"
-              color="default"
-              href="https://github.com/sghall/react-compound-slider"
-            >
-              <Github />
-            </IconButton>
+            <Typography variant="h6" color="inherit" noWrap>
+              Responsive drawer
+            </Typography>
           </Toolbar>
         </AppBar>
-        <AppDrawer
-          className={classes.drawer}
-          routes={routes}
-          onClose={this.handleDrawerClose}
-          open={this.state.drawerOpen}
-        />
-        {children}
+        <nav className={classes.drawer}>
+          <Hidden smUp implementation="css">
+            <Drawer
+              variant="temporary"
+              anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+              open={this.state.mobileOpen}
+              onClose={this.handleDrawerToggle}
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+            >
+              {drawer}
+            </Drawer>
+          </Hidden>
+          <Hidden xsDown implementation="css">
+            <Drawer
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+              variant="permanent"
+              open
+            >
+              {drawer}
+            </Drawer>
+          </Hidden>
+        </nav>
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          {children}
+        </main>
       </div>
     )
   }
 }
 
-AppFrame.propTypes = {
-  children: PropTypes.node.isRequired,
+ResponsiveDrawer.propTypes = {
+  theme: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired,
-  routes: PropTypes.array.isRequired,
+  children: PropTypes.object.isRequired,
 }
 
-export default compose(
-  withStyles(styles, {
-    name: 'AppFrame',
-  }),
-  withWidth(),
-  connect(),
-)(AppFrame)
+export default withStyles(styles, { withTheme: true })(ResponsiveDrawer)

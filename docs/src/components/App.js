@@ -3,14 +3,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { JssProvider } from 'react-jss'
-import { create } from 'jss'
-import preset from 'jss-preset-default'
-import createGenerateClassName from 'material-ui/styles/createGenerateClassName'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import { createMuiTheme } from 'material-ui/styles'
-import blue from 'material-ui/colors/blue'
-import deepOrange from 'material-ui/colors/deepOrange'
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
+import { createMuiTheme } from '@material-ui/core/styles'
+import blue from '@material-ui/core/colors/blue'
+import deepOrange from '@material-ui/core/colors/deepOrange'
 import { lightTheme, darkTheme, setPrismTheme } from '../utils/prism'
 import AppRouter from './AppRouter'
 
@@ -44,16 +40,8 @@ AppContainer.propTypes = {
 
 const ConnectedApp = connect(state => ({ dark: state.dark }))(AppContainer)
 
-const jss = create(preset())
-jss.options.createGenerateClassName = createGenerateClassName
-jss.options.insertionPoint = 'insertion-point-jss'
-
 function App() {
-  return (
-    <JssProvider jss={jss}>
-      <ConnectedApp />
-    </JssProvider>
-  )
+  return <ConnectedApp />
 }
 
 export default App

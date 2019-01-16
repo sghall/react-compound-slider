@@ -2,10 +2,10 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from 'material-ui/styles'
-import IconButton from 'material-ui/IconButton'
-import Collapse from 'material-ui/transitions/Collapse'
-import CodeIcon from 'material-ui-icons/Code'
+import { withStyles } from '@material-ui/core/styles'
+import IconButton from '@material-ui/core/IconButton'
+import Collapse from '@material-ui/core/Collapse'
+import CodeIcon from '@material-ui/icons/Code'
 import MarkdownElement from 'docs/src/components/MarkdownElement'
 
 const requireDemos = require.context('docs/src', true, /\.js$/)

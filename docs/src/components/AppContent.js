@@ -3,7 +3,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import { withStyles } from 'material-ui/styles'
+import { withStyles } from '@material-ui/core/styles'
 import MarkdownElement from 'docs/src/components/MarkdownElement'
 
 const styles = theme => ({

@@ -2,7 +2,7 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from 'material-ui/styles'
+import { withStyles } from '@material-ui/core/styles'
 import MarkdownElement from 'docs/src/components/MarkdownElement'
 import Demo from 'docs/src/components/Demo'
 
