@@ -56,7 +56,15 @@ class Slider extends PureComponent {
   slider = React.createRef()
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const { step, values, domain, reversed, onUpdate, onChange } = nextProps
+    const {
+      step,
+      values,
+      domain,
+      reversed,
+      onUpdate,
+      onChange,
+      warnOnSnap,
+    } = nextProps
 
     let valueToPerc = prevState.valueToPerc
     let valueToStep = prevState.valueToStep
@@ -121,6 +129,7 @@ class Slider extends PureComponent {
         values || prevState.values,
         reversed,
         valueToStep,
+        warnOnSnap,
       )
 
       if (changes || values === undefined || values === prevState.values) {
@@ -134,7 +143,12 @@ class Slider extends PureComponent {
       nextState.handles = handles
       nextState.reversed = reversed
     } else if (!equal(values, prevState.values)) {
-      const { handles, changes } = getHandles(values, reversed, valueToStep)
+      const { handles, changes } = getHandles(
+        values,
+        reversed,
+        valueToStep,
+        warnOnSnap,
+      )
 
       if (changes) {
         onUpdate(handles.map(d => d.val))

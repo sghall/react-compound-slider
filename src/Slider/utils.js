@@ -95,7 +95,7 @@ export function getTouchPosition(vertical, e) {
   return vertical ? e.touches[0].clientY : e.touches[0].pageX
 }
 
-export function getHandles(values = [], reversed, valueToStep) {
+export function getHandles(values = [], reversed, valueToStep, warnOnSnap) {
   let changes = 0
 
   const handles = values
@@ -104,10 +104,11 @@ export function getHandles(values = [], reversed, valueToStep) {
 
       if (x !== val) {
         changes += 1
-        warning(
-          false,
-          `${prfx} Invalid value encountered. Changing ${x} to ${val}.`,
-        )
+        if (warnOnSnap)
+          warning(
+            false,
+            `${prfx} Invalid value encountered. Changing ${x} to ${val}.`,
+          )
       }
 
       return val
