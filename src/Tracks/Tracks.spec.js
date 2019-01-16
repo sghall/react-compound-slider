@@ -51,7 +51,9 @@ describe('<Tracks />', () => {
       <Tracks {...getTestProps(handleCount)}>
         {({ tracks }) => (
           <div>
-            {tracks.map(({ id }) => <div className="track" key={id} />)}
+            {tracks.map(({ id }) => (
+              <div className="track" key={id} />
+            ))}
           </div>
         )}
       </Tracks>,
@@ -72,7 +74,9 @@ describe('<Tracks />', () => {
       <Tracks {...props}>
         {({ tracks }) => (
           <div>
-            {tracks.map(({ id }) => <div className="track" key={id} />)}
+            {tracks.map(({ id }) => (
+              <div className="track" key={id} />
+            ))}
           </div>
         )}
       </Tracks>,
@@ -94,7 +98,9 @@ describe('<Tracks />', () => {
       <Tracks {...props}>
         {({ tracks }) => (
           <div>
-            {tracks.map(({ id }) => <div className="track" key={id} />)}
+            {tracks.map(({ id }) => (
+              <div className="track" key={id} />
+            ))}
           </div>
         )}
       </Tracks>,

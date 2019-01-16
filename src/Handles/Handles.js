@@ -21,7 +21,10 @@ class Handles extends Component {
   }
 
   render() {
-    const { getHandleProps, props: { children, handles } } = this
+    const {
+      getHandleProps,
+      props: { children, handles },
+    } = this
 
     const renderedChildren = children({ handles, getHandleProps })
     return renderedChildren && React.Children.only(renderedChildren)

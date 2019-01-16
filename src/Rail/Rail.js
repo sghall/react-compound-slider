@@ -14,7 +14,10 @@ class Rail extends Component {
   }
 
   render() {
-    const { getRailProps, props: { children } } = this
+    const {
+      getRailProps,
+      props: { children },
+    } = this
 
     const renderedChildren = children({ getRailProps })
     return renderedChildren && React.Children.only(renderedChildren)
