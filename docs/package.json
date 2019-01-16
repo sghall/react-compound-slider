@@ -23,7 +23,7 @@
     "history": "^3.3.0",
     "jss": "^9.8.7",
     "jss-preset-default": "^10.0.0-alpha.7",
-    "marked": "^0.6.0",
+    "marked": "^0.3.19",
     "prismjs": "^1.15.0",
     "raw-loader": "^1.0.0",
     "react": "^16.7.0",

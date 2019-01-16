@@ -110,6 +110,7 @@ const styles = theme => ({
     },
     '& p, & ul, & ol': {
       lineHeight: 1.6,
+      color: theme.palette.text.primary,
     },
     '& table': {
       width: '100%',
