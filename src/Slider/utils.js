@@ -16,24 +16,24 @@ export function getSortByVal(reversed) {
   }
 }
 
-export function getUpdatedValues(values, updateKey, updateValue, reversed) {
-  const index = values.findIndex(v => v.key === updateKey)
+export function getUpdatedHandles(handles, updateKey, updateValue, reversed) {
+  const index = handles.findIndex(v => v.key === updateKey)
 
   if (index !== -1) {
-    const { key, val } = values[index]
+    const { key, val } = handles[index]
 
     if (val === updateValue) {
-      return values
+      return handles
     }
 
     return [
-      ...values.slice(0, index),
+      ...handles.slice(0, index),
       { key, val: updateValue },
-      ...values.slice(index + 1),
+      ...handles.slice(index + 1),
     ].sort(getSortByVal(reversed))
   }
 
-  return values
+  return handles
 }
 
 export function getSliderDomain(slider, vertical, scale) {
@@ -95,38 +95,25 @@ export function getTouchPosition(vertical, e) {
   return vertical ? e.touches[0].clientY : e.touches[0].pageX
 }
 
-export function updateRange([min, max], step, reversed, state) {
-  const { valueToStep, valueToPerc, pixelToStep } = state
+export function getHandles(values = [], reversed, valueToStep) {
+  let changes = 0
 
-  const range = getStepRange(min, max, step)
+  const handles = values
+    .map(x => {
+      const val = valueToStep.getValue(x)
 
-  valueToStep.setRange(range).setDomain([min - step / 2, max + step / 2])
+      if (x !== val) {
+        changes += 1
+        warning(
+          false,
+          `${prfx} Invalid value encountered. Changing ${x} to ${val}.`,
+        )
+      }
 
-  if (reversed === true) {
-    valueToPerc.setDomain([min, max]).setRange([100, 0])
-    range.reverse()
-  } else {
-    valueToPerc.setDomain([min, max]).setRange([0, 100])
-  }
+      return val
+    })
+    .map((val, i) => ({ key: `$$-${i}`, val }))
+    .sort(getSortByVal(reversed))
 
-  pixelToStep.setRange(range)
-
-  warning(
-    max > min,
-    `${prfx} Max must be greater than min (even if reversed). Max is ${max}. Min is ${min}.`,
-  )
-
-  const maxInRange = 100001
-
-  warning(
-    range.length <= maxInRange,
-    `${prfx} Increase step value (set to ${step} currently). Found ${range.length.toLocaleString()} values in range. Max is ${maxInRange.toLocaleString()}.`,
-  )
-
-  const last = range.length - 1
-
-  warning(
-    range[reversed ? last : 0] === min && range[reversed ? 0 : last] === max,
-    `${prfx} The range is incorrectly calculated. Check domain (min, max) and step values.`,
-  )
+  return { handles, changes }
 }

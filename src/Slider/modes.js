@@ -1,5 +1,5 @@
 /* eslint complexity: "off", max-statements: "off", max-depth: "off" */
-import { getUpdatedValues } from './utils'
+import { getUpdatedHandles } from './utils'
 
 // default mode
 export function mode1(curr, next) {
@@ -53,7 +53,7 @@ export function mode3(curr, next, step, reversed, getValue) {
         if (i === indexForMovingHandle) {
           const newStep = n1.val + increment
           if (getValue(newStep) === newStep) {
-            const clone = getUpdatedValues(
+            const clone = getUpdatedHandles(
               next,
               n1.key,
               n1.val + increment,
@@ -72,7 +72,7 @@ export function mode3(curr, next, step, reversed, getValue) {
         } else {
           const newStep = n0.val + increment
           if (getValue(newStep) === newStep) {
-            const clone = getUpdatedValues(
+            const clone = getUpdatedHandles(
               next,
               n0.key,
               n0.val + increment,
