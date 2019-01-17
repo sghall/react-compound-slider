@@ -4,8 +4,10 @@ Slider render()
         onStart
             found handle    onSlideStart      sets this.active.
             else handleRailAndTrackClicks.(maybe set this.active too?)
-                getUpdatedHandles(curr, updateKey, updateValue, reversed)
+                getUpdatedHandles(curr, updateKey, updateValue, reversed)  // updateKey is curr handle to move.
                     submitUpdate
+
+
 
 
 
@@ -38,3 +40,7 @@ Maybe instead add mouseEnter, mouseMove, mouseLeave as props for tracks, rails, 
     (so won't respond to mouseMove over tooltip itself as it currently does)
     For former, do current conversion. For handles, just use val of that handle.
     Style flag for 'grabbed' mode.
+
+
+// for grippy:
+handleRailAndTrackClicks  to cause onStart(e.handleId)    

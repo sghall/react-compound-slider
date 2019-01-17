@@ -310,6 +310,10 @@ class Slider extends PureComponent {
 
     // submit the candidate values
     this.submitUpdate(nextHandles, true)
+
+    // put active handle into 'grabbed' mode.
+    // todo: but what if some constraint prevented a handle from actually reaching mouseclick point?
+    this.onStart(e, updateKey, isTouch)
   }
 
   addMouseEvents() {
