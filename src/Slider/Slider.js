@@ -364,6 +364,12 @@ class Slider extends PureComponent {
         state: { handles: curr, pixelToStep },
         props: { vertical, reversed },
       } = this
+      const { slider } = this
+
+      // double check the dimensions of the slider
+      pixelToStep.setDomain(
+        getSliderDomain(slider.current, vertical, pixelToStep),
+      )
 
       const updateValue = pixelToStep.getValue(vertical ? e.clientY : e.pageX)
 
