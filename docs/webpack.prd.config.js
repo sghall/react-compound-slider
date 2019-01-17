@@ -38,14 +38,6 @@ module.exports = {
         },
       },
       {
-        test: /\.svg$/,
-        loader: 'file-loader',
-      },
-      {
-        test: /\.(jpg|gif|png)$/,
-        loader: 'file-loader!img-loader',
-      },
-      {
         test: /\.md$/,
         loader: 'raw-loader',
       },
