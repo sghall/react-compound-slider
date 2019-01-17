@@ -230,6 +230,7 @@ class Slider extends PureComponent {
   }
 
   onMouseDown = (e, handleID) => {
+    this.mouseIsDown = true
     this.onStart(e, handleID, false)
   }
 
@@ -326,31 +327,33 @@ class Slider extends PureComponent {
   }
 
   onMouseMove = e => {
-    this.setHoverState(e)
-    const {
-      state: { handles: curr, pixelToStep },
-      props: { vertical, reversed },
-    } = this
-    const { active: updateKey, slider } = this
+    if (!this.mouseIsDown) this.setHoverState(e)
+    else {
+      const {
+        state: { handles: curr, pixelToStep },
+        props: { vertical, reversed },
+      } = this
+      const { active: updateKey, slider } = this
 
-    // double check the dimensions of the slider
-    pixelToStep.setDomain(
-      getSliderDomain(slider.current, vertical, pixelToStep),
-    )
+      // double check the dimensions of the slider
+      pixelToStep.setDomain(
+        getSliderDomain(slider.current, vertical, pixelToStep),
+      )
 
-    // find the closest value (aka step) to the event location
-    const updateValue = pixelToStep.getValue(vertical ? e.clientY : e.pageX)
+      // find the closest value (aka step) to the event location
+      const updateValue = pixelToStep.getValue(vertical ? e.clientY : e.pageX)
 
-    // generate a "candidate" set of values - a suggestion of what to do
-    const nextHandles = getUpdatedHandles(
-      curr,
-      updateKey,
-      updateValue,
-      reversed,
-    )
+      // generate a "candidate" set of values - a suggestion of what to do
+      const nextHandles = getUpdatedHandles(
+        curr,
+        updateKey,
+        updateValue,
+        reversed,
+      )
 
-    // submit the candidate values
-    this.submitUpdate(nextHandles)
+      // submit the candidate values
+      this.submitUpdate(nextHandles)
+    }
   }
 
   setHoverState = e => {
@@ -438,6 +441,8 @@ class Slider extends PureComponent {
   }
 
   onMouseUp = () => {
+    // todo: any point in testing this for this.mouseIsDown?
+    this.mouseIsDown = false
     const {
       state: { handles },
       props: { onChange, onSlideEnd },
@@ -448,10 +453,11 @@ class Slider extends PureComponent {
     onChange(handles.map(d => d.val))
     onSlideEnd(handles.map(d => d.val), { activeHandleID })
 
-    if (isBrowser) {
-      document.removeEventListener('mousemove', this.onMouseMove)
-      document.removeEventListener('mouseup', this.onMouseUp)
-    }
+    // these get removed by unmount.
+    // if (isBrowser) {
+    //   document.removeEventListener('mousemove', this.onMouseMove)
+    //   document.removeEventListener('mouseup', this.onMouseUp)
+    // }
   }
 
   onTouchEnd = () => {
