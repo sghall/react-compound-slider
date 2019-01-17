@@ -14,6 +14,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router'
+import GitHub from './Github'
 
 const drawerWidth = 240
 
@@ -42,6 +43,9 @@ const styles = theme => ({
     [theme.breakpoints.up('sm')]: {
       display: 'none',
     },
+  },
+  grow: {
+    flexGrow: 1,
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
@@ -151,9 +155,22 @@ class ResponsiveDrawer extends React.Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" color="inherit" noWrap>
+            <Typography
+              variant="h6"
+              color="inherit"
+              noWrap
+              className={classes.grow}
+            >
               React Compound Slider
             </Typography>
+            <a
+              style={{ color: 'inherit' }}
+              href="https://github.com/sghall/react-compound-slider"
+            >
+              <IconButton color="inherit" aria-label="Open drawer">
+                <GitHub />
+              </IconButton>
+            </a>
           </Toolbar>
         </AppBar>
         <nav className={classes.drawer}>
