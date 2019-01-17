@@ -17,6 +17,7 @@ import {
 } from './utils'
 import LinearScale from './LinearScale'
 import DiscreteScale from './DiscreteScale'
+import Tooltip from '../Tooltip'
 
 const isBrowser =
   typeof window !== 'undefined' && typeof document !== 'undefined'
@@ -513,16 +514,23 @@ class Slider extends PureComponent {
       return { id: key, value: val, percent: valueToPerc.getValue(val) }
     })
 
+    const tooltipInfo =
+      hoverPos != null
+        ? { val: hoverPos, percent: valueToPerc.getValue(hoverPos) }
+        : null
+
     const children = React.Children.map(this.props.children, child => {
       if (
         child.type.name === Rail.name ||
         child.type.name === Ticks.name ||
         child.type.name === Tracks.name ||
-        child.type.name === Handles.name
+        child.type.name === Handles.name ||
+        child.type.name === Tooltip.name
       ) {
         return React.cloneElement(child, {
           scale: valueToPerc,
           handles: mappedHandles, // isn't it superfluous to send eg this to eg Tracks?
+          tooltipInfo: tooltipInfo,
           emitKeyboard: disabled ? noop : this.onKeyDown,
           emitMouse: disabled ? noop : this.onMouseDown,
           emitTouch: disabled ? noop : this.onTouchStart,

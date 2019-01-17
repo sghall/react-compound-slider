@@ -16,10 +16,10 @@ class Tooltip extends Component {
   render() {
     const {
       getTooltipProps,
-      props: { children },
+      props: { children, tooltipInfo },
     } = this
 
-    const renderedChildren = children({ getTooltipProps })
+    const renderedChildren = children({ tooltipInfo, getTooltipProps })
     return renderedChildren && React.Children.only(renderedChildren)
   }
 }

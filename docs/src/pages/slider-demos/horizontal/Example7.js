@@ -19,13 +19,17 @@ const railStyle = {
   backgroundColor: 'rgb(155,155,155)',
 }
 
-const tooltipStyle = {
-  position: 'absolute',
-  width: '100%',
-  height: 14,
-  borderRadius: 7,
-  cursor: 'pointer',
-  backgroundColor: 'rgb(155,155,155)',
+const tooltipStyle = percent => {
+  return {
+    left: `${percent}%`,
+    position: 'absolute',
+    width: '100%',
+    marginTop: '-20px',
+    height: 14,
+    borderRadius: 7,
+    cursor: 'pointer',
+    backgroundColor: 'rgb(155,155,155)',
+  }
 }
 
 const domain = [50, 300]
@@ -77,9 +81,14 @@ class Example extends Component {
             )}
           </Rail>
           <Tooltip>
-            {({ val, overHandle, activeHandle, getTooltipProps }) => (
-              <div style={tooltipStyle} {...getTooltipProps()}>
-                I got val{val}
+            {({ toolTipInfo, getTooltipProps }) => (
+              <div
+                style={tooltipStyle(
+                  33 /*tooltipInfo ? tooltipInfo.percent: null*/,
+                )}
+                {...getTooltipProps()}
+              >
+                I got val{/*tooltipInfo ? tooltipInfo.val :*/ 'nothing'}
               </div>
             )}
           </Tooltip>
