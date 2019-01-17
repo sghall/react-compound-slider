@@ -4,9 +4,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Link from 'react-router/lib/Link'
-import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
+import logo from './slider_white.png'
 
 const styles = () => ({
   root: {
@@ -21,9 +21,9 @@ function Home(props) {
   return (
     <Grid container alignItems="center" justify="space-around">
       <Grid item className={classes.root}>
-        <Typography variant="h3" gutterBottom>
-          React Compound Slider
-        </Typography>
+        <img src={logo} />
+      </Grid>
+      <Grid item xs={12} className={classes.root}>
         <Button
           component={Link}
           variant="outlined"
