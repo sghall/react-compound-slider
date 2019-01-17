@@ -126,9 +126,12 @@ class Slider extends PureComponent {
         `${prfx} The range is incorrectly calculated. Check domain (min, max) and step values.`,
       )
 
-      const values = autoSnap
-        ? values0.map(x => valueToStep.getValue(x))
-        : values0
+      console.log(`values before autosnap, ${values0} and ${values}`)
+      const values =
+        autoSnap && values0
+          ? values0.map(x => valueToStep.getValue(x))
+          : values0
+      console.log(`values after autosnap, ${values0} and ${values}`)
 
       const { handles, changes } = getHandles(
         values || prevState.values,
