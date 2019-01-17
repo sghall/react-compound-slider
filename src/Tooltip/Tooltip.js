@@ -19,6 +19,8 @@ class Tooltip extends Component {
       props: { children, tooltipInfo },
     } = this
 
+    if (!tooltipInfo) return null // case of no tooltip.
+
     const renderedChildren = children({ tooltipInfo, getTooltipProps })
     return renderedChildren && React.Children.only(renderedChildren)
   }
