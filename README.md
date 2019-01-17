@@ -37,7 +37,11 @@ React Compound Slider is available as an [npm package](https://www.npmjs.org/pac
 To install and save in your `package.json` dependencies, run:
 
 ```
+// React 16.3 or greater
 npm install react-compound-slider
+
+// React 15.0 -> 16.2
+npm install react-compound-slider@0.16.3
 ```
 
 ## Documentation
