@@ -499,10 +499,16 @@ class Slider extends PureComponent {
       return child
     })
 
+    const posStr = `${valueToPerc.getValue(hoverPos)}%`
+
     return (
       <div style={rootStyle || {}} className={className} ref={this.slider}>
         {children}
-        <div style={{ 'margin-top': '-20px' }}>FakeHoverPos{hoverPos}</div>
+        <div
+          style={{ position: 'absolute', left: posStr, 'margin-top': '-20px' }}
+        >
+          FakeHoverPos{hoverPos}
+        </div>
       </div>
     )
   }
