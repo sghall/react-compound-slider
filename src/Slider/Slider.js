@@ -502,7 +502,7 @@ class Slider extends PureComponent {
     return (
       <div style={rootStyle || {}} className={className} ref={this.slider}>
         {children}
-        <div>FakeHoverPos{hoverPos}</div>
+        <div style={{ 'margin-top': '-20px' }}>FakeHoverPos{hoverPos}</div>
       </div>
     )
   }
