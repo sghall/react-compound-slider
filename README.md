@@ -1,4 +1,8 @@
-## react-compound-slider
+<div style="text-align:center;">
+  <a target="\_parent"><img src="https://user-images.githubusercontent.com/4615775/51296069-8fa30780-19d7-11e9-9399-ace98ee439f0.png"/></a>
+</div>
+
+## React Compound Slider
 
 Welcome to the future. React Compound Slider is a tiny (4.4kb) slider component with no opinion about markup or styles.
 
@@ -124,3 +128,5 @@ The `Slider` streams you the data and really only cares about the dimensions of 
 
 In general slider components are composed of a relatively positioned outer div with elements absolutely positioned inside by a percentage.
 In this library the `Handles`, `Tracks`, and `Ticks` components are used as children to the `Slider` component and they let you tap into a stream of values and percentages that you can then use to render your own components.
+
+Slider Artwork by Guilhem from the Noun Project
