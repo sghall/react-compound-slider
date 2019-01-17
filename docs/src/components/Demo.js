@@ -17,8 +17,6 @@ const styles = theme => ({
     position: 'relative',
     backgroundColor: theme.palette.background.contentFrame,
     marginBottom: 40,
-    marginLeft: -16,
-    marginRight: -16,
   },
   demo: theme.mixins.gutters({
     display: 'flex',
