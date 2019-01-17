@@ -1,5 +1,6 @@
 <div style="text-align:center;">
-  <a target="\_parent"><img src="https://user-images.githubusercontent.com/4615775/51296069-8fa30780-19d7-11e9-9399-ace98ee439f0.png"/></a>
+  <a href="https://sghall.github.io/react-compound-slider" target="\_parent">
+  <img src="https://user-images.githubusercontent.com/4615775/51296069-8fa30780-19d7-11e9-9399-ace98ee439f0.png"/></a>
 </div>
 
 ## React Compound Slider
@@ -13,7 +14,8 @@ Welcome to the future. React Compound Slider is a tiny (4.4kb) slider component 
 [![npm version](https://img.shields.io/npm/v/react-compound-slider.svg)](https://www.npmjs.com/package/react-compound-slider)
 
 <div style="text-align:center;">
-  <a href="https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal" target="\_parent"><img src="https://user-images.githubusercontent.com/4615775/46690444-2aa96b80-cbb7-11e8-8cdd-d1af59df59fe.png" alt="React Compound Slider" style="width:450px;"/></a>
+  <a href="https://sghall.github.io/react-compound-slider" target="\_parent">
+  <img src="https://user-images.githubusercontent.com/4615775/46690444-2aa96b80-cbb7-11e8-8cdd-d1af59df59fe.png" alt="React Compound Slider" style="width:450px;"/></a>
 </div>
 
 
