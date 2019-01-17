@@ -58,7 +58,7 @@ class Slider extends PureComponent {
   static getDerivedStateFromProps(nextProps, prevState) {
     const {
       step,
-      values0, // ie before autosnap applied
+      //      values0, // ie before autosnap applied
       domain,
       reversed,
       onUpdate,
@@ -66,6 +66,8 @@ class Slider extends PureComponent {
       warnOnSnap,
       autoSnap,
     } = nextProps
+
+    const values0 = nextProps.values
 
     let valueToPerc = prevState.valueToPerc
     let valueToStep = prevState.valueToStep
@@ -82,6 +84,11 @@ class Slider extends PureComponent {
       nextState.valueToStep = valueToStep
       nextState.pixelToStep = pixelToStep
     }
+
+    console.log(`values before autosnap, ${values0} and ${values}`)
+    const values =
+      autoSnap && values0 ? values0.map(x => valueToStep.getValue(x)) : values0
+    console.log(`values after autosnap, ${values0} and ${values}`)
 
     if (
       prevState.step === null ||
@@ -125,13 +132,6 @@ class Slider extends PureComponent {
           range[reversed ? 0 : last] === max,
         `${prfx} The range is incorrectly calculated. Check domain (min, max) and step values.`,
       )
-
-      console.log(`values before autosnap, ${values0} and ${values}`)
-      const values =
-        autoSnap && values0
-          ? values0.map(x => valueToStep.getValue(x))
-          : values0
-      console.log(`values after autosnap, ${values0} and ${values}`)
 
       const { handles, changes } = getHandles(
         values || prevState.values,
