@@ -1,0 +1,35 @@
+Slider render()
+    children  map    copy     emitMouse -> this.onMouseDown
+    onMouseDown
+        onStart
+            found handle    onSlideStart      sets this.active.
+            else handleRailAndTrackClicks.(maybe set this.active too?)
+                getUpdatedHandles(curr, updateKey, updateValue, reversed)
+                    submitUpdate
+
+
+
+Handle
+    onMouseDown   props.onMouseDown, props.emitMouse(e, id)
+                                        which goes to slider.onMouseDown
+    .. onTouchStart onKeyDown
+
+Rail
+    onMouseDown   props.onMouseDown, props.emitMouse(e)
+
+Track
+    onMouseDown   props.onMouseDown, props.emitMouse(e)
+
+
+add mouseMove to Rail, track?    
+
+
+///////
+Why need to remove eventlisteners in mouseUp as well as componentwillunmount?
+
+onStart has isTouch. Maybe use same style for onMouseMove/onTouchMove.   -- turn into onMove.
+why does cloneElement send handles to element types other than Handles ?
+
+
+// for tooltip:
+don't do removeEventListener 'mousemove' in onMouseUp. Maybe just an isMouseDown.

@@ -326,6 +326,7 @@ class Slider extends PureComponent {
   }
 
   onMouseMove = e => {
+    this.setHoverState(e)
     const {
       state: { handles: curr, pixelToStep },
       props: { vertical, reversed },
@@ -350,6 +351,18 @@ class Slider extends PureComponent {
 
     // submit the candidate values
     this.submitUpdate(nextHandles)
+  }
+
+  setHoverState = e => {
+    // find the closest value (aka step) to the event location
+    const {
+      state: { handles: curr, pixelToStep },
+      props: { vertical, reversed },
+    } = this
+
+    const updateValue = pixelToStep.getValue(vertical ? e.clientY : e.pageX)
+
+    this.setState({ hoverPos: updateValue })
   }
 
   onTouchMove = e => {
@@ -459,7 +472,7 @@ class Slider extends PureComponent {
 
   render() {
     const {
-      state: { handles, valueToPerc },
+      state: { handles, valueToPerc, hoverPos },
       props: { className, rootStyle, disabled },
     } = this
 
@@ -476,7 +489,7 @@ class Slider extends PureComponent {
       ) {
         return React.cloneElement(child, {
           scale: valueToPerc,
-          handles: mappedHandles,
+          handles: mappedHandles, // isn't it superfluous to send eg this to eg Tracks?
           emitKeyboard: disabled ? noop : this.onKeyDown,
           emitMouse: disabled ? noop : this.onMouseDown,
           emitTouch: disabled ? noop : this.onTouchStart,
@@ -489,6 +502,7 @@ class Slider extends PureComponent {
     return (
       <div style={rootStyle || {}} className={className} ref={this.slider}>
         {children}
+        <div>FakeHoverPos{hoverPos}</div>
       </div>
     )
   }
