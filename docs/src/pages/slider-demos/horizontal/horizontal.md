@@ -16,3 +16,6 @@ This example also demonstrates keyboard events. Click on a handle (tab) and use 
 
 ### Disabled
 {{demo='pages/slider-demos/horizontal/Example6.js'}}
+
+### Tooltip
+{{demo='pages/slider-demos/horizontal/Example7.js'}}
