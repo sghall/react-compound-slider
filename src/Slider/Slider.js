@@ -540,8 +540,6 @@ class Slider extends PureComponent {
       return child
     })
 
-    const posStr = `${valueToPerc.getValue(hoverPos)}%`
-
     return (
       <div
         style={rootStyle || {}}
@@ -552,17 +550,6 @@ class Slider extends PureComponent {
         onMouseMove={this.setHoverState}
       >
         {children}
-        {hoverPos && (
-          <div
-            style={{
-              position: 'absolute',
-              left: posStr,
-              marginTop: '-20px',
-            }}
-          >
-            FakeHoverPos{hoverPos}
-          </div>
-        )}
       </div>
     )
   }

@@ -81,14 +81,12 @@ class Example extends Component {
             )}
           </Rail>
           <Tooltip>
-            {({ toolTipInfo, getTooltipProps }) => (
+            {({ tooltipInfo, getTooltipProps }) => (
               <div
-                style={tooltipStyle(
-                  33 /*tooltipInfo ? tooltipInfo.percent: null*/,
-                )}
+                style={tooltipStyle(tooltipInfo ? tooltipInfo.percent : null)}
                 {...getTooltipProps()}
               >
-                I got val{/*tooltipInfo ? tooltipInfo.val :*/ 'nothing'}
+                I got val{tooltipInfo ? tooltipInfo.val : 'zilcho'}
               </div>
             )}
           </Tooltip>
