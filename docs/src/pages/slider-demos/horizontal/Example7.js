@@ -23,12 +23,12 @@ const tooltipStyle = percent => {
   return {
     left: `${percent}%`,
     position: 'absolute',
-    width: '100%',
-    marginTop: '-20px',
-    height: 14,
-    borderRadius: 7,
-    cursor: 'pointer',
-    backgroundColor: 'rgb(155,155,155)',
+    width: 'auto',
+    marginTop: '-40px',
+    padding: '5px',
+    height: 'auto',
+    backgroundColor: 'rgb(10, 10, 10)',
+    border: '1px solid white',
   }
 }
 
@@ -86,7 +86,7 @@ class Example extends Component {
                 style={tooltipStyle(tooltipInfo ? tooltipInfo.percent : null)}
                 {...getTooltipProps()}
               >
-                I got val{tooltipInfo ? tooltipInfo.val : 'zilcho'}
+                {tooltipInfo ? tooltipInfo.val : 'zilcho'}
               </div>
             )}
           </Tooltip>
