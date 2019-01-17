@@ -1,4 +1,4 @@
-# Ticks
+##### Ticks
 
 The `Ticks` component is used as a child of `Slider` to render slider ticks.
 Your child function receives an array of tick objects.
@@ -9,7 +9,7 @@ Tick Object:
 - value (number)
 - percent (number 0 to 100)
 
-### Example Usage:
+###### Example Usage:
 ```jsx
 import Slider, { Ticks } from 'react-compound-slider'
 

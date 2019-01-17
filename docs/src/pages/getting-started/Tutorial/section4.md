@@ -3,7 +3,7 @@ Pretty cool, but you can't click on the rail.
 
 Let's fix that...
 
-## Rail
+##### Rail
 
 ```jsx
 import { Slider, Rail, Handles, Tracks } from 'react-compound-slider'

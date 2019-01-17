@@ -107,8 +107,9 @@ function generateDescription(required, description, type) {
       .map(tag => `*${tag.name}:* ${tag.description}`)
       .join('<br>')
     if (parsedReturns.description) {
-      signature += `<br> *returns* (${parsedReturns.type
-        .name}): ${parsedReturns.description}`
+      signature += `<br> *returns* (${parsedReturns.type.name}): ${
+        parsedReturns.description
+      }`
     }
   }
 
@@ -122,7 +123,7 @@ class PropTypeDescription extends Component {
   }
 
   static defaultProps = {
-    header: '### Props',
+    header: '###### Props',
   }
 
   render() {
@@ -176,7 +177,9 @@ class PropTypeDescription extends Component {
     const requiredPropFootnote =
       requiredProps === 1
         ? '* required property'
-        : requiredProps > 1 ? '' : '* required properties'
+        : requiredProps > 1
+        ? ''
+        : '* required properties'
 
     return (
       <div className="propTypeDescription" style={{ paddingTop: 10 }}>

@@ -1,7 +1,7 @@
 
 Not too exciting.  Let's add a handle...
 
-## Handles
+##### Handles
 
 Note, here we're putting all the styles inline to make the tutorial easier to follow.
 That's not a great idea for code organization or for performance.

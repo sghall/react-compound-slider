@@ -1,7 +1,7 @@
 
 Let's add some ticks...
 
-## Ticks
+##### Ticks
 
 ```jsx
 import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider'

@@ -1,4 +1,4 @@
-# Handles
+##### Handles
 
 The `Handles` component is used as a child of `Slider` to render the slider handles.
 Your child function receives an array of handle objects and a function to get handle props.
@@ -9,7 +9,7 @@ Handle Object:
 - value (number)
 - percent (number 0 to 100)
 
-### Example Usage:
+###### Example Usage:
 ```jsx
 import Slider, { Handles } from 'react-compound-slider'
 

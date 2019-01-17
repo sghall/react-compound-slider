@@ -1,4 +1,4 @@
-## Slider
+##### Slider
 
 Let's start by setting up a slider and just rendering a center rail.
 In this example the slider is horizontal so we just need to give it a width.
@@ -11,7 +11,7 @@ import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
 
 ```
 
-### Start with Rendering Just a Rail
+###### Start with Rendering Just a Rail
 
 ```jsx
 import { Slider } from 'react-compound-slider'

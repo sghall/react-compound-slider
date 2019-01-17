@@ -1,4 +1,4 @@
-# Rail
+##### Rail
 
 The `Rail` component is used as a child of `Slider` to render your rail content.
 The only motivation for using this component is to hook the rail into the slider events.

@@ -1,4 +1,4 @@
-### Slider Features
+##### Slider Features
 
 - Compound component design provides maximum customizability ✓
   - Makes no assumptions about your markup

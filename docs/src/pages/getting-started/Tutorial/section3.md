@@ -1,7 +1,7 @@
 
 Better, but still not too impressive.  Let's add a dark blue track on the left hand side and make it clickable.
 
-## Tracks
+##### Tracks
 
 A slider always has handles + 1 possible tracks.
 The `Tracks` component sends you an array of source/target values for each possible track.

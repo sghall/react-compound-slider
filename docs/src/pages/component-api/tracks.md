@@ -1,4 +1,4 @@
-# Tracks
+##### Tracks
 
 The `Tracks` component is used as a child of `Slider` to render the slider tracks.
 Your child function receives an array of track objects and a function to get track props.
@@ -19,7 +19,7 @@ Track Object:
 	- value (number)
 	- percent (number 0 to 100)
 
-### Example Usage:
+###### Example Usage:
 ```jsx
 import Slider, { Tracks } from 'react-compound-slider'
 
