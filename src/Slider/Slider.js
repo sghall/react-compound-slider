@@ -58,12 +58,13 @@ class Slider extends PureComponent {
   static getDerivedStateFromProps(nextProps, prevState) {
     const {
       step,
-      values,
+      values0, // ie before autosnap applied
       domain,
       reversed,
       onUpdate,
       onChange,
       warnOnSnap,
+      autoSnap,
     } = nextProps
 
     let valueToPerc = prevState.valueToPerc
@@ -124,6 +125,10 @@ class Slider extends PureComponent {
           range[reversed ? 0 : last] === max,
         `${prfx} The range is incorrectly calculated. Check domain (min, max) and step values.`,
       )
+
+      const values = autoSnap
+        ? values0.map(x => valueToStep.getValue(x))
+        : values0
 
       const { handles, changes } = getHandles(
         values || prevState.values,
