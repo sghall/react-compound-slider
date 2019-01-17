@@ -33,3 +33,8 @@ why does cloneElement send handles to element types other than Handles ?
 
 // for tooltip:
 don't do removeEventListener 'mousemove' in onMouseUp. Maybe just an isMouseDown.
+
+Maybe instead add mouseEnter, mouseMove, mouseLeave as props for tracks, rails, handles.
+    (so won't respond to mouseMove over tooltip itself as it currently does)
+    For former, do current conversion. For handles, just use val of that handle.
+    Style flag for 'grabbed' mode.

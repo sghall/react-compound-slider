@@ -328,10 +328,7 @@ class Slider extends PureComponent {
 
   onMouseMove = e => {
     //if (!this.mouseIsDown)
-    console.log(
-      `mouse move with over ${this.mouseIsOver} down ${this.mouseIsDown}`,
-    )
-    if (this.mouseIsOver) this.setHoverState(e)
+    //if (this.mouseIsOver) this.setHoverState(e)
     if (this.mouseIsDown) {
       const {
         state: { handles: curr, pixelToStep },
@@ -540,6 +537,7 @@ class Slider extends PureComponent {
         ref={this.slider}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
+        onMouseMove={this.setHoverState}
       >
         {children}
         {hoverPos && (
