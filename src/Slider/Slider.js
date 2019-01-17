@@ -327,8 +327,9 @@ class Slider extends PureComponent {
   }
 
   onMouseMove = e => {
-    if (!this.mouseIsDown) this.setHoverState(e)
-    else {
+    //if (!this.mouseIsDown)
+    this.setHoverState(e)
+    if (this.mouseIsDown) {
       const {
         state: { handles: curr, pixelToStep },
         props: { vertical, reversed },
