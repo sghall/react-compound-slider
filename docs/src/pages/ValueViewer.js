@@ -4,13 +4,18 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 
-const styles = {
+const styles = theme => ({
   slider: {
     position: 'relative',
     width: '100%',
   },
   container: {
-    width: '50%',
+    [theme.breakpoints.down('sm')]: {
+      width: '75%',
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '50%',
+    },
     display: 'flex',
     textAlign: 'center',
     fontFamily: 'monospace',
@@ -19,7 +24,7 @@ const styles = {
     flexGrow: 1,
     border: '1px solid rgba(200,200,200,0.3)',
   },
-}
+})
 
 const ValueViewer = ({ classes, values, update, format }) => {
   return (
