@@ -549,7 +549,7 @@ class Slider extends PureComponent {
             style={{
               position: 'absolute',
               left: posStr,
-              'margin-top': '-20px',
+              marginTop: '-20px',
             }}
           >
             FakeHoverPos{hoverPos}
