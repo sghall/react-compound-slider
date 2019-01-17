@@ -85,10 +85,10 @@ class Slider extends PureComponent {
       nextState.pixelToStep = pixelToStep
     }
 
-    console.log(`values before autosnap, ${values0} and ${values}`)
+    //console.log(`values before autosnap, ${values0} and ${values}`)
     const values =
       autoSnap && values0 ? values0.map(x => valueToStep.getValue(x)) : values0
-    console.log(`values after autosnap, ${values0} and ${values}`)
+    //console.log(`values after autosnap, ${values0} and ${values}`)
 
     if (
       prevState.step === null ||
@@ -328,6 +328,9 @@ class Slider extends PureComponent {
 
   onMouseMove = e => {
     //if (!this.mouseIsDown)
+    console.log(
+      `mouse move with over ${this.mouseIsOver} down ${this.mouseIsDown}`,
+    )
     if (this.mouseIsOver) this.setHoverState(e)
     if (this.mouseIsDown) {
       const {
@@ -358,6 +361,7 @@ class Slider extends PureComponent {
   }
 
   setHoverState = e => {
+    console.log(`setting hover state with ${e}`)
     if (e) {
       // find the closest value (aka step) to the event location
       const {
@@ -372,6 +376,7 @@ class Slider extends PureComponent {
       )
 
       const updateValue = pixelToStep.getValue(vertical ? e.clientY : e.pageX)
+      console.log('got updated value {updatedValue}')
 
       this.setState({ hoverPos: updateValue })
     } else {
