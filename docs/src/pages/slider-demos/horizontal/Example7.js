@@ -19,6 +19,15 @@ const railStyle = {
   backgroundColor: 'rgb(155,155,155)',
 }
 
+const tooltipStyle = {
+  position: 'absolute',
+  width: '100%',
+  height: 14,
+  borderRadius: 7,
+  cursor: 'pointer',
+  backgroundColor: 'rgb(155,155,155)',
+}
+
 const domain = [50, 300]
 const defaultValues = [280]
 
@@ -68,7 +77,7 @@ class Example extends Component {
             )}
           </Rail>
           <Tooltip>
-            {({ val, overHandle, activeHandle }) => (
+            {({ val, overHandle, activeHandle, getTooltipProps }) => (
               <div style={tooltipStyle} {...getTooltipProps()}>
                 I got val{val}
               </div>
