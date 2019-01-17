@@ -8,6 +8,7 @@ import Hidden from '@material-ui/core/Hidden'
 import IconButton from '@material-ui/core/IconButton'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
+import Home from '@material-ui/icons/HomeRounded'
 import ListItemText from '@material-ui/core/ListItemText'
 import MenuIcon from '@material-ui/icons/Menu'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -163,11 +164,16 @@ class ResponsiveDrawer extends React.Component {
             >
               React Compound Slider
             </Typography>
+            <Link style={{ color: 'inherit' }} to="/">
+              <IconButton color="inherit">
+                <Home />
+              </IconButton>
+            </Link>
             <a
               style={{ color: 'inherit' }}
               href="https://github.com/sghall/react-compound-slider"
             >
-              <IconButton color="inherit" aria-label="Open drawer">
+              <IconButton color="inherit">
                 <GitHub />
               </IconButton>
             </a>
