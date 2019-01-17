@@ -328,7 +328,7 @@ class Slider extends PureComponent {
 
   onMouseMove = e => {
     //if (!this.mouseIsDown)
-    this.setHoverState(e)
+    if (this.mouseIsOver) this.setHoverState(e)
     if (this.mouseIsDown) {
       const {
         state: { handles: curr, pixelToStep },
@@ -358,15 +358,29 @@ class Slider extends PureComponent {
   }
 
   setHoverState = e => {
-    // find the closest value (aka step) to the event location
-    const {
-      state: { handles: curr, pixelToStep },
-      props: { vertical, reversed },
-    } = this
+    if (e) {
+      // find the closest value (aka step) to the event location
+      const {
+        state: { handles: curr, pixelToStep },
+        props: { vertical, reversed },
+      } = this
 
-    const updateValue = pixelToStep.getValue(vertical ? e.clientY : e.pageX)
+      const updateValue = pixelToStep.getValue(vertical ? e.clientY : e.pageX)
 
-    this.setState({ hoverPos: updateValue })
+      this.setState({ hoverPos: updateValue })
+    } else {
+      this.setState({ hoverPos: null })
+    }
+  }
+
+  onMouseEnter = e => {
+    this.mouseIsOver = true
+    this.setHoverState(e)
+  }
+
+  onMouseLeave = e => {
+    this.mouseIsOver = false
+    this.setHoverState(null)
   }
 
   onTouchMove = e => {
@@ -509,13 +523,25 @@ class Slider extends PureComponent {
     const posStr = `${valueToPerc.getValue(hoverPos)}%`
 
     return (
-      <div style={rootStyle || {}} className={className} ref={this.slider}>
+      <div
+        style={rootStyle || {}}
+        className={className}
+        ref={this.slider}
+        onMouseEnter={this.onMouseEnter}
+        onMouseLeave={this.onMouseLeave}
+      >
         {children}
-        <div
-          style={{ position: 'absolute', left: posStr, 'margin-top': '-20px' }}
-        >
-          FakeHoverPos{hoverPos}
-        </div>
+        {hoverPos && (
+          <div
+            style={{
+              position: 'absolute',
+              left: posStr,
+              'margin-top': '-20px',
+            }}
+          >
+            FakeHoverPos{hoverPos}
+          </div>
+        )}
       </div>
     )
   }
