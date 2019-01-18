@@ -249,6 +249,7 @@ class Slider extends PureComponent {
     } = this
 
     this.active = handle.key
+    this.setState({ activeHandleID: handle.key })
     onSlideStart(handles.map(d => d.val), { activeHandleID: handle.key })
     isTouch ? this.addTouchEvents() : this.addMouseEvents()
   }
@@ -267,12 +268,14 @@ class Slider extends PureComponent {
 
     if (found) {
       this.startSlide(found, isTouch)
-      this.setState({
-        tooltipInfo: { val: null, handle: { id: found.key, grabbed: true } },
-      })
+      // this.setState({
+      //   tooltipInfo: { val: null, handle: { id: found.key } },
+      //   //activeHandle: found.key
+      // })
     } else {
       this.active = null
-      this.handleRailAndTrackClicks(e, isTouch)
+      this.setState({ activeHandleID: null })
+      this.handleRailAndTrackClicks(e, isTouch) // todo: actually want to set active in here
     }
   }
 
@@ -502,9 +505,10 @@ class Slider extends PureComponent {
       props: { onChange, onSlideEnd },
     } = this
     const activeHandleID = this.active
-    this.active = null
 
-    this.setHoverState(null, this.mouseOverHandleId)
+    //this.setHoverState(null, this.mouseOverHandleId)
+    this.active = null
+    this.setState({ activeHandleID: null })
     onChange(handles.map(d => d.val))
     onSlideEnd(handles.map(d => d.val), { activeHandleID })
 
@@ -520,6 +524,7 @@ class Slider extends PureComponent {
       props: { onChange, onSlideEnd },
     } = this
     this.active = null
+    this.setState({ activeHandleID: null })
 
     onChange(handles.map(d => d.val))
     onSlideEnd(handles.map(d => d.val))
@@ -530,23 +535,38 @@ class Slider extends PureComponent {
     }
   }
 
-  static getTooltipInfoMapped(tooltipInfo, mappedHandles, valueToPerc) {
-    if (tooltipInfo == null) return null
-    else if (tooltipInfo.val != null)
-      // hovering over rail or track
-      return {
-        val: tooltipInfo.val,
-        percent: valueToPerc.getValue(tooltipInfo.val),
-      }
+  static getTooltipInfoMapped(
+    tooltipInfo,
+    mappedHandles,
+    activeHandleID,
+    valueToPerc,
+  ) {
+    if (activeHandleID) {
+      const handle = mappedHandles.find(h => h.id == activeHandleID)
+      if (handle)
+        return {
+          val: handle.value,
+          percent: handle.percent,
+          handleId: handle.id,
+          grabbed: true,
+        }
+      warning(
+        true,
+        `matching handle not found for activeHandle ${JSON.stringify(
+          activeHandleID,
+        )} in ${JSON.stringify(mappedHandles)}`,
+      )
+    }
     // todo: could specify which track/rail here.
-    else {
+    else if (tooltipInfo && tooltipInfo.handle && tooltipInfo.handle.id) {
+      // should just use hoveredHandleId
       const handle = mappedHandles.find(h => h.id == tooltipInfo.handle.id)
       if (handle)
         return {
           val: handle.value,
           percent: handle.percent,
           handleId: handle.id,
-          grabbed: tooltipInfo.handle.grabbed,
+          grabbed: false,
         }
       warning(
         true,
@@ -555,12 +575,18 @@ class Slider extends PureComponent {
         )} in ${JSON.stringify(mappedHandles)}`,
       )
       return null
-    }
+    } else if (tooltipInfo != null && tooltipInfo.val != null)
+      // hovering over rail or track
+      return {
+        val: tooltipInfo.val,
+        percent: valueToPerc.getValue(tooltipInfo.val),
+      }
+    else return null
   }
 
   render() {
     const {
-      state: { handles, valueToPerc, tooltipInfo },
+      state: { handles, valueToPerc, tooltipInfo, activeHandleID },
       props: { className, rootStyle, disabled },
     } = this
 
@@ -571,6 +597,7 @@ class Slider extends PureComponent {
     const tooltipInfoMapped = Slider.getTooltipInfoMapped(
       tooltipInfo,
       mappedHandles,
+      activeHandleID,
       valueToPerc,
     )
 
