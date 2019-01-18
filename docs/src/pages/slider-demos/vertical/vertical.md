@@ -10,3 +10,6 @@ This example also demonstrates keyboard events. Click on a handle (tab) and use 
 
 ### Reversed - Pushable Mode (mode = 3) - Step 10 
 {{demo='pages/slider-demos/vertical/Example4.js'}}
+
+### As above, but with tooltip 
+{{demo='pages/slider-demos/vertical/Example5.js'}}

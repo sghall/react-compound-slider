@@ -1,32 +1,42 @@
 // @flow weak
 
 import React, { Component } from 'react'
-import { Slider, Rail, Handles, Tracks, Tooltip } from 'react-compound-slider'
+import Slider, {
+  Rail,
+  Handles,
+  Tracks,
+  Ticks,
+  Tooltip,
+} from 'react-compound-slider'
 import ValueViewer from 'docs/src/pages/ValueViewer' // for examples only - displays the table above slider
-import { Handle, Track } from './components' // example render components - source below
+import { Handle, Track, Tick } from './components' // example render components - source below
 
 const sliderStyle = {
   position: 'relative',
-  width: '100%',
+  height: '400px',
+  marginLeft: '45%',
 }
 
 const railStyle = {
   position: 'absolute',
-  width: '100%',
-  height: 14,
-  borderRadius: 7,
+  width: '14px',
+  height: '100%',
   cursor: 'pointer',
+  marginLeft: '-1px',
+  borderRadius: '7px',
   backgroundColor: 'rgb(155,155,155)',
 }
 
 const tooltipStyle = percent => {
   return {
-    left: `${percent}%`,
+    top: `${percent}%`,
     position: 'absolute',
     zIndex: 3,
+    //right: 0,    // stick it on left of slider.
+    left: 0,
+    marginLeft: '45px',
     width: 'auto',
-    transform: 'translateX(-50%)',
-    marginTop: '-45px',
+    transform: 'translateY(-50%)',
     padding: '5px',
     height: 'auto',
     backgroundColor: 'rgb(10, 10, 10)',
@@ -34,14 +44,13 @@ const tooltipStyle = percent => {
   }
 }
 
-const domain = [50, 300]
-const defaultValues = [280]
+const domain = [100, 300]
+const defaultValues = [250, 200, 150, 100]
 
 class Example extends Component {
   state = {
     values: defaultValues.slice(),
     update: defaultValues.slice(),
-    disabled: false,
   }
 
   onUpdate = update => {
@@ -52,25 +61,19 @@ class Example extends Component {
     this.setState({ values })
   }
 
-  toggleDisabled = () => {
-    this.setState({ disabled: !this.state.disabled })
-  }
-
   render() {
     const {
-      state: { values, update, disabled },
+      state: { values, update },
     } = this
 
     return (
-      <div style={{ height: 120, width: '100%' }}>
-        <button onClick={() => this.toggleDisabled()}>
-          {disabled ? 'ENABLE' : 'DISABLE'}
-        </button>
-
+      <div style={{ height: 520, width: '100%' }}>
         <ValueViewer values={values} update={update} />
         <Slider
-          disabled={disabled}
-          step={1}
+          vertical
+          reversed
+          mode={3}
+          step={10}
           domain={domain}
           rootStyle={sliderStyle}
           onUpdate={this.onUpdate}
@@ -101,13 +104,12 @@ class Example extends Component {
                     handle={handle}
                     domain={domain}
                     getHandleProps={getHandleProps}
-                    disabled={disabled}
                   />
                 ))}
               </div>
             )}
           </Handles>
-          <Tracks right={false}>
+          <Tracks left={false} right={false}>
             {({ tracks, getTrackProps }) => (
               <div className="slider-tracks">
                 {tracks.map(({ id, source, target }) => (
@@ -116,12 +118,20 @@ class Example extends Component {
                     source={source}
                     target={target}
                     getTrackProps={getTrackProps}
-                    disabled={disabled}
                   />
                 ))}
               </div>
             )}
           </Tracks>
+          <Ticks count={10}>
+            {({ ticks }) => (
+              <div className="slider-ticks">
+                {ticks.map(tick => (
+                  <Tick key={tick.id} tick={tick} />
+                ))}
+              </div>
+            )}
+          </Ticks>
         </Slider>
       </div>
     )
