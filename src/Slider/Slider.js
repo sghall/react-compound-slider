@@ -267,7 +267,9 @@ class Slider extends PureComponent {
 
     if (found) {
       this.startSlide(found, isTouch)
-      this.setTooltipState(null, found.key, true)
+      this.setState({
+        tooltipInfo: { val: null, handle: { id: found.key, grabbed: true } },
+      })
     } else {
       this.active = null
       this.handleRailAndTrackClicks(e, isTouch)
@@ -371,9 +373,9 @@ class Slider extends PureComponent {
     console.log(`setting hover state with ${e}`)
     if (handleId) {
       console.log(`setting state to ${handleId}`)
-      this.setState({
-        tooltipInfo: { val: null, handle: { id: handleId, grabbed: false } },
-      })
+      // this.setState({
+      //   tooltipInfo: { val: null, handle: { id: handleId, grabbed: false } },
+      // })
     } else if (e) {
       // find the closest value (aka step) to the event location
       const {
@@ -474,13 +476,6 @@ class Slider extends PureComponent {
         handles,
         afterburnerState,
       }
-    })
-  }
-
-  setTooltipState = (val, handleId, grabbed) => {
-    console.log(`setting tooltip state to ${val}, ${handleId}, ${grabbed}`)
-    this.setState({
-      tooltipInfo: { val: val, handle: { id: handleId, grabbed: grabbed } },
     })
   }
 

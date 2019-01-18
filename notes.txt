@@ -100,7 +100,15 @@ onkeydown: tooltip.
 this.active in state? want handleactive flag too.
 
 click on handle. tooltip disappears on mouseup (and flicker on drag & up)
-    cos onMouseUp -> setHoverState(null)
+    x  cos onMouseUp -> setHoverState(null)
+    setHoverState now always setting false.
+
+tooltipInfo:    replace with activeHandleId in state?  -- used for handle styling
+            and hoveredHandleId in mouse events can then be used for styling too.
+                            does this rerender?
+
 
 grabbed tooltip state only showing on first click. any move reverts to nongrabbed.
-    onMouseUp to take e?
+    onMouseUp to take e? - have to store it in last onMouseMove.
+
+eg track rerendering on hover. Did it do this on progress before? Think it must have. Would it with mobx/pure    
