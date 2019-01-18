@@ -20,8 +20,6 @@ const railStyle = {
 }
 
 const tooltipStyle = (percent, handleId) => {
-  console.log(`getting style with ${percent}, ${handleId}`)
-
   return {
     left: `${percent}%`,
     position: 'absolute',

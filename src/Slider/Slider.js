@@ -378,7 +378,7 @@ class Slider extends PureComponent {
       const updateValue = pixelToStep.getValue(vertical ? e.clientY : e.pageX)
 
       this.setState({
-        tooltipPreInfo: { val: updateValue, handleId: 'bunny' /*null*/ },
+        tooltipPreInfo: { val: updateValue, handleId: null },
       })
     } else {
       this.setState({ tooltipPreInfo: null })
@@ -467,8 +467,6 @@ class Slider extends PureComponent {
       const activeHandle = handles.find(h => h.key == this.active)
       const activeHandleVal = activeHandle ? activeHandle.val : null
 
-      console.log(`setting handleid to ${this.active}`)
-
       return {
         handles,
         tooltipPreInfo: { val: activeHandleVal, handleID: this.active },
@@ -523,8 +521,6 @@ class Slider extends PureComponent {
       return { id: key, value: val, percent: valueToPerc.getValue(val) }
     })
 
-    console.log(`rendering with ${JSON.stringify(tooltipPreInfo)}`)
-
     const tooltipInfo =
       tooltipPreInfo != null
         ? {
@@ -533,8 +529,6 @@ class Slider extends PureComponent {
           handleId: tooltipPreInfo.handleID,
         }
         : null
-
-    console.log(`so rendering with ${JSON.stringify(tooltipInfo)}`)
 
     const children = React.Children.map(this.props.children, child => {
       if (

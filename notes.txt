@@ -47,4 +47,21 @@ handleRailAndTrackClicks  to cause onStart(e.handleId)
         works except for custom mode demo - max separation of 100. 
         shouldn't grip if handle didn't move there.
         maybe just run through handles & check for pos ~ mouse pos bew? but after state change?
-        also, with key focus, grippy should move key focus too. 
+        also, with key focus, grippy should move key focus too.
+
+
+todo: mouseEnter, mouseLeave - pass to rails, tracks, handles then back up to slider so handleid passed
+    for onMove.
+    Why doesn't mousedown over handle immediately show up as red?
+    Think onStart should setState for preTooltipInfo.
+        what's correct way to set state ? func vs just a call?
+
+
+    more robust to just pass handleId for tooltipPreInfo - (plus grabbed flag)
+        do all extraction of vals in render, since they are there anyhow in mappedHandles.
+
+    then can easily set handleId in onStart.
+
+    replace tooltipPreInfo { val: number, handle: {id: string, grabbed: boolean}}
+
+   talkiv.     
