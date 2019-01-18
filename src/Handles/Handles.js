@@ -8,7 +8,14 @@ class Handles extends Component {
   }
 
   getHandleProps = (id, props = {}) => {
-    const { emitKeyboard, emitMouse, emitTouch } = this.props
+    const {
+      emitKeyboard,
+      emitMouse,
+      emitTouch,
+      emitMouseEnter,
+      emitMouseLeave,
+      emitMouseMove,
+    } = this.props
 
     return {
       ...props,
@@ -16,6 +23,9 @@ class Handles extends Component {
       onMouseDown: callAll(props.onMouseDown, this.autofocus, e =>
         emitMouse(e, id),
       ),
+      onMouseEnter: e => emitMouseEnter(id),
+      onMouseLeave: e => emitMouseLeave(),
+      //onMouseMove: props.onMouseMove,
       onTouchStart: callAll(props.onTouchStart, e => emitTouch(e, id)),
     }
   }
@@ -38,6 +48,10 @@ Handles.propTypes = {
   emitKeyboard: PropTypes.func,
   /** @ignore */
   emitMouse: PropTypes.func,
+  /** @ignore */
+  emitMouseEnter: PropTypes.func,
+  /** @ignore */
+  emitMouseLeave: PropTypes.func,
   /** @ignore */
   emitTouch: PropTypes.func,
   /**
