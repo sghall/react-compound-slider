@@ -68,3 +68,5 @@ x        do all extraction of vals in render, since they are there anyhow in map
 
 tooltip: no emit mouse.
 
+grab handle on its left. Move cursor 1px to right. Handle actually moves to left to center on cursor.
+

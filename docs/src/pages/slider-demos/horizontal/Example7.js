@@ -31,6 +31,7 @@ const tooltipStyle = (percent, handleId) => {
     height: 'auto',
     backgroundColor: 'rgb(10, 10, 10)',
     border: handleId ? '1px solid red' : '1px solid white',
+    userSelect: 'none',
   }
 }
 
