@@ -489,11 +489,11 @@ class Slider extends PureComponent {
       state: { handles, activeHandleID },
       props: { onChange, onSlideEnd },
     } = this
-    const activeHandleIDWas = activeHandleID
+
+    onChange(handles.map(d => d.val))
+    onSlideEnd(handles.map(d => d.val), { activeHandleID })
 
     this.setState({ activeHandleID: null })
-    onChange(handles.map(d => d.val))
-    onSlideEnd(handles.map(d => d.val), { activeHandleID: activeHandleIDWas })
 
     if (isBrowser) {
       document.removeEventListener('mousemove', this.onMouseMove)
@@ -503,13 +503,14 @@ class Slider extends PureComponent {
 
   onTouchEnd = () => {
     const {
-      state: { handles },
+      state: { handles, activeHandleID },
       props: { onChange, onSlideEnd },
     } = this
-    this.setState({ activeHandleID: null })
 
     onChange(handles.map(d => d.val))
-    onSlideEnd(handles.map(d => d.val))
+    onSlideEnd(handles.map(d => d.val), { activeHandleID })
+
+    this.setState({ activeHandleID: null })
 
     if (isBrowser) {
       document.removeEventListener('touchmove', this.onTouchMove)
