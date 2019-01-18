@@ -485,17 +485,19 @@ class Slider extends PureComponent {
   }
 
   onMouseEnterGadget = (e, id) => {
-    console.log(`Mouse enters gadget ${id}`)
+    //console.log(`Mouse enters gadget ${id}`)
+    this.mouseOverHandleId = id
     this.setHoverState(e, id)
   }
 
   onMouseMoveGadget = (e, id) => {
-    console.log(`Mouse moves gadget ${id}`)
+    //console.log(`Mouse moves gadget ${id}`)
     this.setHoverState(e, id)
   }
 
   onMouseLeaveGadget = () => {
     console.log('mouse leaves gadget')
+    this.mouseOverHandleId = null
     this.setHoverState(null, null)
   }
 
@@ -507,7 +509,7 @@ class Slider extends PureComponent {
     const activeHandleID = this.active
     this.active = null
 
-    this.setHoverState(null)
+    this.setHoverState(null, this.mouseOverHandleId)
     onChange(handles.map(d => d.val))
     onSlideEnd(handles.map(d => d.val), { activeHandleID })
 
