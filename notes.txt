@@ -92,23 +92,26 @@ onMouseDown
                 should then do an onslidestart
                 tooltipInfo  grabbed   ** if 
 
-setTooltipInfo in different place than submitUpdate?
+x setTooltipInfo in different place than submitUpdate?
 
-rename setHoverState?
-onkeydown: tooltip.
+x rename setHoverState?
+x onkeydown: tooltip.
 
-this.active in state? want handleactive flag too.
+xthis.active in state? want handleactive flag too.
 
-click on handle. tooltip disappears on mouseup (and flicker on drag & up)
+xclick on handle. tooltip disappears on mouseup (and flicker on drag & up)
     x  cos onMouseUp -> setHoverState(null)
-    setHoverState now always setting false.
+x    setHoverState now always setting false.
 
-tooltipInfo:    replace with activeHandleId in state?  -- used for handle styling
-            and hoveredHandleId in mouse events can then be used for styling too.
-                            does this rerender?
+xtooltipInfo:    replace with activeHandleId in state?  -- used for handle styling
+x            and hoveredHandleId in mouse events can then be used for styling too.
+x                            does this rerender?
 
 
-grabbed tooltip state only showing on first click. any move reverts to nongrabbed.
-    onMouseUp to take e? - have to store it in last onMouseMove.
+x grabbed tooltip state only showing on first click. any move reverts to nongrabbed.
+x    onMouseUp to take e? - have to store it in last onMouseMove.
 
-eg track rerendering on hover. Did it do this on progress before? Think it must have. Would it with mobx/pure    
+x eg track rerendering on hover. Did it do this on progress before? Think it must have. Would it with mobx/pure    
+
+Ticks to be part of a more general nav-background. Allow hover / click to feed to standard track/rail treatment,
+        but also allow overrides.

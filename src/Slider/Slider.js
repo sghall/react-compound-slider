@@ -481,6 +481,7 @@ class Slider extends PureComponent {
     })
   }
 
+  // Corresponds to mouse entering a part of the Rail/Track/Handle "Gadget". Id corresponds to the handla handle.
   onMouseEnterGadget = (e, id) => {
     this.setState({ hoveredHandleID: id })
     this.setHoverState(e)
