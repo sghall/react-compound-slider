@@ -358,7 +358,7 @@ class Slider extends PureComponent {
 
       // submit the candidate values
       this.submitUpdate(nextHandles)
-    }
+    } else if (this.mouseIsOver) this.setHoverState(e)
   }
 
   setHoverState = e => {
@@ -383,16 +383,6 @@ class Slider extends PureComponent {
     } else {
       this.setState({ tooltipInfo: null })
     }
-  }
-
-  onMouseEnter = e => {
-    this.mouseIsOver = true
-    this.setHoverState(e)
-  }
-
-  onMouseLeave = e => {
-    this.mouseIsOver = false
-    this.setHoverState(null)
   }
 
   onTouchMove = e => {
@@ -477,12 +467,16 @@ class Slider extends PureComponent {
     })
   }
 
-  onMouseEnterGadget = id => {
-    console.log(`Gadget enters ${id}`)
+  onMouseEnterGadget = (e, id) => {
+    console.log(`Mouse enters gadget ${id}`)
+    this.mouseIsOver = true
+    this.setHoverState(e)
   }
 
   onMouseLeaveGadget = () => {
-    console.log('mouse leaves')
+    console.log('mouse leaves gadget')
+    this.mouseIsOver = false
+    this.setHoverState(null)
   }
 
   onMouseUp = () => {
@@ -590,14 +584,7 @@ class Slider extends PureComponent {
     })
 
     return (
-      <div
-        style={rootStyle || {}}
-        className={className}
-        ref={this.slider}
-        onMouseEnter={this.onMouseEnter}
-        onMouseLeave={this.onMouseLeave}
-        onMouseMove={this.setHoverState}
-      >
+      <div style={rootStyle || {}} className={className} ref={this.slider}>
         {children}
       </div>
     )
