@@ -372,14 +372,8 @@ class Slider extends PureComponent {
     this.submitUpdate(nextHandles)
   }
 
-  setHoverState = (e, handleId) => {
-    console.log(`setting hover state with ${e}`)
-    if (handleId) {
-      console.log(`setting state to ${handleId}`)
-      // this.setState({
-      //   tooltipInfo: { val: null, handle: { id: handleId, grabbed: false } },
-      // })
-    } else if (e) {
+  setHoverState = e => {
+    if (e) {
       // find the closest value (aka step) to the event location
       const {
         state: { handles: curr, pixelToStep },
@@ -483,20 +477,17 @@ class Slider extends PureComponent {
   }
 
   onMouseEnterGadget = (e, id) => {
-    //console.log(`Mouse enters gadget ${id}`)
     this.setState({ hoveredHandleID: id })
-    this.setHoverState(e, id)
+    this.setHoverState(e)
   }
 
   onMouseMoveGadget = (e, id) => {
-    //console.log(`Mouse moves gadget ${id}`)
-    this.setHoverState(e, id)
+    this.setHoverState(e)
   }
 
   onMouseLeaveGadget = () => {
-    //console.log('mouse leaves gadget')
     this.setState({ hoveredHandleID: null })
-    this.setHoverState(null, null)
+    this.setHoverState(null)
   }
 
   onMouseUp = () => {
