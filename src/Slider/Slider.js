@@ -465,14 +465,10 @@ class Slider extends PureComponent {
         onChange(handles.map(d => d.val))
       }
 
-      // could put this in render?
-      //const activeHandle = handles.find(h => h.key == this.active)
-      //const activeHandleVal = activeHandle ? activeHandle.val : null
-
       return {
         handles,
         tooltipInfo: {
-          val: null /* activeHandleVal*/,
+          val: null,
           handle: { id: this.active, grabbed: true },
         },
       }
