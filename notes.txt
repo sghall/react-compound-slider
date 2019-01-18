@@ -57,8 +57,8 @@ todo: mouseEnter, mouseLeave - pass to rails, tracks, handles then back up to sl
         what's correct way to set state ? func vs just a call?
 
 
-    more robust to just pass handleId for tooltipPreInfo - (plus grabbed flag)
-        do all extraction of vals in render, since they are there anyhow in mappedHandles.
+x    more robust to just pass handleId for tooltipPreInfo - (plus grabbed flag)
+x        do all extraction of vals in render, since they are there anyhow in mappedHandles.
 
     then can easily set handleId in onStart.
 

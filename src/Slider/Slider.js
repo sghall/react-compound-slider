@@ -378,10 +378,10 @@ class Slider extends PureComponent {
       const updateValue = pixelToStep.getValue(vertical ? e.clientY : e.pageX)
 
       this.setState({
-        tooltipPreInfo: { val: updateValue, handleId: null },
+        tooltipInfo: { val: updateValue, handle: null }, // todo: handle redundant?
       })
     } else {
-      this.setState({ tooltipPreInfo: null })
+      this.setState({ tooltipInfo: null })
     }
   }
 
@@ -464,12 +464,15 @@ class Slider extends PureComponent {
       }
 
       // could put this in render?
-      const activeHandle = handles.find(h => h.key == this.active)
-      const activeHandleVal = activeHandle ? activeHandle.val : null
+      //const activeHandle = handles.find(h => h.key == this.active)
+      //const activeHandleVal = activeHandle ? activeHandle.val : null
 
       return {
         handles,
-        tooltipPreInfo: { val: activeHandleVal, handleID: this.active },
+        tooltipInfo: {
+          val: null /* activeHandleVal*/,
+          handle: { id: this.active, grabbed: false },
+        },
       }
     })
   }
@@ -511,9 +514,37 @@ class Slider extends PureComponent {
     }
   }
 
+  static getTooltipInfoMapped(tooltipInfo, mappedHandles, valueToPerc) {
+    if (tooltipInfo == null) return null
+    else if (tooltipInfo.val != null)
+      // hovering over rail or track
+      return {
+        val: tooltipInfo.val,
+        percent: valueToPerc.getValue(tooltipInfo.val),
+      }
+    // todo: could specify which track/rail here.
+    else {
+      const handle = mappedHandles.find(h => h.id == tooltipInfo.handle.id)
+      if (handle)
+        return {
+          val: handle.value,
+          percent: handle.percent,
+          handleId: handle.id,
+          grabbed: tooltipInfo.handle.grabbed,
+        }
+      warning(
+        true,
+        `matching handle not found for ${JSON.stringify(
+          tooltipInfo,
+        )} in ${JSON.stringify(mappedHandles)}`,
+      )
+      return null
+    }
+  }
+
   render() {
     const {
-      state: { handles, valueToPerc, tooltipPreInfo },
+      state: { handles, valueToPerc, tooltipInfo },
       props: { className, rootStyle, disabled },
     } = this
 
@@ -521,14 +552,11 @@ class Slider extends PureComponent {
       return { id: key, value: val, percent: valueToPerc.getValue(val) }
     })
 
-    const tooltipInfo =
-      tooltipPreInfo != null
-        ? {
-          val: tooltipPreInfo.val,
-          percent: valueToPerc.getValue(tooltipPreInfo.val),
-          handleId: tooltipPreInfo.handleID,
-        }
-        : null
+    const tooltipInfoMapped = Slider.getTooltipInfoMapped(
+      tooltipInfo,
+      mappedHandles,
+      valueToPerc,
+    )
 
     const children = React.Children.map(this.props.children, child => {
       if (
@@ -541,7 +569,7 @@ class Slider extends PureComponent {
         return React.cloneElement(child, {
           scale: valueToPerc,
           handles: mappedHandles, // isn't it superfluous to send eg this to eg Tracks?
-          tooltipInfo: tooltipInfo,
+          tooltipInfo: tooltipInfoMapped,
           emitKeyboard: disabled ? noop : this.onKeyDown,
           emitMouse: disabled ? noop : this.onMouseDown,
           emitTouch: disabled ? noop : this.onTouchStart,
