@@ -563,20 +563,20 @@ class Slider extends PureComponent {
         child.type.name === Rail.name ||
         child.type.name === Ticks.name ||
         child.type.name === Tracks.name ||
-        child.type.name === Handles.name ||
-        child.type.name === Tooltip.name
-      ) {
+        child.type.name === Handles.name
+      )
         return React.cloneElement(child, {
           scale: valueToPerc,
           handles: mappedHandles, // isn't it superfluous to send eg this to eg Tracks?
-          tooltipInfo: tooltipInfoMapped,
           emitKeyboard: disabled ? noop : this.onKeyDown,
           emitMouse: disabled ? noop : this.onMouseDown,
           emitTouch: disabled ? noop : this.onTouchStart,
         })
-      }
-
-      return child
+      else if (child.type.name === Tooltip.name)
+        return React.cloneElement(child, {
+          tooltipInfo: tooltipInfoMapped,
+        })
+      else return child
     })
 
     return (

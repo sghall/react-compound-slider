@@ -65,3 +65,6 @@ x        do all extraction of vals in render, since they are there anyhow in map
     replace tooltipPreInfo { val: number, handle: {id: string, grabbed: boolean}}
 
    talkiv.     
+
+tooltip: no emit mouse.
+
