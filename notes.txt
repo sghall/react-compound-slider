@@ -76,3 +76,5 @@ addMouseEvents only if mouseOver or actively grabbing. look again at orig.
         then take out mouseIsDown from onMouseMove.
 
 Can we do everything with mouseMoveGadget? Need mouseOverHandleId etc at all?        
+
+dangerous mutual calling of onStart to handleRailAndTrackClicks

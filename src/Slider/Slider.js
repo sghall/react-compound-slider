@@ -231,7 +231,6 @@ class Slider extends PureComponent {
   }
 
   onMouseDown = (e, handleID) => {
-    this.mouseIsDown = true
     this.onStart(e, handleID, false)
   }
 
@@ -333,10 +332,6 @@ class Slider extends PureComponent {
   }
 
   onMouseMove = e => {
-    console.log(`mouse move at ${e.pageX} with down ${this.mouseIsDown}`)
-    warning(this.mouseIsDown, 'mouse is not down')
-    //if (this.mouseIsDown) {
-    // should be redundant when remove listeners again.
     const {
       state: { handles: curr, pixelToStep },
       props: { vertical, reversed },
@@ -361,7 +356,6 @@ class Slider extends PureComponent {
 
     // submit the candidate values
     this.submitUpdate(nextHandles)
-    //}
   }
 
   setHoverState = (e, handleId) => {
@@ -474,27 +468,20 @@ class Slider extends PureComponent {
 
   onMouseEnterGadget = (e, id) => {
     console.log(`Mouse enters gadget ${id}`)
-    this.mouseIsOver = true
-    this.mouseOverHandleId = id
     this.setHoverState(e, id)
   }
 
   onMouseMoveGadget = (e, id) => {
     console.log(`Mouse moves gadget ${id}`)
-    /*if (this.mouseIsOver)*/
     this.setHoverState(e, id)
   }
 
   onMouseLeaveGadget = () => {
     console.log('mouse leaves gadget')
-    this.mouseIsOver = false
-    this.mouseOverHandleId = null
     this.setHoverState(null, null)
   }
 
   onMouseUp = () => {
-    // todo: any point in testing this for this.mouseIsDown?
-    this.mouseIsDown = false
     const {
       state: { handles },
       props: { onChange, onSlideEnd },
@@ -506,8 +493,6 @@ class Slider extends PureComponent {
     onChange(handles.map(d => d.val))
     onSlideEnd(handles.map(d => d.val), { activeHandleID })
 
-    // todo: want these back, but need to check whether hovering too.
-    // these get removed by unmount.
     if (isBrowser) {
       document.removeEventListener('mousemove', this.onMouseMove)
       document.removeEventListener('mouseup', this.onMouseUp)
