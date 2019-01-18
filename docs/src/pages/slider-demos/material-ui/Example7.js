@@ -1,23 +1,22 @@
 // @flow weak
 
 import React, { Component } from 'react'
-import { Slider, Rail, Handles, Tracks, Tooltip } from 'react-compound-slider'
+import PropTypes from 'prop-types'
+import Slider from 'react-compound-slider'
+import { withStyles } from '@material-ui/core/styles'
 import ValueViewer from 'docs/src/pages/ValueViewer' // for examples only - displays the table above slider
-import { Handle, Track } from './components' // example render components - source below
+import { Rail, Handle, Track } from './components' // example render components - source below
 
-const sliderStyle = {
-  position: 'relative',
-  width: '100%',
-}
-
-const railStyle = {
-  position: 'absolute',
-  width: '100%',
-  height: 14,
-  borderRadius: 7,
-  cursor: 'pointer',
-  backgroundColor: 'rgb(155,155,155)',
-}
+const style = () => ({
+  root: {
+    height: 120,
+    width: '100%',
+  },
+  slider: {
+    position: 'relative',
+    width: '100%',
+  },
+})
 
 const tooltipStyle = (percent, handleId, grabbed) => {
   return {
@@ -39,14 +38,13 @@ const tooltipStyle = (percent, handleId, grabbed) => {
   }
 }
 
-const domain = [50, 300]
-const defaultValues = [280]
+const domain = [100, 500]
+const defaultValues = [150, 200]
 
 class Example extends Component {
   state = {
     values: defaultValues.slice(),
     update: defaultValues.slice(),
-    disabled: false,
   }
 
   onUpdate = update => {
@@ -57,37 +55,35 @@ class Example extends Component {
     this.setState({ values })
   }
 
-  toggleDisabled = () => {
-    this.setState({ disabled: !this.state.disabled })
-  }
-
   render() {
     const {
-      state: { values, update, disabled },
+      props: { classes },
+      state: { values, update },
     } = this
 
     return (
-      <div style={{ height: 120, width: '100%' }}>
-        <button onClick={() => this.toggleDisabled()}>
-          {disabled ? 'ENABLE' : 'DISABLE'}
-        </button>
-
+      <div className={classes.root}>
         <ValueViewer values={values} update={update} />
         <Slider
-          disabled={disabled}
-          step={1}
+          mode={(curr, next) => {
+            const [{ val: val1 }, { val: val2 }] = next
+            if (Math.abs(val1 - val2) > 100) {
+              return curr
+            }
+
+            return next
+          }}
+          step={5}
           domain={domain}
-          rootStyle={sliderStyle}
+          className={classes.slider}
           onUpdate={this.onUpdate}
           onChange={this.onChange}
           values={values}
         >
-          <Rail>
-            {({ getRailProps }) => (
-              <div style={railStyle} {...getRailProps()} />
-            )}
-          </Rail>
-          <Tooltip>
+          <Slider.Rail>
+            {({ getRailProps }) => <Rail getRailProps={getRailProps} />}
+          </Slider.Rail>
+          <Slider.Tooltip>
             {({ tooltipInfo, getTooltipProps }) => (
               <div
                 style={tooltipStyle(
@@ -100,41 +96,44 @@ class Example extends Component {
                 {tooltipInfo.val}
               </div>
             )}
-          </Tooltip>
-          <Handles>
+          </Slider.Tooltip>
+
+          <Slider.Handles>
             {({ handles, getHandleProps }) => (
-              <div className="slider-handles">
+              <div>
                 {handles.map(handle => (
                   <Handle
                     key={handle.id}
                     handle={handle}
                     domain={domain}
                     getHandleProps={getHandleProps}
-                    disabled={disabled}
                   />
                 ))}
               </div>
             )}
-          </Handles>
-          <Tracks right={false}>
+          </Slider.Handles>
+          <Slider.Tracks left={false} right={false}>
             {({ tracks, getTrackProps }) => (
-              <div className="slider-tracks">
+              <div>
                 {tracks.map(({ id, source, target }) => (
                   <Track
                     key={id}
                     source={source}
                     target={target}
                     getTrackProps={getTrackProps}
-                    disabled={disabled}
                   />
                 ))}
               </div>
             )}
-          </Tracks>
+          </Slider.Tracks>
         </Slider>
       </div>
     )
   }
 }
 
-export default Example
+Example.propTypes = {
+  classes: PropTypes.object.isRequired,
+}
+
+export default withStyles(style)(Example)

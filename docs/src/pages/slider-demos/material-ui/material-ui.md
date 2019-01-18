@@ -16,3 +16,6 @@ This example also demonstrates keyboard events. Click on a handle (tab) and use 
 
 ### Custom Mode  - Max separation of 100
 {{demo='pages/slider-demos/material-ui/Example6.js'}}
+
+### Previous one with tooltips
+{{demo='pages/slider-demos/material-ui/Example7.js'}}
