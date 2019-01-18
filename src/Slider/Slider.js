@@ -59,16 +59,16 @@ class Slider extends PureComponent {
   static getDerivedStateFromProps(nextProps, prevState) {
     const {
       step,
-      //      values0, // ie before autosnap applied
+      values: values0, // ie before applying autosnap
       domain,
       reversed,
       onUpdate,
       onChange,
       warnOnSnap,
-      autoSnap,
+      noAutoSnap,
     } = nextProps
 
-    const values0 = nextProps.values
+    //const values0 = nextProps.values
 
     let valueToPerc = prevState.valueToPerc
     let valueToStep = prevState.valueToStep
@@ -86,10 +86,12 @@ class Slider extends PureComponent {
       nextState.pixelToStep = pixelToStep
     }
 
-    //console.log(`values before autosnap, ${values0} and ${values}`)
+    console.log(`values before autosnap, ${values0} and ${values}`)
     const values =
-      autoSnap && values0 ? values0.map(x => valueToStep.getValue(x)) : values0
-    //console.log(`values after autosnap, ${values0} and ${values}`)
+      !noAutoSnap && values0
+        ? values0.map(x => valueToStep.getValue(x))
+        : values0
+    console.log(`values after autosnap, ${values0} and ${values}`)
 
     if (
       prevState.step === null ||
