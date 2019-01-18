@@ -175,6 +175,11 @@ class Slider extends PureComponent {
     return null
   }
 
+  componentDidMount() {
+    this.addMouseEvents()
+    this.addTouchEvents()
+  }
+
   componentWillUnmount() {
     this.removeListeners()
   }
@@ -259,7 +264,7 @@ class Slider extends PureComponent {
     if (found) {
       this.active = handleID
       onSlideStart(handles.map(d => d.val), { activeHandleID: handleID })
-      isTouch ? this.addTouchEvents() : this.addMouseEvents()
+      //isTouch ? this.addTouchEvents() : this.addMouseEvents()
     } else {
       this.active = null
       this.handleRailAndTrackClicks(e, isTouch)
@@ -333,6 +338,7 @@ class Slider extends PureComponent {
   }
 
   onMouseMove = e => {
+    console.log(`mouse move at ${e.pageX}`)
     if (this.mouseIsDown) {
       const {
         state: { handles: curr, pixelToStep },
@@ -362,6 +368,7 @@ class Slider extends PureComponent {
   }
 
   setHoverState = e => {
+    console.log(`setting hover state with ${e}`)
     if (e) {
       // find the closest value (aka step) to the event location
       const {
