@@ -4,12 +4,8 @@ import { callAll } from '../utils'
 
 class Tooltip extends Component {
   getTooltipProps = (props = {}) => {
-    const { emitMouse, emitTouch } = this.props
-
     return {
       ...props,
-      onMouseDown: callAll(props.onMouseDown, emitMouse),
-      onTouchStart: callAll(props.onTouchStart, emitTouch),
     }
   }
 
@@ -27,10 +23,6 @@ class Tooltip extends Component {
 }
 
 Tooltip.propTypes = {
-  /** @ignore */
-  emitMouse: PropTypes.func,
-  /** @ignore */
-  emitTouch: PropTypes.func,
   /**
    * A function to render the tooltip. `({ getTooltipProps }): element`
    */
