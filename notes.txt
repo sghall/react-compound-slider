@@ -96,3 +96,7 @@ setTooltipInfo in different place than submitUpdate?
 
 rename setHoverState?
 onkeydown: tooltip.
+
+this.active in state? want handleactive flag too.
+
+click on handle. tooltip disappears on mouseup (and flicker on drag & up)

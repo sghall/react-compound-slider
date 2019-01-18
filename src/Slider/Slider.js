@@ -242,10 +242,20 @@ class Slider extends PureComponent {
     this.onStart(e, handleID, true)
   }
 
-  onStart(e, handleID, isTouch) {
+  startSlide(handle, isTouch) {
     const {
       state: { handles },
       props: { onSlideStart },
+    } = this
+
+    this.active = handle.key
+    onSlideStart(handles.map(d => d.val), { activeHandleID: handle.key })
+    isTouch ? this.addTouchEvents() : this.addMouseEvents()
+  }
+
+  onStart(e, handleID, isTouch) {
+    const {
+      state: { handles },
     } = this
 
     e.stopPropagation && e.stopPropagation()
@@ -256,10 +266,8 @@ class Slider extends PureComponent {
     })
 
     if (found) {
-      this.active = handleID
-      onSlideStart(handles.map(d => d.val), { activeHandleID: handleID })
-      this.setTooltipState(null, handleID, true)
-      isTouch ? this.addTouchEvents() : this.addMouseEvents()
+      this.startSlide(found, isTouch)
+      this.setTooltipState(null, found.key, true)
     } else {
       this.active = null
       this.handleRailAndTrackClicks(e, isTouch)
@@ -420,7 +428,8 @@ class Slider extends PureComponent {
     this.submitUpdate(nextHandles)
   }
 
-  submitUpdate(next, callOnChange) {
+  // once new handle positions are known, optional afterburner can be run.
+  submitUpdate(next, callOnChange, nextHandleAfterburner) {
     const { mode, step, onUpdate, onChange, reversed } = this.props
     const { getValue } = this.state.valueToStep
 
@@ -457,12 +466,13 @@ class Slider extends PureComponent {
         onChange(handles.map(d => d.val))
       }
 
+      let afterburnerState
+      if (nextHandleAfterburner)
+        afterburnerState = nextHandleAfterburner(handles)
+
       return {
         handles,
-        tooltipInfo: {
-          val: null,
-          handle: { id: this.active, grabbed: true },
-        },
+        afterburnerState,
       }
     })
   }
