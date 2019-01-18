@@ -314,6 +314,7 @@ class Slider extends PureComponent {
 
     // put active handle into 'grabbed' mode.
     // todo: but what if some constraint prevented a handle from actually reaching mouseclick point?
+    // todo: also need to set focus to the grabbed handle.
     this.onStart(e, updateKey, isTouch)
   }
 
@@ -332,8 +333,6 @@ class Slider extends PureComponent {
   }
 
   onMouseMove = e => {
-    //if (!this.mouseIsDown)
-    //if (this.mouseIsOver) this.setHoverState(e)
     if (this.mouseIsDown) {
       const {
         state: { handles: curr, pixelToStep },
@@ -363,7 +362,6 @@ class Slider extends PureComponent {
   }
 
   setHoverState = e => {
-    console.log(`setting hover state with ${e}`)
     if (e) {
       // find the closest value (aka step) to the event location
       const {
@@ -378,7 +376,6 @@ class Slider extends PureComponent {
       )
 
       const updateValue = pixelToStep.getValue(vertical ? e.clientY : e.pageX)
-      console.log('got updated value {updatedValue}')
 
       this.setState({ hoverPos: updateValue })
     } else {
@@ -464,7 +461,7 @@ class Slider extends PureComponent {
         onChange(handles.map(d => d.val))
       }
 
-      return { handles }
+      return { handles, hoverPos: 55 }
     })
   }
 
