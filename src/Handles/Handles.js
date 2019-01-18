@@ -25,6 +25,7 @@ class Handles extends Component {
       ),
       onTouchStart: callAll(props.onTouchStart, e => emitTouch(e, id)),
       onMouseEnter: e => emitMouseEnter(e, id),
+      onMouseMove: e => emitMouseMove(e, id),
       onMouseLeave: e => emitMouseLeave(),
     }
   }
@@ -49,6 +50,8 @@ Handles.propTypes = {
   emitMouse: PropTypes.func,
   /** @ignore */
   emitMouseEnter: PropTypes.func,
+  /** @ignore */
+  emitMouseMove: PropTypes.func,
   /** @ignore */
   emitMouseLeave: PropTypes.func,
   /** @ignore */

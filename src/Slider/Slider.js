@@ -340,6 +340,7 @@ class Slider extends PureComponent {
   onMouseMove = e => {
     console.log(`mouse move at ${e.pageX}`)
     if (this.mouseIsDown) {
+      // should be redundant when remove listeners again.
       const {
         state: { handles: curr, pixelToStep },
         props: { vertical, reversed },
@@ -364,7 +365,7 @@ class Slider extends PureComponent {
 
       // submit the candidate values
       this.submitUpdate(nextHandles)
-    } else if (this.mouseIsOver) this.setHoverState(e, this.mouseOverHandleId)
+    }
   }
 
   setHoverState = (e, handleId) => {
@@ -482,6 +483,12 @@ class Slider extends PureComponent {
     this.setHoverState(e, id)
   }
 
+  onMouseMoveGadget = (e, id) => {
+    console.log(`Mouse moves gadget ${id}`)
+    /*if (this.mouseIsOver)*/
+    this.setHoverState(e, id)
+  }
+
   onMouseLeaveGadget = () => {
     console.log('mouse leaves gadget')
     this.mouseIsOver = false
@@ -585,6 +592,7 @@ class Slider extends PureComponent {
           emitMouse: disabled ? noop : this.onMouseDown,
           emitTouch: disabled ? noop : this.onTouchStart,
           emitMouseEnter: disabled ? noop : this.onMouseEnterGadget,
+          emitMouseMove: disabled ? noop : this.onMouseMoveGadget,
           emitMouseLeave: disabled ? noop : this.onMouseLeaveGadget,
         })
       else if (child.type.name === Tooltip.name)

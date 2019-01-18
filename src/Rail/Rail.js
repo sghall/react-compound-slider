@@ -4,13 +4,20 @@ import { callAll } from '../utils'
 
 class Rail extends Component {
   getRailProps = (props = {}) => {
-    const { emitMouse, emitTouch, emitMouseEnter, emitMouseLeave } = this.props
+    const {
+      emitMouse,
+      emitTouch,
+      emitMouseEnter,
+      emitMouseMove,
+      emitMouseLeave,
+    } = this.props
 
     return {
       ...props,
       onMouseDown: callAll(props.onMouseDown, emitMouse),
       onTouchStart: callAll(props.onTouchStart, emitTouch),
       onMouseEnter: e => emitMouseEnter(e, null),
+      onMouseMove: e => emitMouseMove(e, null),
       onMouseLeave: e => emitMouseLeave(),
     }
   }
@@ -31,6 +38,8 @@ Rail.propTypes = {
   emitMouse: PropTypes.func,
   /** @ignore */
   emitMouseEnter: PropTypes.func,
+  /** @ignore */
+  emitMouseMove: PropTypes.func,
   /** @ignore */
   emitMouseLeave: PropTypes.func,
   /** @ignore */
