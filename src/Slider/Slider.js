@@ -364,12 +364,17 @@ class Slider extends PureComponent {
 
       // submit the candidate values
       this.submitUpdate(nextHandles)
-    } else if (this.mouseIsOver) this.setHoverState(e)
+    } else if (this.mouseIsOver) this.setHoverState(e, this.mouseOverHandleId)
   }
 
-  setHoverState = e => {
+  setHoverState = (e, handleId) => {
     console.log(`setting hover state with ${e}`)
-    if (e) {
+    if (handleId) {
+      console.log(`setting state to ${handleId}`)
+      this.setState({
+        tooltipInfo: { val: null, handle: { id: handleId, grabbed: false } },
+      })
+    } else if (e) {
       // find the closest value (aka step) to the event location
       const {
         state: { handles: curr, pixelToStep },
@@ -477,13 +482,15 @@ class Slider extends PureComponent {
   onMouseEnterGadget = (e, id) => {
     console.log(`Mouse enters gadget ${id}`)
     this.mouseIsOver = true
-    this.setHoverState(e)
+    this.mouseOverHandleId = id
+    this.setHoverState(e, id)
   }
 
   onMouseLeaveGadget = () => {
     console.log('mouse leaves gadget')
     this.mouseIsOver = false
-    this.setHoverState(null)
+    this.mouseOverHandleId = null
+    this.setHoverState(null, null)
   }
 
   onMouseUp = () => {
@@ -500,6 +507,7 @@ class Slider extends PureComponent {
     onChange(handles.map(d => d.val))
     onSlideEnd(handles.map(d => d.val), { activeHandleID })
 
+    // todo: want these back, but need to check whether hovering too.
     // these get removed by unmount.
     // if (isBrowser) {
     //   document.removeEventListener('mousemove', this.onMouseMove)
