@@ -23,10 +23,9 @@ class Handles extends Component {
       onMouseDown: callAll(props.onMouseDown, this.autofocus, e =>
         emitMouse(e, id),
       ),
+      onTouchStart: callAll(props.onTouchStart, e => emitTouch(e, id)),
       onMouseEnter: e => emitMouseEnter(id),
       onMouseLeave: e => emitMouseLeave(),
-      //onMouseMove: props.onMouseMove,
-      onTouchStart: callAll(props.onTouchStart, e => emitTouch(e, id)),
     }
   }
 

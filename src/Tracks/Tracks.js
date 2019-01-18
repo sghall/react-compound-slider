@@ -4,12 +4,14 @@ import { callAll } from '../utils'
 
 class Tracks extends Component {
   getTrackProps = (props = {}) => {
-    const { emitMouse, emitTouch } = this.props
+    const { emitMouse, emitTouch, emitMouseEnter, emitMouseLeave } = this.props
 
     return {
       ...props,
       onMouseDown: callAll(props.onMouseDown, emitMouse),
       onTouchStart: callAll(props.onTouchStart, emitTouch),
+      onMouseEnter: e => emitMouseEnter(null),
+      onMouseLeave: e => emitMouseLeave(),
     }
   }
 
@@ -61,6 +63,10 @@ Tracks.propTypes = {
   handles: PropTypes.array,
   /** @ignore */
   emitMouse: PropTypes.func,
+  /** @ignore */
+  emitMouseEnter: PropTypes.func,
+  /** @ignore */
+  emitMouseLeave: PropTypes.func,
   /** @ignore */
   emitTouch: PropTypes.func,
   /**

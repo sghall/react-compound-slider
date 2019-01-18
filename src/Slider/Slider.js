@@ -477,11 +477,11 @@ class Slider extends PureComponent {
     })
   }
 
-  onMouseEnterThing = id => {
-    console.log(`mouse enters ${id}`)
+  onMouseEnterGadget = id => {
+    console.log(`Gadget enters ${id}`)
   }
 
-  onMouseLeaveThing = () => {
+  onMouseLeaveGadget = () => {
     console.log('mouse leaves')
   }
 
@@ -567,16 +567,6 @@ class Slider extends PureComponent {
     )
 
     const children = React.Children.map(this.props.children, child => {
-      if (child.type.name === Handles.name)
-        return React.cloneElement(child, {
-          scale: valueToPerc,
-          handles: mappedHandles, // isn't it superfluous to send eg this to eg Tracks?
-          emitKeyboard: disabled ? noop : this.onKeyDown,
-          emitMouse: disabled ? noop : this.onMouseDown,
-          emitTouch: disabled ? noop : this.onTouchStart,
-          emitMouseEnter: disabled ? noop : this.onMouseEnterThing,
-          emitMouseLeave: disabled ? noop : this.onMouseLeaveThing,
-        })
       if (
         child.type.name === Rail.name ||
         child.type.name === Ticks.name ||
@@ -589,6 +579,8 @@ class Slider extends PureComponent {
           emitKeyboard: disabled ? noop : this.onKeyDown,
           emitMouse: disabled ? noop : this.onMouseDown,
           emitTouch: disabled ? noop : this.onTouchStart,
+          emitMouseEnter: disabled ? noop : this.onMouseEnterGadget,
+          emitMouseLeave: disabled ? noop : this.onMouseLeaveGadget,
         })
       else if (child.type.name === Tooltip.name)
         return React.cloneElement(child, {
