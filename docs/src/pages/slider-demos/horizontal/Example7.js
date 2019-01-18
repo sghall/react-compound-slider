@@ -84,10 +84,10 @@ class Example extends Component {
           <Tooltip>
             {({ tooltipInfo, getTooltipProps }) => (
               <div
-                style={tooltipStyle(tooltipInfo ? tooltipInfo.percent : null)}
+                style={tooltipStyle(tooltipInfo.percent)}
                 {...getTooltipProps()}
               >
-                {tooltipInfo ? tooltipInfo.val : 'zilcho'}
+                {tooltipInfo.val}
               </div>
             )}
           </Tooltip>
