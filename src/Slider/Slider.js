@@ -484,7 +484,7 @@ class Slider extends PureComponent {
 
   onMouseEnterGadget = (e, id) => {
     //console.log(`Mouse enters gadget ${id}`)
-    this.mouseOverHandleId = id
+    this.setState({ hoveredHandleID: id })
     this.setHoverState(e, id)
   }
 
@@ -494,8 +494,8 @@ class Slider extends PureComponent {
   }
 
   onMouseLeaveGadget = () => {
-    console.log('mouse leaves gadget')
-    this.mouseOverHandleId = null
+    //console.log('mouse leaves gadget')
+    this.setState({ hoveredHandleID: null })
     this.setHoverState(null, null)
   }
 
@@ -539,6 +539,7 @@ class Slider extends PureComponent {
     tooltipInfo,
     mappedHandles,
     activeHandleID,
+    hoveredHandleID,
     valueToPerc,
   ) {
     if (activeHandleID) {
@@ -556,11 +557,9 @@ class Slider extends PureComponent {
           activeHandleID,
         )} in ${JSON.stringify(mappedHandles)}`,
       )
-    }
-    // todo: could specify which track/rail here.
-    else if (tooltipInfo && tooltipInfo.handle && tooltipInfo.handle.id) {
-      // should just use hoveredHandleId
-      const handle = mappedHandles.find(h => h.id == tooltipInfo.handle.id)
+    } else if (hoveredHandleID) {
+      // todo: DRY: combine w/above
+      const handle = mappedHandles.find(h => h.id == hoveredHandleID)
       if (handle)
         return {
           val: handle.value,
@@ -570,11 +569,10 @@ class Slider extends PureComponent {
         }
       warning(
         true,
-        `matching handle not found for ${JSON.stringify(
-          tooltipInfo,
+        `matching handle not found for hoveredHandle ${JSON.stringify(
+          hoveredHandleID,
         )} in ${JSON.stringify(mappedHandles)}`,
       )
-      return null
     } else if (tooltipInfo != null && tooltipInfo.val != null)
       // hovering over rail or track
       return {
@@ -586,7 +584,13 @@ class Slider extends PureComponent {
 
   render() {
     const {
-      state: { handles, valueToPerc, tooltipInfo, activeHandleID },
+      state: {
+        handles,
+        valueToPerc,
+        tooltipInfo,
+        activeHandleID,
+        hoveredHandleID,
+      },
       props: { className, rootStyle, disabled },
     } = this
 
@@ -598,6 +602,7 @@ class Slider extends PureComponent {
       tooltipInfo,
       mappedHandles,
       activeHandleID,
+      hoveredHandleID,
       valueToPerc,
     )
 
