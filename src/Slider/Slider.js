@@ -248,7 +248,6 @@ class Slider extends PureComponent {
       props: { onSlideStart },
     } = this
 
-    this.active = handle.key
     this.setState({ activeHandleID: handle.key })
     onSlideStart(handles.map(d => d.val), { activeHandleID: handle.key })
     isTouch ? this.addTouchEvents() : this.addMouseEvents()
@@ -268,13 +267,8 @@ class Slider extends PureComponent {
 
     if (found) {
       this.startSlide(found, isTouch)
-      // this.setState({
-      //   tooltipInfo: { val: null, handle: { id: found.key } },
-      //   //activeHandle: found.key
-      // })
     } else {
-      this.active = null
-      this.setState({ activeHandleID: null })
+      this.setState({ activeHandleID: null }) // todo: this needs to go into func below.
       this.handleRailAndTrackClicks(e, isTouch) // todo: actually want to set active in here
     }
   }
@@ -347,10 +341,10 @@ class Slider extends PureComponent {
 
   onMouseMove = e => {
     const {
-      state: { handles: curr, pixelToStep },
+      state: { handles: curr, pixelToStep, activeHandleID },
       props: { vertical, reversed },
     } = this
-    const { active: updateKey, slider } = this
+    const { slider } = this
 
     // double check the dimensions of the slider
     pixelToStep.setDomain(
@@ -363,7 +357,38 @@ class Slider extends PureComponent {
     // generate a "candidate" set of values - a suggestion of what to do
     const nextHandles = getUpdatedHandles(
       curr,
-      updateKey,
+      activeHandleID,
+      updateValue,
+      reversed,
+    )
+
+    // submit the candidate values
+    this.submitUpdate(nextHandles)
+  }
+
+  onTouchMove = e => {
+    const {
+      state: { handles: curr, pixelToStep, activeHandleID },
+      props: { vertical, reversed },
+    } = this
+    const { slider } = this
+
+    if (isNotValidTouch(e)) {
+      return
+    }
+
+    // double check the dimensions of the slider
+    pixelToStep.setDomain(
+      getSliderDomain(slider.current, vertical, pixelToStep),
+    )
+
+    // find the closest value (aka step) to the event location
+    const updateValue = pixelToStep.getValue(getTouchPosition(vertical, e))
+
+    // generate a "candidate" set of values - a suggestion of what to do
+    const nextHandles = getUpdatedHandles(
+      curr,
+      activeHandleID,
       updateValue,
       reversed,
     )
@@ -394,37 +419,6 @@ class Slider extends PureComponent {
     } else {
       this.setState({ tooltipInfo: null })
     }
-  }
-
-  onTouchMove = e => {
-    const {
-      state: { handles: curr, pixelToStep },
-      props: { vertical, reversed },
-    } = this
-    const { active: updateKey, slider } = this
-
-    if (isNotValidTouch(e)) {
-      return
-    }
-
-    // double check the dimensions of the slider
-    pixelToStep.setDomain(
-      getSliderDomain(slider.current, vertical, pixelToStep),
-    )
-
-    // find the closest value (aka step) to the event location
-    const updateValue = pixelToStep.getValue(getTouchPosition(vertical, e))
-
-    // generate a "candidate" set of values - a suggestion of what to do
-    const nextHandles = getUpdatedHandles(
-      curr,
-      updateKey,
-      updateValue,
-      reversed,
-    )
-
-    // submit the candidate values
-    this.submitUpdate(nextHandles)
   }
 
   // once new handle positions are known, optional afterburner can be run.
@@ -492,16 +486,14 @@ class Slider extends PureComponent {
 
   onMouseUp = () => {
     const {
-      state: { handles },
+      state: { handles, activeHandleID },
       props: { onChange, onSlideEnd },
     } = this
-    const activeHandleID = this.active
+    const activeHandleIDWas = activeHandleID
 
-    //this.setHoverState(null, this.mouseOverHandleId)
-    this.active = null
     this.setState({ activeHandleID: null })
     onChange(handles.map(d => d.val))
-    onSlideEnd(handles.map(d => d.val), { activeHandleID })
+    onSlideEnd(handles.map(d => d.val), { activeHandleID: activeHandleIDWas })
 
     if (isBrowser) {
       document.removeEventListener('mousemove', this.onMouseMove)
@@ -514,7 +506,6 @@ class Slider extends PureComponent {
       state: { handles },
       props: { onChange, onSlideEnd },
     } = this
-    this.active = null
     this.setState({ activeHandleID: null })
 
     onChange(handles.map(d => d.val))
