@@ -180,12 +180,8 @@ class Slider extends PureComponent {
   }
 
   removeListeners() {
-    if (isBrowser) {
-      document.removeEventListener('mousemove', this.onMouseMove)
-      document.removeEventListener('mouseup', this.onMouseUp)
-      document.removeEventListener('touchmove', this.onTouchMove)
-      document.removeEventListener('touchend', this.onTouchEnd)
-    }
+    this.removeMouseEvents()
+    this.removeTouchEvents()
   }
 
   onKeyDown = (e, handleID) => {
@@ -339,7 +335,22 @@ class Slider extends PureComponent {
     }
   }
 
+  removeMouseEvents() {
+    if (isBrowser) {
+      document.removeEventListener('mousemove', this.onMouseMove)
+      document.removeEventListener('mouseup', this.onMouseUp)
+    }
+  }
+
+  removeTouchEvents() {
+    if (isBrowser) {
+      document.removeEventListener('touchmove', this.onTouchMove)
+      document.removeEventListener('touchend', this.onTouchEnd)
+    }
+  }
+
   onMouseMove = e => {
+    //console.log(`moving to ${e.pageX}`)
     const {
       state: { handles: curr, pixelToStep, activeHandleID },
       props: { vertical, reversed },
@@ -485,23 +496,14 @@ class Slider extends PureComponent {
   }
 
   onMouseUp = () => {
-    const {
-      state: { handles, activeHandleID },
-      props: { onChange, onSlideEnd },
-    } = this
-
-    onChange(handles.map(d => d.val))
-    onSlideEnd(handles.map(d => d.val), { activeHandleID })
-
-    this.setState({ activeHandleID: null })
-
-    if (isBrowser) {
-      document.removeEventListener('mousemove', this.onMouseMove)
-      document.removeEventListener('mouseup', this.onMouseUp)
-    }
+    this.endSlide(false)
   }
 
   onTouchEnd = () => {
+    this.endSlide(true)
+  }
+
+  endSlide(isTouch) {
     const {
       state: { handles, activeHandleID },
       props: { onChange, onSlideEnd },
@@ -512,10 +514,7 @@ class Slider extends PureComponent {
 
     this.setState({ activeHandleID: null })
 
-    if (isBrowser) {
-      document.removeEventListener('touchmove', this.onTouchMove)
-      document.removeEventListener('touchend', this.onTouchEnd)
-    }
+    isTouch ? this.removeTouchEvents() : this.removeMouseEvents()
   }
 
   static getTooltipInfoMapped(
