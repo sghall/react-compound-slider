@@ -258,6 +258,7 @@ class Slider extends PureComponent {
     if (found) {
       this.active = handleID
       onSlideStart(handles.map(d => d.val), { activeHandleID: handleID })
+      this.setTooltipState(null, handleID, true)
       isTouch ? this.addTouchEvents() : this.addMouseEvents()
     } else {
       this.active = null
@@ -463,6 +464,13 @@ class Slider extends PureComponent {
           handle: { id: this.active, grabbed: true },
         },
       }
+    })
+  }
+
+  setTooltipState = (val, handleId, grabbed) => {
+    console.log(`setting tooltip state to ${val}, ${handleId}, ${grabbed}`)
+    this.setState({
+      tooltipInfo: { val: val, handle: { id: handleId, grabbed: grabbed } },
     })
   }
 

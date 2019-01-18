@@ -82,3 +82,17 @@ dangerous mutual calling of onStart to handleRailAndTrackClicks
 problem with not in grabbed state after track click: 
     active is set in onStart. But then handleRailAndTrackClicks not immediately called. 
     takes next onMove to do submitUpdate, and that will set tooltipInfo.
+
+onMouseDown 
+    onStart
+        onSlideStart   setsActive   ** set grabbed here.
+            or
+        handleRailAndTrackClicks
+            submitUpdate
+                should then do an onslidestart
+                tooltipInfo  grabbed   ** if 
+
+setTooltipInfo in different place than submitUpdate?
+
+rename setHoverState?
+onkeydown: tooltip.
