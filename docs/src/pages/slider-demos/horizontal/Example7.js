@@ -19,7 +19,7 @@ const railStyle = {
   backgroundColor: 'rgb(155,155,155)',
 }
 
-const tooltipStyle = percent => {
+const tooltipStyle = (percent, handleId) => {
   return {
     left: `${percent}%`,
     position: 'absolute',
@@ -30,7 +30,7 @@ const tooltipStyle = percent => {
     padding: '5px',
     height: 'auto',
     backgroundColor: 'rgb(10, 10, 10)',
-    border: '1px solid white',
+    border: handleId ? '1px solid red' : '1px solid white',
   }
 }
 
@@ -85,7 +85,7 @@ class Example extends Component {
           <Tooltip>
             {({ tooltipInfo, getTooltipProps }) => (
               <div
-                style={tooltipStyle(tooltipInfo.percent)}
+                style={tooltipStyle(tooltipInfo.percent, tooltipInfo.handleId)}
                 {...getTooltipProps()}
               >
                 {tooltipInfo.val}

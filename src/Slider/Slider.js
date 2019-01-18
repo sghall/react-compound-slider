@@ -377,9 +377,9 @@ class Slider extends PureComponent {
 
       const updateValue = pixelToStep.getValue(vertical ? e.clientY : e.pageX)
 
-      this.setState({ hoverPos: updateValue })
+      this.setState({ tooltipPreInfo: { val: updateValue, handleId: null } })
     } else {
-      this.setState({ hoverPos: null })
+      this.setState({ tooltipPreInfo: null })
     }
   }
 
@@ -461,9 +461,14 @@ class Slider extends PureComponent {
         onChange(handles.map(d => d.val))
       }
 
+      // could put this in render?
       const activeHandle = handles.find(h => h.key == this.active)
       const activeHandleVal = activeHandle ? activeHandle.val : null
-      return { handles, hoverPos: activeHandleVal }
+
+      return {
+        handles,
+        tooltipPreInfo: { val: activeHandleVal, handleID: this.active },
+      }
     })
   }
 
@@ -506,7 +511,7 @@ class Slider extends PureComponent {
 
   render() {
     const {
-      state: { handles, valueToPerc, hoverPos },
+      state: { handles, valueToPerc, tooltipPreInfo },
       props: { className, rootStyle, disabled },
     } = this
 
@@ -515,8 +520,12 @@ class Slider extends PureComponent {
     })
 
     const tooltipInfo =
-      hoverPos != null
-        ? { val: hoverPos, percent: valueToPerc.getValue(hoverPos) }
+      tooltipPreInfo != null
+        ? {
+          val: tooltipPreInfo.val,
+          percent: valueToPerc.getValue(tooltipPreInfo.val),
+          handleID: tooltipPreInfo.handleID,
+        }
         : null
 
     const children = React.Children.map(this.props.children, child => {
