@@ -78,3 +78,7 @@ addMouseEvents only if mouseOver or actively grabbing. look again at orig.
 Can we do everything with mouseMoveGadget? Need mouseOverHandleId etc at all?        
 
 dangerous mutual calling of onStart to handleRailAndTrackClicks
+
+problem with not in grabbed state after track click: 
+    active is set in onStart. But then handleRailAndTrackClicks not immediately called. 
+    takes next onMove to do submitUpdate, and that will set tooltipInfo.
