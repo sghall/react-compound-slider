@@ -473,7 +473,7 @@ class Slider extends PureComponent {
         handles,
         tooltipInfo: {
           val: null /* activeHandleVal*/,
-          handle: { id: this.active, grabbed: false },
+          handle: { id: this.active, grabbed: true },
         },
       }
     })
