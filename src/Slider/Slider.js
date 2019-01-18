@@ -461,7 +461,9 @@ class Slider extends PureComponent {
         onChange(handles.map(d => d.val))
       }
 
-      return { handles, hoverPos: 55 }
+      const activeHandle = handles.find(h => h.key == this.active)
+      const activeHandleVal = activeHandle ? activeHandle.val : null
+      return { handles, hoverPos: activeHandleVal }
     })
   }
 
@@ -475,6 +477,7 @@ class Slider extends PureComponent {
     const activeHandleID = this.active
     this.active = null
 
+    this.setHoverState(null)
     onChange(handles.map(d => d.val))
     onSlideEnd(handles.map(d => d.val), { activeHandleID })
 
