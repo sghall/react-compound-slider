@@ -175,11 +175,6 @@ class Slider extends PureComponent {
     return null
   }
 
-  componentDidMount() {
-    this.addMouseEvents()
-    this.addTouchEvents()
-  }
-
   componentWillUnmount() {
     this.removeListeners()
   }
@@ -264,7 +259,7 @@ class Slider extends PureComponent {
     if (found) {
       this.active = handleID
       onSlideStart(handles.map(d => d.val), { activeHandleID: handleID })
-      //isTouch ? this.addTouchEvents() : this.addMouseEvents()
+      isTouch ? this.addTouchEvents() : this.addMouseEvents()
     } else {
       this.active = null
       this.handleRailAndTrackClicks(e, isTouch)
@@ -338,34 +333,35 @@ class Slider extends PureComponent {
   }
 
   onMouseMove = e => {
-    console.log(`mouse move at ${e.pageX}`)
-    if (this.mouseIsDown) {
-      // should be redundant when remove listeners again.
-      const {
-        state: { handles: curr, pixelToStep },
-        props: { vertical, reversed },
-      } = this
-      const { active: updateKey, slider } = this
+    console.log(`mouse move at ${e.pageX} with down ${this.mouseIsDown}`)
+    warning(this.mouseIsDown, 'mouse is not down')
+    //if (this.mouseIsDown) {
+    // should be redundant when remove listeners again.
+    const {
+      state: { handles: curr, pixelToStep },
+      props: { vertical, reversed },
+    } = this
+    const { active: updateKey, slider } = this
 
-      // double check the dimensions of the slider
-      pixelToStep.setDomain(
-        getSliderDomain(slider.current, vertical, pixelToStep),
-      )
+    // double check the dimensions of the slider
+    pixelToStep.setDomain(
+      getSliderDomain(slider.current, vertical, pixelToStep),
+    )
 
-      // find the closest value (aka step) to the event location
-      const updateValue = pixelToStep.getValue(vertical ? e.clientY : e.pageX)
+    // find the closest value (aka step) to the event location
+    const updateValue = pixelToStep.getValue(vertical ? e.clientY : e.pageX)
 
-      // generate a "candidate" set of values - a suggestion of what to do
-      const nextHandles = getUpdatedHandles(
-        curr,
-        updateKey,
-        updateValue,
-        reversed,
-      )
+    // generate a "candidate" set of values - a suggestion of what to do
+    const nextHandles = getUpdatedHandles(
+      curr,
+      updateKey,
+      updateValue,
+      reversed,
+    )
 
-      // submit the candidate values
-      this.submitUpdate(nextHandles)
-    }
+    // submit the candidate values
+    this.submitUpdate(nextHandles)
+    //}
   }
 
   setHoverState = (e, handleId) => {
@@ -512,10 +508,10 @@ class Slider extends PureComponent {
 
     // todo: want these back, but need to check whether hovering too.
     // these get removed by unmount.
-    // if (isBrowser) {
-    //   document.removeEventListener('mousemove', this.onMouseMove)
-    //   document.removeEventListener('mouseup', this.onMouseUp)
-    // }
+    if (isBrowser) {
+      document.removeEventListener('mousemove', this.onMouseMove)
+      document.removeEventListener('mouseup', this.onMouseUp)
+    }
   }
 
   onTouchEnd = () => {
