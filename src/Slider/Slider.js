@@ -431,7 +431,8 @@ class Slider extends PureComponent {
   // based on the mode.
   actualNextHandles(next) {
     const { mode, step, reversed } = this.props
-    const { handles: curr, valueToStep: getValue } = this.state
+    const { handles: curr /*, valueToStep: getValue*/ } = this.state
+    const { getValue } = this.state.valueToStep
 
     let handles
 
