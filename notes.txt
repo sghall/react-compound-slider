@@ -144,6 +144,17 @@ setStates:
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // My Changes
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-unified touch/mouse handling. DRY.
-rewired setState stuff - needed more functional for 
-handle grabbed after rail click (could be tidier. odd behavior for constrained range)
+noAutoSnap, noWarnOnSnap
+
+clicking on track now grabs handle, but only if the handle can move there according to that mode
+
+Tooltips are implemented following the same child component paradigm as Rail, Handle, etc. Should be pretty flexible,
+    Examples shown as last item on the demo pages - horizontal, vertical, and material (but styling isn't material...)
+    Different tooltip states for hover over rail/track, hover over handle, and attached to active handle during a slide.
+
+In addition I did a fair bit of refactoring:
+this.active was moved into state - this allows more flexibility for styling tooltip, and (soon) for
+    differently styled active handle.
+Touch/mouse handling has been further unified for DRY.
+rewired setState stuff - needed it to be more functional especially for handles being captured by a rail click.
+A couple of tweaks to the build system were needed for windows - won't work off windows though.
