@@ -417,10 +417,10 @@ class Slider extends PureComponent {
       const updateValue = pixelToStep.getValue(getPosition(vertical, e, false)) // mouse only
 
       this.setState({
-        tooltipInfo: { val: updateValue },
+        hoverInfo: { val: updateValue },
       })
     } else {
-      this.setState({ tooltipInfo: null })
+      this.setState({ hoverInfo: null })
     }
   }
 
@@ -536,8 +536,8 @@ class Slider extends PureComponent {
   }
 
   // choose tooltip to display based on hover location, active handle, hovered handle.
-  static getTooltipInfoMapped(
-    tooltipInfo,
+  static getTooltipInfo(
+    hoverInfo,
     mappedHandles,
     activeHandleID,
     hoveredHandleID,
@@ -547,11 +547,11 @@ class Slider extends PureComponent {
       return Slider.tooltipForHandle(mappedHandles, activeHandleID, true)
     else if (hoveredHandleID)
       return Slider.tooltipForHandle(mappedHandles, hoveredHandleID, false)
-    else if (tooltipInfo != null && tooltipInfo.val != null)
+    else if (hoverInfo != null && hoverInfo.val != null)
       // hovering over rail or track
       return {
-        val: tooltipInfo.val,
-        percent: valueToPerc.getValue(tooltipInfo.val),
+        val: hoverInfo.val,
+        percent: valueToPerc.getValue(hoverInfo.val),
       }
     else return null
   }
@@ -561,7 +561,7 @@ class Slider extends PureComponent {
       state: {
         handles,
         valueToPerc,
-        tooltipInfo,
+        hoverInfo,
         activeHandleID,
         hoveredHandleID,
       },
@@ -572,8 +572,8 @@ class Slider extends PureComponent {
       return { id: key, value: val, percent: valueToPerc.getValue(val) }
     })
 
-    const tooltipInfoMapped = Slider.getTooltipInfoMapped(
-      tooltipInfo,
+    const tooltipInfo = Slider.getTooltipInfo(
+      hoverInfo,
       mappedHandles,
       activeHandleID,
       hoveredHandleID,
@@ -599,7 +599,7 @@ class Slider extends PureComponent {
         })
       else if (child.type.name === Tooltip.name)
         return React.cloneElement(child, {
-          tooltipInfo: tooltipInfoMapped,
+          tooltipInfo: tooltipInfo,
         })
       else return child
     })
