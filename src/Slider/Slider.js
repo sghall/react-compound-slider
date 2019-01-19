@@ -256,7 +256,7 @@ class Slider extends PureComponent {
       v.key === handleID ? { key: v.key, val: newVal } : v,
     )
 
-    this.submitUpdate(nextHandles, true)
+    this.submitUpdate(this.actualNextHandles(nextHandles), true)
   }
 
   onMouseDown = (e, handleID) => {
@@ -340,7 +340,7 @@ class Slider extends PureComponent {
 
     const actualHandles = this.actualNextHandles(nextHandles)
     this.grabHandleIfReaches(actualHandles, updateKey, updateValue, isTouch) // ie can handle reach this position given the mode
-    this.submitUpdateActuals(actualHandles, true)
+    this.submitUpdate(actualHandles, true)
   }
 
   grabHandleIfReaches(handles, id, value, isTouch) {
@@ -395,7 +395,7 @@ class Slider extends PureComponent {
     )
 
     // submit the candidate values
-    this.submitUpdate(nextHandles)
+    this.submitUpdate(this.actualNextHandles(nextHandles))
   }
 
   setHoverState(e) {
@@ -460,12 +460,7 @@ class Slider extends PureComponent {
     return handles
   }
 
-  // once new handle positions are known, optional afterburner can be run.
-  submitUpdate(next, callOnChange) {
-    this.submitUpdateActuals(this.actualNextHandles(next), callOnChange)
-  }
-
-  submitUpdateActuals(handles, callOnChange) {
+  submitUpdate(handles, callOnChange) {
     const { onUpdate, onChange } = this.props
 
     onUpdate(handles.map(d => d.val))
