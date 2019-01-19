@@ -31,6 +31,7 @@ const getTestProps = () => ({
   domain: [100, 200],
   values: [110, 150],
   reversed: false,
+  noAutoSnap: true,
 })
 
 describe('<Slider />', () => {
@@ -445,7 +446,7 @@ describe('<Slider />', () => {
     const wrapper = mount(<Slider {...getTestProps()} />)
 
     const values = wrapper.state().values
-    wrapper.instance().submitUpdate(values, [...values], true)
+    wrapper.instance().submitUpdate([...values], true)
 
     assert.strictEqual(setStateSpy.callCount, 1)
   })
