@@ -56,6 +56,12 @@ class Slider extends PureComponent {
 
   slider = React.createRef()
 
+  static snapValues(values0, valueToStep, doSnap) {
+    return doSnap && values0
+      ? values0.map(x => valueToStep.getValue(x))
+      : values0
+  }
+
   static getDerivedStateFromProps(nextProps, prevState) {
     const {
       step,
@@ -86,11 +92,6 @@ class Slider extends PureComponent {
       nextState.pixelToStep = pixelToStep
     }
 
-    const values =
-      !noAutoSnap && values0
-        ? values0.map(x => valueToStep.getValue(x))
-        : values0
-
     if (
       prevState.step === null ||
       prevState.domain === null ||
@@ -113,6 +114,8 @@ class Slider extends PureComponent {
       }
 
       pixelToStep.setRange(range)
+
+      const values = Slider.snapValues(values0, valueToStep, !noAutoSnap) // nb: keep this after valueToStep.setRange ...
 
       warning(
         max > min,
@@ -151,21 +154,25 @@ class Slider extends PureComponent {
       nextState.domain = domain
       nextState.handles = handles
       nextState.reversed = reversed
-    } else if (!equal(values, prevState.values)) {
-      const { handles, changes } = getHandles(
-        values,
-        reversed,
-        valueToStep,
-        !noWarnOnSnap,
-      )
+    } else {
+      const values = Slider.snapValues(values0, valueToStep, !noAutoSnap)
 
-      if (changes) {
-        onUpdate(handles.map(d => d.val))
-        onChange(handles.map(d => d.val))
+      if (!equal(values, prevState.values)) {
+        const { handles, changes } = getHandles(
+          values,
+          reversed,
+          valueToStep,
+          !noWarnOnSnap,
+        )
+
+        if (changes) {
+          onUpdate(handles.map(d => d.val))
+          onChange(handles.map(d => d.val))
+        }
+
+        nextState.values = values
+        nextState.handles = handles
       }
-
-      nextState.values = values
-      nextState.handles = handles
     }
 
     if (Object.keys(nextState).length) {
