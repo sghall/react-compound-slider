@@ -74,8 +74,6 @@ class Slider extends PureComponent {
       noAutoSnap,
     } = nextProps
 
-    //const values0 = nextProps.values
-
     let valueToPerc = prevState.valueToPerc
     let valueToStep = prevState.valueToStep
     let pixelToStep = prevState.pixelToStep
@@ -271,7 +269,7 @@ class Slider extends PureComponent {
     if (found) {
       this.startSlide(found, isTouch)
     } else {
-      this.handleRailAndTrackClicks(e, isTouch) // todo: actually want to set active in here
+      this.handleRailAndTrackClicks(e, isTouch)
     }
   }
 
@@ -288,9 +286,8 @@ class Slider extends PureComponent {
 
     if (found.val == value) {
       // ie if handle is actually movable to the clicked position, grab it.
-      this.startSlide(found, isTouch) // todo: should take handles for callback
-      // need stop propagation?
-      //this.
+      this.startSlide(found, isTouch)
+      // do we need stop propagation?
     }
   }
 
@@ -420,7 +417,7 @@ class Slider extends PureComponent {
       const updateValue = pixelToStep.getValue(getPosition(vertical, e, false)) // mouse only
 
       this.setState({
-        tooltipInfo: { val: updateValue, handle: null }, // todo: handle redundant?
+        tooltipInfo: { val: updateValue },
       })
     } else {
       this.setState({ tooltipInfo: null })
