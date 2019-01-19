@@ -275,25 +275,23 @@ class Slider extends PureComponent {
     }
   }
 
-  grabHandleIfOk(id, value, isTouch) {
-    this.setState(({ handles }) => {
-      // important for chaining
-      const found = handles.find(h => {
-        return h.key === id
-      })
-
-      warning(
-        found,
-        `Couldn't find grab handle ${id} in ${JSON.stringify(handles)}`,
-      )
-
-      if (found.val == value) {
-        // ie handle is actually
-        this.startSlide(found, isTouch)
-        // need stop propagation?
-        //this.
-      }
+  grabHandleIfOk(handles, id, value, isTouch) {
+    // important for chaining
+    const found = handles.find(h => {
+      return h.key === id
     })
+
+    warning(
+      found,
+      `Couldn't find grab handle ${id} in ${JSON.stringify(handles)}`,
+    )
+
+    if (found.val == value) {
+      // ie if handle is actually movable to the clicked position, grab it.
+      this.startSlide(found, isTouch) // todo: should take handles for callback
+      // need stop propagation?
+      //this.
+    }
   }
 
   handleRailAndTrackClicks(e, isTouch) {
@@ -333,13 +331,10 @@ class Slider extends PureComponent {
       reversed,
     )
 
+    const actualHandles = this.actualNextHandles(nextHandles)
+    this.grabHandleIfOk(actualHandles, updateKey, updateValue, isTouch)
     // submit the candidate values
-    this.submitUpdate(
-      nextHandles,
-      true,
-      // put active handle into 'grabbed' mode if it's been moved to cursor location.
-      () => this.grabHandleIfOk(updateKey, updateValue, isTouch),
-    )
+    this.submitUpdateActuals(actualHandles, true)
   }
 
   addMouseEvents() {
@@ -435,7 +430,7 @@ class Slider extends PureComponent {
   // given candidate next values, computes the actual ones that will be allowed
   // based on the mode.
   actualNextHandles(next) {
-    const { mode, step, onUpdate, onChange, reversed } = this.props
+    const { mode, step, reversed } = this.props
     const { handles: curr, valueToStep: getValue } = this.state
 
     let handles
@@ -469,10 +464,11 @@ class Slider extends PureComponent {
 
   // once new handle positions are known, optional afterburner can be run.
   submitUpdate(next, callOnChange) {
-    const { mode, step, onUpdate, onChange, reversed } = this.props
-    const { getValue } = this.state.valueToStep
+    this.submitUpdateActuals(this.actualNextHandles(next), callOnChange)
+  }
 
-    let handles = this.actualNextHandles(next)
+  submitUpdateActuals(handles, callOnChange) {
+    const { onUpdate, onChange } = this.props
 
     onUpdate(handles.map(d => d.val))
 
