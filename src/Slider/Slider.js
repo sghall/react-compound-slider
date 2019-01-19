@@ -518,6 +518,23 @@ class Slider extends PureComponent {
     isTouch ? this.removeTouchEvents() : this.removeMouseEvents()
   }
 
+  static tooltipForHandle(mappedHandles, id, grabbed) {
+    const handle = mappedHandles.find(h => h.id == id)
+    warning(
+      handle,
+      `matching handle not found for id ${id} in ${JSON.stringify(
+        mappedHandles,
+      )}`,
+    )
+
+    return {
+      val: handle.value,
+      percent: handle.percent,
+      handleId: handle.id,
+      grabbed: grabbed,
+    }
+  }
+
   // choose tooltip to display based on hover location, active handle, hovered handle.
   static getTooltipInfoMapped(
     tooltipInfo,
@@ -526,40 +543,11 @@ class Slider extends PureComponent {
     hoveredHandleID,
     valueToPerc,
   ) {
-    if (activeHandleID) {
-      // first preference - display tooltip over grabbed handle
-      const handle = mappedHandles.find(h => h.id == activeHandleID)
-      if (handle)
-        return {
-          val: handle.value,
-          percent: handle.percent,
-          handleId: handle.id,
-          grabbed: true,
-        }
-      warning(
-        true,
-        `matching handle not found for activeHandle ${JSON.stringify(
-          activeHandleID,
-        )} in ${JSON.stringify(mappedHandles)}`,
-      )
-    } else if (hoveredHandleID) {
-      // second preference, display over hovered handle
-      // todo: DRY: combine w/above
-      const handle = mappedHandles.find(h => h.id == hoveredHandleID)
-      if (handle)
-        return {
-          val: handle.value,
-          percent: handle.percent,
-          handleId: handle.id,
-          grabbed: false,
-        }
-      warning(
-        true,
-        `matching handle not found for hoveredHandle ${JSON.stringify(
-          hoveredHandleID,
-        )} in ${JSON.stringify(mappedHandles)}`,
-      )
-    } else if (tooltipInfo != null && tooltipInfo.val != null)
+    if (activeHandleID)
+      return Slider.tooltipForHandle(mappedHandles, activeHandleID, true)
+    else if (hoveredHandleID)
+      return Slider.tooltipForHandle(mappedHandles, hoveredHandleID, false)
+    else if (tooltipInfo != null && tooltipInfo.val != null)
       // hovering over rail or track
       return {
         val: tooltipInfo.val,
