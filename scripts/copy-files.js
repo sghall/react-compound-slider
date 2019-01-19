@@ -97,6 +97,8 @@ const types = [
   ['src/Slider/Slider.d.ts', 'Slider/Slider.d.ts'],
   ['src/Rail/index.d.ts', 'Rail/index.d.ts'],
   ['src/Rail/Rail.d.ts', 'Rail/Rail.d.ts'],
+  ['src/Tooltip/index.d.ts', 'Tooltip/index.d.ts'],
+  ['src/Tooltip/Tooltip.d.ts', 'Tooltip/Tooltip.d.ts'],
   ['src/Handles/index.d.ts', 'Handles/index.d.ts'],
   ['src/Handles/Handles.d.ts', 'Handles/Handles.d.ts'],
   ['src/Tracks/index.d.ts', 'Tracks/index.d.ts'],

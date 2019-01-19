@@ -123,3 +123,4 @@ Tooltip copy in build
 // My Changes
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 unified touch/mouse handling. DRY.
+handle grabbed after rail click (could be tidier. odd behavior for constrained range)
