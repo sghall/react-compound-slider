@@ -91,8 +91,9 @@ export function isNotValidTouch({ type = '', touches }) {
   )
 }
 
-export function getTouchPosition(vertical, e) {
-  return vertical ? e.touches[0].clientY : e.touches[0].pageX
+export function getPosition(vertical, e, isTouch) {
+  if (isTouch) return vertical ? e.touches[0].clientY : e.touches[0].pageX
+  else return vertical ? e.clientY : e.pageX
 }
 
 export function getHandles(values = [], reversed, valueToStep, warnOnSnap) {

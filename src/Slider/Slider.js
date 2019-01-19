@@ -8,7 +8,7 @@ import Handles from '../Handles'
 import { mode1, mode2, mode3 } from './modes'
 import {
   isNotValidTouch,
-  getTouchPosition,
+  getPosition,
   getUpdatedHandles,
   getSliderDomain,
   getStepRange,
@@ -282,13 +282,7 @@ class Slider extends PureComponent {
     )
 
     // find the closest value (aka step) to the event location
-    let updateValue
-
-    if (isTouch) {
-      updateValue = pixelToStep.getValue(getTouchPosition(vertical, e))
-    } else {
-      updateValue = pixelToStep.getValue(vertical ? e.clientY : e.pageX)
-    }
+    const updateValue = pixelToStep.getValue(getPosition(vertical, e, isTouch))
 
     // find the closest handle key
     let updateKey = null
@@ -363,9 +357,7 @@ class Slider extends PureComponent {
     )
 
     // find the closest value (aka step) to the event location
-    const updateValue = isTouch
-      ? pixelToStep.getValue(getTouchPosition(vertical, e))
-      : pixelToStep.getValue(vertical ? e.clientY : e.pageX)
+    const updateValue = pixelToStep.getValue(getPosition(vertical, e, isTouch))
 
     // generate a "candidate" set of values - a suggestion of what to do
     const nextHandles = getUpdatedHandles(
@@ -403,7 +395,7 @@ class Slider extends PureComponent {
         getSliderDomain(slider.current, vertical, pixelToStep),
       )
 
-      const updateValue = pixelToStep.getValue(vertical ? e.clientY : e.pageX)
+      const updateValue = pixelToStep.getValue(getPosition(vertical, e, false)) // mouse only
 
       this.setState({
         tooltipInfo: { val: updateValue, handle: null }, // todo: handle redundant?

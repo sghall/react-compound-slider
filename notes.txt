@@ -115,3 +115,11 @@ x eg track rerendering on hover. Did it do this on progress before? Think it mus
 
 Ticks to be part of a more general nav-background. Allow hover / click to feed to standard track/rail treatment,
         but also allow overrides.
+
+kill my todos
+Tooltip copy in build
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// My Changes
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+unified touch/mouse handling. DRY.
