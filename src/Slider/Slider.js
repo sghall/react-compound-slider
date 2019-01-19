@@ -86,12 +86,18 @@ class Slider extends PureComponent {
       nextState.pixelToStep = pixelToStep
     }
 
-    console.log(`values before autosnap, ${values0} and ${values}`)
+    console.log(
+      `values before autosnap ${noAutoSnap}, ${!noAutoSnap}, ${values0} and ${values}`,
+    )
     const values =
       !noAutoSnap && values0
         ? values0.map(x => valueToStep.getValue(x))
         : values0
-    console.log(`values after autosnap, ${values0} and ${values}`)
+    console.log(
+      `values after autosnap, ${JSON.stringify(values0)} and ${JSON.stringify(
+        values,
+      )}`,
+    )
 
     if (
       prevState.step === null ||
