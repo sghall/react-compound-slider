@@ -64,7 +64,7 @@ class Slider extends PureComponent {
       reversed,
       onUpdate,
       onChange,
-      warnOnSnap,
+      noWarnOnSnap,
       noAutoSnap,
     } = nextProps
 
@@ -146,7 +146,7 @@ class Slider extends PureComponent {
         values || prevState.values,
         reversed,
         valueToStep,
-        warnOnSnap,
+        !noWarnOnSnap,
       )
 
       if (changes || values === undefined || values === prevState.values) {
@@ -164,7 +164,7 @@ class Slider extends PureComponent {
         values,
         reversed,
         valueToStep,
-        warnOnSnap,
+        !noWarnOnSnap,
       )
 
       if (changes) {
