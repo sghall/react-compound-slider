@@ -335,10 +335,12 @@ class Slider extends PureComponent {
     )
 
     // submit the candidate values
-    this.submitUpdate(nextHandles, true)
-
-    // put active handle into 'grabbed' mode if it's been moved to cursor location.
-    this.grabHandleIfOk(updateKey, updateValue, isTouch)
+    this.submitUpdate(
+      nextHandles,
+      true,
+      // put active handle into 'grabbed' mode if it's been moved to cursor location.
+      () => this.grabHandleIfOk(updateKey, updateValue, isTouch),
+    )
   }
 
   addMouseEvents() {
@@ -432,47 +434,50 @@ class Slider extends PureComponent {
   }
 
   // once new handle positions are known, optional afterburner can be run.
-  submitUpdate(next, callOnChange) {
+  submitUpdate(next, callOnChange, followup) {
     const { mode, step, onUpdate, onChange, reversed } = this.props
     const { getValue } = this.state.valueToStep
 
-    this.setState(({ handles: curr }) => {
-      let handles
+    this.setState(
+      ({ handles: curr }) => {
+        let handles
 
-      // given the current handles and a candidate set, decide what to do
-      if (typeof mode === 'function') {
-        handles = mode(curr, next, step, reversed, getValue)
-        warning(
-          Array.isArray(handles),
-          'Custom mode function did not return an array.',
-        )
-      } else {
-        switch (mode) {
-          case 1:
-            handles = mode1(curr, next)
-            break
-          case 2:
-            handles = mode2(curr, next)
-            break
-          case 3:
-            handles = mode3(curr, next, step, reversed, getValue)
-            break
-          default:
-            handles = next
-            warning(false, `${prfx} Invalid mode value.`)
+        // given the current handles and a candidate set, decide what to do
+        if (typeof mode === 'function') {
+          handles = mode(curr, next, step, reversed, getValue)
+          warning(
+            Array.isArray(handles),
+            'Custom mode function did not return an array.',
+          )
+        } else {
+          switch (mode) {
+            case 1:
+              handles = mode1(curr, next)
+              break
+            case 2:
+              handles = mode2(curr, next)
+              break
+            case 3:
+              handles = mode3(curr, next, step, reversed, getValue)
+              break
+            default:
+              handles = next
+              warning(false, `${prfx} Invalid mode value.`)
+          }
         }
-      }
 
-      onUpdate(handles.map(d => d.val))
+        onUpdate(handles.map(d => d.val))
 
-      if (callOnChange) {
-        onChange(handles.map(d => d.val))
-      }
+        if (callOnChange) {
+          onChange(handles.map(d => d.val))
+        }
 
-      return {
-        handles,
-      }
-    })
+        return {
+          handles,
+        }
+      },
+      followup, // callback for chaining setStates
+    )
   }
 
   // Corresponds to mouse entering a part of the Rail/Track/Handle "Gadget". Id corresponds to the handla handle.
@@ -512,6 +517,7 @@ class Slider extends PureComponent {
     isTouch ? this.removeTouchEvents() : this.removeMouseEvents()
   }
 
+  // choose tooltip to display based on hover location, active handle, hovered handle.
   static getTooltipInfoMapped(
     tooltipInfo,
     mappedHandles,
@@ -520,6 +526,7 @@ class Slider extends PureComponent {
     valueToPerc,
   ) {
     if (activeHandleID) {
+      // first preference - display tooltip over grabbed handle
       const handle = mappedHandles.find(h => h.id == activeHandleID)
       if (handle)
         return {
@@ -535,6 +542,7 @@ class Slider extends PureComponent {
         )} in ${JSON.stringify(mappedHandles)}`,
       )
     } else if (hoveredHandleID) {
+      // second preference, display over hovered handle
       // todo: DRY: combine w/above
       const handle = mappedHandles.find(h => h.id == hoveredHandleID)
       if (handle)
