@@ -349,8 +349,8 @@ class Slider extends PureComponent {
     }
   }
 
-  onMouseMove = e => {
-    //console.log(`moving to ${e.pageX}`)
+  // mouse or touch being moved
+  onMove(e, isTouch) {
     const {
       state: { handles: curr, pixelToStep, activeHandleID },
       props: { vertical, reversed },
@@ -363,7 +363,9 @@ class Slider extends PureComponent {
     )
 
     // find the closest value (aka step) to the event location
-    const updateValue = pixelToStep.getValue(vertical ? e.clientY : e.pageX)
+    const updateValue = isTouch
+      ? pixelToStep.getValue(getTouchPosition(vertical, e))
+      : pixelToStep.getValue(vertical ? e.clientY : e.pageX)
 
     // generate a "candidate" set of values - a suggestion of what to do
     const nextHandles = getUpdatedHandles(
@@ -377,35 +379,14 @@ class Slider extends PureComponent {
     this.submitUpdate(nextHandles)
   }
 
-  onTouchMove = e => {
-    const {
-      state: { handles: curr, pixelToStep, activeHandleID },
-      props: { vertical, reversed },
-    } = this
-    const { slider } = this
+  onMouseMove = e => this.onMove(e, false)
 
+  onTouchMove = e => {
     if (isNotValidTouch(e)) {
       return
     }
 
-    // double check the dimensions of the slider
-    pixelToStep.setDomain(
-      getSliderDomain(slider.current, vertical, pixelToStep),
-    )
-
-    // find the closest value (aka step) to the event location
-    const updateValue = pixelToStep.getValue(getTouchPosition(vertical, e))
-
-    // generate a "candidate" set of values - a suggestion of what to do
-    const nextHandles = getUpdatedHandles(
-      curr,
-      activeHandleID,
-      updateValue,
-      reversed,
-    )
-
-    // submit the candidate values
-    this.submitUpdate(nextHandles)
+    this.onMove(e, true)
   }
 
   setHoverState = e => {
