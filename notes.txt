@@ -122,11 +122,13 @@ x Tooltip copy in build
 setStates:
     startSlide
         onStart
+            onMouseDown
+            onTouchStart
         grabHandleIfOk
 
-    grabHandleIfOk
+    grabHandleIfOk              // just for 
         handleRailAndTrackClicks
-            onStart
+            onStart         
     setHoverState
     submitUpdate
         onKeyDown
