@@ -276,6 +276,27 @@ class Slider extends PureComponent {
     }
   }
 
+  grabHandleIfOk(id, value, isTouch) {
+    this.setState(({ handles }) => {
+      // important for chaining
+      const found = handles.find(h => {
+        return h.key === id
+      })
+
+      warning(
+        found,
+        `Couldn't find grab handle ${id} in ${JSON.stringify(handles)}`,
+      )
+
+      if (found.val == value) {
+        // ie handle is actually
+        this.startSlide(found, isTouch)
+        // need stop propagation?
+        //this.
+      }
+    })
+  }
+
   handleRailAndTrackClicks(e, isTouch) {
     const {
       state: { handles: curr, pixelToStep },
@@ -316,10 +337,8 @@ class Slider extends PureComponent {
     // submit the candidate values
     this.submitUpdate(nextHandles, true)
 
-    // put active handle into 'grabbed' mode.
-    // todo: but what if some constraint prevented a handle from actually reaching mouseclick point?
-    // todo: also need to set focus to the grabbed handle.
-    this.onStart(e, updateKey, isTouch)
+    // put active handle into 'grabbed' mode if it's been moved to cursor location.
+    this.grabHandleIfOk(updateKey, updateValue, isTouch)
   }
 
   addMouseEvents() {
@@ -413,7 +432,7 @@ class Slider extends PureComponent {
   }
 
   // once new handle positions are known, optional afterburner can be run.
-  submitUpdate(next, callOnChange, nextHandleAfterburner) {
+  submitUpdate(next, callOnChange) {
     const { mode, step, onUpdate, onChange, reversed } = this.props
     const { getValue } = this.state.valueToStep
 
@@ -450,13 +469,8 @@ class Slider extends PureComponent {
         onChange(handles.map(d => d.val))
       }
 
-      let afterburnerState
-      if (nextHandleAfterburner)
-        afterburnerState = nextHandleAfterburner(handles)
-
       return {
         handles,
-        afterburnerState,
       }
     })
   }
