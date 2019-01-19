@@ -271,7 +271,6 @@ class Slider extends PureComponent {
     if (found) {
       this.startSlide(found, isTouch)
     } else {
-      this.setState({ activeHandleID: null }) // todo: this needs to go into func below.
       this.handleRailAndTrackClicks(e, isTouch) // todo: actually want to set active in here
     }
   }

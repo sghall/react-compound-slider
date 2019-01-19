@@ -117,7 +117,27 @@ Ticks to be part of a more general nav-background. Allow hover / click to feed t
         but also allow overrides.
 
 kill my todos
-Tooltip copy in build
+x Tooltip copy in build
+
+setStates:
+    startSlide
+        onStart
+        grabHandleIfOk
+
+    grabHandleIfOk
+        handleRailAndTrackClicks
+            onStart
+    setHoverState
+    submitUpdate
+        onKeyDown
+        handleRailAndTrackClicks
+        onMove  
+    onMouseEnterGadget
+    onMouseLeaveGadget
+    endSlide
+
+
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // My Changes
