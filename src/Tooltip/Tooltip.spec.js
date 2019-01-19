@@ -14,7 +14,7 @@ const noop = () => {}
 describe('<Tooltip />', () => {
   it('renders the result of child function', () => {
     const wrapper = shallow(
-      <Tooltip>
+      <Tooltip tooltipInfo={{ percent: 0, handleId: 'oh', grabbed: false }}>
         {() => {
           return <div className="wu-tang" />
         }}
