@@ -189,6 +189,34 @@ class Slider extends PureComponent {
     this.removeTouchEvents()
   }
 
+  addMouseEvents() {
+    if (isBrowser) {
+      document.addEventListener('mousemove', this.onMouseMove)
+      document.addEventListener('mouseup', this.onMouseUp)
+    }
+  }
+
+  addTouchEvents() {
+    if (isBrowser) {
+      document.addEventListener('touchmove', this.onTouchMove)
+      document.addEventListener('touchend', this.onTouchEnd)
+    }
+  }
+
+  removeMouseEvents() {
+    if (isBrowser) {
+      document.removeEventListener('mousemove', this.onMouseMove)
+      document.removeEventListener('mouseup', this.onMouseUp)
+    }
+  }
+
+  removeTouchEvents() {
+    if (isBrowser) {
+      document.removeEventListener('touchmove', this.onTouchMove)
+      document.removeEventListener('touchend', this.onTouchEnd)
+    }
+  }
+
   onKeyDown = (e, handleID) => {
     let validUpKeys = ['ArrowRight', 'ArrowUp']
     let validDownKeys = ['ArrowDown', 'ArrowLeft']
@@ -243,17 +271,6 @@ class Slider extends PureComponent {
     this.onStart(e, handleID, true)
   }
 
-  startSlide(handle, isTouch) {
-    const {
-      state: { handles },
-      props: { onSlideStart },
-    } = this
-
-    this.setState({ activeHandleID: handle.key })
-    onSlideStart(handles.map(d => d.val), { activeHandleID: handle.key })
-    isTouch ? this.addTouchEvents() : this.addMouseEvents()
-  }
-
   onStart(e, handleID, isTouch) {
     const {
       state: { handles },
@@ -273,22 +290,15 @@ class Slider extends PureComponent {
     }
   }
 
-  grabHandleIfOk(handles, id, value, isTouch) {
-    // important for chaining
-    const found = handles.find(h => {
-      return h.key === id
-    })
+  startSlide(handle, isTouch) {
+    const {
+      state: { handles },
+      props: { onSlideStart },
+    } = this
 
-    warning(
-      found,
-      `Couldn't find grab handle ${id} in ${JSON.stringify(handles)}`,
-    )
-
-    if (found.val == value) {
-      // ie if handle is actually movable to the clicked position, grab it.
-      this.startSlide(found, isTouch)
-      // do we need stop propagation?
-    }
+    onSlideStart(handles.map(d => d.val), { activeHandleID: handle.key })
+    isTouch ? this.addTouchEvents() : this.addMouseEvents()
+    this.setState({ activeHandleID: handle.key })
   }
 
   handleRailAndTrackClicks(e, isTouch) {
@@ -329,37 +339,35 @@ class Slider extends PureComponent {
     )
 
     const actualHandles = this.actualNextHandles(nextHandles)
-    this.grabHandleIfOk(actualHandles, updateKey, updateValue, isTouch)
-    // submit the candidate values
+    this.grabHandleIfReaches(actualHandles, updateKey, updateValue, isTouch) // ie can handle reach this position given the mode
     this.submitUpdateActuals(actualHandles, true)
   }
 
-  addMouseEvents() {
-    if (isBrowser) {
-      document.addEventListener('mousemove', this.onMouseMove)
-      document.addEventListener('mouseup', this.onMouseUp)
+  grabHandleIfReaches(handles, id, value, isTouch) {
+    // ie can handle reach this position given the mode
+    const found = handles.find(h => {
+      return h.key === id
+    })
+
+    warning(
+      found,
+      `Couldn't find grab handle ${id} in ${JSON.stringify(handles)}`,
+    )
+
+    if (found.val == value) {
+      this.startSlide(found, isTouch)
+      // todo: do we need stop propagation?
     }
   }
 
-  addTouchEvents() {
-    if (isBrowser) {
-      document.addEventListener('touchmove', this.onTouchMove)
-      document.addEventListener('touchend', this.onTouchEnd)
-    }
-  }
+  onMouseMove = e => this.onMove(e, false)
 
-  removeMouseEvents() {
-    if (isBrowser) {
-      document.removeEventListener('mousemove', this.onMouseMove)
-      document.removeEventListener('mouseup', this.onMouseUp)
+  onTouchMove = e => {
+    if (isNotValidTouch(e)) {
+      return
     }
-  }
 
-  removeTouchEvents() {
-    if (isBrowser) {
-      document.removeEventListener('touchmove', this.onTouchMove)
-      document.removeEventListener('touchend', this.onTouchEnd)
-    }
+    this.onMove(e, true)
   }
 
   // mouse or touch being moved
@@ -390,17 +398,7 @@ class Slider extends PureComponent {
     this.submitUpdate(nextHandles)
   }
 
-  onMouseMove = e => this.onMove(e, false)
-
-  onTouchMove = e => {
-    if (isNotValidTouch(e)) {
-      return
-    }
-
-    this.onMove(e, true)
-  }
-
-  setHoverState = e => {
+  setHoverState(e) {
     if (e) {
       // find the closest value (aka step) to the event location
       const {
@@ -417,10 +415,10 @@ class Slider extends PureComponent {
       const updateValue = pixelToStep.getValue(getPosition(vertical, e, false)) // mouse only
 
       this.setState({
-        hoverInfo: { val: updateValue },
+        hoverState: { val: updateValue },
       })
     } else {
-      this.setState({ hoverInfo: null })
+      this.setState({ hoverState: null })
     }
   }
 
@@ -537,7 +535,7 @@ class Slider extends PureComponent {
 
   // choose tooltip to display based on hover location, active handle, hovered handle.
   static getTooltipInfo(
-    hoverInfo,
+    hoverState,
     mappedHandles,
     activeHandleID,
     hoveredHandleID,
@@ -547,11 +545,11 @@ class Slider extends PureComponent {
       return Slider.tooltipForHandle(mappedHandles, activeHandleID, true)
     else if (hoveredHandleID)
       return Slider.tooltipForHandle(mappedHandles, hoveredHandleID, false)
-    else if (hoverInfo != null && hoverInfo.val != null)
+    else if (hoverState != null && hoverState.val != null)
       // hovering over rail or track
       return {
-        val: hoverInfo.val,
-        percent: valueToPerc.getValue(hoverInfo.val),
+        val: hoverState.val,
+        percent: valueToPerc.getValue(hoverState.val),
       }
     else return null
   }
@@ -561,7 +559,7 @@ class Slider extends PureComponent {
       state: {
         handles,
         valueToPerc,
-        hoverInfo,
+        hoverState,
         activeHandleID,
         hoveredHandleID,
       },
@@ -573,7 +571,7 @@ class Slider extends PureComponent {
     })
 
     const tooltipInfo = Slider.getTooltipInfo(
-      hoverInfo,
+      hoverState,
       mappedHandles,
       activeHandleID,
       hoveredHandleID,

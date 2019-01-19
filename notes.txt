@@ -145,4 +145,5 @@ setStates:
 // My Changes
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 unified touch/mouse handling. DRY.
+rewired setState stuff - needed more functional for 
 handle grabbed after rail click (could be tidier. odd behavior for constrained range)
