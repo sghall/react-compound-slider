@@ -158,3 +158,55 @@ this.active was moved into state - this allows more flexibility for styling tool
 Touch/mouse handling has been further unified for DRY.
 rewired setState stuff - needed it to be more functional especially for handles being captured by a rail click.
 A couple of tweaks to the build system were needed for windows - won't work off windows though.
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// pr
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+This PR implements three features as discussed:
+
+Handle position values are now automatically rounded to the appropriate step. This feature is on by default, but can be turned off with the noAutoSnap property. There's also a noWarnOnSnap flag provided. (I can't see any uses beyond the default behavior now, but the flags are there just in case. I didn't end up exposing the rounding function since the default system now seems robust enough.
+I've tested the feature on my own projects that previously had rounding issues due to non-nice step-sizes and it works well. The RCS demo pages all have polite step values so didn't exhibit rounding problems anyhow.
+
+Clicking on a track or rail now 'grabs' the handle that moves to the click point. However, if a handle can't reach that point due to the mode constraints, then nothing is grabbed. This works well on all sliders in the demo pages.
+
+<Tooltip>'s are implemented following the same child component paradigm as <Rail>, <Handle>, etc, and should be fully flexible. I've added an example with tooltips to each of the demo pages - horizontal, vertical, and materialUi (though I didn't do any material styling on it...)
+Tooltips exhibit different styles depending on whether the pointer is hovering over the rail/track, or hovering over a handle. While a handle is sliding, the tooltip is attached to that handle regardless of pointer position. Only this last tooltip is visible on a touch device.
+
+In addition I did a fair bit of refactoring:
+Mouse events over the rail/track/handle system (the 'gadget') are now passed back to the slider to be handled by onMouseEnterGadget etc.
+Properties of Slider (eg this.active) have been moved into state - I needed this to provide the flexibility for styling tooltips and later I think it will more cleanly allow 's to be styled differently if they're active.
+Touch/mouse handling has been further unified in accordance with DRY.
+The setState logic has been rearranged. I needed it to be more functional, especially for the issue of grabbing handles after a rail click.
+A couple of tweaks to the build system were needed for windows - won't work off windows though.
+
+Other than that I've tried to maintain the current style. All unit tests are passing, though I didn't add any more. Performance seems fine, though I didn't benchmark it carefully. Touch events have only been tested in the Chrome simulator, but they seem ok there.
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Hi. This PR implements the three features we discussed:
+
+1) Handle position values are now automatically rounded to the appropriate step, rather than generating a warning if they don't match. This feature is on by default, but can be turned off with the `noAutoSnap` property. There's also a `noWarnOnSnap` flag provided. (I can't see any uses beyond the default behavior now, but the flags are there just in case. I didn't end up exposing the rounding function since the default system now seems robust enough.
+I've tested the feature on my own projects that previously had rounding issues due to non-nice step-sizes and it works well. The RCS demo pages all have polite step values so didn't exhibit rounding problems anyhow.
+
+2) `MouseDown` on a track or rail now immediately 'grabs' the handle that moves to the click point. However, if a handle can't reach that point due to the mode constraints, then nothing is grabbed. This works well on all sliders in the demo pages.
+
+3) `<Tooltip>`'s are implemented following the same child component paradigm as `<Rail>`, `<Handle>`, etc, and should be fully flexible. I've added an example with tooltips to each of the demo pages - horizontal, vertical, and materialUi (though I didn't do any material styling on that one...)
+Tooltips exhibit different styles depending on whether the pointer is hovering over the rail/track, or hovering over a handle. While a handle is sliding, the tooltip is attached to that handle regardless of pointer position. Only this last tooltip type applies for touch events.
+
+To implement these, I did a fair bit of refactoring:
+
+- Mouse events over the rail/track/handle system (the 'gadget') are now passed back to `Slider` to be handled by `onMouseEnterGadget` etc.
+
+- Properties of `Slider` (eg `this.active`) have been moved into `state` - I needed this to provide the flexibility for styling tooltips and later I think it will more cleanly allow `<Handle>`'s to be styled differently if they're active.
+
+- There were some DRY opportunities in `Slider.js`, for example the further unification of touch/mouse handling.
+
+- The `setState` logic has been rearranged. I needed it to be more functional, especially for the issue of grabbing handles after a rail click. I went through a couple of iterations to sort out some `setState` async issues but I think it's now pretty clean.
+
+- A couple of tweaks to the build system were needed for windows - won't work off windows though.
+
+Other than that I've tried to maintain the current style. All unit tests are passing, though I didn't add any more. Performance seems fine, though I didn't benchmark it carefully. Touch events have only been tested in the Chrome simulator, but they seem ok there.
+
+Cheers.
