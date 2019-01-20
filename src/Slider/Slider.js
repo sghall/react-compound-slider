@@ -474,19 +474,33 @@ class Slider extends PureComponent {
     })
   }
 
+  usingTooltip() {
+    let isUsing = false
+    React.Children.forEach(this.props.children, child => {
+      if (child.type.name === Tooltip.name) isUsing = true
+    })
+    return isUsing
+  }
+
   // Corresponds to mouse entering a part of the Rail/Track/Handle "Gadget". Id corresponds to the handla handle.
   onMouseEnterGadget = (e, id) => {
-    this.setState({ hoveredHandleID: id })
-    this.setHoverState(e)
+    if (this.usingTooltip()) {
+      this.setState({ hoveredHandleID: id })
+      this.setHoverState(e)
+    }
   }
 
   onMouseMoveGadget = (e, id) => {
-    this.setHoverState(e)
+    if (this.usingTooltip()) {
+      this.setHoverState(e)
+    }
   }
 
   onMouseLeaveGadget = () => {
-    this.setState({ hoveredHandleID: null })
-    this.setHoverState(null)
+    if (this.usingTooltip()) {
+      this.setState({ hoveredHandleID: null })
+      this.setHoverState(null)
+    }
   }
 
   onMouseUp = () => {
