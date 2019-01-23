@@ -16,15 +16,23 @@ class Rail extends Component {
   render() {
     const {
       getRailProps,
-      props: { children },
+      props: { getEventData, activeHandleID, children },
     } = this
 
-    const renderedChildren = children({ getRailProps })
+    const renderedChildren = children({
+      getEventData,
+      activeHandleID,
+      getRailProps,
+    })
     return renderedChildren && React.Children.only(renderedChildren)
   }
 }
 
 Rail.propTypes = {
+  /** @ignore */
+  getEventData: PropTypes.func,
+  /** @ignore */
+  activeHandleID: PropTypes.string,
   /** @ignore */
   emitMouse: PropTypes.func,
   /** @ignore */
