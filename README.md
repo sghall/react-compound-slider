@@ -20,7 +20,7 @@ Welcome to the future. React Compound Slider is a tiny (4.4kb) slider component 
 
 ## Motivation
 
-This library aims to be a stable platform for creating slider components with a very small impact on bundle size. It is primarily aimed at application developers and npm package maintainers.  You can create your own set of controls matched exactly to your application style, but it takes a little more effort than other component out there. You need to be comfortable handling what gets rendered and styling your components to really get maximum value from this library.  There are quite a few demos on the website but they should be used as a starting point.  You can also create your own custom themed slider component for your favorite framework and release it on npm for others to use. 
+This library aims to be a stable platform for creating slider components with a very small impact on bundle size. It is primarily aimed at application developers and npm package maintainers.  You can create your own set of controls matched exactly to your application style, but it takes a little more effort than other components out there. You need to be comfortable handling what gets rendered and styling your components to really get maximum value from this library.  There are quite a few demos on the website but they should be used as a starting point.  You can also create your own custom themed slider component for your favorite framework and release it on npm for others to use. 
 
 Release a slider on npm using this library?  Make a pull request and add it to the readme!
 
