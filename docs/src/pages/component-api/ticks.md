@@ -30,7 +30,7 @@ import Slider, { Ticks } from 'react-compound-slider'
 </Slider>
 ```
 
-### Passing in your own tick values
+###### Passing in your own tick values
 ```jsx
 import Slider, { Ticks } from 'react-compound-slider'
 

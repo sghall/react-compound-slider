@@ -38,7 +38,7 @@ Rail.propTypes = {
   /** @ignore */
   emitTouch: PropTypes.func,
   /**
-   * A function to render the rail. `({ getRailProps }): element`
+   * A function to render the rail. Note: `getEventData` can be called with an event and get the value and percent at that location (used for tooltips etc). `activeHandleID` will be a string or null.  Function signature: `({ getEventData, activeHandleID, getRailProps }): element`
    */
   children: PropTypes.func.isRequired,
 }

@@ -3,7 +3,14 @@ import PropTypes from 'prop-types'
 
 class Ticks extends Component {
   render() {
-    const { children, values, scale, count, emitMouse, emitTouch } = this.props
+    const {
+      children,
+      values,
+      scale,
+      count,
+      getEventData,
+      activeHandleID,
+    } = this.props
     const ticks = (values ? values : scale.getTicks(count)).map(value => {
       return {
         id: `$$-${value}`,
@@ -12,7 +19,7 @@ class Ticks extends Component {
       }
     })
 
-    const renderedChildren = children({ ticks, emitMouse, emitTouch })
+    const renderedChildren = children({ getEventData, activeHandleID, ticks })
     return renderedChildren && React.Children.only(renderedChildren)
   }
 }
@@ -33,13 +40,17 @@ Ticks.propTypes = {
    */
   values: PropTypes.array,
   /** @ignore */
+  getEventData: PropTypes.func,
+  /** @ignore */
+  activeHandleID: PropTypes.string,
+  /** @ignore */
   emitMouse: PropTypes.func,
   /** @ignore */
   emitTouch: PropTypes.func,
   /**
    * A function to render the ticks.
-   * The function receives an object with an array of ticks.
-   * `({ ticks  }): element`
+   * The function receives an object with an array of ticks. Note: `getEventData` can be called with an event and get the value and percent at that location (used for tooltips etc). `activeHandleID` will be a string or null.  Function signature:
+   * `({ getEventData, activeHandleID, ticks  }): element`
    */
   children: PropTypes.func.isRequired,
 }

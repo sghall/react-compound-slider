@@ -16,7 +16,15 @@ class Tracks extends Component {
   render() {
     const {
       getTrackProps,
-      props: { children, left, right, scale, handles },
+      props: {
+        children,
+        left,
+        right,
+        scale,
+        handles,
+        getEventData,
+        activeHandleID,
+      },
     } = this
 
     const domain = scale.getDomain()
@@ -41,7 +49,12 @@ class Tracks extends Component {
       }
     }
 
-    const renderedChildren = children({ tracks, getTrackProps })
+    const renderedChildren = children({
+      getEventData,
+      activeHandleID,
+      tracks,
+      getTrackProps,
+    })
     return renderedChildren && React.Children.only(renderedChildren)
   }
 }
@@ -56,6 +69,10 @@ Tracks.propTypes = {
    */
   right: PropTypes.bool,
   /** @ignore */
+  getEventData: PropTypes.func,
+  /** @ignore */
+  activeHandleID: PropTypes.string,
+  /** @ignore */
   scale: PropTypes.object,
   /** @ignore */
   handles: PropTypes.array,
@@ -64,7 +81,7 @@ Tracks.propTypes = {
   /** @ignore */
   emitTouch: PropTypes.func,
   /**
-   * A function to render the tracks. The function receives an object with an array of tracks and a function to get track props. `({ tracks, getTrackProps }): element`
+   * A function to render the tracks. The function receives an object with an array of tracks. Note: `getEventData` can be called with an event and get the value and percent at that location (used for tooltips etc). `activeHandleID` will be a string or null.  Function signature:  `({ getEventData, activeHandleID, tracks, getTrackProps }): element`
    */
   children: PropTypes.func.isRequired,
 }
