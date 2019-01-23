@@ -1,12 +1,12 @@
 {
   "build/dist/react-compound-slider.js": {
-    "bundled": 62354,
-    "minified": 21111,
-    "gzipped": 7321
+    "bundled": 63755,
+    "minified": 21796,
+    "gzipped": 7427
   },
   "build/dist/react-compound-slider.min.js": {
-    "bundled": 12044,
-    "minified": 12032,
-    "gzipped": 4403
+    "bundled": 12661,
+    "minified": 12649,
+    "gzipped": 4502
   }
 }

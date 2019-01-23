@@ -5,7 +5,7 @@
 
 ## React Compound Slider
 
-Welcome to the future. React Compound Slider is a tiny (4.4kb) slider component with no opinion about markup or styles.
+Welcome to the future. React Compound Slider is a tiny (4.5kb) slider component with no opinion about markup or styles.
 
 [![Build Status](https://travis-ci.org/sghall/react-compound-slider.svg?branch=master)](https://travis-ci.org/sghall/react-compound-slider)
 [![Coverage Status](https://coveralls.io/repos/github/sghall/react-compound-slider/badge.svg?branch=master)](https://coveralls.io/github/sghall/react-compound-slider?branch=master)
@@ -26,7 +26,7 @@ Release a slider on npm using this library?  Make a pull request and add it to t
 
 ### Slider Features
 
-- Small size (4.4kb)
+- Small size (4.5kb)
 - Makes no assumptions about your markup
 - Supports typescript
 - Precise control over user interactions and styling
