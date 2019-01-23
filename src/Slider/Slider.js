@@ -48,6 +48,7 @@ class Slider extends PureComponent {
     domain: null,
     handles: null,
     reversed: null,
+    activeHandleID: null,
     valueToPerc: null,
     valueToStep: null,
     pixelToStep: null,
@@ -152,6 +153,14 @@ class Slider extends PureComponent {
     return null
   }
 
+  componentDidMount() {
+    const { vertical, pixelToStep } = this.state
+
+    pixelToStep.setDomain(
+      getSliderDomain(this.slider.current, vertical, pixelToStep),
+    )
+  }
+
   componentWillUnmount() {
     this.removeListeners()
   }
@@ -233,11 +242,11 @@ class Slider extends PureComponent {
     })
 
     if (found) {
-      this.active = handleID
+      this.setState({ activeHandleID: handleID })
       onSlideStart(handles.map(d => d.val), { activeHandleID: handleID })
       isTouch ? this.addTouchEvents() : this.addMouseEvents()
     } else {
-      this.active = null
+      this.setState({ activeHandleID: null })
       this.handleRailAndTrackClicks(e, isTouch)
     }
   }
@@ -289,6 +298,26 @@ class Slider extends PureComponent {
     this.submitUpdate(nextHandles, true)
   }
 
+  getEventData = (e, isTouch) => {
+    const {
+      state: { pixelToStep, valueToPerc },
+      props: { vertical },
+    } = this
+
+    let value
+
+    if (isTouch) {
+      value = pixelToStep.getValue(getTouchPosition(vertical, e))
+    } else {
+      value = pixelToStep.getValue(vertical ? e.clientY : e.pageX)
+    }
+
+    return {
+      value,
+      percent: valueToPerc.getValue(value),
+    }
+  }
+
   addMouseEvents() {
     if (isBrowser) {
       document.addEventListener('mousemove', this.onMouseMove)
@@ -305,10 +334,10 @@ class Slider extends PureComponent {
 
   onMouseMove = e => {
     const {
-      state: { handles: curr, pixelToStep },
+      state: { handles: curr, pixelToStep, activeHandleID },
       props: { vertical, reversed },
     } = this
-    const { active: updateKey, slider } = this
+    const { slider } = this
 
     // double check the dimensions of the slider
     pixelToStep.setDomain(
@@ -321,7 +350,7 @@ class Slider extends PureComponent {
     // generate a "candidate" set of values - a suggestion of what to do
     const nextHandles = getUpdatedHandles(
       curr,
-      updateKey,
+      activeHandleID,
       updateValue,
       reversed,
     )
@@ -332,10 +361,10 @@ class Slider extends PureComponent {
 
   onTouchMove = e => {
     const {
-      state: { handles: curr, pixelToStep },
+      state: { handles: curr, pixelToStep, activeHandleID },
       props: { vertical, reversed },
     } = this
-    const { active: updateKey, slider } = this
+    const { slider } = this
 
     if (isNotValidTouch(e)) {
       return
@@ -352,7 +381,7 @@ class Slider extends PureComponent {
     // generate a "candidate" set of values - a suggestion of what to do
     const nextHandles = getUpdatedHandles(
       curr,
-      updateKey,
+      activeHandleID,
       updateValue,
       reversed,
     )
@@ -404,14 +433,14 @@ class Slider extends PureComponent {
 
   onMouseUp = () => {
     const {
-      state: { handles },
+      state: { handles, activeHandleID },
       props: { onChange, onSlideEnd },
     } = this
-    const activeHandleID = this.active
-    this.active = null
 
     onChange(handles.map(d => d.val))
     onSlideEnd(handles.map(d => d.val), { activeHandleID })
+
+    this.setState({ activeHandleID: null })
 
     if (isBrowser) {
       document.removeEventListener('mousemove', this.onMouseMove)
@@ -421,13 +450,14 @@ class Slider extends PureComponent {
 
   onTouchEnd = () => {
     const {
-      state: { handles },
+      state: { handles, activeHandleID },
       props: { onChange, onSlideEnd },
     } = this
-    this.active = null
 
     onChange(handles.map(d => d.val))
-    onSlideEnd(handles.map(d => d.val))
+    onSlideEnd(handles.map(d => d.val), { activeHandleID })
+
+    this.setState({ activeHandleID: null })
 
     if (isBrowser) {
       document.removeEventListener('touchmove', this.onTouchMove)
@@ -437,7 +467,7 @@ class Slider extends PureComponent {
 
   render() {
     const {
-      state: { handles, valueToPerc },
+      state: { handles, valueToPerc, activeHandleID },
       props: { className, rootStyle, disabled },
     } = this
 
@@ -455,6 +485,8 @@ class Slider extends PureComponent {
         return React.cloneElement(child, {
           scale: valueToPerc,
           handles: mappedHandles,
+          activeHandleID,
+          getEventData: this.getEventData,
           emitKeyboard: disabled ? noop : this.onKeyDown,
           emitMouse: disabled ? noop : this.onMouseDown,
           emitTouch: disabled ? noop : this.onTouchStart,
