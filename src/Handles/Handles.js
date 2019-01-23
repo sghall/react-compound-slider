@@ -23,15 +23,21 @@ class Handles extends Component {
   render() {
     const {
       getHandleProps,
-      props: { children, handles },
+      props: { activeHandleID, children, handles },
     } = this
 
-    const renderedChildren = children({ handles, getHandleProps })
+    const renderedChildren = children({
+      handles,
+      activeHandleID,
+      getHandleProps,
+    })
     return renderedChildren && React.Children.only(renderedChildren)
   }
 }
 
 Handles.propTypes = {
+  /** @ignore */
+  activeHandleID: PropTypes.string,
   /** @ignore */
   handles: PropTypes.array,
   /** @ignore */
