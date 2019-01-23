@@ -18,6 +18,28 @@ Welcome to the future. React Compound Slider is a tiny (4.4kb) slider component 
   <img src="https://user-images.githubusercontent.com/4615775/46690444-2aa96b80-cbb7-11e8-8cdd-d1af59df59fe.png" alt="React Compound Slider" style="width:450px;"/></a>
 </div>
 
+## Motivation
+
+This library aims to be a stable platform for creating slider components with a very small impact on bundle size. It is primarily aimed at application developers and npm package maintainers.  You can create your own set of controls matched exactly to your application style, but it takes a little more effort than other component out there. You need to be comfortable handling what gets rendered and styling your components to really get maximum value from this library.  There are quite a few demos on the website but they should be used as a starting point.  You can also create your own custom themed slider component for your favorite framework and release it on npm for others to use. 
+
+Release a slider on npm using this library?  Make a pull request and add it to the readme!
+
+### Slider Features
+
+- Small size (4.4kb)
+- Makes no assumptions about your markup
+- Supports typescript
+- Precise control over user interactions and styling
+- Horizontal/vertical display
+- The display of values can be reversed
+- Supports mouse and touch events (tested in IE9+, Chrome, Firefox & Safari)
+- Supports keyboard events so handles can be moved using arrow keys
+- Create any type of slider (value, range, n-handled sliders)
+- Generates uniformly spaced, human-readable tick values to label your slider
+- Integrates seemlessly with any app styling approach (CSS, CSS-in-JS, Inline-styles)
+- Interaction modes (Allow crossing, Prevent crossing, Pushable mode, Create your own mode)
+- Works as a controlled component
+
 
 ### Material Design Spec w/ MUI Example
 Thanks to @RafeSacks for the styles! [CodeSandbox](https://codesandbox.io/s/k91omlr1wo)
@@ -57,22 +79,6 @@ The documentation is divided into several sections:
 * [Live Demos](https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal)
 * [Tutorial](https://sghall.github.io/react-compound-slider/#/getting-started/tutorial)
 * [Documentation](https://sghall.github.io/react-compound-slider/#/component-api/slider)
-
-### Slider Features
-
-- Small size (4.4kb)
-- Makes no assumptions about your markup
-- Supports typescript
-- Precise control over user interactions and styling
-- Horizontal/vertical display
-- The display of values can be reversed
-- Supports mouse and touch events (tested in IE9+, Chrome, Firefox & Safari)
-- Supports keyboard events so handles can be moved using arrow keys
-- Create any type of slider (value, range, n-handled sliders)
-- Generates uniformly spaced, human-readable tick values to label your slider
-- Integrates seemlessly with any app styling approach (CSS, CSS-in-JS, Inline-styles)
-- Interaction modes (Allow crossing, Prevent crossing, Pushable mode, Create your own mode)
-- Works as a controlled component
 
 ### Example Usage
 
