@@ -6,6 +6,11 @@ export interface SliderItem {
   percent: number;
 }
 
+export interface EventData {
+  value: number;
+  percent: number;
+}
+
 export { default as Tracks, TrackItem, TracksObject, GetTrackProps } from './Tracks';
 export { default as Ticks, TicksObject } from './Ticks';
 export { default as Slider } from './Slider';

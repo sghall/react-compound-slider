@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { EventData } from '..'
 
 interface RailEventHandlers {
   onMouseDown: () => void;
@@ -8,6 +9,8 @@ interface RailEventHandlers {
 export type GetRailProps = () => RailEventHandlers;
 
 export interface RailObject {
+  activeHandleID: string;
+  getEventData: (e: React.SyntheticEvent) => EventData; 
   getRailProps: GetRailProps;
 }
 

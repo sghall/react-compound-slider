@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { SliderItem } from '..'
+import { SliderItem, EventData } from '..'
 
 export interface TicksObject {
+  activeHandleID: string;
+  getEventData: (e: React.SyntheticEvent) => EventData; 
   ticks: Array<SliderItem>;
 }
 
