@@ -11,6 +11,8 @@ export interface EventData {
   percent: number;
 }
 
+export type GetEventData = (e: React.SyntheticEvent | Event) => EventData; 
+
 export { default as Tracks, TrackItem, TracksObject, GetTrackProps } from './Tracks';
 export { default as Ticks, TicksObject } from './Ticks';
 export { default as Slider } from './Slider';

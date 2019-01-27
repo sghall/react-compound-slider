@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SliderItem, EventData } from '..'
+import { SliderItem, GetEventData } from '..'
 
 export interface TrackItem {
   id: string;
@@ -17,7 +17,7 @@ export type GetTrackProps = () => TrackEventHandlers;
 export interface TracksObject {
   tracks: Array<TrackItem>;
   activeHandleID: string;
-  getEventData: (e: React.SyntheticEvent) => EventData; 
+  getEventData: GetEventData; 
   getTrackProps: GetTrackProps;
 }
 
