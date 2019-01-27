@@ -11,6 +11,7 @@ export type GetHandleProps = (id: string) => HandleEventHandlers;
 
 export interface HandlesObject {
   handles: Array<SliderItem>;
+  activeHandleID: string;
   getHandleProps: GetHandleProps;
 }
 
