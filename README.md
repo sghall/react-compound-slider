@@ -52,6 +52,7 @@ Thanks to @RafeSacks for the styles! [CodeSandbox](https://codesandbox.io/s/k91o
 
 * [Basic Multi-Slider on CodeSandbox](https://codesandbox.io/s/plzyr7lmj)
 * [Video Slider on CodeSandbox](https://codesandbox.io/s/1z51zn6q23)
+* [Slider w/ Tooltips (Typescript)](https://codesandbox.io/s/pjwwzzj8qm)
 * [Value Slider on CodeSandbox (Typescript)](https://codesandbox.io/s/6zpjmw1x3w)
 * [Range Slider on CodeSandbox (Typescript)](https://codesandbox.io/s/zl8nrlp9x)
 * [Custom Feet-Inches Ticks on CodeSandbox (Typescript)](https://codesandbox.io/s/5262w7r9yx)
