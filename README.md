@@ -11,6 +11,7 @@ Welcome to the future. React Compound Slider is a tiny (4.5kb) slider component 
 [![Coverage Status](https://coveralls.io/repos/github/sghall/react-compound-slider/badge.svg?branch=master)](https://coveralls.io/github/sghall/react-compound-slider?branch=master)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/sghall/react-compound-slider/blob/master/LICENSE)
 [![npm downloads](https://img.shields.io/npm/dm/react-compound-slider.svg)](https://www.npmjs.com/package/react-compound-slider)
+![gzip size](http://img.badgesize.io/https://npmcdn.com/react-compound-slider/dist/react-compound-slider.min.js?compression=gzip)
 [![npm version](https://img.shields.io/npm/v/react-compound-slider.svg)](https://www.npmjs.com/package/react-compound-slider)
 
 <div style="text-align:center;">
