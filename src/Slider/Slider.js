@@ -168,7 +168,8 @@ class Slider extends PureComponent {
   }
 
   componentDidMount() {
-    const { vertical, pixelToStep } = this.state
+    const { pixelToStep } = this.state
+    const { vertical } = this.props
 
     pixelToStep.setDomain(
       getSliderDomain(this.slider.current, vertical, pixelToStep),
