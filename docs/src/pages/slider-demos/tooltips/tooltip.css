@@ -1,14 +1,14 @@
 .tooltip {
   position: relative;
   display: inline-block;
-  border-bottom: 1px dotted #fff;
+  border-bottom: 1px dotted #444;
   margin-left: 22px;
 }
 
 .tooltip .tooltiptext {
   width: 100px;
-  background-color: #fff;
-  color: #333;
+  background-color: #444;
+  color: #f0f0f0;
   opacity: 0.8;
   text-align: center;
   border-radius: 6px;
@@ -28,5 +28,5 @@
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: #fff transparent transparent transparent;
+  border-color: #444 transparent transparent transparent;
 }
