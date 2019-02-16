@@ -1,7 +1,47 @@
 // @flow weak
 
-import React from 'react'
+import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
+
+// *******************************************************
+// RAIL
+// *******************************************************
+const railOuterStyle = {
+  position: 'absolute',
+  width: '100%',
+  height: 42,
+  transform: 'translate(0%, -50%)',
+  borderRadius: 7,
+  cursor: 'pointer',
+  border: '1px solid white',
+}
+
+const railInnerStyle = {
+  position: 'absolute',
+  width: '100%',
+  height: 14,
+  transform: 'translate(0%, -50%)',
+  borderRadius: 7,
+  pointerEvents: 'none',
+  backgroundColor: 'rgb(155,155,155)',
+}
+
+export class SliderRail extends Component {
+  render() {
+    const { getRailProps } = this.props
+
+    return (
+      <Fragment>
+        <div style={railOuterStyle} {...getRailProps()} />
+        <div style={railInnerStyle} />
+      </Fragment>
+    )
+  }
+}
+
+SliderRail.propTypes = {
+  getRailProps: PropTypes.func.isRequired,
+}
 
 // *******************************************************
 // HANDLE COMPONENT
@@ -14,27 +54,40 @@ export function Handle({
   getHandleProps,
 }) {
   return (
-    <Comp
-      role="slider"
-      aria-valuemin={min}
-      aria-valuemax={max}
-      aria-valuenow={value}
-      style={{
-        left: `${percent}%`,
-        position: 'absolute',
-        marginLeft: '-11px',
-        marginTop: '-6px',
-        zIndex: 2,
-        width: 24,
-        height: 24,
-        cursor: 'pointer',
-        border: 0,
-        borderRadius: '50%',
-        boxShadow: '1px 1px 1px 1px rgba(0, 0, 0, 0.2)',
-        backgroundColor: disabled ? '#666' : '#ffc400',
-      }}
-      {...getHandleProps(id)}
-    />
+    <Fragment>
+      <div
+        style={{
+          left: `${percent}%`,
+          position: 'absolute',
+          transform: 'translate(-50%, -50%)',
+          zIndex: 5,
+          width: 42,
+          height: 42,
+          cursor: 'pointer',
+          border: '1px solid white',
+          borderRadius: '50%',
+          backgroundColor: 'none',
+        }}
+        {...getHandleProps(id)}
+      />
+      <Comp
+        role="slider"
+        aria-valuemin={min}
+        aria-valuemax={max}
+        aria-valuenow={value}
+        style={{
+          left: `${percent}%`,
+          position: 'absolute',
+          transform: 'translate(-50%, -50%)',
+          zIndex: 2,
+          width: 24,
+          height: 24,
+          borderRadius: '50%',
+          boxShadow: '1px 1px 1px 1px rgba(0, 0, 0, 0.3)',
+          backgroundColor: disabled ? '#666' : '#ffc400',
+        }}
+      />
+    </Fragment>
   )
 }
 
@@ -63,6 +116,7 @@ export function Track({ source, target, getTrackProps, disabled }) {
     <div
       style={{
         position: 'absolute',
+        transform: 'translate(0%, -50%)',
         height: 14,
         zIndex: 1,
         backgroundColor: disabled ? '#999' : '#b28900',

@@ -1,22 +1,11 @@
-// @flow weak
-
 import React, { Component } from 'react'
 import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
 import ValueViewer from 'docs/src/pages/ValueViewer' // for examples only - displays the table above slider
-import { Handle, Track, Tick } from './components' // example render components - source below
+import { SliderRail, Handle, Track, Tick } from './components' // example render components - source below
 
 const sliderStyle = {
   position: 'relative',
   width: '100%',
-}
-
-const railStyle = {
-  position: 'absolute',
-  width: '100%',
-  height: 14,
-  borderRadius: 7,
-  cursor: 'pointer',
-  backgroundColor: 'rgb(155,155,155)',
 }
 
 const defaultValues = [240, 360]
@@ -46,7 +35,9 @@ class Example extends Component {
   }
 
   render() {
-    const { state: { domain, values, update, reversed } } = this
+    const {
+      state: { domain, values, update, reversed },
+    } = this
 
     return (
       <div style={{ height: 150, width: '100%' }}>
@@ -71,9 +62,7 @@ class Example extends Component {
           values={values}
         >
           <Rail>
-            {({ getRailProps }) => (
-              <div style={railStyle} {...getRailProps()} />
-            )}
+            {({ getRailProps }) => <SliderRail getRailProps={getRailProps} />}
           </Rail>
           <Handles>
             {({ handles, getHandleProps }) => (
