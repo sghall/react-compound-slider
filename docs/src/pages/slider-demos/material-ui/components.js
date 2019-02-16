@@ -1,7 +1,9 @@
 // @flow weak
 
-import React from 'react'
+import React, { Fragment } from 'react'
+import clsx from 'clsx'
 import PropTypes from 'prop-types'
+import { fade } from '@material-ui/core/styles/colorManipulator'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 
@@ -13,8 +15,9 @@ const railStyle = theme => ({
   root: {
     position: 'absolute',
     width: '100%',
-    height: 14,
-    borderRadius: 7,
+    transform: 'translate(0%, -50%)',
+    height: 4,
+    borderRadius: 2,
     cursor: 'pointer',
     backgroundColor: theme.palette.grey[500],
   },
@@ -34,32 +37,129 @@ export const Rail = withStyles(railStyle)(RailComponent)
 // *******************************************************
 // HANDLE COMPONENT
 // *******************************************************
+const handleStyle = theme => {
+  const colors = {
+    primary: theme.palette.primary.main,
+    thumbOutline: fade(theme.palette.primary.main, 0.16),
+  }
 
-const handleStyle = theme => ({
+  return {
+    common: {
+      position: 'absolute',
+      WebkitTapHighlightColor: 'rgba(0,0,0,0)',
+    },
+    upper: {
+      zIndex: 5,
+      width: 0,
+      height: 0,
+      borderLeft: '20px solid transparent',
+      borderRight: '20px solid transparent',
+      borderTop: '30px solid transparent',
+      transform: 'translate(-50%, -85%)',
+      cursor: 'pointer',
+      backgroundColor: 'none',
+    },
+    lower: {
+      zIndex: 5,
+      width: 0,
+      height: 0,
+      borderLeft: '20px solid transparent',
+      borderRight: '20px solid transparent',
+      borderBottom: '30px solid transparent',
+      transform: 'translate(-50%, -15%)',
+      cursor: 'pointer',
+      backgroundColor: 'none',
+    },
+    inner: {
+      zIndex: 2,
+      width: 12,
+      height: 12,
+      transform: 'translate(-50%, -50%)',
+      borderRadius: '50%',
+      backgroundColor: colors.primary,
+    },
+    active: {
+      boxShadow: `0px 0px 0px 16px ${colors.thumbOutline}`,
+    },
+  }
+}
+
+function HandleComponent({
+  activeHandleID,
+  domain: [min, max],
+  handle: { id, value, percent },
+  classes,
+  getHandleProps,
+}) {
+  const active = activeHandleID === id
+
+  return (
+    <Fragment>
+      <div
+        className={clsx(classes.common, classes.upper)}
+        style={{ left: `${percent}%` }}
+        {...getHandleProps(id)}
+      />
+      <div
+        className={clsx(classes.common, classes.lower)}
+        style={{ left: `${percent}%` }}
+        {...getHandleProps(id)}
+      />
+      <div
+        role="slider"
+        aria-valuemin={min}
+        aria-valuemax={max}
+        aria-valuenow={value}
+        className={clsx(
+          classes.common,
+          classes.inner,
+          active && classes.active,
+        )}
+        style={{ left: `${percent}%` }}
+      />
+    </Fragment>
+  )
+}
+
+HandleComponent.propTypes = {
+  activeHandleID: PropTypes.string,
+  domain: PropTypes.array.isRequired,
+  handle: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
+    percent: PropTypes.number.isRequired,
+  }).isRequired,
+  classes: PropTypes.object.isRequired,
+  getHandleProps: PropTypes.func.isRequired,
+}
+
+export const Handle = withStyles(handleStyle)(HandleComponent)
+
+// *******************************************************
+// KEYBOARD HANDLE COMPONENT
+// *******************************************************
+const keyboardHandleStyle = theme => ({
   root: {
     position: 'absolute',
-    marginLeft: '-11px',
-    marginTop: '-6px',
-    zIndex: 2,
+    transform: 'translate(-50%, -50%)',
+    zIndex: 5,
     width: 24,
     height: 24,
     cursor: 'pointer',
     borderRadius: '50%',
     boxShadow: '1px 1px 1px 1px rgba(0, 0, 0, 0.2)',
-    border: theme.palette.primary.contrastText,
     backgroundColor: theme.palette.primary.main,
   },
 })
 
-function HandleComponent({
-  divOrButton: Comp,
+function KeyboardHandleComponent({
   domain: [min, max],
   handle: { id, value, percent },
   classes,
   getHandleProps,
 }) {
   return (
-    <Comp
+    <button
       role="slider"
       aria-valuemin={min}
       aria-valuemax={max}
@@ -71,8 +171,7 @@ function HandleComponent({
   )
 }
 
-HandleComponent.propTypes = {
-  divOrButton: PropTypes.oneOf(['div', 'button']).isRequired,
+KeyboardHandleComponent.propTypes = {
   domain: PropTypes.array.isRequired,
   handle: PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -83,22 +182,20 @@ HandleComponent.propTypes = {
   getHandleProps: PropTypes.func.isRequired,
 }
 
-HandleComponent.defaultProps = {
-  divOrButton: 'div',
-}
-
-export const Handle = withStyles(handleStyle)(HandleComponent)
+export const KeyboardHandle = withStyles(keyboardHandleStyle)(
+  KeyboardHandleComponent,
+)
 
 // *******************************************************
 // TRACK COMPONENT
 // *******************************************************
-
 const trackStyle = theme => ({
   root: {
     position: 'absolute',
-    height: 14,
+    transform: 'translate(0%, -50%)',
+    height: 4,
     zIndex: 1,
-    borderRadius: 7,
+    borderRadius: 2,
     cursor: 'pointer',
     backgroundColor: theme.palette.primary.main,
   },
@@ -141,14 +238,14 @@ export const Track = withStyles(trackStyle)(TrackComponent)
 const tickStyle = theme => ({
   tick: {
     position: 'absolute',
-    marginTop: 14,
+    marginTop: 10,
     width: 1,
     height: 5,
     backgroundColor: theme.palette.text.primary,
   },
   label: {
     position: 'absolute',
-    marginTop: 22,
+    marginTop: 16,
     textAlign: 'center',
   },
 })

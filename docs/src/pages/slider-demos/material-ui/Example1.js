@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Slider from 'react-compound-slider'
+import { Slider } from 'react-compound-slider'
 import { withStyles } from '@material-ui/core/styles'
 import ValueViewer from 'docs/src/pages/ValueViewer' // for examples only - displays the table above slider
 import { Rail, Handle, Track } from './components' // example render components - source below
@@ -57,13 +57,14 @@ class Example extends Component {
             {({ getRailProps }) => <Rail getRailProps={getRailProps} />}
           </Slider.Rail>
           <Slider.Handles>
-            {({ handles, getHandleProps }) => (
+            {({ activeHandleID, handles, getHandleProps }) => (
               <div>
                 {handles.map(handle => (
                   <Handle
                     key={handle.id}
                     handle={handle}
                     domain={domain}
+                    activeHandleID={activeHandleID}
                     getHandleProps={getHandleProps}
                   />
                 ))}
