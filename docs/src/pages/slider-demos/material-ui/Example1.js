@@ -2,10 +2,10 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Slider } from 'react-compound-slider'
+import { Slider, Rail, Handles, Tracks } from 'react-compound-slider'
 import { withStyles } from '@material-ui/core/styles'
 import ValueViewer from 'docs/src/pages/ValueViewer' // for examples only - displays the table above slider
-import { Rail, Handle, Track } from './components' // example render components - source below
+import { SliderRail, Handle, Track } from './components' // example render components - source below
 
 const style = () => ({
   root: {
@@ -53,10 +53,10 @@ class Example extends Component {
           onChange={this.onChange}
           values={values}
         >
-          <Slider.Rail>
-            {({ getRailProps }) => <Rail getRailProps={getRailProps} />}
-          </Slider.Rail>
-          <Slider.Handles>
+          <Rail>
+            {({ getRailProps }) => <SliderRail getRailProps={getRailProps} />}
+          </Rail>
+          <Handles>
             {({ activeHandleID, handles, getHandleProps }) => (
               <div>
                 {handles.map(handle => (
@@ -70,8 +70,8 @@ class Example extends Component {
                 ))}
               </div>
             )}
-          </Slider.Handles>
-          <Slider.Tracks right={false}>
+          </Handles>
+          <Tracks right={false}>
             {({ tracks, getTrackProps }) => (
               <div>
                 {tracks.map(({ id, source, target }) => (
@@ -84,7 +84,7 @@ class Example extends Component {
                 ))}
               </div>
             )}
-          </Slider.Tracks>
+          </Tracks>
         </Slider>
       </div>
     )

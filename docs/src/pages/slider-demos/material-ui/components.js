@@ -47,7 +47,7 @@ RailComponent.propTypes = {
   getRailProps: PropTypes.func.isRequired,
 }
 
-export const Rail = withStyles(railStyle)(RailComponent)
+export const SliderRail = withStyles(railStyle)(RailComponent)
 
 // *******************************************************
 // HANDLE COMPONENT
