@@ -57,11 +57,10 @@ export function Handle({
           transform: 'translate(-50%, -50%)',
           WebkitTapHighlightColor: 'rgba(0,0,0,0)',
           zIndex: 5,
-          width: 42,
+          width: 28,
           height: 42,
           cursor: 'pointer',
           // border: '1px solid white',
-          borderRadius: '50%',
           backgroundColor: 'none',
         }}
         {...getHandleProps(id)}

@@ -1,44 +1,91 @@
 // @flow weak
 
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
+
+// *******************************************************
+// RAIL
+// *******************************************************
+const railOuterStyle = {
+  position: 'absolute',
+  height: '100%',
+  width: 42,
+  transform: 'translate(-50%, 0%)',
+  borderRadius: 7,
+  cursor: 'pointer',
+  border: '1px solid white',
+}
+
+const railInnerStyle = {
+  position: 'absolute',
+  height: '100%',
+  width: 14,
+  transform: 'translate(-50%, 0%)',
+  borderRadius: 7,
+  pointerEvents: 'none',
+  backgroundColor: 'rgb(155,155,155)',
+}
+
+export function SliderRail({ getRailProps }) {
+  return (
+    <Fragment>
+      <div style={railOuterStyle} {...getRailProps()} />
+      <div style={railInnerStyle} />
+    </Fragment>
+  )
+}
+
+SliderRail.propTypes = {
+  getRailProps: PropTypes.func.isRequired,
+}
 
 // *******************************************************
 // HANDLE COMPONENT
 // *******************************************************
 export function Handle({
-  divOrButton: Comp,
   domain: [min, max],
   handle: { id, value, percent },
   getHandleProps,
 }) {
   return (
-    <Comp
-      role="slider"
-      aria-valuemin={min}
-      aria-valuemax={max}
-      aria-valuenow={value}
-      style={{
-        top: `${percent}%`,
-        position: 'absolute',
-        marginLeft: -6,
-        marginTop: -12,
-        zIndex: 2,
-        width: 24,
-        height: 24,
-        cursor: 'pointer',
-        border: 0,
-        borderRadius: '50%',
-        boxShadow: '1px 1px 1px 1px rgba(0, 0, 0, 0.2)',
-        backgroundColor: '#ffc400',
-      }}
-      {...getHandleProps(id)}
-    />
+    <Fragment>
+      <div
+        style={{
+          top: `${percent}%`,
+          position: 'absolute',
+          transform: 'translate(-50%, -50%)',
+          WebkitTapHighlightColor: 'rgba(0,0,0,0)',
+          zIndex: 5,
+          width: 42,
+          height: 28,
+          cursor: 'pointer',
+          // border: '1px solid white',
+          backgroundColor: 'none',
+        }}
+        {...getHandleProps(id)}
+      />
+      <div
+        role="slider"
+        aria-valuemin={min}
+        aria-valuemax={max}
+        aria-valuenow={value}
+        style={{
+          top: `${percent}%`,
+          position: 'absolute',
+          transform: 'translate(-50%, -50%)',
+          zIndex: 2,
+          width: 24,
+          height: 24,
+          borderRadius: '50%',
+          boxShadow: '1px 1px 1px 1px rgba(0, 0, 0, 0.3)',
+          backgroundColor: '#ffc400',
+        }}
+      />
+    </Fragment>
   )
 }
 
 Handle.propTypes = {
-  divOrButton: PropTypes.oneOf(['div', 'button']).isRequired, // using button allows for keyboard events
   domain: PropTypes.array.isRequired,
   handle: PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -48,8 +95,47 @@ Handle.propTypes = {
   getHandleProps: PropTypes.func.isRequired,
 }
 
-Handle.defaultProps = {
-  divOrButton: 'div',
+// *******************************************************
+// KEYBOARD HANDLE COMPONENT
+// Uses button to allow keyboard events
+// *******************************************************
+export function KeyboardHandle({
+  domain: [min, max],
+  handle: { id, value, percent },
+  getHandleProps,
+}) {
+  return (
+    <button
+      role="slider"
+      aria-valuemin={min}
+      aria-valuemax={max}
+      aria-valuenow={value}
+      style={{
+        top: `${percent}%`,
+        position: 'absolute',
+        transform: 'translate(-50%, -50%)',
+        width: 24,
+        height: 24,
+        zIndex: 5,
+        cursor: 'pointer',
+        border: 0,
+        borderRadius: '50%',
+        boxShadow: '1px 1px 1px 1px rgba(0, 0, 0, 0.3)',
+        backgroundColor: '#ffc400',
+      }}
+      {...getHandleProps(id)}
+    />
+  )
+}
+
+KeyboardHandle.propTypes = {
+  domain: PropTypes.array.isRequired,
+  handle: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
+    percent: PropTypes.number.isRequired,
+  }).isRequired,
+  getHandleProps: PropTypes.func.isRequired,
 }
 
 // *******************************************************
@@ -65,7 +151,7 @@ export function Track({ source, target, getTrackProps }) {
         borderRadius: 7,
         cursor: 'pointer',
         width: 14,
-        marginLeft: -1,
+        transform: 'translate(-50%, 0%)',
         top: `${source.percent}%`,
         height: `${target.percent - source.percent}%`,
       }}
