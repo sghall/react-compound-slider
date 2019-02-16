@@ -1,6 +1,6 @@
 // @flow weak
 
-import React, { Component, Fragment } from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 // *******************************************************
@@ -26,17 +26,13 @@ const railInnerStyle = {
   backgroundColor: 'rgb(155,155,155)',
 }
 
-export class SliderRail extends Component {
-  render() {
-    const { getRailProps } = this.props
-
-    return (
-      <Fragment>
-        <div style={railOuterStyle} {...getRailProps()} />
-        <div style={railInnerStyle} />
-      </Fragment>
-    )
-  }
+export function SliderRail({ getRailProps }) {
+  return (
+    <Fragment>
+      <div style={railOuterStyle} {...getRailProps()} />
+      <div style={railInnerStyle} />
+    </Fragment>
+  )
 }
 
 SliderRail.propTypes = {
@@ -59,6 +55,7 @@ export function Handle({
           left: `${percent}%`,
           position: 'absolute',
           transform: 'translate(-50%, -50%)',
+          WebkitTapHighlightColor: 'rgba(0,0,0,0)',
           zIndex: 5,
           width: 42,
           height: 42,
