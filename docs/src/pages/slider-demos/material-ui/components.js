@@ -10,21 +10,36 @@ import { withStyles } from '@material-ui/core/styles'
 // *******************************************************
 // RAIL COMPONENT
 // *******************************************************
-
-const railStyle = theme => ({
-  root: {
+const railStyle = () => ({
+  common: {
     position: 'absolute',
     width: '100%',
     transform: 'translate(0%, -50%)',
+  },
+  outer: {
+    height: 42,
+    borderRadius: 21,
+    cursor: 'pointer',
+    border: '1px solid white',
+  },
+  inner: {
     height: 4,
     borderRadius: 2,
-    cursor: 'pointer',
-    backgroundColor: theme.palette.grey[500],
+    pointerEvents: 'none',
+    backgroundColor: 'rgb(155,155,155)',
   },
 })
 
 function RailComponent({ classes, getRailProps }) {
-  return <div className={classes.root} {...getRailProps()} />
+  return (
+    <Fragment>
+      <div
+        className={clsx(classes.common, classes.outer)}
+        {...getRailProps()}
+      />
+      <div className={clsx(classes.common, classes.inner)} />
+    </Fragment>
+  )
 }
 
 RailComponent.propTypes = {
