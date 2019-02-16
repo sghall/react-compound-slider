@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
 import ValueViewer from 'docs/src/pages/ValueViewer' // for examples only - displays the table above slider
-import { SliderRail, Handle, Track, Tick } from './components' // example render components - source below
+import { SliderRail, KeyboardHandle, Track, Tick } from './components' // example render components - source below
 
 const sliderStyle = {
   position: 'relative',
@@ -49,8 +49,7 @@ class Example extends Component {
             {({ handles, getHandleProps }) => (
               <div className="slider-handles">
                 {handles.map(handle => (
-                  <Handle
-                    divOrButton="button"
+                  <KeyboardHandle
                     key={handle.id}
                     handle={handle}
                     domain={domain}
