@@ -12,5 +12,5 @@
 ##### Tooltips with Pushable Mode
 {{demo='pages/slider-demos/tooltips/Example4.js'}}
 
-##### Tooltips on Handles and Rail with Pushable Mode
+##### Tooltips on Handles and Rail / Allow crossing
 {{demo='pages/slider-demos/tooltips/Example5.js'}}
