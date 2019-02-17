@@ -14,6 +14,8 @@ import MenuIcon from '@material-ui/icons/Menu'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
+import Snackbar from '@material-ui/core/Snackbar'
 import { Link } from 'react-router'
 import GitHub from './Github'
 
@@ -59,7 +61,16 @@ const styles = theme => ({
 
 class ResponsiveDrawer extends React.Component {
   state = {
+    snackbarOpen: true,
     mobileOpen: false,
+  }
+
+  handleClick = () => {
+    this.setState({ open: true })
+  }
+
+  handleClose = () => {
+    this.setState({ snackbarOpen: false })
   }
 
   handleDrawerToggle = () => {
@@ -213,6 +224,30 @@ class ResponsiveDrawer extends React.Component {
         <main className={classes.content}>
           <div className={classes.toolbar} />
           {children}
+          <Snackbar
+            open={this.state.snackbarOpen}
+            autoHideDuration={30000}
+            onClose={this.handleClose}
+            ContentProps={{
+              'aria-describedby': 'snackbar-fab-message-id',
+              className: classes.snackbarContent,
+            }}
+            message={
+              <span id="snackbar-fab-message-id">
+                <b>Note:</b> react-compound-slider does not render any content
+                itself. The demos on this site are provided to help people get
+                started and are used to test changes to the library. While they
+                generally work on mobile, the demos are NOT optimized for mobile
+                devices.
+              </span>
+            }
+            action={
+              <Button color="inherit" size="small" onClick={this.handleClose}>
+                Close
+              </Button>
+            }
+            className={classes.snackbar}
+          />
         </main>
       </div>
     )
