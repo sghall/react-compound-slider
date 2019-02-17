@@ -19,7 +19,7 @@ const style = () => ({
 })
 
 const domain = [100, 500]
-const defaultValues = [450, 400, 300, 150]
+const defaultValues = [460, 400, 300, 140]
 
 class Example extends Component {
   state = {
@@ -47,7 +47,7 @@ class Example extends Component {
         <Slider
           reversed
           mode={3}
-          step={5}
+          step={20}
           domain={domain}
           className={classes.slider}
           onUpdate={this.onUpdate}

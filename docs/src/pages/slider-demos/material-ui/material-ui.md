@@ -18,7 +18,3 @@ This example also demonstrates keyboard events. Click on a handle (tab) and use 
 ##### Formatting Ticks/Prevent Crossing 
 ###### mode = 2 step = 0.01
 {{demo='pages/slider-demos/material-ui/Example5.js'}}
-
-##### Custom Mode 
-###### Max separation of 100
-{{demo='pages/slider-demos/material-ui/Example6.js'}}
