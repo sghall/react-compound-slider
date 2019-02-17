@@ -7,6 +7,8 @@
 
 Welcome to the future. React Compound Slider is a tiny (4.5kb) slider component with no opinion about markup or styles.
 
+### [Documentation and Examples](https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal)
+
 [![Build Status](https://travis-ci.org/sghall/react-compound-slider.svg?branch=master)](https://travis-ci.org/sghall/react-compound-slider)
 [![Coverage Status](https://coveralls.io/repos/github/sghall/react-compound-slider/badge.svg?branch=master)](https://coveralls.io/github/sghall/react-compound-slider?branch=master)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/sghall/react-compound-slider/blob/master/LICENSE)
@@ -41,15 +43,9 @@ Release a slider on npm using this library?  Make a pull request and add it to t
 - Interaction modes (Allow crossing, Prevent crossing, Pushable mode, Create your own mode)
 - Works as a controlled component
 
+### [Documentation and Examples](https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal)
 
-### Material Design Spec w/ MUI Example
-Thanks to @RafeSacks for the styles! [CodeSandbox](https://codesandbox.io/s/k91omlr1wo)
-
-<div style="text-align:center;">
-  <a href="https://codesandbox.io/s/k91omlr1wo" target="\_parent"><img src="https://user-images.githubusercontent.com/4615775/49270889-9de99400-f428-11e8-9f9d-5ba64de66e89.png" alt="React Compound Slider" style="width:450px;"/></a>
-</div>
-
-### More Examples
+### More Examples on CodeSandbox
 
 * [Basic Multi-Slider on CodeSandbox](https://codesandbox.io/s/plzyr7lmj)
 * [Video Slider on CodeSandbox](https://codesandbox.io/s/1z51zn6q23)
@@ -58,7 +54,7 @@ Thanks to @RafeSacks for the styles! [CodeSandbox](https://codesandbox.io/s/k91o
 * [Range Slider on CodeSandbox (Typescript)](https://codesandbox.io/s/zl8nrlp9x)
 * [Custom Feet-Inches Ticks on CodeSandbox (Typescript)](https://codesandbox.io/s/5262w7r9yx)
 * [Custom Feet-Inches Ticks - Vertical on CodeSandbox (Typescript)](https://codesandbox.io/s/18lkz04y8j)
-
+* [Material Design Example on CodeSandbox](https://codesandbox.io/s/k91omlr1wo) @RafeSacks 
 
 # Installation
 
