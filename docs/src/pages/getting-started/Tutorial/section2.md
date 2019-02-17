@@ -30,7 +30,7 @@ export function Handle({ // your handle component
         cursor: 'pointer',
         borderRadius: '50%',
         backgroundColor: '#2C4870',
-        color: '#fff',
+        color: '#333',
       }}
       {...getHandleProps(id)}
     >
