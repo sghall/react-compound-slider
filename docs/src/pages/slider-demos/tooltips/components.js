@@ -10,18 +10,18 @@ import './tooltip.css'
 const railStyle = {
   position: 'absolute',
   width: '100%',
+  transform: 'translate(0%, -50%)',
   height: 40,
-  top: -13,
   borderRadius: 7,
   cursor: 'pointer',
-  opacity: 0.3,
   zIndex: 300,
-  border: '1px solid white',
+  // border: '1px solid grey',
 }
 
 const railCenterStyle = {
   position: 'absolute',
   width: '100%',
+  transform: 'translate(0%, -50%)',
   height: 14,
   borderRadius: 7,
   cursor: 'pointer',
@@ -98,6 +98,42 @@ TooltipRail.defaultProps = {
 }
 
 // *******************************************************
+// SLIDER RAIL (no tooltips)
+// *******************************************************
+const railOuterStyle = {
+  position: 'absolute',
+  transform: 'translate(0%, -50%)',
+  width: '100%',
+  height: 42,
+  borderRadius: 7,
+  cursor: 'pointer',
+  // border: '1px solid grey',
+}
+
+const railInnerStyle = {
+  position: 'absolute',
+  width: '100%',
+  height: 14,
+  transform: 'translate(0%, -50%)',
+  borderRadius: 7,
+  pointerEvents: 'none',
+  backgroundColor: 'rgb(155,155,155)',
+}
+
+export function SliderRail({ getRailProps }) {
+  return (
+    <Fragment>
+      <div style={railOuterStyle} {...getRailProps()} />
+      <div style={railInnerStyle} />
+    </Fragment>
+  )
+}
+
+SliderRail.propTypes = {
+  getRailProps: PropTypes.func.isRequired,
+}
+
+// *******************************************************
 // HANDLE COMPONENT
 // *******************************************************
 export class Handle extends Component {
@@ -140,6 +176,23 @@ export class Handle extends Component {
           </div>
         ) : null}
         <div
+          style={{
+            left: `${percent}%`,
+            position: 'absolute',
+            transform: 'translate(-50%, -50%)',
+            zIndex: 400,
+            width: 26,
+            height: 42,
+            cursor: 'pointer',
+            // border: '1px solid grey',
+            backgroundColor: 'none',
+          }}
+          {...getHandleProps(id, {
+            onMouseEnter: this.onMouseEnter,
+            onMouseLeave: this.onMouseLeave,
+          })}
+        />
+        <div
           role="slider"
           aria-valuemin={min}
           aria-valuemax={max}
@@ -147,21 +200,15 @@ export class Handle extends Component {
           style={{
             left: `${percent}%`,
             position: 'absolute',
-            marginLeft: '-11px',
-            marginTop: '-6px',
-            zIndex: 400,
+            transform: 'translate(-50%, -50%)',
+            zIndex: 300,
             width: 24,
             height: 24,
-            cursor: 'pointer',
             border: 0,
             borderRadius: '50%',
             boxShadow: '1px 1px 1px 1px rgba(0, 0, 0, 0.2)',
             backgroundColor: disabled ? '#666' : '#8b6068',
           }}
-          {...getHandleProps(id, {
-            onMouseEnter: this.onMouseEnter,
-            onMouseLeave: this.onMouseLeave,
-          })}
         />
       </Fragment>
     )
@@ -192,6 +239,7 @@ export function Track({ source, target, getTrackProps, disabled }) {
     <div
       style={{
         position: 'absolute',
+        transform: 'translate(0%, -50%)',
         height: 14,
         zIndex: 1,
         backgroundColor: disabled ? '#999' : '#8b6068',
