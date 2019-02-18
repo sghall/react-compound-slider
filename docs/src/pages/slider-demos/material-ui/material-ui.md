@@ -12,7 +12,6 @@
 
 ##### Reversed - Pushable Mode
 ###### mode = 3 step = 20
-This example also demonstrates keyboard events. Click on a handle (tab) and use arrow keys.
 {{demo='pages/slider-demos/material-ui/Example4.js'}}
 
 ##### Formatting Ticks/Prevent Crossing 
