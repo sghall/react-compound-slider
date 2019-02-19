@@ -30,14 +30,12 @@ const equal = (a, b) => {
 }
 
 const getNextValue = (curr, step, domain, reversed) => {
-  let newVal = curr
-  newVal = reversed ? curr - step : curr + step
+  const newVal = reversed ? curr - step : curr + step
   return reversed ? Math.max(domain[0], newVal) : Math.min(domain[1], newVal)
 }
 
 const getPrevValue = (curr, step, domain, reversed) => {
-  let newVal = curr
-  newVal = reversed ? curr + step : curr - step
+  const newVal = reversed ? curr + step : curr - step
   return reversed ? Math.min(domain[1], newVal) : Math.max(domain[0], newVal)
 }
 
