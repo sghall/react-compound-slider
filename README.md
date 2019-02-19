@@ -15,6 +15,8 @@ Welcome to the future. React Compound Slider is a tiny (4.5kb) slider component 
 [![npm downloads](https://img.shields.io/npm/dm/react-compound-slider.svg)](https://www.npmjs.com/package/react-compound-slider)
 ![gzip size](http://img.badgesize.io/https://npmcdn.com/react-compound-slider/dist/react-compound-slider.min.js?compression=gzip)
 [![npm version](https://img.shields.io/npm/v/react-compound-slider.svg)](https://www.npmjs.com/package/react-compound-slider)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/sghall/react-compound-slider.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/sghall/react-compound-slider/alerts/)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/sghall/react-compound-slider.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/sghall/react-compound-slider/context:javascript)
 
 <div style="text-align:center;">
   <a href="https://sghall.github.io/react-compound-slider" target="\_parent">
