@@ -20,6 +20,8 @@ export interface SliderProps {
   vertical?: boolean;
   reversed?: boolean;
   disabled?: boolean;
+  maxSteps?: number;
+  rangeWarnings?: boolean;
   warnOnChanges?: boolean;
   onUpdate?: (values: ReadonlyArray<number>) => void;
   onChange?: (values: ReadonlyArray<number>) => void;
