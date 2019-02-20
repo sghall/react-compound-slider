@@ -62,6 +62,8 @@ class Slider extends PureComponent {
       reversed,
       onUpdate,
       onChange,
+      maxSteps,
+      rangeWarnings,
       warnOnChanges,
     } = nextProps
 
@@ -109,20 +111,20 @@ class Slider extends PureComponent {
         `${prfx} Max must be greater than min (even if reversed). Max is ${max}. Min is ${min}.`,
       )
 
-      const maxInRange = 100001
+      if (rangeWarnings) {
+        const last = range.length - 1
 
-      warning(
-        range.length <= maxInRange,
-        `${prfx} Increase step value (set to ${step} currently). Found ${range.length.toLocaleString()} values in range. Max is ${maxInRange.toLocaleString()}.`,
-      )
+        warning(
+          range.length <= maxSteps + 1,
+          `${prfx} Found ${range.length.toLocaleString()} steps in range (maxSteps prop = ${maxSteps.toLocaleString()}). See https://bit.ly/2BHjgvK.`,
+        )
 
-      const last = range.length - 1
-
-      warning(
-        range[reversed ? last : 0] === min &&
-          range[reversed ? 0 : last] === max,
-        `${prfx} The range is incorrectly calculated. Check domain (min, max) and step values.`,
-      )
+        warning(
+          range[reversed ? last : 0] === min &&
+            range[reversed ? 0 : last] === max,
+          `${prfx} Slider range is incorrect. Domain (max - min) should be evenly divided by step. See https://bit.ly/2BHjgvK.`,
+        )
+      }
 
       const { handles, changes } = getHandles(
         values || prevState.values,
@@ -578,7 +580,15 @@ Slider.propTypes = {
    */
   disabled: PropTypes.bool,
   /**
-   * Warn if values to are changed to fit domain and step values.
+   * Max number of steps allowed before warning. The rangeWarnings prop must be true for this to have any effect. Defaults to 500,000.
+   */
+  maxSteps: PropTypes.number,
+  /**
+   * When true, the slider will warn if the number of steps is larger than maxSteps or domain (max - min) is not evenly divisible by step value. Defaults to true. More at https://bit.ly/2BHjgvK.
+   */
+  rangeWarnings: PropTypes.bool,
+  /**
+   * When true, the slider will warn if values are changed to fit domain and step values.  Defaults to false.
    */
   warnOnChanges: PropTypes.bool,
   /**
@@ -598,6 +608,8 @@ Slider.defaultProps = {
   onSlideStart: noop,
   onSlideEnd: noop,
   disabled: false,
+  maxSteps: 500000,
+  rangeWarnings: true,
   warnOnChanges: false,
 }
 
