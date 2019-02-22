@@ -61,8 +61,6 @@ class Slider extends PureComponent {
       reversed,
       onUpdate,
       onChange,
-      // maxSteps,
-      // rangeWarnings,
       warnOnChanges,
     } = nextProps
 
