@@ -36,7 +36,6 @@ const getTestProps = () => ({
 describe('<Slider />', () => {
   let submitUpdateSpy,
     setStateSpy,
-    getStepRangeSpy,
     handleRailAndTrackClicksSpy,
     getHandlesSpy,
     addTouchEventsSpy,
@@ -45,7 +44,6 @@ describe('<Slider />', () => {
   beforeEach(() => {
     submitUpdateSpy = sinon.spy(Slider.prototype, 'submitUpdate')
     setStateSpy = sinon.spy(Slider.prototype, 'setState')
-    getStepRangeSpy = sinon.spy(utils, 'getStepRange')
     getHandlesSpy = sinon.spy(utils, 'getHandles')
     handleRailAndTrackClicksSpy = sinon.spy(
       Slider.prototype,
@@ -58,7 +56,6 @@ describe('<Slider />', () => {
   afterEach(() => {
     submitUpdateSpy.restore()
     setStateSpy.restore()
-    getStepRangeSpy.restore()
     handleRailAndTrackClicksSpy.restore()
     getHandlesSpy.restore()
     addTouchEventsSpy.restore()
@@ -141,14 +138,6 @@ describe('<Slider />', () => {
     assert.strictEqual(onChange.callCount, 0)
   })
 
-  it('does NOT call  when reversed, domain and step are unchanged', () => {
-    const wrapper = shallow(<Slider {...getTestProps()} />)
-
-    assert.strictEqual(getStepRangeSpy.callCount, 1)
-    wrapper.setProps({ ...getTestProps() })
-    assert.strictEqual(getStepRangeSpy.callCount, 1)
-  })
-
   it('uses valid value props when domain changes', () => {
     const onUpdate = sinon.spy()
     const onChange = sinon.spy()
@@ -156,11 +145,9 @@ describe('<Slider />', () => {
       <Slider onUpdate={onUpdate} onChange={onChange} {...getTestProps()} />,
     )
 
-    assert.strictEqual(getStepRangeSpy.callCount, 1)
     assert.strictEqual(getHandlesSpy.callCount, 1)
     wrapper.setProps({ ...getTestProps(), values: [1, 1], domain: [0, 2] })
     assert.strictEqual(getHandlesSpy.callCount, 2)
-    assert.strictEqual(getStepRangeSpy.callCount, 2)
     assert.strictEqual(onUpdate.callCount, 0)
     assert.strictEqual(onChange.callCount, 0)
   })
@@ -172,36 +159,10 @@ describe('<Slider />', () => {
       <Slider onUpdate={onUpdate} onChange={onChange} {...getTestProps()} />,
     )
 
-    assert.strictEqual(getStepRangeSpy.callCount, 1)
     wrapper.setProps({ ...getTestProps(), domain: [1, 2] })
     assert.strictEqual(getHandlesSpy.callCount, 2)
-    assert.strictEqual(getStepRangeSpy.callCount, 2)
     assert.strictEqual(onUpdate.callCount, 1)
     assert.strictEqual(onChange.callCount, 1)
-  })
-
-  it('calls updateRange when domain changes', () => {
-    const wrapper = shallow(<Slider {...getTestProps()} />)
-
-    assert.strictEqual(getStepRangeSpy.callCount, 1)
-    wrapper.setProps({ ...getTestProps(), domain: [100, 400] })
-    assert.strictEqual(getStepRangeSpy.callCount, 2)
-  })
-
-  it('calls updateRange when step changes', () => {
-    const wrapper = shallow(<Slider {...getTestProps()} />)
-
-    assert.strictEqual(getStepRangeSpy.callCount, 1)
-    wrapper.setProps({ ...getTestProps(), step: 10 })
-    assert.strictEqual(getStepRangeSpy.callCount, 2)
-  })
-
-  it('calls updateRange when reversed changes', () => {
-    const wrapper = shallow(<Slider {...getTestProps()} />)
-
-    assert.strictEqual(getStepRangeSpy.callCount, 1)
-    wrapper.setProps({ ...getTestProps(), reversed: true })
-    assert.strictEqual(getStepRangeSpy.callCount, 2)
   })
 
   it('should ALWAYS call submitUpdate when onMouseMove is called', () => {

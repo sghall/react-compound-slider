@@ -4,7 +4,6 @@
 import { assert } from 'chai'
 import { mode1, mode2, mode3 } from './modes'
 import DiscreteScale from './DiscreteScale'
-import { getStepRange } from './utils'
 
 describe('modes', () => {
   let min, max, step, scale
@@ -15,8 +14,10 @@ describe('modes', () => {
     step = 5
 
     scale = new DiscreteScale()
-    const range = getStepRange(min, max, step)
-    scale.setRange(range).setDomain([min - step / 2, max + step / 2])
+    scale
+      .setStep(step)
+      .setRange([min, max])
+      .setDomain([min, max])
   })
 
   describe('mode1', () => {

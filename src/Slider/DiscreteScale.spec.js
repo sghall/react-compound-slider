@@ -3,12 +3,11 @@
 
 import { assert } from 'chai'
 import DiscreteScale from './DiscreteScale'
-import { getStepRange } from './utils'
 
-const getTestValues = (min = 0, max = 10, step = 1) => {
+const getTestValues = (min = 0, max = 10) => {
   return {
-    range: getStepRange(min, max, step),
-    domain: [min - step / 2, max + step / 2],
+    range: [min, max],
+    domain: [min, max],
   }
 }
 
