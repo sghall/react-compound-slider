@@ -30,7 +30,7 @@ Release a slider on npm using this library?  Make a pull request and add it to t
 
 ### Slider Features
 
-- Small size (4.5kb)
+- Small size (4kb)
 - Makes no assumptions about your markup
 - Supports typescript
 - Precise control over user interactions and styling
