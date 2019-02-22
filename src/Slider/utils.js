@@ -49,34 +49,6 @@ export function getSliderDomain(slider, vertical) {
   return [d0, d1]
 }
 
-function precision(num) {
-  const m = `${num}`.match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/)
-
-  if (!m) {
-    return 0
-  }
-
-  return Math.max(0, (m[1] ? m[1].length : 0) - (m[2] ? +m[2] : 0))
-}
-
-export function getStepRange(min, max, step) {
-  const fixed = precision(step)
-
-  const pMin = +min.toFixed(fixed)
-  const pMax = +max.toFixed(fixed)
-
-  const range = []
-
-  let next = pMin
-
-  while (next <= pMax) {
-    range.push(next)
-    next = +(next + step).toFixed(fixed)
-  }
-
-  return range
-}
-
 export function isNotValidTouch({ type = '', touches }) {
   return (
     !touches ||
