@@ -577,7 +577,7 @@ Slider.defaultProps = {
   onSlideStart: noop,
   onSlideEnd: noop,
   disabled: false,
-  maxSteps: 500000,
+  warnOnChanges: false,
 }
 
 export default Slider
