@@ -1,46 +1,39 @@
-import { bisect } from 'd3-array'
+function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max)
+}
 
 class DiscreteScale {
   constructor() {
-    this.x0 = 0
-    this.x1 = 1
-
-    this.domain = [0.5]
+    this.step = 1
+    this.domain = [0, 1]
     this.range = [0, 1]
-
-    this.n = 1
-  }
-
-  getValue = x => {
-    const { range, domain, n } = this
-    return range[bisect(domain, x, 0, n)]
-  }
-
-  rescale() {
-    const { x0, x1, n } = this
-
-    let i = -1
-
-    this.domain = new Array(n)
-
-    while (++i < n) {
-      this.domain[i] = ((i + 1) * x1 - (i - n) * x0) / (n + 1)
-    }
   }
 
   setDomain = val => {
-    this.x0 = +val[0]
-    this.x1 = +val[1]
-    this.rescale()
-
+    this.domain = val.slice()
     return this
   }
 
   setRange = val => {
     this.range = val.slice()
-    this.n = this.range.length - 1
-
     return this
+  }
+
+  setStep = val => {
+    this.step = val
+    return this
+  }
+
+  getValue = x => {
+    const {
+      domain: [d0, d1],
+      range: [r0, r1],
+      step,
+    } = this
+    const p = (clamp(x, d0, d1) - d0) / (d1 - d0)
+    const b = step * Math.round((p * (r1 - r0)) / step) + r0
+
+    return clamp(b, r0 < r1 ? r0 : r1, r1 > r0 ? r1 : r0)
   }
 }
 
