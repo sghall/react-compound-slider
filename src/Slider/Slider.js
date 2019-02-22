@@ -557,14 +557,6 @@ Slider.propTypes = {
    */
   disabled: PropTypes.bool,
   /**
-   * Max number of steps allowed before warning. The rangeWarnings prop must be true for this to have any effect. Defaults to 500,000.
-   */
-  maxSteps: PropTypes.number,
-  /**
-   * When true, the slider will warn if the number of steps is larger than maxSteps or domain (max - min) is not evenly divisible by step value. Defaults to true. More at https://bit.ly/2BHjgvK.
-   */
-  rangeWarnings: PropTypes.bool,
-  /**
    * When true, the slider will warn if values are changed to fit domain and step values.  Defaults to false.
    */
   warnOnChanges: PropTypes.bool,
@@ -586,8 +578,6 @@ Slider.defaultProps = {
   onSlideEnd: noop,
   disabled: false,
   maxSteps: 500000,
-  rangeWarnings: true,
-  warnOnChanges: false,
 }
 
 export default Slider
