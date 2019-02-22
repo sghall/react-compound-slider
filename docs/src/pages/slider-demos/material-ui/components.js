@@ -63,25 +63,11 @@ const handleStyle = theme => {
       position: 'absolute',
       WebkitTapHighlightColor: 'rgba(0,0,0,0)',
     },
-    upper: {
+    outer: {
       zIndex: 5,
-      width: 0,
-      height: 0,
-      borderLeft: '20px solid transparent',
-      borderRight: '20px solid transparent',
-      borderTop: '30px solid transparent',
-      transform: 'translate(-50%, -85%)',
-      cursor: 'pointer',
-      backgroundColor: 'none',
-    },
-    lower: {
-      zIndex: 5,
-      width: 0,
-      height: 0,
-      borderLeft: '20px solid transparent',
-      borderRight: '20px solid transparent',
-      borderBottom: '30px solid transparent',
-      transform: 'translate(-50%, -15%)',
+      width: 20,
+      height: 40,
+      transform: 'translate(-50%, -50%)',
       cursor: 'pointer',
       backgroundColor: 'none',
     },
@@ -111,12 +97,7 @@ function HandleComponent({
   return (
     <Fragment>
       <div
-        className={clsx(classes.common, classes.upper)}
-        style={{ left: `${percent}%` }}
-        {...getHandleProps(id)}
-      />
-      <div
-        className={clsx(classes.common, classes.lower)}
+        className={clsx(classes.common, classes.outer)}
         style={{ left: `${percent}%` }}
         {...getHandleProps(id)}
       />
