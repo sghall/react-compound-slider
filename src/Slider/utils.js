@@ -36,7 +36,7 @@ export function getUpdatedHandles(handles, updateKey, updateValue, reversed) {
   return handles
 }
 
-export function getSliderDomain(slider, vertical, scale) {
+export function getSliderDomain(slider, vertical) {
   if (!slider) {
     return [0, 0]
   }
@@ -46,9 +46,7 @@ export function getSliderDomain(slider, vertical, scale) {
   const d0 = vertical ? s.top : s.left
   const d1 = vertical ? s.bottom : s.right
 
-  const k = Math.abs(d0 - d1) / scale.n / 2
-
-  return [d0 - k, d1 + k]
+  return [d0, d1]
 }
 
 function precision(num) {
