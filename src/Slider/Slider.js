@@ -11,7 +11,6 @@ import {
   getTouchPosition,
   getUpdatedHandles,
   getSliderDomain,
-  getStepRange,
   getHandles,
   prfx,
 } from './utils'
@@ -62,8 +61,8 @@ class Slider extends PureComponent {
       reversed,
       onUpdate,
       onChange,
-      maxSteps,
-      rangeWarnings,
+      // maxSteps,
+      // rangeWarnings,
       warnOnChanges,
     } = nextProps
 
@@ -93,38 +92,24 @@ class Slider extends PureComponent {
       reversed !== prevState.reversed
     ) {
       const [min, max] = domain
-      const range = getStepRange(min, max, step)
 
-      valueToStep.setRange(range).setDomain([min - step / 2, max + step / 2])
+      valueToStep
+        .setStep(step)
+        .setRange([min, max])
+        .setDomain([min, max])
 
       if (reversed === true) {
         valueToPerc.setDomain([min, max]).setRange([100, 0])
-        range.reverse()
+        pixelToStep.setStep(step).setRange([max, min])
       } else {
         valueToPerc.setDomain([min, max]).setRange([0, 100])
+        pixelToStep.setStep(step).setRange([min, max])
       }
-
-      pixelToStep.setRange(range)
 
       warning(
         max > min,
         `${prfx} Max must be greater than min (even if reversed). Max is ${max}. Min is ${min}.`,
       )
-
-      if (rangeWarnings) {
-        const last = range.length - 1
-
-        warning(
-          range.length <= maxSteps + 1,
-          `${prfx} Found ${range.length.toLocaleString()} steps in range (maxSteps prop = ${maxSteps.toLocaleString()}). See https://bit.ly/2BHjgvK.`,
-        )
-
-        warning(
-          range[reversed ? last : 0] === min &&
-            range[reversed ? 0 : last] === max,
-          `${prfx} Slider range is incorrect. Domain (max - min) should be evenly divided by step. See https://bit.ly/2BHjgvK.`,
-        )
-      }
 
       const { handles, changes } = getHandles(
         values || prevState.values,
@@ -171,9 +156,7 @@ class Slider extends PureComponent {
     const { pixelToStep } = this.state
     const { vertical } = this.props
 
-    pixelToStep.setDomain(
-      getSliderDomain(this.slider.current, vertical, pixelToStep),
-    )
+    pixelToStep.setDomain(getSliderDomain(this.slider.current, vertical))
   }
 
   componentWillUnmount() {
@@ -274,9 +257,7 @@ class Slider extends PureComponent {
     const { slider } = this
 
     // double check the dimensions of the slider
-    pixelToStep.setDomain(
-      getSliderDomain(slider.current, vertical, pixelToStep),
-    )
+    pixelToStep.setDomain(getSliderDomain(slider.current, vertical))
 
     // find the closest value (aka step) to the event location
     let updateValue
@@ -355,9 +336,7 @@ class Slider extends PureComponent {
     const { slider } = this
 
     // double check the dimensions of the slider
-    pixelToStep.setDomain(
-      getSliderDomain(slider.current, vertical, pixelToStep),
-    )
+    pixelToStep.setDomain(getSliderDomain(slider.current, vertical))
 
     // find the closest value (aka step) to the event location
     const updateValue = pixelToStep.getValue(vertical ? e.clientY : e.pageX)
@@ -386,9 +365,7 @@ class Slider extends PureComponent {
     }
 
     // double check the dimensions of the slider
-    pixelToStep.setDomain(
-      getSliderDomain(slider.current, vertical, pixelToStep),
-    )
+    pixelToStep.setDomain(getSliderDomain(slider.current, vertical))
 
     // find the closest value (aka step) to the event location
     const updateValue = pixelToStep.getValue(getTouchPosition(vertical, e))
