@@ -89,6 +89,8 @@ You have full control of everything that is rendered. Just create your own local
 
 [Starter Components - Material UI](https://github.com/sghall/react-compound-slider/blob/master/docs/src/pages/slider-demos/material-ui/components.js)
 
+[Starter Components -With Tooltips](https://github.com/sghall/react-compound-slider/blob/master/docs/src/pages/slider-demos/tooltips/components.js)
+
 ```jsx
 import { Slider, Handles, Tracks } from 'react-compound-slider'
 import { Handle, Track, Tick } from './your-local-slider-components'
