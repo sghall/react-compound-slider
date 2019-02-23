@@ -91,6 +91,8 @@ You have full control of everything that is rendered. Just create your own local
 
 [Starter Components - With Tooltips](https://github.com/sghall/react-compound-slider/blob/master/docs/src/pages/slider-demos/tooltips/components.js)
 
+[Basic Tooltip CSS](https://github.com/sghall/react-compound-slider/blob/master/docs/src/pages/slider-demos/tooltips/tooltip.css) (CSS from [this demo](https://www.w3schools.com/w3css/w3css_tooltips.asp))
+
 ```jsx
 import { Slider, Handles, Tracks } from 'react-compound-slider'
 import { Handle, Track, Tick } from './your-local-slider-components'
