@@ -129,6 +129,11 @@ class ResponsiveDrawer extends React.Component {
               <ListItemText primary="Tooltips" />
             </ListItem>
           </Link>
+          <Link to="/slider-demos/sandboxes">
+            <ListItem button>
+              <ListItemText primary="CodeSandbox" />
+            </ListItem>
+          </Link>
         </List>
         <Divider />
         <Typography variant="h6" className={classes.navTitle}>
