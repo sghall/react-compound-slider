@@ -177,7 +177,6 @@ export const Track = withStyles(trackStyle)(TrackComponent)
 // *******************************************************
 // TICK COMPONENT
 // *******************************************************
-
 const tickStyle = theme => ({
   tick: {
     position: 'absolute',
