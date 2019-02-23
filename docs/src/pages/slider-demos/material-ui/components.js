@@ -1,5 +1,3 @@
-// @flow weak
-
 import React, { Fragment } from 'react'
 import clsx from 'clsx'
 import PropTypes from 'prop-types'
@@ -130,57 +128,6 @@ HandleComponent.propTypes = {
 }
 
 export const Handle = withStyles(handleStyle)(HandleComponent)
-
-// *******************************************************
-// KEYBOARD HANDLE COMPONENT
-// *******************************************************
-const keyboardHandleStyle = theme => ({
-  root: {
-    position: 'absolute',
-    transform: 'translate(-50%, -50%)',
-    zIndex: 5,
-    width: 24,
-    height: 24,
-    cursor: 'pointer',
-    borderRadius: '50%',
-    boxShadow: '1px 1px 1px 1px rgba(0, 0, 0, 0.2)',
-    backgroundColor: theme.palette.primary.main,
-  },
-})
-
-function KeyboardHandleComponent({
-  domain: [min, max],
-  handle: { id, value, percent },
-  classes,
-  getHandleProps,
-}) {
-  return (
-    <button
-      role="slider"
-      aria-valuemin={min}
-      aria-valuemax={max}
-      aria-valuenow={value}
-      className={classes.root}
-      style={{ left: `${percent}%` }}
-      {...getHandleProps(id)}
-    />
-  )
-}
-
-KeyboardHandleComponent.propTypes = {
-  domain: PropTypes.array.isRequired,
-  handle: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    value: PropTypes.number.isRequired,
-    percent: PropTypes.number.isRequired,
-  }).isRequired,
-  classes: PropTypes.object.isRequired,
-  getHandleProps: PropTypes.func.isRequired,
-}
-
-export const KeyboardHandle = withStyles(keyboardHandleStyle)(
-  KeyboardHandleComponent,
-)
 
 // *******************************************************
 // TRACK COMPONENT
