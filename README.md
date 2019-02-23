@@ -81,7 +81,9 @@ The documentation is divided into several sections:
 
 ### Example Usage
 
-You have full control of everything that is rendered. Just create your own local handle, track and tick components.  You can use whatever style library / approach you prefer. You can use these components from the demos to jumpstart your slider:
+You have full control of everything that is rendered. Just render the `Slider` children that you want. Don't need ticks? Don't use `Ticks`. Don't want a rail? Don't use `Rail`.  Just create the local rail, handle, track and tick components that you want and render those using whatever styling method you prefer. 
+
+You can use these components from the demos to jumpstart your slider:
 
 [Starter Components - Horizontal](https://github.com/sghall/react-compound-slider/blob/master/docs/src/pages/slider-demos/horizontal/components.js)
 
