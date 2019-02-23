@@ -49,6 +49,7 @@ Release a slider on npm using this library?  Make a pull request and add it to t
 ### More Examples on CodeSandbox
 
 * [Basic Multi-Slider on CodeSandbox](https://codesandbox.io/s/plzyr7lmj)
+* [Date/Time Slider on CodeSandbox](https://codesandbox.io/s/rw97j317p)
 * [Video Slider on CodeSandbox](https://codesandbox.io/s/1z51zn6q23)
 * [Slider w/ Tooltips (Typescript)](https://codesandbox.io/s/pjwwzzj8qm)
 * [Value Slider on CodeSandbox (Typescript)](https://codesandbox.io/s/6zpjmw1x3w)
