@@ -297,6 +297,8 @@ class Slider extends PureComponent {
       state: { pixelToStep, valueToPerc },
       props: { vertical },
     } = this
+    // double check the dimensions of the slider
+    pixelToStep.setDomain(getSliderDomain(this.slider.current, vertical))
 
     let value
 
@@ -331,10 +333,8 @@ class Slider extends PureComponent {
       state: { handles: curr, pixelToStep, activeHandleID },
       props: { vertical, reversed },
     } = this
-    const { slider } = this
-
     // double check the dimensions of the slider
-    pixelToStep.setDomain(getSliderDomain(slider.current, vertical))
+    pixelToStep.setDomain(getSliderDomain(this.slider.current, vertical))
 
     // find the closest value (aka step) to the event location
     const updateValue = pixelToStep.getValue(vertical ? e.clientY : e.pageX)
@@ -356,14 +356,12 @@ class Slider extends PureComponent {
       state: { handles: curr, pixelToStep, activeHandleID },
       props: { vertical, reversed },
     } = this
-    const { slider } = this
-
     if (isNotValidTouch(e)) {
       return
     }
 
     // double check the dimensions of the slider
-    pixelToStep.setDomain(getSliderDomain(slider.current, vertical))
+    pixelToStep.setDomain(getSliderDomain(this.slider.current, vertical))
 
     // find the closest value (aka step) to the event location
     const updateValue = pixelToStep.getValue(getTouchPosition(vertical, e))
