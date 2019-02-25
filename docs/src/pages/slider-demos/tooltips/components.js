@@ -10,7 +10,6 @@ const railStyle = {
   width: '100%',
   transform: 'translate(0%, -50%)',
   height: 40,
-  borderRadius: 7,
   cursor: 'pointer',
   zIndex: 300,
   // border: '1px solid grey',
