@@ -456,7 +456,7 @@ class Slider extends PureComponent {
   render() {
     const {
       state: { handles, valueToPerc, activeHandleID },
-      props: { className, rootStyle, disabled },
+      props: { className, rootStyle, rootProps, component: Comp, disabled },
     } = this
 
     const mappedHandles = handles.map(({ key, val }) => {
@@ -486,22 +486,36 @@ class Slider extends PureComponent {
     })
 
     return (
-      <div style={rootStyle || {}} className={className} ref={this.slider}>
+      <Comp
+        {...rootProps}
+        style={rootStyle}
+        className={className}
+        ref={this.slider}
+      >
         {children}
-      </div>
+      </Comp>
     )
   }
 }
 
 Slider.propTypes = {
   /**
-   * CSS class name applied to the root div of the slider.
+   * String component used for root of slider e.g. 'g' for SVG sliders. Defaults to 'div'.
    */
-  className: PropTypes.string,
+  component: PropTypes.string,
   /**
-   * An object with any inline styles you want applied to the root div.
+   * An object with any inline styles you want applied to the root element.
    */
   rootStyle: PropTypes.object,
+  /**
+   * An object with any props you want applied to the root element.
+   */
+  rootProps: PropTypes.object,
+  /**
+   * CSS class name applied to the root element of the slider.
+   */
+  className: PropTypes.string,
+
   /**
    * Two element array of numbers providing the min and max values for the slider [min, max] e.g. [0, 100].
    * It does not matter if the slider is reversed on the screen, domain is always [min, max] with min < max.
@@ -567,6 +581,9 @@ Slider.defaultProps = {
   mode: 1,
   step: 0.1,
   domain: [0, 100],
+  component: 'div',
+  rootProps: {},
+  rootStyle: {},
   vertical: false,
   reversed: false,
   onChange: noop,
