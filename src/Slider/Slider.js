@@ -456,7 +456,14 @@ class Slider extends PureComponent {
   render() {
     const {
       state: { handles, valueToPerc, activeHandleID },
-      props: { className, rootStyle, rootProps, component: Comp, disabled },
+      props: {
+        className,
+        rootStyle,
+        rootProps,
+        component: Comp,
+        disabled,
+        siblingChildren,
+      },
     } = this
 
     const mappedHandles = handles.map(({ key, val }) => {
@@ -485,7 +492,17 @@ class Slider extends PureComponent {
       return child
     })
 
-    return (
+    return siblingChildren ? (
+      <>
+        <Comp
+          {...rootProps}
+          style={rootStyle}
+          className={className}
+          ref={this.slider}
+        />
+        {children}
+      </>
+    ) : (
       <Comp
         {...rootProps}
         style={rootStyle}
@@ -499,6 +516,10 @@ class Slider extends PureComponent {
 }
 
 Slider.propTypes = {
+  /**
+   * String component used for root of slider e.g. 'g' for SVG sliders. Defaults to 'div'.
+   */
+  siblingChildren: PropTypes.bool,
   /**
    * String component used for root of slider e.g. 'g' for SVG sliders. Defaults to 'div'.
    */
@@ -581,6 +602,7 @@ Slider.defaultProps = {
   mode: 1,
   step: 0.1,
   domain: [0, 100],
+  siblingChildren: false,
   component: 'div',
   rootProps: {},
   rootStyle: {},
