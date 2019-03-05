@@ -36,7 +36,8 @@ class Tracks extends Component {
 
       if (i === 0 && left === true) {
         source = { id: '$', value: domain[0], percent: 0 }
-      } else if (i === handles.length && right === true) {
+      }
+      if (i === handles.length && right === true) {
         target = { id: '$', value: domain[1], percent: 100 }
       }
 
