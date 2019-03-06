@@ -26,8 +26,10 @@ export interface SliderProps {
   onSlideStart?: (values: ReadonlyArray<number>) => void;
   onSlideEnd?: (values: ReadonlyArray<number>) => void;
   className?: string;
+  component?: string;
   rootStyle?: React.CSSProperties;
   children: React.ReactNode;
+  flatten?: boolean;
 }
 
 declare const Slider: React.ComponentType<SliderProps>;
