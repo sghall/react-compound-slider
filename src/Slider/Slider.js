@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import warning from 'warning'
 import PropTypes from 'prop-types'
 import Rail from '../Rail'
@@ -493,7 +493,7 @@ class Slider extends PureComponent {
     })
 
     return flatten ? (
-      <>
+      <Fragment>
         <Comp
           {...rootProps}
           style={rootStyle}
@@ -501,7 +501,7 @@ class Slider extends PureComponent {
           ref={this.slider}
         />
         {children}
-      </>
+      </Fragment>
     ) : (
       <Comp
         {...rootProps}
@@ -584,7 +584,7 @@ Slider.propTypes = {
    */
   disabled: PropTypes.bool,
   /**
-   * Render the Slider children as siblings. This is primarily for SVG sliders. See the SVG example.
+   * Render slider children as siblings. This is primarily for SVG sliders. See the SVG example.
    */
   flatten: PropTypes.bool,
   /**
