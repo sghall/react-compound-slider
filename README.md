@@ -5,7 +5,7 @@
 
 ## React Compound Slider
 
-Welcome to the future. React Compound Slider is a tiny (4.1kb) slider component with no opinion about markup or styles.
+Welcome to the future. React Compound Slider is a tiny (4.3kb) slider component with no opinion about markup or styles.
 
 ### [Documentation and Examples](https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal)
 
@@ -28,7 +28,7 @@ This library aims to be a stable platform for creating slider components with a 
 
 ### Slider Features
 
-- Small size (4.1kb)
+- Small size (4.3kb)
 - Makes no assumptions about your markup
 - Supports SVG sliders
 - Supports typescript
