@@ -22,10 +22,15 @@ Welcome to the future. React Compound Slider is a tiny (4.1kb) slider component 
   <img src="https://user-images.githubusercontent.com/4615775/46690444-2aa96b80-cbb7-11e8-8cdd-d1af59df59fe.png" alt="React Compound Slider" style="width:450px;"/></a>
 </div>
 
+### Motivation
+
+This library aims to be a stable platform for creating slider components with a very small impact on bundle size. It is primarily aimed at application developers and npm package maintainers. You can create your own set of controls matched exactly to your application style, but it takes a little more effort than other components out there. You need to be comfortable handling what gets rendered and styling your components to really get maximum value from this library. There are quite a few demos on the website but they should be used as a starting point. You can also create your own custom themed slider component for your favorite framework and release it on npm for others to use.
+
 ### Slider Features
 
 - Small size (4.1kb)
 - Makes no assumptions about your markup
+- Supports SVG sliders
 - Supports typescript
 - Precise control over user interactions and styling
 - Horizontal/vertical display
@@ -46,6 +51,7 @@ Welcome to the future. React Compound Slider is a tiny (4.1kb) slider component 
 * [Date/Time Slider on CodeSandbox](https://codesandbox.io/s/rw97j317p)
 * [Video Slider on CodeSandbox](https://codesandbox.io/s/1z51zn6q23)
 * [Slider w/ Tooltips (Typescript)](https://codesandbox.io/s/pjwwzzj8qm)
+* [SVG Slider on CodeSandbox](https://codesandbox.io/s/qk0vovqw6)
 * [Value Slider on CodeSandbox (Typescript)](https://codesandbox.io/s/6zpjmw1x3w)
 * [Range Slider on CodeSandbox (Typescript)](https://codesandbox.io/s/zl8nrlp9x)
 * [Custom Feet-Inches Ticks on CodeSandbox (Typescript)](https://codesandbox.io/s/5262w7r9yx)
