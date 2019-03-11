@@ -462,7 +462,7 @@ class Slider extends PureComponent {
         rootProps,
         component: Comp,
         disabled,
-        siblingChildren,
+        flatten,
       },
     } = this
 
@@ -492,7 +492,7 @@ class Slider extends PureComponent {
       return child
     })
 
-    return siblingChildren ? (
+    return flatten ? (
       <>
         <Comp
           {...rootProps}
@@ -517,11 +517,7 @@ class Slider extends PureComponent {
 
 Slider.propTypes = {
   /**
-   * String component used for root of slider e.g. 'g' for SVG sliders. Defaults to 'div'.
-   */
-  siblingChildren: PropTypes.bool,
-  /**
-   * String component used for root of slider e.g. 'g' for SVG sliders. Defaults to 'div'.
+   * String component used for slider root. Defaults to 'div'.
    */
   component: PropTypes.string,
   /**
@@ -536,7 +532,6 @@ Slider.propTypes = {
    * CSS class name applied to the root element of the slider.
    */
   className: PropTypes.string,
-
   /**
    * Two element array of numbers providing the min and max values for the slider [min, max] e.g. [0, 100].
    * It does not matter if the slider is reversed on the screen, domain is always [min, max] with min < max.
@@ -585,15 +580,19 @@ Slider.propTypes = {
    */
   onSlideEnd: PropTypes.func,
   /**
-   * Ignore all mouse, touch and keyboard events
+   * Ignore all mouse, touch and keyboard events.
    */
   disabled: PropTypes.bool,
+  /**
+   * Render the Slider children as siblings. This is primarily for SVG sliders. See the SVG example.
+   */
+  flatten: PropTypes.bool,
   /**
    * When true, the slider will warn if values are changed to fit domain and step values.  Defaults to false.
    */
   warnOnChanges: PropTypes.bool,
   /**
-   * Component children to render
+   * Component children to render.
    */
   children: PropTypes.any,
 }
@@ -602,7 +601,6 @@ Slider.defaultProps = {
   mode: 1,
   step: 0.1,
   domain: [0, 100],
-  siblingChildren: false,
   component: 'div',
   rootProps: {},
   rootStyle: {},
@@ -613,6 +611,7 @@ Slider.defaultProps = {
   onSlideStart: noop,
   onSlideEnd: noop,
   disabled: false,
+  flatten: false,
   warnOnChanges: false,
 }
 
