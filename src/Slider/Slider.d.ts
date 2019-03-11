@@ -28,6 +28,7 @@ export interface SliderProps {
   className?: string;
   component?: string;
   rootStyle?: React.CSSProperties;
+  rootProps?: object;
   children: React.ReactNode;
   flatten?: boolean;
 }
