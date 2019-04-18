@@ -51,6 +51,7 @@ class Slider extends PureComponent {
     pixelToStep: null,
   }
 
+  _isMounted = false
   slider = React.createRef()
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -151,6 +152,7 @@ class Slider extends PureComponent {
   }
 
   componentDidMount() {
+    this._isMounted = true
     const { pixelToStep } = this.state
     const { vertical } = this.props
 
@@ -159,6 +161,7 @@ class Slider extends PureComponent {
 
   componentWillUnmount() {
     this.removeListeners()
+    this._isMounted = false
   }
 
   removeListeners() {
@@ -428,7 +431,9 @@ class Slider extends PureComponent {
     onChange(handles.map(d => d.val))
     onSlideEnd(handles.map(d => d.val), { activeHandleID })
 
-    this.setState({ activeHandleID: null })
+    if (this._isMounted) {
+      this.setState({ activeHandleID: null })
+    }
 
     if (isBrowser) {
       document.removeEventListener('mousemove', this.onMouseMove)
@@ -445,7 +450,9 @@ class Slider extends PureComponent {
     onChange(handles.map(d => d.val))
     onSlideEnd(handles.map(d => d.val), { activeHandleID })
 
-    this.setState({ activeHandleID: null })
+    if (this._isMounted) {
+      this.setState({ activeHandleID: null })
+    }
 
     if (isBrowser) {
       document.removeEventListener('touchmove', this.onTouchMove)
