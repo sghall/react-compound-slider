@@ -9,6 +9,7 @@ const sliderStyle = {
   position: 'relative',
   height: '400px',
   marginLeft: '45%',
+  touchAction: 'none',
 }
 
 const domain = [100, 500]
