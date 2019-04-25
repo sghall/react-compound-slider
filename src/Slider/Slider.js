@@ -230,8 +230,11 @@ class Slider extends PureComponent {
       props: { onSlideStart },
     } = this
 
+    if (!isTouch) {
+      e.preventDefault && e.preventDefault()
+    }
+
     e.stopPropagation && e.stopPropagation()
-    e.preventDefault && e.preventDefault()
 
     const found = handles.find(value => {
       return value.key === handleID
