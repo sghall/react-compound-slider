@@ -239,8 +239,9 @@ class ResponsiveDrawer extends React.Component {
             }}
             message={
               <span id="snackbar-fab-message-id">
-                <b>Note:</b> react-compound-slider does not render any content
-                itself. The demos on this site are provided to help people get
+                <b>Note:</b> react-compound-slider does not define the slider
+                content. The user defines the rail, handle, track and tick
+                content. The demos on this site are provided to help people get
                 started and are used to test changes to the library. While they
                 generally work on mobile, the demos are NOT optimized for mobile
                 devices.
