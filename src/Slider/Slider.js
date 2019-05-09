@@ -292,7 +292,10 @@ class Slider extends PureComponent {
     )
 
     // submit the candidate values
-    this.submitUpdate(nextHandles, true)
+    this.setState({ activeHandleID: updateKey }, () => {
+      this.submitUpdate(nextHandles, true)
+      isTouch ? this.addTouchEvents() : this.addMouseEvents()
+    })
   }
 
   getEventData = (e, isTouch) => {
