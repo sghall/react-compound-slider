@@ -1,3 +1,4 @@
+import '@babel/polyfill'
 import { AppContainer } from 'react-hot-loader'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
