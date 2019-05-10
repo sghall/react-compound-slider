@@ -562,7 +562,7 @@ Slider.propTypes = {
    */
   step: PropTypes.number,
   /**
-   * The min distance between two handle in mode 3.
+   * The min distance between two handles in mode 3.
    */
   minDistance: PropTypes.number,
   /**
@@ -610,7 +610,7 @@ Slider.propTypes = {
    */
   warnOnChanges: PropTypes.bool,
   /**
-   * When true, handle at the extremities are fixed
+   * When true, handles at the extremities are fixed
    */
   fixedEdges: PropTypes.bool,
   /**
