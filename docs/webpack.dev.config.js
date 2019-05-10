@@ -9,6 +9,7 @@ module.exports = {
   devtool: 'inline-source-map',
   context: path.resolve(__dirname),
   entry: [
+    '@babel/polyfill',
     'react-hot-loader/patch',
     'webpack-dev-server/client?http://0.0.0.0:3000',
     'webpack/hot/only-dev-server',

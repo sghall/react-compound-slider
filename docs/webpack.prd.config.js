@@ -4,7 +4,9 @@ const path = require('path')
 
 module.exports = {
   context: path.resolve(__dirname),
-  entry: ['./src/index'],
+  devtool: 'source-map',
+  mode: 'production',
+  entry: ['@babel/polyfill', './src/index'],
   output: {
     path: path.join(__dirname, 'build'),
     filename: 'bundle.js',
@@ -17,7 +19,6 @@ module.exports = {
     rules: [
       {
         test: /\.m?js$/,
-        exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -25,13 +26,17 @@ module.exports = {
               [
                 '@babel/preset-env',
                 {
-                  modules: 'commonjs',
+                  targets: {
+                    chrome: '58',
+                    ie: '11',
+                  },
                 },
               ],
               '@babel/preset-react',
             ],
             plugins: [
               '@babel/plugin-proposal-class-properties',
+              '@babel/plugin-transform-arrow-functions',
               ['transform-react-remove-prop-types', { mode: 'remove' }],
             ],
           },
