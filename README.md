@@ -145,7 +145,7 @@ In this library the `Handles`, `Tracks`, and `Ticks` components are used as chil
 
 Slider Artwork by Guilhem from the Noun Project
 
-##### Device Testing Thanks to BrowserStack:
+##### Device testing for this library thanks to BrowserStack:
 
 <div style="text-align:center;">
   <a href="https://www.browserstack.com" target="\_parent">
