@@ -22,7 +22,7 @@ export function mode2(curr, next) {
 }
 
 // pushable mode
-export function mode3(curr, next, step, reversed, getValue) {
+export function mode3(curr, next, step, reversed, getValue, minDistance) {
   let indexForMovingHandle = -1
   let handleMoveIsPositive = true
 
@@ -48,8 +48,10 @@ export function mode3(curr, next, step, reversed, getValue) {
     for (let i = 0; i < next.length; i++) {
       const n0 = next[i]
       const n1 = next[i + 1]
-
-      if (n1 && n0.val === n1.val) {
+      if (
+        n1 &&
+        (minDistance ? n0.val > n1.val - minDistance : n0.val === n1.val)
+      ) {
         if (i === indexForMovingHandle) {
           const newStep = n1.val + increment
           if (getValue(newStep) === newStep) {
@@ -59,7 +61,14 @@ export function mode3(curr, next, step, reversed, getValue) {
               n1.val + increment,
               reversed,
             )
-            const check = mode3(next, clone, step, reversed, getValue)
+            const check = mode3(
+              next,
+              clone,
+              step,
+              reversed,
+              getValue,
+              minDistance,
+            )
 
             if (check === next) {
               return curr
@@ -78,7 +87,14 @@ export function mode3(curr, next, step, reversed, getValue) {
               n0.val + increment,
               reversed,
             )
-            const check = mode3(next, clone, step, reversed, getValue)
+            const check = mode3(
+              next,
+              clone,
+              step,
+              reversed,
+              getValue,
+              minDistance,
+            )
 
             if (check === next) {
               return curr

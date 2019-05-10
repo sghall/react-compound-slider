@@ -227,7 +227,7 @@ class Slider extends PureComponent {
   onStart(e, handleID, isTouch) {
     const {
       state: { handles },
-      props: { onSlideStart },
+      props: { onSlideStart, fixedEdges },
     } = this
 
     if (!isTouch) {
@@ -236,11 +236,15 @@ class Slider extends PureComponent {
 
     e.stopPropagation && e.stopPropagation()
 
-    const found = handles.find(value => {
+    const indexFound = handles.findIndex(value => {
       return value.key === handleID
     })
 
-    if (found) {
+    if (fixedEdges && (indexFound === 0 || indexFound === handles.length - 1)) {
+      return
+    }
+
+    if (indexFound !== -1) {
       this.setState({ activeHandleID: handleID })
       onSlideStart(handles.map(d => d.val), { activeHandleID: handleID })
       isTouch ? this.addTouchEvents() : this.addMouseEvents()
@@ -253,7 +257,7 @@ class Slider extends PureComponent {
   handleRailAndTrackClicks(e, isTouch) {
     const {
       state: { handles: curr, pixelToStep },
-      props: { vertical, reversed },
+      props: { vertical, reversed, fixedEdges },
     } = this
     const { slider } = this
 
@@ -273,7 +277,11 @@ class Slider extends PureComponent {
     let updateKey = null
     let minDiff = Infinity
 
-    for (let i = 0; i < curr.length; i++) {
+    for (
+      let i = fixedEdges ? 1 : 0;
+      i < (fixedEdges ? curr.length - 1 : curr.length);
+      i++
+    ) {
       const { key, val } = curr[i]
       const diff = Math.abs(val - updateValue)
 
@@ -385,7 +393,7 @@ class Slider extends PureComponent {
   }
 
   submitUpdate(next, callOnChange) {
-    const { mode, step, onUpdate, onChange, reversed } = this.props
+    const { mode, step, onUpdate, onChange, reversed, minDistance } = this.props
     const { getValue } = this.state.valueToStep
 
     this.setState(({ handles: curr }) => {
@@ -407,7 +415,7 @@ class Slider extends PureComponent {
             handles = mode2(curr, next)
             break
           case 3:
-            handles = mode3(curr, next, step, reversed, getValue)
+            handles = mode3(curr, next, step, reversed, getValue, minDistance)
             break
           default:
             handles = next
@@ -554,6 +562,10 @@ Slider.propTypes = {
    */
   step: PropTypes.number,
   /**
+   * The min distance between two handle in mode 3.
+   */
+  minDistance: PropTypes.number,
+  /**
    * The interaction mode. Value of 1 will allow handles to cross each other.
    * Value of 2 will keep the sliders from crossing and separated by a step.
    * Value of 3 will make the handles pushable and keep them a step apart.
@@ -598,6 +610,10 @@ Slider.propTypes = {
    */
   warnOnChanges: PropTypes.bool,
   /**
+   * When true, handle at the extremities are fixed
+   */
+  fixedEdges: PropTypes.bool,
+  /**
    * Component children to render.
    */
   children: PropTypes.any,
@@ -606,6 +622,7 @@ Slider.propTypes = {
 Slider.defaultProps = {
   mode: 1,
   step: 0.1,
+  minDistance: 0,
   domain: [0, 100],
   component: 'div',
   rootProps: {},
@@ -618,6 +635,7 @@ Slider.defaultProps = {
   onSlideEnd: noop,
   disabled: false,
   flatten: false,
+  fixedEdges: false,
   warnOnChanges: false,
 }
 

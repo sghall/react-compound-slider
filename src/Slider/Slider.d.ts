@@ -15,11 +15,13 @@ export type SliderModeFunction = (
 export interface SliderProps {
   mode?: number | SliderModeFunction;
   step?: number;
+  minDistance?: number;
   domain?: ReadonlyArray<number>;
   values: ReadonlyArray<number>;
   vertical?: boolean;
   reversed?: boolean;
   disabled?: boolean;
+  fixedEdges?: boolean;
   warnOnChanges?: boolean;
   onUpdate?: (values: ReadonlyArray<number>) => void;
   onChange?: (values: ReadonlyArray<number>) => void;
