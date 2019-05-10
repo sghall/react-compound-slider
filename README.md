@@ -144,3 +144,10 @@ In general slider components are composed of a relatively positioned outer div w
 In this library the `Handles`, `Tracks`, and `Ticks` components are used as children to the `Slider` component and they let you tap into a stream of values and percentages that you can then use to render your own components.
 
 Slider Artwork by Guilhem from the Noun Project
+
+##### Device Testing Thanks to BrowserStack
+
+<div style="text-align:center;">
+  <a href="https://www.browserstack.com" target="\_parent">
+  <img src="https://user-images.githubusercontent.com/4615775/57501253-aaa5ca00-729b-11e9-99a6-0823d793d22f.png" alt="React Compound Slider" style="width:450px;"/></a>
+</div>
