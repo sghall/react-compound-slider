@@ -11,7 +11,7 @@ import {
 import { createHashHistory } from 'history'
 import { useScroll } from 'react-router-scroll'
 import { titleize } from 'docs/src/utils/helpers'
-import AppFrame from 'docs/src/components/AppFrame'
+import AppFrame from 'docs/src/layout'
 import AppContent from 'docs/src/components/AppContent'
 import MarkdownDocs from 'docs/src/components/MarkdownDocs'
 import ComponentDoc from 'docs/src/components/ComponentDoc'

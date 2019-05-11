@@ -6,6 +6,7 @@ import { SliderRail, Handle, Track } from './components' // example render compo
 const sliderStyle = {
   position: 'relative',
   width: '100%',
+  touchAction: 'none',
 }
 
 const domain = [100, 500]
