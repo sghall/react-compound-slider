@@ -56,7 +56,8 @@ This library aims to be a stable platform for creating slider components with a 
 * [Range Slider on CodeSandbox (Typescript)](https://codesandbox.io/s/zl8nrlp9x)
 * [Custom Feet-Inches Ticks on CodeSandbox (Typescript)](https://codesandbox.io/s/5262w7r9yx)
 * [Custom Feet-Inches Ticks - Vertical on CodeSandbox (Typescript)](https://codesandbox.io/s/18lkz04y8j)
-* [Material Design Example on CodeSandbox](https://codesandbox.io/s/k91omlr1wo) @RafeSacks 
+* [Material Design Example on CodeSandbox](https://codesandbox.io/s/k91omlr1wo) by [@RafeSacks](https://github.com/RafeSacks) 
+* [Slider with Bar Chart on CodeSandbox](https://codesandbox.io/s/rangeslider-with-histogram-voos8) by [@magician11](https://github.com/magician11) See [#85](https://github.com/sghall/react-compound-slider/issues/85).
 
 # Installation
 
