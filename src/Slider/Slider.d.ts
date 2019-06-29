@@ -2,7 +2,7 @@ import * as React from 'react';
 
 export type SliderModeValue = {
   key: string;
-  value: number;
+  val: number;
 }
 export type SliderModeFunction = (
   current: SliderModeValue[],
