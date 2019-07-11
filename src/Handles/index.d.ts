@@ -1,1 +1,1 @@
-export { default, HandlesObject, GetHandleProps } from './Handles';
+export { default, HandlesObject, HandlesProps, GetHandleProps } from './Handles';

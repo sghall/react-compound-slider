@@ -1,1 +1,1 @@
-export { default, TicksObject } from './Ticks';
+export { default, TicksObject, TicksProps } from './Ticks';

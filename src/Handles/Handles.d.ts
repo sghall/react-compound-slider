@@ -15,7 +15,7 @@ export interface HandlesObject {
   getHandleProps: GetHandleProps;
 }
 
-interface HandlesProps {
+export interface HandlesProps {
   children: (handlesObject: HandlesObject) => React.ReactNode;
 }
 

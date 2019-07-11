@@ -4,6 +4,7 @@ export type SliderModeValue = {
   key: string;
   val: number;
 }
+
 export type SliderModeFunction = (
   current: SliderModeValue[],
   next: SliderModeValue[],

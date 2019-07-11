@@ -1,1 +1,1 @@
-export { default } from './Slider';
+export { default, SliderProps, SliderModeValue, SliderModeFunction } from './Slider';
