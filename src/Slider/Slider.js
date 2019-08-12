@@ -43,7 +43,7 @@ class Slider extends PureComponent {
     step: null,
     values: null,
     domain: null,
-    handles: null,
+    handles: [],
     reversed: null,
     activeHandleID: null,
     valueToPerc: null,
