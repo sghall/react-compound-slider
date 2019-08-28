@@ -28,20 +28,20 @@
     "marked": "^0.7.0",
     "prismjs": "^1.17.1",
     "raw-loader": "^1.0.0",
-    "react": "^16.8.6",
+    "react": "^16.9.0",
     "react-docgen": "^2.21.0",
-    "react-dom": "^16.8.6",
-    "react-hot-loader": "^4.12.10",
+    "react-dom": "^16.9.0",
+    "react-hot-loader": "^4.12.12",
     "react-redux": "^6.0.1",
-    "react-router": "^3.2.3",
+    "react-router": "^3.2.4",
     "react-router-scroll": "^0.4.4",
     "recast": "^0.16.2",
     "recompose": "^0.30.0",
     "redux": "^4.0.4",
-    "sass-loader": "^7.1.0",
+    "sass-loader": "^7.3.1",
     "style-loader": "^0.23.1",
-    "webpack": "^4.39.1",
-    "webpack-cli": "^3.3.6",
-    "webpack-dev-server": "^3.7.2"
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.7",
+    "webpack-dev-server": "^3.8.0"
   }
 }
