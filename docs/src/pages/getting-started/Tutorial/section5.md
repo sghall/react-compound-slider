@@ -1,5 +1,4 @@
-
-Nice.  Let's say we actually need three handles.
+Nice. Let's say we actually need three handles.
 The tracks should only show on the connections between handles.
 
 ```jsx
@@ -11,7 +10,7 @@ import { Slider, Rail, Handles, Tracks } from 'react-compound-slider'
     domain={[0, 100]}
     step={1}
     mode={2}
-    values={[10, 20, 30]}  // three values = three handles
+    values={[10, 20, 30] /* three values = three handles */}
   >
     <Rail>
       {({ getRailProps }) => (
@@ -31,7 +30,7 @@ import { Slider, Rail, Handles, Tracks } from 'react-compound-slider'
         </div>
       )}
     </Handles>
-    <Tracks left={false} right={false}>  // no outer tracks
+    <Tracks left={false} right={false}>
       {({ tracks, getTrackProps }) => (
         <div className="slider-tracks">
           {tracks.map(({ id, source, target }) => (

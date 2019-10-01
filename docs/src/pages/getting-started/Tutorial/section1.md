@@ -6,9 +6,9 @@ The library itself contains absolutley no styles so it's critical to make sure y
 You can do that by passing the slider a rootStyle prop for inline styles or a className prop.
 
 In ES6 enviroments you can import the components like this:
-```jsx
-import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
 
+```jsx
+import { Slider, Rail, Handles, Tracks, Ticks } from "react-compound-slider";
 ```
 
 ###### Start with Rendering Just a Rail
@@ -23,7 +23,7 @@ const sliderStyle = {  // Give the slider some width
   border: '1px solid steelblue',
 }
 
-const railStyle = { 
+const railStyle = {
   position: 'absolute',
   width: '100%',
   height: 10,
@@ -34,11 +34,11 @@ const railStyle = {
 
 ...
 <Slider
-	rootStyle={sliderStyle} // inline styles for the outer div. Can also use className prop.
+	rootStyle={sliderStyle /* inline styles for the outer div. Can also use className prop. */}
 	domain={[0, 100]}
 	values={[10]}
  >
-	<div style={railStyle} /> // Add a rail as a child.  Later we'll make it interactive.
+	<div style={railStyle /* Add a rail as a child.  Later we'll make it interactive. */} />
 </Slider>
 ...
 ```

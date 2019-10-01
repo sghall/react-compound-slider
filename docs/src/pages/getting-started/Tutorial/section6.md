@@ -1,4 +1,3 @@
-
 Let's add some ticks...
 
 ##### Ticks
@@ -6,7 +5,7 @@ Let's add some ticks...
 ```jsx
 import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
 
-function Tick({ tick, count }) {  // your own tick component
+function Tick({ tick, count }) {
   return (
     <div>
       <div

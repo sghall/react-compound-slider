@@ -1,4 +1,3 @@
-
 Pretty cool, but you can't click on the rail.
 
 Let's fix that...
@@ -17,8 +16,8 @@ import { Slider, Rail, Handles, Tracks } from 'react-compound-slider'
     values={[30]}
   >
     <Rail>
-      {({ getRailProps }) => (  // adding the rail props sets up events on the rail
-        <div style={railStyle} {...getRailProps()} /> 
+      {({ getRailProps }) => (
+        <div style={railStyle} {...getRailProps()} />
       )}
     </Rail>
     <Handles>
@@ -52,4 +51,4 @@ import { Slider, Rail, Handles, Tracks } from 'react-compound-slider'
 ...
 ```
 
-The result of the code above looks like this.  You can now click on the track (blue) or the rail (grey).
+The result of the code above looks like this. You can now click on the track (blue) or the rail (grey).

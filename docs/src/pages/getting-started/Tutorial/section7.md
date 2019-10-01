@@ -1,4 +1,3 @@
-
 You can specify exactly what the tick values should be as well.
 Pass the values and get back the percentages to place them correctly.
 
@@ -48,7 +47,7 @@ import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
     <Ticks values={[0, 25, 50, 75, 100]}> // pass in an array of values
       {({ ticks }) => (
         <div className="slider-ticks">
-          {ticks.map(tick => ( // get back ids, values and percents (to place them)
+          {ticks.map(tick => (
             <Tick key={tick.id} tick={tick} count={ticks.length} />
           ))}
         </div>

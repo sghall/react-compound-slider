@@ -1,5 +1,4 @@
-
-Better, but still not too impressive.  Let's add a dark blue track on the left hand side and make it clickable.
+Better, but still not too impressive. Let's add a dark blue track on the left hand side and make it clickable.
 
 ##### Tracks
 
@@ -26,7 +25,7 @@ function Track({ source, target, getTrackProps }) { // your own track component
         left: `${source.percent}%`,
         width: `${target.percent - source.percent}%`,
       }}
-      {...getTrackProps()} // this will set up events if you want it to be clickeable (optional)
+      {...getTrackProps() /* this will set up events if you want it to be clickeable (optional) */}
     />
   )
 }

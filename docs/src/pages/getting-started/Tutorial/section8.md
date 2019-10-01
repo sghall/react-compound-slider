@@ -1,7 +1,7 @@
-
-Looks pretty good.  Now, can we display it in reverse?
+Looks pretty good. Now, can we display it in reverse?
 
 Not a problem:
+
 ```jsx
 import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
 
@@ -11,7 +11,7 @@ import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
     domain={[0, 100]}
     step={1}
     mode={2}
-    reversed // just change the reversed prop
+    reversed
     values={[20, 60, 80]}
   >
     <Rail>
@@ -59,4 +59,4 @@ import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider'
 ...
 ```
 
-The result of the code above looks like this.  The slider now goes from high to low:
+The result of the code above looks like this. The slider now goes from high to low:
