@@ -28,10 +28,10 @@
     "marked": "^0.7.0",
     "prismjs": "^1.17.1",
     "raw-loader": "^1.0.0",
-    "react": "^16.9.0",
+    "react": "^16.10.1",
     "react-docgen": "^2.21.0",
-    "react-dom": "^16.9.0",
-    "react-hot-loader": "^4.12.12",
+    "react-dom": "^16.10.1",
+    "react-hot-loader": "^4.12.14",
     "react-redux": "^6.0.1",
     "react-router": "^3.2.4",
     "react-router-scroll": "^0.4.4",
@@ -40,8 +40,8 @@
     "redux": "^4.0.4",
     "sass-loader": "^7.3.1",
     "style-loader": "^0.23.1",
-    "webpack": "^4.39.3",
-    "webpack-cli": "^3.3.8",
-    "webpack-dev-server": "^3.8.0"
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.1"
   }
 }
