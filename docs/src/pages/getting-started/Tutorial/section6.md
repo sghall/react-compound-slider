@@ -76,7 +76,7 @@ function Tick({ tick, count }) {
         </div>
       )}
     </Tracks>
-    <Ticks count={15}> // generate approximately 15 ticks within the domain
+    <Ticks count={15 /* generate approximately 15 ticks within the domain */}>
       {({ ticks }) => (
         <div className="slider-ticks">
           {ticks.map(tick => (

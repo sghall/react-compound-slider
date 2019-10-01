@@ -11,7 +11,7 @@ You can use the `left` and `right` props to eliminate the outer tracks as a conv
 ```jsx
 import { Slider, Handles, Tracks }  from 'react-compound-slider'
 
-function Track({ source, target, getTrackProps }) { // your own track component
+function Track({ source, target, getTrackProps }) {
   return (
     <div
       style={{

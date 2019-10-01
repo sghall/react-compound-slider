@@ -1,5 +1,4 @@
-
-Not too exciting.  Let's add a handle...
+Not too exciting. Let's add a handle...
 
 ##### Handles
 
@@ -11,8 +10,8 @@ Take a look at the Material-UI examples in this site to see how you might handle
 ```jsx
 import { Slider, Handles } from 'react-compound-slider'
 
-export function Handle({ // your handle component
-  handle: { id, value, percent }, 
+export function Handle({
+  handle: { id, value, percent },
   getHandleProps
 }) {
   return (
