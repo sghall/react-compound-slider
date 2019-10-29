@@ -1,1 +1,1 @@
-export { default, TrackItem, TracksObject, GetTrackProps } from './Tracks';
+export { default, TrackItem, TracksObject, GetTrackProps, TracksProps } from './Tracks';
