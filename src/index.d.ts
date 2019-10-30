@@ -4,6 +4,7 @@ export interface SliderItem {
   id: string;
   value: number;
   percent: number;
+  metadata: Object;
 }
 
 export interface EventData {

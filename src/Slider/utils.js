@@ -65,7 +65,9 @@ export function getHandles(values = [], reversed, valueToStep, warn) {
   let changes = 0
 
   const handles = values
-    .map(x => {
+    .map(item => {
+      const x = (typeof item === 'object') ? item.value : item
+      const metadata = (typeof item === 'object') ? item : {}
       const val = valueToStep.getValue(x)
 
       if (x !== val) {
@@ -76,9 +78,9 @@ export function getHandles(values = [], reversed, valueToStep, warn) {
         )
       }
 
-      return val
+      return { val, metadata };
     })
-    .map((val, i) => ({ key: `$$-${i}`, val }))
+    .map(({ val, metadata }, i) => ({ key: `$$-${i}`, val, metadata }))
     .sort(getSortByVal(reversed))
 
   return { handles, changes }
