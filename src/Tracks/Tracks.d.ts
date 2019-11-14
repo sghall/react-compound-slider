@@ -8,8 +8,8 @@ export interface TrackItem {
 }
 
 interface TrackEventHandlers {
-  onMouseDown: () => void;
-  onTouchStart: () => void;
+  onMouseDown: (event: React.MouseEvent) => void;
+  onTouchStart: (event: React.TouchEvent) => void;
 }
 
 export type GetTrackProps = () => TrackEventHandlers;
