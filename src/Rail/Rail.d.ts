@@ -2,8 +2,8 @@ import * as React from 'react';
 import { GetEventData } from '..'
 
 interface RailEventHandlers {
-  onMouseDown: () => void;
-  onTouchStart: () => void;
+  onMouseDown: (event: React.MouseEvent) => void;
+  onTouchStart: (event: React.TouchEvent) => void;
 }
 
 export type GetRailProps = () => RailEventHandlers;

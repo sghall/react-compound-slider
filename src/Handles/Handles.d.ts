@@ -2,9 +2,9 @@ import * as React from 'react';
 import { SliderItem } from '..'
 
 interface HandleEventHandlers {
-  onKeyDown: () => void;
-  onMouseDown: () => void;
-  onTouchStart: () => void;
+  onKeyDown: (event: React.KeyboardEvent) => void;
+  onMouseDown: (event: React.MouseEvent) => void;
+  onTouchStart: (event: React.TouchEvent) => void;
 }
 
 export type GetHandleProps = (id: string) => HandleEventHandlers;
