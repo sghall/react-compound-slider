@@ -22,10 +22,8 @@ const isBrowser =
 
 const noop = () => {}
 
-const compare = b => (m, d, i) => m && b[i] === d
-
 const equal = (a, b) => {
-  return a === b || (a.length === b.length && a.reduce(compare(b), true))
+  return JSON.stringify(a) === JSON.stringify(b)
 }
 
 const getNextValue = (curr, step, domain, reversed) => {
@@ -472,8 +470,13 @@ class Slider extends PureComponent {
       },
     } = this
 
-    const mappedHandles = handles.map(({ key, val }) => {
-      return { id: key, value: val, percent: valueToPerc.getValue(val) }
+    const mappedHandles = handles.map(({ key, val, metadata }) => {
+      return {
+        id: key,
+        value: val,
+        percent: valueToPerc.getValue(val),
+        metadata,
+      }
     })
 
     const children = React.Children.map(this.props.children, child => {

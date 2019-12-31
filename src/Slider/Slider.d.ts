@@ -17,7 +17,7 @@ export interface SliderProps {
   mode?: number | SliderModeFunction;
   step?: number;
   domain?: ReadonlyArray<number>;
-  values: ReadonlyArray<number>;
+  values: ReadonlyArray<any>;
   vertical?: boolean;
   reversed?: boolean;
   disabled?: boolean;
