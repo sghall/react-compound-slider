@@ -3,13 +3,14 @@
   <img src="https://user-images.githubusercontent.com/4615775/51296069-8fa30780-19d7-11e9-9399-ace98ee439f0.png"/></a>
 </div>
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a7fda7af-d629-4ef6-8d61-6b07780f447a/deploy-status)](https://app.netlify.com/sites/react-compound-slider/deploys)
+
 ## React Compound Slider
 
 Welcome to the future. React Compound Slider is a tiny (4.3kb) slider component with no opinion about markup or styles.
 
-### [Documentation and Examples](https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal)
+### [Documentation and Examples](https://5e1266caf44bf6ba21ad019a--react-compound-slider.netlify.com)
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/a7fda7af-d629-4ef6-8d61-6b07780f447a/deploy-status)](https://app.netlify.com/sites/react-compound-slider/deploys)
 [![Build Status](https://travis-ci.org/sghall/react-compound-slider.svg?branch=master)](https://travis-ci.org/sghall/react-compound-slider)
 [![Coverage Status](https://coveralls.io/repos/github/sghall/react-compound-slider/badge.svg?branch=master)](https://coveralls.io/github/sghall/react-compound-slider?branch=master)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/sghall/react-compound-slider/blob/master/LICENSE)
@@ -44,7 +45,7 @@ This library aims to be a stable platform for creating slider components with a 
 - Interaction modes (Allow crossing, Prevent crossing, Pushable mode, Create your own mode)
 - Works as a controlled component
 
-### [Documentation and Examples](https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal)
+### [Documentation and Examples](https://5e1266caf44bf6ba21ad019a--react-compound-slider.netlify.com)
 
 ### More Examples on CodeSandbox
 
@@ -88,15 +89,15 @@ You have full control of everything that is rendered. Just render the `Slider` c
 
 You can use these components from the demos to jumpstart your slider:
 
-[Starter Components - Horizontal](https://github.com/sghall/react-compound-slider/blob/master/docs/src/pages/slider-demos/horizontal/components.js)
+[Starter Components - Horizontal](https://github.com/sghall/react-compound-slider/blob/master/docs/src/demos/horizontal/components.tsx)
 
-[Starter Components - Vertical](https://github.com/sghall/react-compound-slider/blob/master/docs/src/pages/slider-demos/vertical/components.js)
+[Starter Components - Vertical](https://github.com/sghall/react-compound-slider/blob/master/docs/src/demos/vertical/components.tsx)
 
-[Starter Components - Material UI](https://github.com/sghall/react-compound-slider/blob/master/docs/src/pages/slider-demos/material-ui/components.js)
+[Starter Components - Material UI](https://github.com/sghall/react-compound-slider/blob/master/docs/src/demos/material-ui/components.tsx)
 
-[Starter Components - With Tooltips](https://github.com/sghall/react-compound-slider/blob/master/docs/src/pages/slider-demos/tooltips/components.js)
+[Starter Components - With Tooltips](https://github.com/sghall/react-compound-slider/blob/master/docs/src/demos/tooltips/components.tsx)
 
-[Basic Tooltip CSS](https://github.com/sghall/react-compound-slider/blob/master/docs/src/pages/slider-demos/tooltips/tooltip.css) (CSS from [this demo](https://www.w3schools.com/w3css/w3css_tooltips.asp))
+[Basic Tooltip CSS](https://github.com/sghall/react-compound-slider/blob/master/docs/src/demos/tooltips/tooltip.css) (CSS from [this demo](https://www.w3schools.com/w3css/w3css_tooltips.asp))
 
 ```jsx
 import { Slider, Handles, Tracks } from 'react-compound-slider'
