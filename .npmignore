@@ -1,0 +1,13 @@
+.DS_Store
+
+src
+test
+scripts
+.github
+
+.prettierrc
+.releaserc
+.babelrc
+tsconfig.json
+tslint.json
+jest.config.js
