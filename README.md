@@ -9,6 +9,7 @@ Welcome to the future. React Compound Slider is a tiny (4.3kb) slider component 
 
 ### [Documentation and Examples](https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal)
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a7fda7af-d629-4ef6-8d61-6b07780f447a/deploy-status)](https://app.netlify.com/sites/react-compound-slider/deploys)
 [![Build Status](https://travis-ci.org/sghall/react-compound-slider.svg?branch=master)](https://travis-ci.org/sghall/react-compound-slider)
 [![Coverage Status](https://coveralls.io/repos/github/sghall/react-compound-slider/badge.svg?branch=master)](https://coveralls.io/github/sghall/react-compound-slider?branch=master)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/sghall/react-compound-slider/blob/master/LICENSE)
@@ -47,17 +48,17 @@ This library aims to be a stable platform for creating slider components with a 
 
 ### More Examples on CodeSandbox
 
-* [Basic Multi-Slider on CodeSandbox](https://codesandbox.io/s/plzyr7lmj)
-* [Date/Time Slider on CodeSandbox](https://codesandbox.io/s/rw97j317p)
-* [Video Slider on CodeSandbox](https://codesandbox.io/s/1z51zn6q23)
-* [Slider w/ Tooltips (Typescript)](https://codesandbox.io/s/pjwwzzj8qm)
-* [SVG Slider on CodeSandbox](https://codesandbox.io/s/qk0vovqw6)
-* [Value Slider on CodeSandbox (Typescript)](https://codesandbox.io/s/6zpjmw1x3w)
-* [Range Slider on CodeSandbox (Typescript)](https://codesandbox.io/s/zl8nrlp9x)
-* [Custom Feet-Inches Ticks on CodeSandbox (Typescript)](https://codesandbox.io/s/5262w7r9yx)
-* [Custom Feet-Inches Ticks - Vertical on CodeSandbox (Typescript)](https://codesandbox.io/s/18lkz04y8j)
-* [Material Design Example on CodeSandbox](https://codesandbox.io/s/k91omlr1wo) by [@RafeSacks](https://github.com/RafeSacks) 
-* [Slider with Bar Chart on CodeSandbox](https://codesandbox.io/s/rangeslider-with-histogram-voos8) by [@magician11](https://github.com/magician11) See [#85](https://github.com/sghall/react-compound-slider/issues/85).
+- [Basic Multi-Slider on CodeSandbox](https://codesandbox.io/s/plzyr7lmj)
+- [Date/Time Slider on CodeSandbox](https://codesandbox.io/s/rw97j317p)
+- [Video Slider on CodeSandbox](https://codesandbox.io/s/1z51zn6q23)
+- [Slider w/ Tooltips (Typescript)](https://codesandbox.io/s/pjwwzzj8qm)
+- [SVG Slider on CodeSandbox](https://codesandbox.io/s/qk0vovqw6)
+- [Value Slider on CodeSandbox (Typescript)](https://codesandbox.io/s/6zpjmw1x3w)
+- [Range Slider on CodeSandbox (Typescript)](https://codesandbox.io/s/zl8nrlp9x)
+- [Custom Feet-Inches Ticks on CodeSandbox (Typescript)](https://codesandbox.io/s/5262w7r9yx)
+- [Custom Feet-Inches Ticks - Vertical on CodeSandbox (Typescript)](https://codesandbox.io/s/18lkz04y8j)
+- [Material Design Example on CodeSandbox](https://codesandbox.io/s/k91omlr1wo) by [@RafeSacks](https://github.com/RafeSacks)
+- [Slider with Bar Chart on CodeSandbox](https://codesandbox.io/s/rangeslider-with-histogram-voos8) by [@magician11](https://github.com/magician11) See [#85](https://github.com/sghall/react-compound-slider/issues/85).
 
 # Installation
 
@@ -74,16 +75,16 @@ npm install react-compound-slider@0.16.3
 ```
 
 ## Documentation
- 
+
 The documentation is divided into several sections:
 
-* [Live Demos](https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal)
-* [Tutorial](https://sghall.github.io/react-compound-slider/#/getting-started/tutorial)
-* [Documentation](https://sghall.github.io/react-compound-slider/#/component-api/slider)
+- [Live Demos](https://sghall.github.io/react-compound-slider/#/slider-demos/horizontal)
+- [Tutorial](https://sghall.github.io/react-compound-slider/#/getting-started/tutorial)
+- [Documentation](https://sghall.github.io/react-compound-slider/#/component-api/slider)
 
 ### Example Usage
 
-You have full control of everything that is rendered. Just render the `Slider` children that you want. Don't need ticks? Don't use `Ticks`. Don't want a rail? Don't use `Rail`.  Just create the local rail, handle, track and tick components that you want and render those using whatever styling method you prefer. 
+You have full control of everything that is rendered. Just render the `Slider` children that you want. Don't need ticks? Don't use `Ticks`. Don't want a rail? Don't use `Rail`. Just create the local rail, handle, track and tick components that you want and render those using whatever styling method you prefer.
 
 You can use these components from the demos to jumpstart your slider:
 
@@ -121,7 +122,7 @@ import { Handle, Track, Tick } from './your-local-slider-components'
         // render your (optional) tracks!
       )}
     </Tracks>
-    <Ticks count={10}> 
+    <Ticks count={10}>
       {({ ticks }) => (
         // render your (optional) ticks!
         // count prop = auto generate approximately 10 uniformly spaced, human-readable ticks
