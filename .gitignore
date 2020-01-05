@@ -1,6 +1,7 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 .nyc_output
 .eslintcache
+dist
 build
 
 # dependencies
@@ -8,10 +9,6 @@ node_modules
 
 # testing
 /coverage
-
-# production
-/dist
-/build
 
 # misc
 .DS_Store
