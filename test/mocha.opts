@@ -1,4 +1,0 @@
---require @babel/register
---reporter spec
---recursive
-test/utils/setup.js
