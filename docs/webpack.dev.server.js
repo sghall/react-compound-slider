@@ -1,8 +1,6 @@
-// @flow weak
-/* eslint no-console: "off" */
-const WebpackDevServer = require('webpack-dev-server')
-const webpack = require('webpack')
-const webpackConfig = require('./webpack.dev.config')
+const WebpackDevServer = require('webpack-dev-server');
+const webpack = require('webpack');
+const webpackConfig = require('./webpack.config');
 
 const serverOptions = {
   publicPath: webpackConfig.output.publicPath,
@@ -13,17 +11,20 @@ const serverOptions = {
     chunkModules: false,
     colors: true,
   },
-}
+};
 
-const PORT = process.env.RESONANCE_PORT || 3000
+const PORT = process.env.RCS_PORT || 3000;
 
-new WebpackDevServer(
-  webpack(webpackConfig),
-  serverOptions,
-).listen(PORT, '0.0.0.0', err => {
-  if (err) {
-    return console.log(err)
+new WebpackDevServer(webpack(webpackConfig), serverOptions).listen(
+  PORT,
+  '0.0.0.0',
+  err => {
+    if (err) {
+      return console.log(err);
+    }
+
+    return console.info(
+      `Webpack dev server listening at http://0.0.0.0:${PORT}/`
+    );
   }
-
-  return console.info(`Webpack dev server listening at http://0.0.0.0:${PORT}/`)
-})
+);

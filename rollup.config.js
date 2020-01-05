@@ -1,82 +1,79 @@
-import babel from 'rollup-plugin-babel'
-import replace from 'rollup-plugin-replace'
-import commonjs from 'rollup-plugin-commonjs'
-import nodeResolve from 'rollup-plugin-node-resolve'
-import { sizeSnapshot } from 'rollup-plugin-size-snapshot'
-import { terser } from 'rollup-plugin-terser'
+import path from 'path';
+import resolve from 'rollup-plugin-node-resolve';
+import babel from 'rollup-plugin-babel';
+import { terser } from 'rollup-plugin-terser';
 
-import pkg from './package.json'
+const external = id => !id.startsWith('.') && !path.isAbsolute(id);
+const isWatch = process.env.ROLLUP_WATCH;
 
-const input = 'src/index.js'
-const globalName = 'ReactCompoundSlider'
+const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 
-const globals = {
-  react: 'React',
-}
+const output = isWatch
+  ? [
+      {
+        file: 'dist/index.js',
+        format: 'cjs',
+        exports: 'named',
+        sourcemap: true,
+      },
+    ]
+  : [
+      {
+        file: 'dist/rcs.cjs.development.js',
+        format: 'cjs',
+        exports: 'named',
+        sourcemap: true,
+      },
+      {
+        file: 'dist/rcs.esm.js',
+        format: 'esm',
+        exports: 'named',
+        sourcemap: true,
+      },
+    ];
 
-const umd = [
+export default [
   {
-    input,
-    output: {
-      file: `build/dist/${pkg.name}.js`,
-      format: 'umd',
-      exports: 'named',
-      name: globalName,
-      globals,
-    },
-    external: Object.keys(globals),
+    input: 'src/index.ts',
+    output,
+    external,
     plugins: [
+      resolve({ extensions }),
       babel({
-        runtimeHelpers: true,
         exclude: 'node_modules/**',
-        presets: ['@babel/preset-react'],
-        plugins: [
-          '@babel/plugin-proposal-class-properties',
-          ['transform-react-remove-prop-types', { mode: 'wrap' }],
-          ['@babel/transform-runtime'],
-        ],
+        extensions,
       }),
-      nodeResolve(),
-      commonjs({
-        include: /node_modules/,
-      }),
-      replace({ 'process.env.NODE_ENV': JSON.stringify('development') }),
-      sizeSnapshot(),
     ],
   },
-  {
-    input,
-    output: {
-      file: `build/dist/${pkg.name}.min.js`,
-      format: 'umd',
-      exports: 'named',
-      name: globalName,
-      globals,
-    },
-    external: Object.keys(globals),
-    plugins: [
-      babel({
-        runtimeHelpers: true,
-        exclude: 'node_modules/**',
-        presets: ['@babel/preset-react'],
+  isWatch
+    ? null
+    : {
+        input: 'src/index.ts',
+        output: {
+          file: 'dist/rcs.cjs.production.min.js',
+          format: 'cjs',
+          exports: 'named',
+          sourcemap: true,
+        },
+        external,
         plugins: [
-          '@babel/plugin-proposal-class-properties',
-          [
-            'transform-react-remove-prop-types',
-            { mode: 'remove', removeImport: true },
-          ],
-          ['@babel/transform-runtime'],
+          resolve({ extensions }),
+          babel({
+            exclude: 'node_modules/**',
+            extensions,
+          }),
+          terser({
+            sourcemap: true,
+            output: { comments: false },
+            compress: {
+              keep_infinity: true,
+              pure_getters: true,
+              passes: 10,
+            },
+            ecma: 5,
+            toplevel: true,
+            warnings: true,
+          }),
         ],
-      }),
-      nodeResolve(),
-      commonjs({
-        include: /node_modules/,
-      }),
-      replace({ 'process.env.NODE_ENV': JSON.stringify('production') }),
-      terser(),
-      sizeSnapshot(),
-    ],
-  },
-]
-
-export default umd
+      },
+].filter(Boolean);
