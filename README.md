@@ -3,8 +3,6 @@
   <img src="https://user-images.githubusercontent.com/4615775/51296069-8fa30780-19d7-11e9-9399-ace98ee439f0.png"/></a>
 </div>
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/a7fda7af-d629-4ef6-8d61-6b07780f447a/deploy-status)](https://app.netlify.com/sites/react-compound-slider/deploys)
-
 ## React Compound Slider
 
 Welcome to the future. React Compound Slider is a tiny (4.3kb) slider component with no opinion about markup or styles.
