@@ -38,7 +38,9 @@ export const SliderDemo: React.FC<SliderDemoProps> = ({
           <Typography variant="caption">{caption}</Typography>
         </Grid>
       ) : null}
-      <Grid item>{children}</Grid>
+      <Grid item>
+        <div style={{ minHeight: 120 }}>{children}</div>
+      </Grid>
     </Grid>
   </Paper>
 );
