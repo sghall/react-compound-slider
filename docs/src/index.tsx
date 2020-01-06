@@ -84,7 +84,7 @@ function App() {
           <Grid item>
             <div style={{ padding: '30px 0px' }}>
               <Grid justify="center" container>
-                <Grid item xs={10} md={8}>
+                <Grid item xs={12} md={8}>
                   <Switch>
                     <Route exact path="/">
                       <Home />
