@@ -7,7 +7,7 @@
 
 Welcome to the future. React Compound Slider is a tiny (4.3kb) slider component with no opinion about markup or styles.
 
-### [Documentation and Examples](https://5e1266caf44bf6ba21ad019a--react-compound-slider.netlify.com)
+### [Documentation and Examples](https://react-compound-slider.netlify.com)
 
 [![Build Status](https://travis-ci.org/sghall/react-compound-slider.svg?branch=master)](https://travis-ci.org/sghall/react-compound-slider)
 [![Coverage Status](https://coveralls.io/repos/github/sghall/react-compound-slider/badge.svg?branch=master)](https://coveralls.io/github/sghall/react-compound-slider?branch=master)
@@ -43,7 +43,7 @@ This library aims to be a stable platform for creating slider components with a 
 - Interaction modes (Allow crossing, Prevent crossing, Pushable mode, Create your own mode)
 - Works as a controlled component
 
-### [Documentation and Examples](https://5e1266caf44bf6ba21ad019a--react-compound-slider.netlify.com)
+### [Documentation and Examples](https://react-compound-slider.netlify.com)
 
 ### More Examples on CodeSandbox
 
