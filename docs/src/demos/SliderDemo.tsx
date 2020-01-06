@@ -18,7 +18,7 @@ export const SliderDemo: React.FC<SliderDemoProps> = ({
   sourcePath,
   children,
 }) => (
-  <Paper elevation={0} style={{ padding: 10 }}>
+  <Paper elevation={1} style={{ padding: 16 }}>
     <Grid spacing={1} container direction="column">
       <Grid item>
         <Grid alignItems="flex-start" justify="space-between" container>
