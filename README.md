@@ -24,11 +24,15 @@ Welcome to the future. React Compound Slider is a tiny (4.3kb) slider component 
 
 ### Upcoming 3.0 Release Jan 2020
 
-- Convert codebase to Typescript (done)
+Basic Overview:
+
+- Convert slider source to Typescript (done)
+- Convert tests to Typescript (done)
+- Convert demos and docs to Typescript (done)
 - Use hooks internally and export them
 - Drive state changes with a reducer that can be changed by the user
 
-I'm working on a new version of this slider which will allow for more customization.  I don't expect any significant changes for existing users.  If you are comfortable with React and would like to help out, install the beta version `npm install react-compound-slider@beta` and report any issues. The API is the same but the code was converted to Typescript.
+The new version of this slider will allow for more customization. I don't expect any significant changes for existing users. If you are comfortable with React and would like to help out, install the beta version `npm install react-compound-slider@beta` and report any issues. The API is the same but the code was converted to Typescript.
 
 ### Motivation
 
