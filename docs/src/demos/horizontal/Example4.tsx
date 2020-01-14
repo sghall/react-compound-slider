@@ -1,19 +1,19 @@
-import React, { Component } from "react";
-import { Slider, Rail, Handles, Tracks, Ticks } from "react-compound-slider";
-import ValueViewer from "../ValueViewer";
-import { SliderRail, Handle, Track, Tick } from "./components";
+import React, { Component } from 'react';
+import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider';
+import ValueViewer from '../ValueViewer';
+import { SliderRail, Handle, Track, Tick } from './components';
 
 const sliderStyle = {
-  position: "relative" as "relative",
-  width: "100%",
+  position: 'relative' as 'relative',
+  width: '100%',
 };
 
 const defaultValues = [240, 360];
 
 interface SliderState {
-  domain: number[];
-  values: number[];
-  update: number[];
+  domain: ReadonlyArray<number>;
+  values: ReadonlyArray<number>;
+  update: ReadonlyArray<number>;
   reversed: boolean;
 }
 
@@ -25,11 +25,11 @@ export class Example4 extends Component<{}, SliderState> {
     reversed: false,
   };
 
-  onUpdate = (update: number[]) => {
+  onUpdate = (update: ReadonlyArray<number>) => {
     this.setState({ update });
   };
 
-  onChange = (values: number[]) => {
+  onChange = (values: ReadonlyArray<number>) => {
     this.setState({ values });
   };
 
@@ -47,7 +47,7 @@ export class Example4 extends Component<{}, SliderState> {
     } = this;
 
     return (
-      <div style={{ height: 150, width: "100%" }}>
+      <div style={{ height: 150, width: '100%' }}>
         <button onClick={() => this.setDomain([100, 400])}>
           SET DOMAIN [100, 400]
         </button>
@@ -55,7 +55,7 @@ export class Example4 extends Component<{}, SliderState> {
           SET DOMAIN [300, 600]
         </button>
         <button onClick={() => this.toggleReverse()}>
-          {reversed ? "DISPLAY LOW TO HIGH" : "DISPLAY HIGH TO LOW"}
+          {reversed ? 'DISPLAY LOW TO HIGH' : 'DISPLAY HIGH TO LOW'}
         </button>
         <ValueViewer values={values} update={update} />
         <Slider

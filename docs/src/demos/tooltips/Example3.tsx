@@ -18,11 +18,11 @@ export class Example3 extends Component {
     disabled: false,
   };
 
-  onUpdate = (update: number[]) => {
+  onUpdate = (update: ReadonlyArray<number>) => {
     this.setState({ update });
   };
 
-  onChange = (values: number[]) => {
+  onChange = (values: ReadonlyArray<number>) => {
     this.setState({ values });
   };
 

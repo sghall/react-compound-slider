@@ -17,11 +17,11 @@ export class Example1 extends Component {
     update: defaultValues.slice(),
   };
 
-  onUpdate = (update: number[]) => {
+  onUpdate = (update: ReadonlyArray<number>) => {
     this.setState({ update });
   };
 
-  onChange = (values: number[]) => {
+  onChange = (values: ReadonlyArray<number>) => {
     this.setState({ values });
   };
 

@@ -24,13 +24,13 @@ export interface SliderProps {
    * Two element array of numbers providing the min and max values for the slider [min, max] e.g. [0, 100].
    * It does not matter if the slider is reversed on the screen, domain is always [min, max] with min < max.
    */
-  domain?: number[];
+  domain?: ReadonlyArray<number>;
   /**
    * An array of numbers. You can supply one for a value slider, two for a range slider or more to create n-handled sliders.
    * The values should correspond to valid step values in the domain.
    * The numbers will be forced into the domain if they are two small or large.
    */
-  values: number[];
+  values: ReadonlyArray<number>;
   /**
    * The step value for the slider.
    */
@@ -54,19 +54,25 @@ export interface SliderProps {
   /**
    * Function triggered when the value of the slider has changed. This will recieve changes at the end of a slide as well as changes from clicks on rails and tracks. Receives values.
    */
-  onChange?: (values: number[]) => void;
+  onChange?: (values: ReadonlyArray<number>) => void;
   /**
    * Function called with the values at each update (caution: high-volume updates when dragging). Receives values.
    */
-  onUpdate?: (values: number[]) => void;
+  onUpdate?: (values: ReadonlyArray<number>) => void;
   /**
    * Function triggered with ontouchstart or onmousedown on a handle. Receives values.
    */
-  onSlideStart?: (values: number[], data: { activeHandleID: string }) => void;
+  onSlideStart?: (
+    values: ReadonlyArray<number>,
+    data: { activeHandleID: string }
+  ) => void;
   /**
    * Function triggered on ontouchend or onmouseup on a handle. Receives values.
    */
-  onSlideEnd?: (values: number[], data: { activeHandleID: string }) => void;
+  onSlideEnd?: (
+    values: ReadonlyArray<number>,
+    data: { activeHandleID: string }
+  ) => void;
   /**
    * Ignore all mouse, touch and keyboard events.
    */
@@ -87,8 +93,8 @@ export interface SliderProps {
 
 export interface SliderState {
   step?: number | null;
-  values: number[] | null;
-  domain: number[];
+  values: ReadonlyArray<number> | null;
+  domain: ReadonlyArray<number>;
   handles: HandleItem[];
   reversed: boolean | null;
   activeHandleID: string;

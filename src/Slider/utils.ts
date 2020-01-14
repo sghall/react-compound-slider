@@ -80,7 +80,7 @@ export function getTouchPosition(
 }
 
 export function getHandles(
-  values: number[] = [],
+  values: ReadonlyArray<number> = [],
   reversed: boolean,
   valueToStep: DiscreteScale,
   warn: boolean

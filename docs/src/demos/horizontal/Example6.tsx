@@ -1,19 +1,19 @@
-import React, { Component } from "react";
-import { Slider, Rail, Handles, Tracks } from "react-compound-slider";
-import ValueViewer from "../ValueViewer";
-import { SliderRail, Handle, Track } from "./components";
+import React, { Component } from 'react';
+import { Slider, Rail, Handles, Tracks } from 'react-compound-slider';
+import ValueViewer from '../ValueViewer';
+import { SliderRail, Handle, Track } from './components';
 
 const sliderStyle = {
-  position: "relative" as "relative",
-  width: "100%",
+  position: 'relative' as 'relative',
+  width: '100%',
 };
 
 const domain = [100, 500];
 const defaultValues = [200];
 
 interface SliderState {
-  values: number[];
-  update: number[];
+  values: ReadonlyArray<number>;
+  update: ReadonlyArray<number>;
   disabled: boolean;
 }
 
@@ -24,11 +24,11 @@ export class Example6 extends Component<{}, SliderState> {
     disabled: false,
   };
 
-  onUpdate = (update: number[]) => {
+  onUpdate = (update: ReadonlyArray<number>) => {
     this.setState({ update });
   };
 
-  onChange = (values: number[]) => {
+  onChange = (values: ReadonlyArray<number>) => {
     this.setState({ values });
   };
 
@@ -42,9 +42,9 @@ export class Example6 extends Component<{}, SliderState> {
     } = this;
 
     return (
-      <div style={{ height: 120, width: "100%" }}>
+      <div style={{ height: 120, width: '100%' }}>
         <button onClick={() => this.toggleDisabled()}>
-          {disabled ? "ENABLE" : "DISABLE"}
+          {disabled ? 'ENABLE' : 'DISABLE'}
         </button>
 
         <ValueViewer values={values} update={update} />

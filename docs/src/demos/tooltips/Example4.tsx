@@ -11,9 +11,9 @@ const sliderStyle = {
 const defaultValues = [240, 360];
 
 interface ExampleState {
-  domain: number[];
-  values: number[];
-  update: number[];
+  domain: ReadonlyArray<number>;
+  values: ReadonlyArray<number>;
+  update: ReadonlyArray<number>;
   reversed: boolean;
 }
 
@@ -25,11 +25,11 @@ export class Example4 extends Component<{}, ExampleState> {
     reversed: false,
   };
 
-  onUpdate = (update: number[]) => {
+  onUpdate = (update: ReadonlyArray<number>) => {
     this.setState({ update });
   };
 
-  onChange = (values: number[]) => {
+  onChange = (values: ReadonlyArray<number>) => {
     this.setState({ values });
   };
 

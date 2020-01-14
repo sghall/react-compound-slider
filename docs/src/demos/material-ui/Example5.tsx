@@ -26,8 +26,8 @@ interface ExampleProps {
 }
 
 interface ExampleState {
-  values: number[];
-  update: number[];
+  values: ReadonlyArray<number>;
+  update: ReadonlyArray<number>;
 }
 
 class Example extends Component<ExampleProps, ExampleState> {
@@ -36,11 +36,11 @@ class Example extends Component<ExampleProps, ExampleState> {
     update: defaultValues.slice(),
   };
 
-  onUpdate = (update: number[]) => {
+  onUpdate = (update: ReadonlyArray<number>) => {
     this.setState({ update });
   };
 
-  onChange = (values: number[]) => {
+  onChange = (values: ReadonlyArray<number>) => {
     this.setState({ values });
   };
 

@@ -51,7 +51,7 @@ const isRCSComponent = (item: React.ReactNode): item is RCSComponent => {
 const getNextValue = (
   curr: number,
   step: number,
-  domain: number[],
+  domain: ReadonlyArray<number>,
   reversed: boolean
 ) => {
   const newVal = reversed ? curr - step : curr + step;
@@ -61,7 +61,7 @@ const getNextValue = (
 const getPrevValue = (
   curr: number,
   step: number,
-  domain: number[],
+  domain: ReadonlyArray<number>,
   reversed: boolean
 ) => {
   const newVal = reversed ? curr + step : curr - step;
@@ -92,7 +92,7 @@ export class Slider<
     const {
       step = 0.1,
       values,
-      domain = [0, 100] as number[],
+      domain = [0, 100] as ReadonlyArray<number>,
       reversed = false,
       onUpdate = noop,
       onChange = noop,
