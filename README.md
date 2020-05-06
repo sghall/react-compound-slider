@@ -22,7 +22,7 @@ Welcome to the future. React Compound Slider is a tiny (4.3kb) slider component 
   <img src="https://user-images.githubusercontent.com/4615775/46690444-2aa96b80-cbb7-11e8-8cdd-d1af59df59fe.png" alt="React Compound Slider" style="width:450px;"/></a>
 </div>
 
-### Upcoming 3.0 Release Jan 2020
+### 2020 Roadmap
 
 Basic Overview:
 
