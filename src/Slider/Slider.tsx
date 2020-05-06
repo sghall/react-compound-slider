@@ -299,7 +299,7 @@ export class Slider<
   handleRailAndTrackClicks(e: MouseEvent | TouchEvent, isTouch: boolean) {
     const {
       state: { handles: curr, pixelToStep },
-      props: { vertical, reversed = false, onSlideStart = noop },
+      props: { vertical, reversed = false },
     } = this;
     const { slider } = this;
 
@@ -343,10 +343,6 @@ export class Slider<
     // submit the candidate values
     this.setState({ activeHandleID: updateKey }, () => {
       this.submitUpdate(nextHandles, true);
-      onSlideStart(
-        nextHandles.map(d => d.val),
-        { activeHandleID: updateKey }
-      );
       isTouch ? this.addTouchEvents() : this.addMouseEvents();
     });
   }
