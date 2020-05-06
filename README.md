@@ -32,7 +32,7 @@ Basic Overview:
 - Use hooks internally and export them
 - Drive state changes with a reducer that can be changed by the user
 
-The new version of this slider will allow for more customization. I don't expect any significant changes for existing users. If you are comfortable with React and would like to help out, install the beta version `npm install react-compound-slider@beta` and report any issues. The API is the same but the code was converted to Typescript.
+The upcoming versions of this slider will allow for more customization. I don't expect any significant changes for existing users.
 
 ### Motivation
 
