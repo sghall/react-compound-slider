@@ -39,7 +39,8 @@ export function getUpdatedHandles(
       ...handles.slice(0, index),
       { key, val: updateValue },
       ...handles.slice(index + 1),
-    ].sort(getSortByVal(reversed));
+    ]
+    //.sort(getSortByVal(reversed)); // Do not sort to allow handles to cross normally
   }
 
   return handles;
@@ -102,7 +103,7 @@ export function getHandles(
       return val;
     })
     .map((val, i) => ({ key: `$$-${i}`, val }))
-    .sort(getSortByVal(reversed));
+    //.sort(getSortByVal(reversed)); // Do not sort to allow handles to cross normally
 
   return { handles, changes };
 }
