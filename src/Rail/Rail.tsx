@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { callAll } from '../utils';
 
-import { RailProps, RailEventHandlers } from './types';
+import { OtherProps } from '../types';
+import { RailProps } from './types';
 
-export class Rail<T extends RailEventHandlers> extends Component<RailProps> {
-  getRailProps = (props?: Partial<T>) => {
+const NOOP = () => ({ value: 0, percent: 0 });
+
+export class Rail extends Component<RailProps> {
+  getRailProps = (props: OtherProps = {}) => {
     const { emitMouse, emitTouch } = this.props;
 
     return {
@@ -24,8 +27,7 @@ export class Rail<T extends RailEventHandlers> extends Component<RailProps> {
     } = this;
 
     const renderedChildren = children({
-      //@ts-ignore
-      getEventData,
+      getEventData: getEventData || NOOP,
       activeHandleID,
       getRailProps,
     });

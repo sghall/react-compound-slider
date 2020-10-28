@@ -14,10 +14,7 @@ export interface HandleEventHandlers {
   onTouchStart?: (event: React.TouchEvent) => void;
 }
 
-export type GetHandleProps = (
-  id: string,
-  props?: HandleEventHandlers & OtherProps
-) => HandleEventHandlers & OtherProps;
+export type GetHandleProps = (id: string, props: OtherProps) => any;
 
 export interface HandlesObject {
   handles: Array<SliderItem>;
@@ -42,4 +39,4 @@ export type HandlesProps = {
    * `({ handles, getHandleProps }): element`
    */
   children: (handlesObject: HandlesObject) => React.ReactNode;
-} & HandleEventHandlers;
+};

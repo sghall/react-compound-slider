@@ -1,35 +1,33 @@
 import React, { Component } from 'react';
 import { callAll } from '../utils';
 
-import { HandlesProps, HandleEventHandlers as HE } from './types';
+import { OtherProps } from '../types';
+import { HandlesProps } from './types';
 
-export class Handles<T extends HE = HE> extends Component<HandlesProps> {
+export class Handles extends Component<HandlesProps> {
   autofocus = (e: React.MouseEvent<Element>) => {
     if (e.target instanceof HTMLElement) {
       e.target.focus();
     }
   };
 
-  getHandleProps = (id: string, props?: Partial<T>) => {
+  getHandleProps = (id: string, props: OtherProps) => {
     const { emitKeyboard, emitMouse, emitTouch } = this.props;
 
     return {
       ...props,
       onKeyDown: callAll<React.KeyboardEvent<Element>>(
         props && props.onKeyDown,
-        //@ts-ignore
-        (e: React.KeyboardEvent<Element>) => emitKeyboard(e, id)
+        (e: React.KeyboardEvent<Element>) => emitKeyboard && emitKeyboard(e, id)
       ),
       onMouseDown: callAll<React.MouseEvent<Element>>(
         props && props.onMouseDown,
         this.autofocus,
-        //@ts-ignore
-        (e: React.MouseEvent) => emitMouse(e, id)
+        (e: React.MouseEvent) => emitMouse && emitMouse(e, id)
       ),
       onTouchStart: callAll<React.TouchEvent<Element>>(
         props && props.onTouchStart,
-        //@ts-ignore
-        (e: React.TouchEvent<Element>) => emitTouch(e, id)
+        (e: React.TouchEvent<Element>) => emitTouch && emitTouch(e, id)
       ),
     };
   };

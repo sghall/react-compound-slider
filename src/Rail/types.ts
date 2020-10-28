@@ -5,9 +5,7 @@ export interface RailEventHandlers {
   onTouchStart?: (event: React.TouchEvent) => void;
 }
 
-export type GetRailProps = (
-  props?: RailEventHandlers & OtherProps
-) => RailEventHandlers & OtherProps;
+export type GetRailProps = (props: OtherProps) => any;
 
 export interface RailObject {
   activeHandleID: string;
@@ -15,7 +13,7 @@ export interface RailObject {
   getRailProps: GetRailProps;
 }
 
-export type RailProps = {
+export interface RailProps {
   /** @ignore */
   getEventData?: GetEventData;
   /** @ignore */
@@ -28,4 +26,4 @@ export type RailProps = {
    * A function to render the rail. Note: `getEventData` can be called with an event and get the value and percent at that location (used for tooltips etc). `activeHandleID` will be a string or null.  Function signature: `({ getEventData, activeHandleID, getRailProps }): element`
    */
   children: (railObject: RailObject) => React.ReactNode;
-} & RailEventHandlers;
+};
