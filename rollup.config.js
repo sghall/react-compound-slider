@@ -63,7 +63,6 @@ export default [
             extensions,
           }),
           terser({
-            sourcemap: true,
             output: { comments: false },
             compress: {
               keep_infinity: true,
