@@ -15,7 +15,8 @@
     "watch:ts": "tsc --watch --outDir dist/types --emitDeclarationOnly",
     "clean": "rimraf dist",
     "build": "babel-node scripts/build --extensions .ts",
-    "test": "jest"
+    "test": "jest",
+    "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
     "react": ">=16.9"

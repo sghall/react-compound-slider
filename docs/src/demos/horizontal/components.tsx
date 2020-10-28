@@ -169,7 +169,11 @@ interface TickProps {
   format?: (val: number) => string;
 }
 
-export const Tick: React.FC<TickProps> = ({ tick, count, format = d => d }) => {
+export const Tick: React.FC<TickProps> = ({
+  tick,
+  count,
+  format = (d) => d,
+}) => {
   return (
     <div>
       <div

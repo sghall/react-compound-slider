@@ -21,7 +21,7 @@ export type TrackEventHandlers = {
 
 export type GetTrackProps = (
   props?: OtherProps
-) => OtherProps & TrackEventHandlers;
+) => any;
 
 export interface TracksObject {
   tracks: Array<TrackItem>;

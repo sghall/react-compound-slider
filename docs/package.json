@@ -8,8 +8,6 @@
     "url": "https://github.com/sghall/react-compound-slider.git"
   },
   "scripts": {
-    "type-check": "tsc --noEmit",
-    "type-check:watch": "npm run type-check -- --watch",
     "build": "webpack --progress --colors --mode=production",
     "start": "../node_modules/.bin/babel-node webpack.dev.server.js"
   },
