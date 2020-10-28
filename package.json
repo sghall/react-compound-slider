@@ -71,7 +71,7 @@
     "sinon": "^8.1.1",
     "ts-jest": "^25.5.1",
     "tslib": "^1.14.1",
-    "typescript": "^3.9.7"
+    "typescript": "^4.0.5"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.1",
