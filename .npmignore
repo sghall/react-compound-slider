@@ -11,3 +11,4 @@ scripts
 tsconfig.json
 tslint.json
 jest.config.js
+netlify.toml
