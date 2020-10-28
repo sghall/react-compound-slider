@@ -5,7 +5,7 @@ export interface RailEventHandlers {
   onTouchStart?: (event: React.TouchEvent) => void;
 }
 
-export type GetRailProps = (props: OtherProps) => any;
+export type GetRailProps = (props?: OtherProps) => any;
 
 export interface RailObject {
   activeHandleID: string;

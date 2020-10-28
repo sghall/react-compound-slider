@@ -14,7 +14,7 @@ export interface HandleEventHandlers {
   onTouchStart?: (event: React.TouchEvent) => void;
 }
 
-export type GetHandleProps = (id: string, props: OtherProps) => any;
+export type GetHandleProps = (id: string, props?: OtherProps) => any;
 
 export interface HandlesObject {
   handles: Array<SliderItem>;

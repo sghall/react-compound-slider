@@ -11,7 +11,7 @@ export class Handles extends Component<HandlesProps> {
     }
   };
 
-  getHandleProps = (id: string, props: OtherProps) => {
+  getHandleProps = (id: string, props: OtherProps = {}) => {
     const { emitKeyboard, emitMouse, emitTouch } = this.props;
 
     return {
