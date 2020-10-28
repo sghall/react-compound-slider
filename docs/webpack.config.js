@@ -10,9 +10,16 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.json'],
+    fallback: { "path": require.resolve("path-browserify") }
   },
   module: {
     rules: [
+      {
+        test: /\.m?js/,
+        resolve: {
+          fullySpecified: false
+        }
+      },
       { test: /\.(ts|js)x?$/, loader: 'babel-loader', exclude: /node_modules/ },
       {
         test: /\.css$/,
