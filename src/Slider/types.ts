@@ -11,7 +11,7 @@ export interface SliderProps {
   /**
    * An object with any inline styles you want applied to the root element.
    */
-  rootStyle?: React.CSSProperties;
+  rootStyle?: any;
   /**
    * An object with any props you want applied to the root element.
    */

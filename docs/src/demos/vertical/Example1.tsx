@@ -51,7 +51,7 @@ export class Example1 extends Component {
           <Handles>
             {({ handles, getHandleProps }) => (
               <div className="slider-handles">
-                {handles.map(handle => (
+                {handles.map((handle) => (
                   <Handle
                     key={handle.id}
                     handle={handle}
@@ -79,7 +79,7 @@ export class Example1 extends Component {
           <Ticks count={5}>
             {({ ticks }) => (
               <div className="slider-ticks">
-                {ticks.map(tick => (
+                {ticks.map((tick) => (
                   <Tick key={tick.id} tick={tick} />
                 ))}
               </div>
