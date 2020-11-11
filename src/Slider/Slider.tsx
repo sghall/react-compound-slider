@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, isValidElement } from 'react';
 import warning from 'warning';
 import { mode1, mode2, mode3 } from './modes';
 import {
@@ -37,6 +37,10 @@ interface RCSComponent {
 }
 
 const isRCSComponent = (item: React.ReactNode): item is RCSComponent => {
+  if (!isValidElement(item)) {
+    return false;
+  }
+  
   const type = (item as RCSComponent).type;
   const name = type ? type.name : '';
 

@@ -485,4 +485,10 @@ describe('<Slider />', () => {
     assert.strictEqual(onUpdate.callCount, 2);
     assert.strictEqual(onChange.callCount, 2);
   });
+
+  it('should allow conditional rendering', () => {
+    assert.doesNotThrow(() => {
+      mount(<Slider {...getTestProps()}>{null}{null}</Slider>);
+    });
+  });
 });
