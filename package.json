@@ -5,7 +5,7 @@
   "author": "Steve Hall",
   "main": "dist/index.js",
   "types": "dist/types/index.d.ts",
-  "modules": "dist/rcs.esm.js",
+  "module": "dist/rcs.esm.js",
   "files": [
     "dist"
   ],
