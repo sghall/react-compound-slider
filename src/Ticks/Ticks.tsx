@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import { TicksProps } from './types';
 import { LinearScale } from '../scales/LinearScale';
 
 const defaultGetEventData = () => ({ value: 0, percent: 0 });
 
-export class Ticks extends React.Component<TicksProps> {
+export class Ticks extends Component<TicksProps> {
   public render() {
     const {
       children,
@@ -22,6 +22,7 @@ export class Ticks extends React.Component<TicksProps> {
       percent: scale.getValue(value),
     }));
 
-    return children({ getEventData, activeHandleID, ticks });
+    const renderedChildren = children({ getEventData, activeHandleID, ticks });
+    return renderedChildren && React.Children.only(renderedChildren);
   }
 }
