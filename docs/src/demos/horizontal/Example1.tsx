@@ -49,7 +49,7 @@ export class Example1 extends Component {
           <Handles>
             {({ handles, getHandleProps }) => (
               <div className="slider-handles">
-                {handles.map(handle => (
+                {handles.map((handle) => (
                   <Handle
                     key={handle.id}
                     handle={handle}

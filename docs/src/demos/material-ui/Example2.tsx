@@ -52,7 +52,7 @@ class Example extends Component<ExampleProps, ExampleState> {
         <ValueViewer values={values} update={update} />
         <Slider
           mode={1}
-          step={1}
+          step={5}
           domain={domain}
           className={classes.slider}
           onUpdate={this.onUpdate}
@@ -65,7 +65,7 @@ class Example extends Component<ExampleProps, ExampleState> {
           <Handles>
             {({ activeHandleID, handles, getHandleProps }) => (
               <div>
-                {handles.map(handle => (
+                {handles.map((handle) => (
                   <Handle
                     key={handle.id}
                     handle={handle}
@@ -94,7 +94,7 @@ class Example extends Component<ExampleProps, ExampleState> {
           <Ticks count={5}>
             {({ ticks }) => (
               <div>
-                {ticks.map(tick => (
+                {ticks.map((tick) => (
                   <Tick key={tick.id} tick={tick} count={ticks.length} />
                 ))}
               </div>

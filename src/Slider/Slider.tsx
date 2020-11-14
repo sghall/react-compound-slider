@@ -40,7 +40,7 @@ const isRCSComponent = (item: React.ReactNode): item is RCSComponent => {
   if (!isValidElement(item)) {
     return false;
   }
-  
+
   const type = (item as RCSComponent).type;
   const name = type ? type.name : '';
 
@@ -130,10 +130,7 @@ export class Slider<
     ) {
       const [min, max] = domain;
 
-      valueToStep
-        .setStep(step)
-        .setRange([min, max])
-        .setDomain([min, max]);
+      valueToStep.setStep(step).setRange([min, max]).setDomain([min, max]);
 
       if (reversed === true) {
         valueToPerc.setDomain([min, max]).setRange([100, 0]);
@@ -156,8 +153,8 @@ export class Slider<
       );
 
       if (changes || values === undefined || values === prevState.values) {
-        onUpdate(handles.map(d => d.val));
-        onChange(handles.map(d => d.val));
+        onUpdate(handles.map((d) => d.val));
+        onChange(handles.map((d) => d.val));
       }
 
       nextState.step = step;
@@ -174,8 +171,8 @@ export class Slider<
       );
 
       if (changes) {
-        onUpdate(handles.map(d => d.val));
-        onChange(handles.map(d => d.val));
+        onUpdate(handles.map((d) => d.val));
+        onChange(handles.map((d) => d.val));
       }
 
       nextState.values = values;
@@ -236,7 +233,7 @@ export class Slider<
     e.stopPropagation && e.stopPropagation();
     e.preventDefault && e.preventDefault();
 
-    const found = handles.find(value => {
+    const found = handles.find((value) => {
       return value.key === handleID;
     });
 
@@ -252,7 +249,7 @@ export class Slider<
     } else if (validDownKeys.includes(key)) {
       newVal = getPrevValue(currVal, step, domain, reversed);
     }
-    const nextHandles = handles.map(v =>
+    const nextHandles = handles.map((v) =>
       v.key === handleID ? { key: v.key, val: newVal } : v
     );
 
@@ -283,14 +280,14 @@ export class Slider<
 
     e.stopPropagation && e.stopPropagation();
 
-    const found = handles.find(value => {
+    const found = handles.find((value) => {
       return value.key === handleID;
     });
 
     if (found) {
       this.setState({ activeHandleID: handleID });
       onSlideStart(
-        handles.map(d => d.val),
+        handles.map((d) => d.val),
         { activeHandleID: handleID }
       );
       isTouch ? this.addTouchEvents() : this.addMouseEvents();
@@ -483,10 +480,10 @@ export class Slider<
         }
       }
 
-      onUpdate(handles.map(d => d.val));
+      onUpdate(handles.map((d) => d.val));
 
       if (callOnChange) {
-        onChange(handles.map(d => d.val));
+        onChange(handles.map((d) => d.val));
       }
 
       return { handles };
@@ -499,9 +496,9 @@ export class Slider<
       props: { onChange = noop, onSlideEnd = noop },
     } = this;
 
-    onChange(handles.map(d => d.val));
+    onChange(handles.map((d) => d.val));
     onSlideEnd(
-      handles.map(d => d.val),
+      handles.map((d) => d.val),
       { activeHandleID }
     );
 
@@ -519,9 +516,9 @@ export class Slider<
       props: { onChange = noop, onSlideEnd = noop },
     } = this;
 
-    onChange(handles.map(d => d.val));
+    onChange(handles.map((d) => d.val));
     onSlideEnd(
-      handles.map(d => d.val),
+      handles.map((d) => d.val),
       { activeHandleID }
     );
 
@@ -551,8 +548,8 @@ export class Slider<
       return { id: key, value: val, percent: valueToPerc.getValue(val) };
     });
 
-    const children = React.Children.map(this.props.children, child => {
-      if (isRCSComponent(child)) {
+    const children = React.Children.map(this.props.children, (child) => {
+      if (isRCSComponent(child) === true) {
         return React.cloneElement(child as React.ReactElement, {
           scale: valueToPerc,
           handles: mappedHandles,
