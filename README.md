@@ -5,15 +5,13 @@
 
 ## React Compound Slider
 
-Welcome to the future. React Compound Slider is a tiny (4.3kb) slider component with no opinion about markup or styles.
+Welcome to the future. React Compound Slider is a small slider component with no opinion about markup or styles.
 
 ### [Documentation and Examples](https://react-compound-slider.netlify.com)
 
-[![Build Status](https://travis-ci.org/sghall/react-compound-slider.svg?branch=master)](https://travis-ci.org/sghall/react-compound-slider)
 [![Coverage Status](https://coveralls.io/repos/github/sghall/react-compound-slider/badge.svg?branch=master)](https://coveralls.io/github/sghall/react-compound-slider?branch=master)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/sghall/react-compound-slider/blob/master/LICENSE)
 [![npm downloads](https://img.shields.io/npm/dm/react-compound-slider.svg)](https://www.npmjs.com/package/react-compound-slider)
-![gzip size](http://img.badgesize.io/https://npmcdn.com/react-compound-slider/dist/react-compound-slider.min.js?compression=gzip)
 [![npm version](https://img.shields.io/npm/v/react-compound-slider.svg)](https://www.npmjs.com/package/react-compound-slider)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/sghall/react-compound-slider.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/sghall/react-compound-slider/context:javascript)
 
@@ -40,7 +38,7 @@ This library aims to be a stable platform for creating slider components with a 
 
 ### Slider Features
 
-- Small size (4.3kb)
+- Small size
 - Makes no assumptions about your markup
 - Supports SVG sliders
 - Supports typescript
