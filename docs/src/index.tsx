@@ -43,11 +43,11 @@ function App() {
                     <Button>Home</Button>
                   </Link>
                 </Grid>
-                {/* <Grid>
+                <Grid>
                   <Link to="/docs">
                     <Button>Docs</Button>
                   </Link>
-                </Grid> */}
+                </Grid>
                 <Grid>
                   <Link to="/horizontal">
                     <Button>Horizontal</Button>
