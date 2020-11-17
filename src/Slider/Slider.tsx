@@ -72,13 +72,15 @@ const getPrevValue = (
   return reversed ? Math.min(domain[1], newVal) : Math.max(domain[0], newVal);
 };
 
+const defaultDomain = [0, 100];
+
 export class Slider<
   T extends HTMLDivElement = HTMLDivElement
 > extends PureComponent<SliderProps, SliderState> {
   state = {
     step: 0.1,
     values: [],
-    domain: [0, 100],
+    domain: defaultDomain,
     handles: [] as HandleItem[],
     reversed: false,
     activeHandleID: '',
@@ -96,13 +98,12 @@ export class Slider<
     const {
       step = 0.1,
       values,
-      domain = [0, 100] as ReadonlyArray<number>,
+      domain = defaultDomain,
       reversed = false,
       onUpdate = noop,
       onChange = noop,
       warnOnChanges = false,
     } = nextProps;
-
     let valueToPerc = prevState.valueToPerc;
     let valueToStep = prevState.valueToStep;
     let pixelToStep = prevState.pixelToStep;
@@ -120,6 +121,7 @@ export class Slider<
     }
 
     if (
+      prevState.domain === defaultDomain ||
       prevState.step === null ||
       prevState.domain === null ||
       prevState.reversed === null ||
@@ -129,7 +131,6 @@ export class Slider<
       reversed !== prevState.reversed
     ) {
       const [min, max] = domain;
-
       valueToStep.setStep(step).setRange([min, max]).setDomain([min, max]);
 
       if (reversed === true) {
@@ -159,7 +160,7 @@ export class Slider<
 
       nextState.step = step;
       nextState.values = values;
-      nextState.domain = domain;
+      nextState.domain = domain === defaultDomain ? [...domain] : domain;
       nextState.handles = handles;
       nextState.reversed = reversed;
     } else if (!equal(values, prevState.values)) {
