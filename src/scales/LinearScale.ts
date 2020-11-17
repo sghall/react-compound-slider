@@ -76,6 +76,10 @@ export class LinearScale {
     return this;
   }
 
+  getRange() {
+    return this.range;
+  }
+
   getTicks(count: number) {
     const d = this.domain;
     return ticks(d[0], d[d.length - 1], count ? count : 10);
