@@ -7,7 +7,7 @@ export interface SliderProps {
   /**
    * String component used for slider root. Defaults to 'div'.
    */
-  component?: keyof HTMLElementTagNameMap | keyof SVGElementTagNameMap;
+  component?: keyof HTMLElementTagNameMap | keyof SVGElementTagNameMap | React.ReactNode;
   /**
    * An object with any inline styles you want applied to the root element.
    */
