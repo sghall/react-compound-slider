@@ -90,6 +90,7 @@ export class Slider<
   };
 
   slider = React.createRef<T>();
+  currentDocument?: Document;
 
   static getDerivedStateFromProps(
     nextProps: SliderProps,
@@ -191,6 +192,9 @@ export class Slider<
     const { pixelToStep } = this.state;
     const { vertical } = this.props;
 
+    if (isBrowser)
+      this.currentDocument = this.slider.current?.ownerDocument;
+
     // @ts-ignore
     pixelToStep.setDomain(getSliderDomain(this.slider.current, vertical));
   }
@@ -200,11 +204,11 @@ export class Slider<
   }
 
   removeListeners() {
-    if (isBrowser) {
-      document.removeEventListener('mousemove', this.onMouseMove);
-      document.removeEventListener('mouseup', this.onMouseUp);
-      document.removeEventListener('touchmove', this.onTouchMove);
-      document.removeEventListener('touchend', this.onTouchEnd);
+    if (isBrowser && this.currentDocument) {
+      this.currentDocument.removeEventListener('mousemove', this.onMouseMove);
+      this.currentDocument.removeEventListener('mouseup', this.onMouseUp);
+      this.currentDocument.removeEventListener('touchmove', this.onTouchMove);
+      this.currentDocument.removeEventListener('touchend', this.onTouchEnd);
     }
   }
 
@@ -376,16 +380,16 @@ export class Slider<
   };
 
   addMouseEvents() {
-    if (isBrowser) {
-      document.addEventListener('mousemove', this.onMouseMove);
-      document.addEventListener('mouseup', this.onMouseUp);
+    if (isBrowser && this.currentDocument) {
+      this.currentDocument.addEventListener('mousemove', this.onMouseMove);
+      this.currentDocument.addEventListener('mouseup', this.onMouseUp);
     }
   }
 
   addTouchEvents() {
-    if (isBrowser) {
-      document.addEventListener('touchmove', this.onTouchMove);
-      document.addEventListener('touchend', this.onTouchEnd);
+    if (isBrowser && this.currentDocument) {
+      this.currentDocument.addEventListener('touchmove', this.onTouchMove);
+      this.currentDocument.addEventListener('touchend', this.onTouchEnd);
     }
   }
 
@@ -505,9 +509,9 @@ export class Slider<
 
     this.setState({ activeHandleID: '' });
 
-    if (isBrowser) {
-      document.removeEventListener('mousemove', this.onMouseMove);
-      document.removeEventListener('mouseup', this.onMouseUp);
+    if (isBrowser && this.currentDocument) {
+      this.currentDocument.removeEventListener('mousemove', this.onMouseMove);
+      this.currentDocument.removeEventListener('mouseup', this.onMouseUp);
     }
   };
 
@@ -525,9 +529,9 @@ export class Slider<
 
     this.setState({ activeHandleID: '' });
 
-    if (isBrowser) {
-      document.removeEventListener('touchmove', this.onTouchMove);
-      document.removeEventListener('touchend', this.onTouchEnd);
+    if (isBrowser && this.currentDocument) {
+      this.currentDocument.removeEventListener('touchmove', this.onTouchMove);
+      this.currentDocument.removeEventListener('touchend', this.onTouchEnd);
     }
   };
 
