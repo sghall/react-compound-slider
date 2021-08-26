@@ -10,6 +10,10 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sghall/react-compound-slider.git"
+  },
   "scripts": {
     "dev": "npm run clean && npm-run-all --parallel watch:*",
     "watch:js": "rollup -c -w",
