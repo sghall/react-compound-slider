@@ -36,7 +36,7 @@ interface RCSComponent {
   };
 }
 
-const isRCSComponent = (item: React.ReactNode): item is RCSComponent => {
+const isRCSComponent = (item: React.ReactNode) => {
   if (!isValidElement(item)) {
     return false;
   }
