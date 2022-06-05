@@ -344,7 +344,7 @@ export class Slider<
 
     // submit the candidate values
     this.setState({ activeHandleID: updateKey }, () => {
-      this.submitUpdate(nextHandles, true);
+      this.submitUpdate(nextHandles, true, true);
       isTouch ? this.addTouchEvents() : this.addMouseEvents();
     });
   }
@@ -443,16 +443,18 @@ export class Slider<
     this.submitUpdate(nextHandles);
   };
 
-  submitUpdate(next: HandleItem[], callOnChange = false) {
+  submitUpdate(next: HandleItem[], callOnChange = false, isSlideStart = false) {
     const {
       mode = 1,
       step = 0.1,
       onUpdate = noop,
       onChange = noop,
       reversed = false,
+      onSlideStart = noop
     } = this.props;
     //@ts-ignore
     const { getValue } = this.state.valueToStep;
+    const { activeHandleID } = this.state;
 
     this.setState(({ handles: curr }) => {
       let handles: HandleItem[] = [];
@@ -485,6 +487,13 @@ export class Slider<
 
       if (callOnChange) {
         onChange(handles.map((d) => d.val));
+      }
+
+      if (isSlideStart) {
+        onSlideStart(
+          handles.map(d => d.val),
+          { activeHandleID }
+        );
       }
 
       return { handles };
