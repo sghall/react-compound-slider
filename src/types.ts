@@ -20,7 +20,7 @@ export type EmitKeyboard = (e: KeyboardEvent<Element>, id?: string) => void;
 export type EmitMouse = (e: MouseEvent<Element>, id?: string) => void;
 export type EmitTouch = (e: TouchEvent<Element>, id?: string) => void;
 
-export type GetEventData = (e: React.SyntheticEvent | Event) => EventData;
+export type GetEventData = (e: React.SyntheticEvent | Event, isTouch?: boolean) => EventData;
 
 export type OtherProps = { [key: string]: any };
 
