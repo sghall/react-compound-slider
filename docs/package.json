@@ -31,7 +31,7 @@
     "@material-ui/core": "^4.11.0",
     "d3-format": "^1.4.5",
     "path-browserify": "^1.0.1",
-    "react-compound-slider": "^3.1.1",
+    "react-compound-slider": "^3.4.0",
     "react-markdown": "^4.3.1",
     "react-router-dom": "^5.2.0"
   }
