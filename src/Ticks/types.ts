@@ -1,12 +1,21 @@
 import * as React from 'react';
 
-import { SliderItem, GetEventData, EmitMouse, EmitTouch } from '../types';
+import {
+  SliderItem,
+  GetEventData,
+  EmitMouse,
+  EmitTouch,
+  OtherProps,
+} from '../types';
 import { LinearScale } from '../scales/LinearScale';
+
+export type GetTickProps = (props?: OtherProps) => any;
 
 export interface TicksObject {
   activeHandleID: string;
   getEventData: GetEventData;
   ticks: Array<SliderItem>;
+  getTickProps: GetTickProps;
 }
 
 export interface TicksProps {
@@ -35,7 +44,7 @@ export interface TicksProps {
   /**
    * A function to render the ticks.
    * The function receives an object with an array of ticks. Note: `getEventData` can be called with an event and get the value and percent at that location (used for tooltips etc). `activeHandleID` will be a string or null.  Function signature:
-   * `({ getEventData, activeHandleID, ticks  }): element`
+   * `({ getEventData, activeHandleID, ticks, getTickProps  }): element`
    */
   children: (ticksObject: TicksObject) => React.ReactElement;
 }
